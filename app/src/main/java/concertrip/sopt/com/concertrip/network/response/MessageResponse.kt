@@ -3,10 +3,8 @@ package concertrip.sopt.com.concertrip.network.response
 import org.json.JSONObject
 
 data class MessageResponse(
-    var status : String,
-    var message : String,
     var data : JSONObject
-)
+):BaseModel()
 
 //    {
 //        "status" : 200,

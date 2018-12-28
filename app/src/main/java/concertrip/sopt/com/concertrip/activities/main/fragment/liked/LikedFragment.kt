@@ -2,12 +2,8 @@ package concertrip.sopt.com.concertrip.activities.main.fragment.liked
 
 import android.content.Context
 import android.graphics.Color
-import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
-import android.os.Message
 import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat.startActivity
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -26,8 +22,8 @@ import concertrip.sopt.com.concertrip.model.Artist
 import concertrip.sopt.com.concertrip.model.Concert
 import concertrip.sopt.com.concertrip.network.ApplicationController
 import concertrip.sopt.com.concertrip.network.NetworkService
-import concertrip.sopt.com.concertrip.network.response.PostIdCheckResponse
-import concertrip.sopt.com.concertrip.network.response.PostLoginResponse
+import concertrip.sopt.com.concertrip.deprecated.PostIdCheckResponse
+import concertrip.sopt.com.concertrip.deprecated.PostLoginResponse
 import concertrip.sopt.com.concertrip.utillity.Constants
 import kotlinx.android.synthetic.main.fragment_liked.*
 import org.jetbrains.anko.support.v4.startActivity
@@ -36,7 +32,6 @@ import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.lang.ref.WeakReference
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
