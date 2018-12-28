@@ -1,4 +1,4 @@
-package concertrip.sopt.com.concertrip.network.response
+package concertrip.sopt.com.concertrip.deprecated
 
 data class PostLoginResponse(
     val message: String,
