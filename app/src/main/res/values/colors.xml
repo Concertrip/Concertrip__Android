@@ -9,9 +9,12 @@
 
 
 
+
     <color name="white">#ffffff</color>
     <color name="black">#000</color>
+
     <color name="blue">#593eff</color>
+
     
     <color name="grayDarker">#7b7b7b</color>
     <color name="grayDark">#b3b3b3</color>

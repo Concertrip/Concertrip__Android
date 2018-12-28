@@ -27,8 +27,6 @@
         <item name="android:backgroundDimEnabled">false</item>
     </style>
 
-
-
     <style name="EditText_mainColor">
         <!-- Hint color and label color in FALSE state -->
         <item name="android:textColorHint">@color/grayDarker</item>

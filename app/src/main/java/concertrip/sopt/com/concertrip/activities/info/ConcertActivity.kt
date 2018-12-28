@@ -96,6 +96,8 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
      private fun showDialog(){
         val dialog = CustomDialog(this)
         dialog.show()
+
+
     }
 
     companion object {
