@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.Toast
 import com.bumptech.glide.Glide
@@ -14,6 +15,7 @@ import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayerView
 import com.google.android.youtube.player.internal.v
 import concertrip.sopt.com.concertrip.R
+import concertrip.sopt.com.concertrip.interfaces.OnItemClick
 import concertrip.sopt.com.concertrip.list.adapter.BasicListAdapter
 import concertrip.sopt.com.concertrip.model.Artist
 import concertrip.sopt.com.concertrip.model.Concert
@@ -24,7 +26,11 @@ import kotlinx.android.synthetic.main.content_concert.*
 import kotlinx.android.synthetic.main.content_header.*
 import org.jetbrains.anko.startActivity
 
-class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener{
+class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener, OnItemClick {
+
+    override fun onItemClick(root: RecyclerView.Adapter<out RecyclerView.ViewHolder>, idx: Int) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     private val RECOVERY_DIALOG_REQUEST = 1
 
@@ -66,7 +72,6 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
 
     private lateinit var mAdapter : BasicListAdapter
 
-    //TODO OnItemClick Interface로 구현
     var onListItemClickListener : View.OnClickListener = View.OnClickListener {
         startActivity<ArtistActivity>()
     }
