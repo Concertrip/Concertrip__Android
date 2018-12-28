@@ -26,12 +26,16 @@ interface NetworkService {
         @Body() body: JsonObject
     ) :Call<PostLoginResponse>
 
+
+
     //POST 타입 (JsonObject로 받을때)
     @POST("")
     fun ex_posttype(
         @Header("") content_type : String,
         @Body() body:JsonObject
     ) //:Call<>
+
+
 
     //POST 타입 <파일로 받을때)
     @Multipart
@@ -45,9 +49,10 @@ interface NetworkService {
 
 
     //GET 타입
-    @GET
+    @GET("/auth/login")
+    @Headers("Content-Type:application/json")
     fun ex_gettype(
-        @Header("") content_type: String,
+//        @Header("") content_type: String,
         @Query("") offset : Int,
         @Query("") limit : Int
     ) //: Call<>
