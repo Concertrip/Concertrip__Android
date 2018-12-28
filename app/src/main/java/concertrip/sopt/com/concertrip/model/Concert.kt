@@ -16,6 +16,7 @@ class Concert : ListData {
     var date : String =""
     var price : String =""
     var youtubeUrl : String =""
+    var subscribeNum : Int = 0
 
     fun getTag() : String ="#$genre #$genre"
 

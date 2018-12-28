@@ -1,21 +1,22 @@
 package concertrip.sopt.com.concertrip.network.response
 
-class GetConcertReponse {
+import com.google.gson.annotations.SerializedName
 
-    //
-//    {
-//        "status": 200,
-//        "message": "콘서트 조회 성공",
-//        "data": [
-//        {
-//            "_id": "5c21d7627f58a10b78b235a0",
-//            "subscribeNum" : 1231,
-//            "name": "update test",
-//            "profileImg": null,
-//            "backImg": null,
-//            "tag": null,
-//            "youtubeUrl": null
-//        }
-//        ]
-//    }
-}
+data class GetConcertReponse (
+    @SerializedName("data")
+    var data : ConcertData
+): BaseModel()
+
+data class ConcertData(
+    var _id : String,
+    var subscribeNum : Int,
+    var title : String,
+    var profileImg : String,
+    var backImg : String,
+    var location : String,
+    var tag : String,
+    var cast : String,
+    var date : String,
+    var price : String,
+    var youtubeUrl : String
+)
