@@ -11,4 +11,7 @@
     <string name="txt_result_no">에 대한 검색 결과가 없습니다</string>
     <string name="txt_result_add">아티스트/콘서트 추가요청하기</string>
     <string name="txt_calendar_added">캘린더에 추가 되었습니다.</string>
+
+
+    <string name="txt_ticket">티켓</string>
 </resources>
