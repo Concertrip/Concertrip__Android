@@ -1,20 +1,18 @@
 package concertrip.sopt.com.concertrip.network.response
 
-class GetArtistResponse {
-//
-//    {
-//        "status": 200,
-//        "message": "아티스트 조회 성공",
-//        "data": [
-//        {
-//            "_id": "5c21d7627f58a10b78b235a0",
-//            "subscribeNum" : 1231,
-//            "name": "update test",
-//            "profileImg": null,
-//            "backImg": null,
-//            "tag": null,
-//            "youtubeUrl": null
-//        }
-//        ]
-//    }
-}
+import com.google.gson.annotations.SerializedName
+
+data class GetArtistResponse (
+    @SerializedName("data")
+    var data : ArtistData
+): BaseModel()
+
+ data class ArtistData(
+    var _id : String,
+    var subscribeNum : Int,
+    var name : String,
+    var profileImg : String,
+    var backImg : String,
+    var tag : String,
+    var youtubeUrl : String
+)
