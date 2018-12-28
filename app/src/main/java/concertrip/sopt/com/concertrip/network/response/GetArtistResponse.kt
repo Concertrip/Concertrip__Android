@@ -1,6 +1,8 @@
 package concertrip.sopt.com.concertrip.network.response
 
 class GetArtistResponse {
+
+
 //
 //    {
 //        "status": 200,
@@ -18,3 +20,4 @@ class GetArtistResponse {
 //        ]
 //    }
 }
+
