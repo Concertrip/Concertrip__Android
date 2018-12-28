@@ -8,6 +8,8 @@ import android.util.Log
 import android.view.View
 import android.widget.ScrollView
 import android.widget.Toast
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.youtube.player.YouTubeBaseActivity
 import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
@@ -22,6 +24,7 @@ import concertrip.sopt.com.concertrip.utillity.Secret
 import kotlinx.android.synthetic.main.activity_artist.*
 
 import kotlinx.android.synthetic.main.content_artist.*
+import kotlinx.android.synthetic.main.content_header.*
 import org.jetbrains.anko.startActivity
 
 class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener{
@@ -64,6 +67,8 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
     var artist : Artist = Artist()
     var dataList = arrayListOf<Concert>() // 뭔가 서버에서 artist에 넣어서 한번에 전달해 줄듯
 
+    private lateinit var mAdapter : BasicListAdapter
+
     //TODO OnItemClick Interface로 구현
     var onListItemClickListener : View.OnClickListener = View.OnClickListener {
         startActivity<ConcertActivity>()
@@ -75,12 +80,51 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
 //        setSupportActionBar(toolbar)
 
 //        val mAdapter = ConcertListAdapter(this, Concert.getDummyArray())
-        val mAdapter = BasicListAdapter(this, Concert.getDummyArray())
+        // connectRequestData
+        mAdapter = BasicListAdapter(this, dataList)
         recycler_view.adapter = mAdapter
 
+        connectRequestData()
 
         getYouTubePlayerProvider().initialize(Secret.YOUTUBE_API_KEY,this);
         scroll_view.smoothScrollTo(0,0)
+    }
+
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//        initialUI()
+//        connectRequestData(STATE_ARTIST)
+//    }
+
+    fun updateArtistData(){
+        // dataList로 mAdapter 데이터 바꿔버리기~
+        // mAdapter notify
+        mAdapter.notifyDataSetChanged()
+
+        // &
+
+        // Activity도 데이터 다시 세팅!
+        Glide.with(this).load(artist.backImg).into(iv_back)
+        Glide.with(this).load(artist.profileImg).apply(RequestOptions.circleCropTransform()).into(iv_profile)
+        tv_title.setText(artist.name)
+        tv_tag.setText(artist.subscribeNum)
+    }
+
+    private fun connectRequestData(){
+        // 서버에 데이터 request보내고
+        // response 데이터를 이용해
+        // 전역변수로 선언되어있는 artist, dataList 업데이트
+
+        // dataList 업데이트
+        //this.dataList.clear()
+        //this.dataList.addAll(list)
+
+        // updateArtistData 호출
+        updateArtistData()
+    }
+
+    override fun onResume() {
+        super.onResume()
     }
 
     companion object {

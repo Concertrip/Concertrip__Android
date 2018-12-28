@@ -12,6 +12,7 @@ class Artist : ListData{
     var name : String = ""
     var genre : String = ""
     var youtubeUrl : String = ""
+    var subscribeNum : Int = 0
 
     private fun getTag() : String ="#$genre #$genre"
 
