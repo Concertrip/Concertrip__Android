@@ -12,6 +12,7 @@ import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayerView
 import com.google.android.youtube.player.internal.v
 import concertrip.sopt.com.concertrip.R
+import concertrip.sopt.com.concertrip.dialog.CustomDialog
 import concertrip.sopt.com.concertrip.list.adapter.BasicListAdapter
 import concertrip.sopt.com.concertrip.model.Artist
 import concertrip.sopt.com.concertrip.model.Concert
@@ -19,6 +20,7 @@ import concertrip.sopt.com.concertrip.utillity.Secret
 import kotlinx.android.synthetic.main.activity_concert.*
 
 import kotlinx.android.synthetic.main.content_concert.*
+import kotlinx.android.synthetic.main.content_header.*
 import org.jetbrains.anko.startActivity
 
 class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener{
@@ -84,8 +86,17 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
 
         getYouTubePlayerProvider().initialize(Secret.YOUTUBE_API_KEY,this);
         scroll_view.smoothScrollTo(0,0)
+
+        btn_follow.setOnClickListener {
+            showDialog()
+        }
     }
 
+
+     private fun showDialog(){
+        val dialog = CustomDialog(this)
+        dialog.show()
+    }
 
     companion object {
         fun newInstance(): ConcertActivity = ConcertActivity()

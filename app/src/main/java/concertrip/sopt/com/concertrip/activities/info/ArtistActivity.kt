@@ -14,6 +14,7 @@ import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayerView
 import concertrip.sopt.com.concertrip.R
 import concertrip.sopt.com.concertrip.R.id.recycler_view
+import concertrip.sopt.com.concertrip.dialog.CustomDialog
 import concertrip.sopt.com.concertrip.list.adapter.ArtistThumbListAdapter
 import concertrip.sopt.com.concertrip.list.adapter.BasicListAdapter
 import concertrip.sopt.com.concertrip.model.Artist
@@ -22,9 +23,10 @@ import concertrip.sopt.com.concertrip.utillity.Secret
 import kotlinx.android.synthetic.main.activity_artist.*
 
 import kotlinx.android.synthetic.main.content_artist.*
+import kotlinx.android.synthetic.main.content_header.*
 import org.jetbrains.anko.startActivity
 
-class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener{
+class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener {
 
     private val RECOVERY_DIALOG_REQUEST = 1
 
@@ -39,16 +41,14 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         youTubeInitializationResult: YouTubeInitializationResult
     ) {
         if (youTubeInitializationResult.isUserRecoverableError) {
-        youTubeInitializationResult.getErrorDialog(this, RECOVERY_DIALOG_REQUEST).show()
-    } else {
-        val errorMessage = String.format(
-            "There was an error initializing the YouTubePlayer (%1\$s)", youTubeInitializationResult.toString()
-        )
-        Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
+            youTubeInitializationResult.getErrorDialog(this, RECOVERY_DIALOG_REQUEST).show()
+        } else {
+            val errorMessage = String.format(
+                "There was an error initializing the YouTubePlayer (%1\$s)", youTubeInitializationResult.toString()
+            )
+            Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
+        }
     }
-    }
-
-
 
 
     private fun getYouTubePlayerProvider(): YouTubePlayer.Provider {
@@ -61,11 +61,17 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         }
     }
 
-    var artist : Artist = Artist()
+    var artist: Artist = Artist()
     var dataList = arrayListOf<Concert>() // 뭔가 서버에서 artist에 넣어서 한번에 전달해 줄듯
 
+
+    private fun showDialog() {
+        val dialog = CustomDialog(this)
+        dialog.show()
+    }
+
     //TODO OnItemClick Interface로 구현
-    var onListItemClickListener : View.OnClickListener = View.OnClickListener {
+    var onListItemClickListener: View.OnClickListener = View.OnClickListener {
         startActivity<ConcertActivity>()
     }
 
@@ -78,8 +84,12 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         recycler_view.adapter = mAdapter
 
 
-        getYouTubePlayerProvider().initialize(Secret.YOUTUBE_API_KEY,this);
-        scroll_view.smoothScrollTo(0,0)
+        getYouTubePlayerProvider().initialize(Secret.YOUTUBE_API_KEY, this);
+        scroll_view.smoothScrollTo(0, 0)
+
+        btn_follow.setOnClickListener {
+            showDialog()
+        }
     }
 
     companion object {
