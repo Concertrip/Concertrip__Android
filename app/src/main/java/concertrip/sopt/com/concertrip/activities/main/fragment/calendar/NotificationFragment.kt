@@ -11,9 +11,9 @@ import android.view.ViewGroup
 import concertrip.sopt.com.concertrip.R
 import concertrip.sopt.com.concertrip.interfaces.ListData
 import concertrip.sopt.com.concertrip.interfaces.OnFragmentInteractionListener
+import concertrip.sopt.com.concertrip.list.adapter.BasicListAdapter
 import concertrip.sopt.com.concertrip.model.Alarm
-import concertrip.sopt.com.concertrip.model.Artist
-import concertrip.sopt.com.concertrip.model.Concert
+import kotlinx.android.synthetic.main.fragment_notification.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -31,11 +31,10 @@ private const val ARG_PARAM2 = "param2"
  */
 class NotificationFragment : Fragment() {
 
-    var dataListArtist = arrayListOf<Artist>()
-    var dataListConcert = arrayListOf<Concert>()
-
-    var dataListAlarm  = arrayListOf<Alarm>()
+    var dataList  = arrayListOf<ListData>()
     //Alarm혹은 Noti라는 Class르를 만들어야함.
+
+    lateinit  var adapter : BasicListAdapter
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -61,32 +60,34 @@ class NotificationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //여기서 시작하면
 
-        //TODO 어댑터 추가 구현 BasicListAdapter
-
-        //connc
+        initialUI()
+        connectRequest()
     }
 
-    fun connectRequest(){
+    private fun initialUI(){
+        activity?.let {
+            adapter = BasicListAdapter(it.applicationContext,dataList)
+            recycler_view.adapter=adapter
+        }
+
+    }
+    private fun connectRequest(){
         //TODO Retrofit2
         //OnFaill -> Toast ,  OnSuccess->updateUI
+
+        updateList(Alarm.getDummyArray())
     }
 
-    fun updateList(dataList : ArrayList<out ListData>){
-        //TODO 1.adapter의 dataList값을 Foreach이용 업데이트
-        //혹은 dataList통째로 바꾸기
+    private fun updateList(list : ArrayList<out ListData>){
+        dataList.clear()
+        dataList.addAll(list)
+        adapter.notifyDataSetChanged()
 
-        //TODO 2. notifyAdapter
 
     }
 
 
-
-    // TODO: Rename method, update argument and hook method into UI event
-    fun onButtonPressed(uri: Uri) {
-        listener?.onFragmentInteraction(uri)
-    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

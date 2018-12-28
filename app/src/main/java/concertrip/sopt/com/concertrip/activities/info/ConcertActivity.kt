@@ -2,8 +2,6 @@ package concertrip.sopt.com.concertrip.activities.info
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.Toast
@@ -16,6 +14,7 @@ import com.google.android.youtube.player.YouTubePlayerView
 import com.google.android.youtube.player.internal.v
 import concertrip.sopt.com.concertrip.R
 import concertrip.sopt.com.concertrip.interfaces.OnItemClick
+import concertrip.sopt.com.concertrip.dialog.CustomDialog
 import concertrip.sopt.com.concertrip.list.adapter.BasicListAdapter
 import concertrip.sopt.com.concertrip.model.Artist
 import concertrip.sopt.com.concertrip.model.Concert
@@ -30,6 +29,10 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
 
     override fun onItemClick(root: RecyclerView.Adapter<out RecyclerView.ViewHolder>, idx: Int) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        // 출연진을 담은 리사이클러뷰를 클릭했을때
+        val intent =  Intent(this, ArtistActivity::class.java)
+        intent.putExtra("artistId", dataList[idx].idx)
+        startActivity(intent)
     }
 
     private val RECOVERY_DIALOG_REQUEST = 1
@@ -87,6 +90,10 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
 
         getYouTubePlayerProvider().initialize(Secret.YOUTUBE_API_KEY,this);
         scroll_view.smoothScrollTo(0,0)
+
+        btn_follow.setOnClickListener {
+            showDialog()
+        }
     }
 
     fun updateConcertData(){
@@ -120,6 +127,13 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
         super.onResume()
 
         connectRequestData()
+    }
+
+     private fun showDialog(){
+        val dialog = CustomDialog(this)
+        dialog.show()
+
+
     }
 
     companion object {

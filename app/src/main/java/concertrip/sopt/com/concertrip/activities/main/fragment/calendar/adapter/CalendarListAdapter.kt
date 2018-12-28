@@ -85,7 +85,7 @@ class CalendarListAdapter(var mContext: Context, var dataList: ArrayList<String>
     }
 
 
-    var LIMIT_SCHEDULE_IN_ONE_BLOCK : Int= 70 // item 몇개 추가할지
+    var LIMIT_SCHEDULE_IN_ONE_BLOCK : Int= 5 // item 몇개 추가할지
     private fun addCalendarItem(holder: CalendarViewHolder, schedule: Schedule){
 
 

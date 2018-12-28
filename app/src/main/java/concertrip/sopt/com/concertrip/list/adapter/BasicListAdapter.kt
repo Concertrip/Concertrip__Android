@@ -73,7 +73,7 @@ class BasicListAdapter(var mContext : Context, var dataList: ArrayList<out ListD
 
             TYPE_ALARM -> {
                 val view = LayoutInflater.from(mContext).inflate(R.layout.li_alarm, parent, false)
-                return ConcertViewHolder(view)
+                return AlarmViewHolder(view)
             }
             else->{
                 throw RuntimeException(mContext.toString() + " type is strange number $viewType")
@@ -83,7 +83,6 @@ class BasicListAdapter(var mContext : Context, var dataList: ArrayList<out ListD
 
     override fun getItemCount(): Int = dataList.size
 
-    var h : Handler? =null
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
 
@@ -109,7 +108,6 @@ class BasicListAdapter(var mContext : Context, var dataList: ArrayList<out ListD
                     intent.putExtra("idx",dataList[position].getIndex())
                     mContext.startActivity(intent)
                 }
-
             }
         }
         basicHolder.getBtn()?.setOnClickListener{
