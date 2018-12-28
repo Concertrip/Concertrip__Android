@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import concertrip.sopt.com.concertrip.R
 import concertrip.sopt.com.concertrip.activities.main.fragment.calendar.adapter.CalendarListAdapter
 import concertrip.sopt.com.concertrip.interfaces.OnFragmentInteractionListener
 import concertrip.sopt.com.concertrip.interfaces.OnItemClick
+import concertrip.sopt.com.concertrip.list.adapter.BasicListAdapter
 import concertrip.sopt.com.concertrip.model.Artist
 import concertrip.sopt.com.concertrip.model.Concert
 import concertrip.sopt.com.concertrip.model.Schedule
@@ -48,6 +50,8 @@ class CalendarFragment : Fragment(), OnItemClick {
 
     lateinit var calendarListAdapter: CalendarListAdapter
     // 날짜 > date객체(스트링으로 넘어옴)
+
+    lateinit var calendarDetailAdapter: BasicListAdapter
 
     /*TODO
     * have to make interface which contains schedule list
@@ -102,9 +106,22 @@ class CalendarFragment : Fragment(), OnItemClick {
             recycler_view_calendar.layoutManager=GridLayoutManager(it.applicationContext,7)
             recycler_view_calendar.adapter=calendarListAdapter
 
+            dataListConcert = Concert.getDummyArray()
+            calendarDetailAdapter = BasicListAdapter(it.applicationContext,dataListConcert,this)
+            recycler_view_calendar_detail.layoutManager = LinearLayoutManager(it.applicationContext)
+            recycler_view_calendar_detail.adapter = calendarDetailAdapter
+
         }
         initialUI()
+        updateUI()
 
+    }
+
+    private fun updateUI(){
+        if(dataListConcert.size == 0)
+            recycler_view_calendar_detail.visibility = View.GONE
+        else
+            recycler_view_calendar_detail.visibility = View.VISIBLE
     }
 
     private var mCal: Calendar by Delegates.notNull()
