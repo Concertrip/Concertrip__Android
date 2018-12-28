@@ -74,6 +74,7 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
     // >> 디비 완전히 나오면 나중에 더 추가하거나 제거할 예정
 
     private lateinit var mAdapter : BasicListAdapter
+    private var concertId: Int? = null
 
     var onListItemClickListener : View.OnClickListener = View.OnClickListener {
         startActivity<ArtistActivity>()
@@ -84,9 +85,12 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
         setContentView(R.layout.activity_concert)
 //        setSupportActionBar(toolbar)
 
+        concertId = getIntent().getIntExtra("concertId", 0)
+
         mAdapter = BasicListAdapter(this, Artist.getDummyArray())
         recycler_view.adapter = mAdapter
 
+        connectRequestData(concertId!!)
 
         getYouTubePlayerProvider().initialize(Secret.YOUTUBE_API_KEY,this);
         scroll_view.smoothScrollTo(0,0)
@@ -104,13 +108,16 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
         // &
 
         // Activity도 데이터 다시 세팅!
+
+        // 구독하기(종) 버튼 설정
+
         Glide.with(this).load(concert.backImg).into(iv_back)
         Glide.with(this).load(concert.profileImg).apply(RequestOptions.circleCropTransform()).into(iv_profile)
         tv_title.setText(concert.title)
         tv_tag.setText(concert.subscribeNum)
     }
 
-    private fun connectRequestData(){
+    private fun connectRequestData(id : Int){
         // 서버에 데이터 request보내고
         // response 데이터를 이용해
         // 전역변수로 선언되어있는 concert, dataList 업데이트
@@ -126,7 +133,7 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
     override fun onResume() {
         super.onResume()
 
-        connectRequestData()
+        connectRequestData(concertId!!)
     }
 
      private fun showDialog(){

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
 import android.widget.ScrollView
@@ -17,6 +18,7 @@ import com.google.android.youtube.player.YouTubePlayerView
 import concertrip.sopt.com.concertrip.R
 import concertrip.sopt.com.concertrip.R.id.recycler_view
 import concertrip.sopt.com.concertrip.dialog.CustomDialog
+import concertrip.sopt.com.concertrip.interfaces.OnItemClick
 import concertrip.sopt.com.concertrip.list.adapter.ArtistThumbListAdapter
 import concertrip.sopt.com.concertrip.list.adapter.BasicListAdapter
 import concertrip.sopt.com.concertrip.model.Artist
@@ -28,7 +30,14 @@ import kotlinx.android.synthetic.main.content_artist.*
 import kotlinx.android.synthetic.main.content_header.*
 import org.jetbrains.anko.startActivity
 
-class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener {
+class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener, OnItemClick {
+    override fun onItemClick(root: RecyclerView.Adapter<out RecyclerView.ViewHolder>, idx: Int) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        // 다가오는 공연을 담은 리사이클러뷰를 클릭했을때
+        val intent =  Intent(this, ConcertActivity::class.java)
+        intent.putExtra("concertId", dataList[idx].idx)
+        startActivity(intent)
+    }
 
     private val RECOVERY_DIALOG_REQUEST = 1
 
@@ -67,6 +76,7 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
     var dataList = arrayListOf<Concert>() // 뭔가 서버에서 artist에 넣어서 한번에 전달해 줄듯
 
     private lateinit var mAdapter : BasicListAdapter
+    private var artistId: Int? = null
 
     private fun showDialog() {
         val dialog = CustomDialog(this)
@@ -83,12 +93,14 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         setContentView(R.layout.activity_artist)
 //        setSupportActionBar(toolbar)
 
+        artistId = getIntent().getIntExtra("artistId", 0)
+
 //        val mAdapter = ConcertListAdapter(this, Concert.getDummyArray())
         // connectRequestData
         mAdapter = BasicListAdapter(this, Concert.getDummyArray())
         recycler_view.adapter = mAdapter
 
-        connectRequestData()
+        connectRequestData(artistId!!)
 
         getYouTubePlayerProvider().initialize(Secret.YOUTUBE_API_KEY, this);
         scroll_view.smoothScrollTo(0, 0)
@@ -112,13 +124,16 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         // &
 
         // Activity도 데이터 다시 세팅!
+
+        // 좋아요 버튼 설정
+
         Glide.with(this).load(artist.backImg).into(iv_back)
         Glide.with(this).load(artist.profileImg).apply(RequestOptions.circleCropTransform()).into(iv_profile)
         tv_title.setText(artist.name)
         tv_tag.setText(artist.subscribeNum)
     }
 
-    private fun connectRequestData(){
+    private fun connectRequestData(id : Int){
         // 서버에 데이터 request보내고
         // response 데이터를 이용해
         // 전역변수로 선언되어있는 artist, dataList 업데이트
@@ -134,7 +149,7 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
     override fun onResume() {
         super.onResume()
 
-        connectRequestData()
+        connectRequestData(artistId!!)
     }
 
     companion object {
