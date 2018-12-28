@@ -1,5 +1,6 @@
 package concertrip.sopt.com.concertrip.network.response
 
+
 import com.google.gson.annotations.SerializedName
 
 data class GetArtistResponse (
