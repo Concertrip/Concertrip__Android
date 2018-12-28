@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="match_parent"
+                android:layout_height="175dp"
+                android:background="#f2f2f2"/>
+
+        <ImageView
+                android:id="@+id/iv_profile"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:layout_marginTop="121.4dp"
+                android:layout_marginLeft="16.1dp"
+                app:srcCompat="@drawable/ic_account_circle"/>
+        
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true">
+
+            <Button
+                    android:id="@+id/btn_follow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="121.6dp"
+                    android:layout_marginRight="18.8dp"
+            />
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_below="@id/iv_back"
+                android:layout_marginTop="11.6dp"
+                android:layout_marginLeft="143.9dp">
+            <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:textColor="#000000"
+                    android:textStyle="bold"
+                    android:text="더 몬스터 페스티벌"/>
+
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3.4dp">
+
+                <ImageView
+                        android:layout_width="13dp"
+                        android:layout_height="13dp"
+                        app:srcCompat="@drawable/ic_account_circle"/>
+                <TextView
+                        android:id="@+id/tv_tag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="1.4dp"
+                        android:textSize="10sp"
+                        android:textColor="#000000"
+                        android:text="914"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!--have to fix it-->
+        <com.google.android.youtube.player.YouTubePlayerView
+                android:id="@+id/youtude"
+                android:layout_width="326.7dp"
+                android:layout_height="184.7dp"
+                android:layout_below="@+id/iv_back"
+                android:layout_marginTop="73.5dp"
+                android:layout_centerHorizontal="true"
+                android:background="#e6e6e6"
+                android:layout_marginBottom="17.5dp"/>
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

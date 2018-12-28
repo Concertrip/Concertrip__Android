@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_height="match_parent"
+              android:layout_marginHorizontal="16dp"
+              tools:context=".activities.main.fragment.search.ExplorerFragment">
+
+    <Button
+            android:id="@+id/search_bar"
+            android:layout_marginTop="8dp"
+            android:background="#b4b4b5"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"/>
+
+    <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view_horizontal"
+            android:layout_marginTop="25dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager">
+
+    </android.support.v7.widget.RecyclerView>
+    <android.support.v4.widget.NestedScrollView
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:nestedScrollingEnabled="false"
+                >
+
+            <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            >
+            </android.support.v7.widget.RecyclerView>
+            <TextView
+                    android:id="@+id/btn_more_station"
+                    android:text="전체보기"
+                    android:textSize="12sp"
+                    android:textColor="#666666"
+                    android:layout_marginTop="6.8dp"
+                    android:layout_marginLeft="304.8dp"
+                    android:lineSpacingExtra="6sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>
