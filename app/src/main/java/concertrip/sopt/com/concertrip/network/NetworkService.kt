@@ -2,6 +2,8 @@ package concertrip.sopt.com.concertrip.network
 
 import com.google.gson.JsonObject
 import concertrip.sopt.com.concertrip.network.response.*
+import concertrip.sopt.com.concertrip.deprecated.PostIdCheckResponse
+import concertrip.sopt.com.concertrip.deprecated.PostLoginResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
