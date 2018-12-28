@@ -81,7 +81,7 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
 
 //        val mAdapter = ConcertListAdapter(this, Concert.getDummyArray())
         // connectRequestData
-        mAdapter = BasicListAdapter(this, dataList)
+        mAdapter = BasicListAdapter(this, Concert.getDummyArray())
         recycler_view.adapter = mAdapter
 
         connectRequestData()
@@ -125,6 +125,8 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
 
     override fun onResume() {
         super.onResume()
+
+        connectRequestData()
     }
 
     companion object {
