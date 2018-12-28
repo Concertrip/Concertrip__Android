@@ -36,7 +36,7 @@
                     android:textColor="#000000"
                     android:lineSpacingExtra="9sp"
                     android:textStyle="bold"
-                    tools:text="다가오는 콘서트"
+                    android:text="@string/txt_content_artist_comingsoon"
             />
             <View android:layout_width="match_parent"
                   android:layout_height="1dp"

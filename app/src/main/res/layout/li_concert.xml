@@ -2,7 +2,7 @@
 <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content" xmlns:tools="http://schemas.android.com/tools">
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_centerVertical="true"
@@ -28,12 +28,14 @@
                         android:textSize="15sp"
                         android:textColor="#000000"
                         android:text="더 몬스터 페스티벌"
+                        tools:text="더 몬스터 페스티벌"
                         android:layout_width="wrap_content"
                         android:layout_height="22dp"/>
                 <TextView
                         android:id="@+id/tv_concert_tag"
                         android:textSize="12sp"
                         android:text="#12월 23일 #대전"
+                        tools:text="#12월 23일 #대전"
                         android:layout_width="wrap_content"
                         android:layout_height="18dp"/>
             </LinearLayout>

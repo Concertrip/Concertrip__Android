@@ -3,8 +3,6 @@ package concertrip.sopt.com.concertrip.network
 import com.google.gson.JsonObject
 import concertrip.sopt.com.concertrip.network.response.GetArtistResponse
 import concertrip.sopt.com.concertrip.network.response.GetConcertReponse
-import concertrip.sopt.com.concertrip.network.response.PostIdCheckResponse
-import concertrip.sopt.com.concertrip.network.response.PostLoginResponse
 import concertrip.sopt.com.concertrip.network.response.*
 import concertrip.sopt.com.concertrip.deprecated.PostIdCheckResponse
 import concertrip.sopt.com.concertrip.deprecated.PostLoginResponse
