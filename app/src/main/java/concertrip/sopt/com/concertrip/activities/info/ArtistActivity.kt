@@ -74,7 +74,6 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         setContentView(R.layout.activity_artist)
 //        setSupportActionBar(toolbar)
 
-//        val mAdapter = ConcertListAdapter(this, Concert.getDummyArray())
         val mAdapter = BasicListAdapter(this, Concert.getDummyArray())
         recycler_view.adapter = mAdapter
 
