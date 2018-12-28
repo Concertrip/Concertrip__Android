@@ -19,20 +19,20 @@
                 android:layout_width="110dp"
                 android:layout_height="110dp"
                 android:layout_marginTop="121.4dp"
-                android:layout_marginLeft="16.1dp"
+                android:layout_marginStart="16.1dp"
                 app:srcCompat="@drawable/ic_account_circle"/>
         
         <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true">
+                android:layout_alignParentEnd="true">
 
             <Button
                     android:id="@+id/btn_follow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="121.6dp"
-                    android:layout_marginRight="18.8dp"
+                    android:layout_marginEnd="18.8dp"
             />
 
         </LinearLayout>
@@ -43,7 +43,7 @@
                 android:orientation="vertical"
                 android:layout_below="@id/iv_back"
                 android:layout_marginTop="11.6dp"
-                android:layout_marginLeft="143.9dp">
+                android:layout_marginStart="143.9dp">
             <TextView
                     android:id="@+id/tv_title"
                     android:layout_width="wrap_content"

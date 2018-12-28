@@ -83,7 +83,6 @@ class BasicListAdapter(var mContext : Context, var dataList: ArrayList<out ListD
 
     override fun getItemCount(): Int = dataList.size
 
-    var h : Handler? =null
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
 
