@@ -14,19 +14,27 @@ import retrofit2.http.*
 interface NetworkService {
 
 
+    // ArtistActivity, ExplorerFragment
     @Headers("Content-Type:application/json")
     @GET("/artist/{artistId}")
     fun getArtistData(
-        @Header("token") token : String, // 위에 Headers랑 겹치지 않나?
+        //@Header("token") token : String, // 위에 Headers랑 겹치지 않나?
         @Path("artistId") artistId : Int
     ) : Call<GetArtistResponse>
 
+    // ConcertActivity, ExplorerFragment
     @Headers("Content-Type:application/json")
     @GET("/events/{eventsId}")
     fun getEventData(
-        @Header("token") token : String, // 위에 Headers랑 겹치지 않나?
         @Path("eventsId") eventsId : Int
     ) : Call<GetConcertReponse>
+
+    // SearchFragment
+    @Headers("Content-Type:application/json")
+    @GET("/search/{tag}")
+    fun getSearchData(
+        @Path("tag") tag : Int
+    ) : Call<GetSearchResponse>
 
     //POST 타입 JSONObject로 받을때 테스트 //테스트
     @Headers("Content-Type:application/json")

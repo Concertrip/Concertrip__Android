@@ -108,7 +108,6 @@ class BasicListAdapter(var mContext : Context, var dataList: ArrayList<out ListD
                     intent.putExtra("idx",dataList[position].getIndex())
                     mContext.startActivity(intent)
                 }
-
             }
         }
         basicHolder.getBtn()?.setOnClickListener{
