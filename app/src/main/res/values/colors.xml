@@ -6,6 +6,8 @@
 
 
     <color name="mainColor">@color/blue</color>
+    <color name="mainColorB">@color/blue</color>
+    <color name="mainColorP">@color/purple</color>
 
 
 
