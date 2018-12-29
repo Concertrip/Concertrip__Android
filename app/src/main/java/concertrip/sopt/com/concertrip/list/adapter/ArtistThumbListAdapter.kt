@@ -30,7 +30,7 @@ class ArtistThumbListAdapter(var mContext : Context, var dataList: ArrayList<Art
     override fun getItemCount(): Int = dataList.size
 
     override fun onBindViewHolder(holder: ArtistThumbViewHolder, position: Int) {
-        Glide.with(mContext).load(dataList.get(position).profileImg).apply(RequestOptions.circleCropTransform()).into(holder!!.ivArtist)
+        Glide.with(mContext).load(dataList.get(position).profileImg).apply(RequestOptions.circleCropTransform()).into(holder.ivArtist)
         holder.tvArtist.text = dataList.get(position).name
         holder.ivArtist.setOnClickListener{
             /*TODO

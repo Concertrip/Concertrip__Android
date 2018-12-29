@@ -3,8 +3,6 @@ package concertrip.sopt.com.concertrip.activities.info
 import android.content.Intent
 import android.os.Bundle
 
-import android.support.design.widget.Snackbar
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager
 
 import android.support.v7.widget.RecyclerView
@@ -18,7 +16,6 @@ import com.google.android.youtube.player.YouTubeBaseActivity
 import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayerView
-import com.google.android.youtube.player.internal.v
 import concertrip.sopt.com.concertrip.R
 import concertrip.sopt.com.concertrip.interfaces.OnItemClick
 import concertrip.sopt.com.concertrip.dialog.CustomDialog
@@ -26,20 +23,23 @@ import concertrip.sopt.com.concertrip.list.adapter.BasicListAdapter
 import concertrip.sopt.com.concertrip.model.Artist
 import concertrip.sopt.com.concertrip.model.Caution
 import concertrip.sopt.com.concertrip.model.Concert
+import concertrip.sopt.com.concertrip.network.response.GetConcertReponse
+import concertrip.sopt.com.concertrip.network.response.data.ConcertData
+import concertrip.sopt.com.concertrip.network.response.data.ConcertMemberData
+import concertrip.sopt.com.concertrip.network.response.data.ConcertPrecautionData
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.INTENT_TAG_ID
 import concertrip.sopt.com.concertrip.utillity.Secret
 import kotlinx.android.synthetic.main.activity_concert.*
 
 import kotlinx.android.synthetic.main.content_concert.*
 import kotlinx.android.synthetic.main.content_header.*
-import org.jetbrains.anko.startActivity
 
 class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener, OnItemClick {
 
     override fun onItemClick(root: RecyclerView.Adapter<out RecyclerView.ViewHolder>, idx: Int) {
+        Toast.makeText(this, "내 공연에 추가되었습니다!", Toast.LENGTH_LONG).show()
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         /*TODO 하트 or 종 convert + Toast 바꾸기*/
-        Toast.makeText(this, "내 공연에 추가되었습니다!", Toast.LENGTH_LONG).show()
     }
 
     private val RECOVERY_DIALOG_REQUEST = 1
@@ -74,21 +74,17 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
         }
     }
 
-    var concert : Concert = Concert()
+    lateinit  var concert : Concert
     var dataList = arrayListOf<Artist>() // 이것도 서버에서 한번에 concert에 넣어서 전달해줄지도 모름!!
     // 현재 concert 클래스에 포함되어 있는 변수들은 정확하지 않음
     // ex. 티켓링크가 포함되어 있지 않음
     // >> 디비 완전히 나오면 나중에 더 추가하거나 제거할 예정
 
-    private lateinit var mAdapter : BasicListAdapter
+    private lateinit var adapter : BasicListAdapter
 
     private lateinit var cautionAdapter : BasicListAdapter
 
-    private var concertId: Int? = null
-
-//    var onListItemClickListener : View.OnClickListener = View.OnClickListener {
-//        startActivity<ArtistActivity>()
-//    }
+    private var concertId: Int=0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -97,10 +93,14 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
 
         concertId = intent.getIntExtra(INTENT_TAG_ID, 0)
 
-        mAdapter = BasicListAdapter(this, Artist.getDummyArray())
-        recycler_view.adapter = mAdapter
+        initialUI()
+        connectRequestData(concertId)
 
-        connectRequestData(concertId!!)
+
+    }
+    private fun initialUI(){
+        adapter = BasicListAdapter(this, Artist.getDummyArray())
+        recycler_view.adapter = adapter
 
         cautionAdapter = BasicListAdapter(this, Caution.getDummyArray() )
         recycler_view_caution.layoutManager = GridLayoutManager(applicationContext,3)
@@ -114,16 +114,22 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
         btn_follow.setOnClickListener {
             showDialog()
         }
+
     }
 
 
+    private fun updateArtistList(list : ArrayList<Artist>){
 
-    private fun updateConcertData(){
-        // dataList로 mAdapter 데이터 바꿔버리기~
-        // mAdapter notify
-        mAdapter.notifyDataSetChanged()
+        // dataList로 adapter 데이터 바꿔버리기~
+        // adapter notify
+        adapter.notifyDataSetChanged()
+        dataList.clear()
+        dataList.addAll(list)
+        adapter.notifyDataSetChanged()
+    }
 
-        // &
+    private fun updateConcertData( concert : Concert){
+
 
         // Activity도 데이터 다시 세팅!
 
@@ -148,14 +154,21 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
         //this.dataList.clear()
         //this.dataList.addAll(list)
 
+
+        val concertData : ConcertData = GetConcertReponse(ConcertData("","","","",
+            0,"","",ArrayList<ConcertMemberData>(),ArrayList<String>(),ArrayList<String>(),ArrayList<String>(),ArrayList<ConcertPrecautionData>(),""
+            ,false)).data
+        val artistList =concertData.getArtistList()
+        updateArtistList(artistList)
+
         // updateArtistData 호출
-        updateConcertData()
+        updateConcertData(Concert.getDummy("temp"))
     }
 
     override fun onResume() {
         super.onResume()
 
-        connectRequestData(concertId!!)
+        connectRequestData(concertId)
     }
 
      private fun showDialog(){

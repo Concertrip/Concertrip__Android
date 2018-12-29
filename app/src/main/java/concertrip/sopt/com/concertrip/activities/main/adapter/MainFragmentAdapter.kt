@@ -5,7 +5,6 @@ import android.support.design.widget.TabLayout
 import android.support.v4.app.FragmentManager
 import android.util.Log
 import concertrip.sopt.com.concertrip.R
-import concertrip.sopt.com.concertrip.activities.main.fragment.calendar.NotificationFragment
 import concertrip.sopt.com.concertrip.activities.main.fragment.calendar.CalendarFragment
 import concertrip.sopt.com.concertrip.activities.main.fragment.mypage.MyPageFragment
 import concertrip.sopt.com.concertrip.activities.main.fragment.mypage.ticket.TicketFragment
