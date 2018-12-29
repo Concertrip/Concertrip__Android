@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Adapter
+import android.widget.Toast
 
 import concertrip.sopt.com.concertrip.R
 import concertrip.sopt.com.concertrip.activities.info.ArtistActivity
@@ -25,6 +26,7 @@ import concertrip.sopt.com.concertrip.model.Concert
 import concertrip.sopt.com.concertrip.utillity.Constants
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_ARTIST
 import kotlinx.android.synthetic.main.fragment_explorer.*
+import kotlinx.android.synthetic.main.fragment_notification.*
 import kotlinx.android.synthetic.main.li_tag.*
 import org.jetbrains.anko.support.v4.toast
 import java.lang.ref.WeakReference
@@ -113,8 +115,14 @@ class ExplorerFragment : Fragment(), OnItemClick {
 
         if(root is HorizontalListAdapter)
             toast("!!!!!!! $idx")
-        else
-            toast("?????????? $idx")
+        else{
+            toast("?????????? $idx") // 태그 밑에 있는 아티스트 혹은 공연을 클릭한 경우
+            // getBtn()
+            /*TODO 하트 or 종 convert + 토스*/
+            activity?.let {
+                Toast.makeText(it.applicationContext, "내 공연에 추가되었습니다!", Toast.LENGTH_LONG).show()
+            }
+        }
 
         if(idx == 1){
             // 테마를 선택한 경우 안드 내부에 저장되어있는 것을 출력
