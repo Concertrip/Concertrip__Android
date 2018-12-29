@@ -83,8 +83,6 @@ class NotificationFragment : Fragment() {
         dataList.clear()
         dataList.addAll(list)
         adapter.notifyDataSetChanged()
-
-
     }
 
 
