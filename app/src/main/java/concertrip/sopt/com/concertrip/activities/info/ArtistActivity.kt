@@ -33,6 +33,10 @@ import kotlinx.android.synthetic.main.content_header.*
 import org.jetbrains.anko.startActivity
 
 class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener, OnItemClick {
+
+    var dataListMember = arrayListOf<Artist>()
+    lateinit var memberListAdapter : BasicListAdapter
+
     override fun onItemClick(root: RecyclerView.Adapter<out RecyclerView.ViewHolder>, idx: Int) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         // 다가오는 공연을 담은 리사이클러뷰를 클릭했을때
@@ -101,6 +105,11 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         mAdapter = BasicListAdapter(this, Concert.getDummyArray())
         recycler_view.adapter = mAdapter
 
+        dataListMember = Artist.getDummyArray()
+        memberListAdapter = BasicListAdapter(this, dataListMember, BasicListAdapter.MODE_THUMB)
+        recycler_view_member.adapter = memberListAdapter
+
+        updateUI()
 
         connectRequestData(artistId!!)
 
@@ -118,6 +127,17 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
 //        initialUI()
 //        connectRequestData(STATE_ARTIST)
 //    }
+
+
+
+    private fun updateUI(){
+            if(dataListMember.size == 0)
+                li_member.visibility = View.GONE
+            else
+                li_member.visibility = View.VISIBLE
+    }
+
+
 
     fun updateArtistData(){
         // dataList로 mAdapter 데이터 바꿔버리기~
