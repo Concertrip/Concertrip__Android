@@ -195,18 +195,12 @@
                   android:layout_marginTop="0.7dp"
                   android:background="#999999"/>
 
-            <TextView
-                    android:id="@+id/concert_info"
+            <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_view_caution"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:textColor="#808080"
-                    android:lineSpacingExtra="11sp"
-                    android:text="물 반입 금지
-티켓부스 오픈시간 3시
-어쩌구 저쩌구
-팔지 꼭 어쩌구"
-                    android:layout_marginTop="13.8dp"/>
+                    android:layout_height="wrap_content">
+
+            </android.support.v7.widget.RecyclerView>
 
         </LinearLayout>
 

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager
 import android.view.View
 import android.widget.Toast
 import com.bumptech.glide.Glide
@@ -17,6 +18,7 @@ import concertrip.sopt.com.concertrip.R
 import concertrip.sopt.com.concertrip.dialog.CustomDialog
 import concertrip.sopt.com.concertrip.list.adapter.BasicListAdapter
 import concertrip.sopt.com.concertrip.model.Artist
+import concertrip.sopt.com.concertrip.model.Caution
 import concertrip.sopt.com.concertrip.model.Concert
 import concertrip.sopt.com.concertrip.utillity.Secret
 import kotlinx.android.synthetic.main.activity_concert.*
@@ -66,6 +68,7 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
     // >> 디비 완전히 나오면 나중에 더 추가하거나 제거할 예정
 
     private lateinit var mAdapter : BasicListAdapter
+    private lateinit var cautionAdapter : BasicListAdapter
 
     //TODO OnItemClick Interface로 구현
     var onListItemClickListener : View.OnClickListener = View.OnClickListener {
@@ -81,6 +84,11 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
         recycler_view.adapter = mAdapter
 
 
+        cautionAdapter = BasicListAdapter(this, Caution.getDummyArray() )
+        recycler_view_caution.layoutManager = GridLayoutManager(applicationContext,3)
+        recycler_view_caution.adapter = cautionAdapter
+
+
         getYouTubePlayerProvider().initialize(Secret.YOUTUBE_API_KEY,this);
         scroll_view.smoothScrollTo(0,0)
 
@@ -88,6 +96,8 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
             showDialog()
         }
     }
+
+
 
     fun updateConcertData(){
         // dataList로 mAdapter 데이터 바꿔버리기~

@@ -88,6 +88,7 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         mAdapter = BasicListAdapter(this, Concert.getDummyArray())
         recycler_view.adapter = mAdapter
 
+
         connectRequestData()
 
         getYouTubePlayerProvider().initialize(Secret.YOUTUBE_API_KEY, this);
