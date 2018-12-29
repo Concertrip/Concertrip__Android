@@ -7,8 +7,8 @@ class Concert : ListData {
 
     var idx: Int=0
     var title : String = ""
-    var profileImg : String =""
-    var backImg : String =""
+    var profileImg : String ="https://img.huffingtonpost.com/asset/5ba482b82400003100546bc3.jpeg"
+    var backImg : String ="https://img.huffingtonpost.com/asset/5ba482b82400003100546bc3.jpeg"
     var location : String =""
     var station : String =""
     var genre : String =""
@@ -44,7 +44,7 @@ class Concert : ListData {
                 c.idx=i
                 c.genre="#힙합"
                 c.youtubeUrl=""
-                c.backImg=""
+                c.backImg="https://img.huffingtonpost.com/asset/5ba482b82400003100546bc3.jpeg"
                 c.profileImg="https://search.pstatic.net/common?type=a&size=120x150&quality=95&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F201801%2F20180108113919887.jpg"
                 c.cast="지코"
                 c.date="2018-12-23"

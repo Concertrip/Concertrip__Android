@@ -28,7 +28,6 @@ data class ConcertData(
     var subscribe : Boolean
 ){
 
-    fun toConcert
 }
 
 data class ConcertPrecautionList(
