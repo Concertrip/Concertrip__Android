@@ -42,4 +42,5 @@
     <string name="txt_content_concert_caution">주의사항</string>
     <string name="txt_content_artist_comingsoon">다가오는 콘서트</string>
     <string name="title_activity_splash">SplashActivity</string>
+    <string name="txt_content_artist_member">멤버</string>
 </resources>
