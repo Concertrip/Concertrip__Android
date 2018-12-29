@@ -18,6 +18,7 @@ import concertrip.sopt.com.concertrip.dialog.CustomDialog
 import concertrip.sopt.com.concertrip.list.adapter.BasicListAdapter
 import concertrip.sopt.com.concertrip.model.Artist
 import concertrip.sopt.com.concertrip.model.Concert
+import concertrip.sopt.com.concertrip.utillity.Constants.Companion.INTENT_TAG_ID
 import concertrip.sopt.com.concertrip.utillity.Secret
 import kotlinx.android.synthetic.main.activity_concert.*
 
@@ -31,7 +32,7 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         // 출연진을 담은 리사이클러뷰를 클릭했을때
         val intent =  Intent(this, ArtistActivity::class.java)
-        intent.putExtra("artistId", dataList[idx].idx)
+        intent.putExtra(INTENT_TAG_ID, dataList[idx].idx)
         startActivity(intent)
     }
 
@@ -76,16 +77,16 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
     private lateinit var mAdapter : BasicListAdapter
     private var concertId: Int? = null
 
-    var onListItemClickListener : View.OnClickListener = View.OnClickListener {
-        startActivity<ArtistActivity>()
-    }
+//    var onListItemClickListener : View.OnClickListener = View.OnClickListener {
+//        startActivity<ArtistActivity>()
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_concert)
 //        setSupportActionBar(toolbar)
 
-        concertId = getIntent().getIntExtra("concertId", 0)
+        concertId = getIntent().getIntExtra(INTENT_TAG_ID, 0)
 
         mAdapter = BasicListAdapter(this, Artist.getDummyArray())
         recycler_view.adapter = mAdapter
