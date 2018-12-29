@@ -21,6 +21,8 @@ class Constants {
         const val TYPE_THEME = 2
         const val TYPE_TICKET = 3
         const val TYPE_ALARM = 4
+        const val TYPE_CAUTION = 5
+
 
 
 

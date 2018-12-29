@@ -22,6 +22,7 @@ import concertrip.sopt.com.concertrip.list.viewholder.*
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.INTENT_TAG_ID
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_ALARM
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_ARTIST
+import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_CAUTION
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_CONCERT
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_THEME
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_TICKET
@@ -75,6 +76,10 @@ class BasicListAdapter(var mContext : Context, var dataList: ArrayList<out ListD
             TYPE_ALARM -> {
                 val view = LayoutInflater.from(mContext).inflate(R.layout.li_alarm, parent, false)
                 return AlarmViewHolder(view)
+            }
+            TYPE_CAUTION->{
+                val view = LayoutInflater.from(mContext).inflate(R.layout.li_caution,parent,false)
+                return CautionViewHolder(view)
             }
             else->{
                 throw RuntimeException(mContext.toString() + " type is strange number $viewType")
