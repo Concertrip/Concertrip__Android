@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content" xmlns:tools="http://schemas.android.com/tools">
     <LinearLayout
             android:orientation="horizontal"
             android:weightSum="10"
@@ -18,6 +18,7 @@
             <TextView
                     android:id="@+id/item_ticket_title"
                     android:text="더 몬스터 페스티벌"
+                    tools:text="더 몬스터 페스티벌"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             <LinearLayout
@@ -26,12 +27,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                 <TextView
-                        android:text="장소: "
+                        android:text="@string/txt_li_ticket_place"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                 <TextView
                         android:id="@+id/item_ticket_place"
                         android:text="성남아트센터"
+                        tools:text="성남아트센터"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
             </LinearLayout>
@@ -41,12 +43,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                 <TextView
-                        android:text="날짜: "
+                        android:text="@string/txt_li_ticket_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                 <TextView
                         android:id="@+id/item_ticket_date"
                         android:text="2018.12.23(월)"
+                        tools:text="2018.12.23(월)"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
             </LinearLayout>

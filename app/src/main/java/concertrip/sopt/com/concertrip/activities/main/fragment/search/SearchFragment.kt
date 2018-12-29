@@ -102,7 +102,7 @@ class SearchFragment : Fragment() {
     private fun connectRequestData(){
         searchTxt = edt_search.text.toString()
         tv_result_no.text=("'$searchTxt' ${getString(R.string.txt_result_no)}")
-        tv_result_add.text=("'$searchTxt' ${getString(R.string.txt_result_add)}")
+        btn_result_add.text=("'$searchTxt' ${getString(R.string.txt_result_add)}")
 
 
         //임시 처리

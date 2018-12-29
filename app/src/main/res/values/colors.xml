@@ -11,13 +11,17 @@
 
 
     <color name="white">#ffffff</color>
-    <color name="black">#000</color>
 
-    <color name="blue">#593eff</color>
+
 
     
     <color name="grayDarker">#7b7b7b</color>
     <color name="grayDark">#b3b3b3</color>
-    <color name="gray">#cccccc</color>
     <color name="grayLight">#f2f2f2</color>
+
+
+    <color name="black">#1e1e1e</color>
+    <color name="gray">#777777</color>
+    <color name="purple">#593EFF</color>
+    <color name="blue">#1bbbff</color>
 </resources>
