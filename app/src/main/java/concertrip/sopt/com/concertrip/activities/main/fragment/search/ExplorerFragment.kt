@@ -117,7 +117,6 @@ class ExplorerFragment : Fragment(), OnItemClick {
         else{
             toast("?????????? $idx") // 태그 밑에 있는 아티스트 혹은 공연을 클릭한 경우
             // getBtn()
-            /*TODO grtBtn()말구 해당 공연||아티스트의 디테일 뷰를 확인하고 싶다면?*/
             /*TODO 하트 or 종 convert + 토스*/
             activity?.let {
                 Toast.makeText(it.applicationContext, "내 공연에 추가되었습니다!", Toast.LENGTH_LONG).show()
