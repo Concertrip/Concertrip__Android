@@ -24,8 +24,8 @@ data class Artist(
         "https://www.youtube.com/watch?v=Vl1kO9hObpA",
         1000)
 
-    private fun getTag() : String ="#$genre #$genre"
 
+    private fun getTag() : String ="#$genre #$genre"
 
     override fun getType(): Int = Constants.TYPE_ARTIST
 

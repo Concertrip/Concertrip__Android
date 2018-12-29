@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
+import android.webkit.URLUtil
 import android.widget.ScrollView
 import android.widget.Toast
 import com.bumptech.glide.Glide
@@ -129,8 +130,10 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
 
         // 좋아요 버튼 설정
 
-        Glide.with(this).load(artist.backImg).into(iv_back)
-        Glide.with(this).load(artist.profileImg).apply(RequestOptions.circleCropTransform()).into(iv_profile)
+        if(URLUtil.isValidUrl(artist.backImg))
+            Glide.with(this).load(artist.backImg).into(iv_back)
+        if(URLUtil.isValidUrl(artist.profileImg))
+            Glide.with(this).load(artist.profileImg).apply(RequestOptions.circleCropTransform()).into(iv_profile)
         tv_title.text = artist.name
         tv_tag.text = artist.subscribeNum.toString()
     }

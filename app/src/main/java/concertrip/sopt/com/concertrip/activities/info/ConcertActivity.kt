@@ -10,6 +10,7 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 
 import android.view.View
+import android.webkit.URLUtil
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -94,7 +95,7 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
         setContentView(R.layout.activity_concert)
 //        setSupportActionBar(toolbar)
 
-        concertId = getIntent().getIntExtra(INTENT_TAG_ID, 0)
+        concertId = intent.getIntExtra(INTENT_TAG_ID, 0)
 
         mAdapter = BasicListAdapter(this, Artist.getDummyArray())
         recycler_view.adapter = mAdapter
@@ -109,6 +110,7 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
         getYouTubePlayerProvider().initialize(Secret.YOUTUBE_API_KEY,this);
         scroll_view.smoothScrollTo(0,0)
 
+
         btn_follow.setOnClickListener {
             showDialog()
         }
@@ -116,7 +118,7 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
 
 
 
-    fun updateConcertData(){
+    private fun updateConcertData(){
         // dataList로 mAdapter 데이터 바꿔버리기~
         // mAdapter notify
         mAdapter.notifyDataSetChanged()
@@ -127,8 +129,12 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
 
         // 구독하기(종) 버튼 설정
 
-        Glide.with(this).load(concert.backImg).into(iv_back)
-        Glide.with(this).load(concert.profileImg).apply(RequestOptions.circleCropTransform()).into(iv_profile)
+
+        if(URLUtil.isValidUrl(concert.backImg))
+            Glide.with(this).load(concert.backImg).into(iv_back)
+
+        if(URLUtil.isValidUrl(concert.profileImg))
+            Glide.with(this).load(concert.profileImg).apply(RequestOptions.circleCropTransform()).into(iv_profile)
         tv_title.text = concert.title
         tv_tag.text  = concert.subscribeNum.toString()
     }
