@@ -18,6 +18,8 @@ class Concert : ListData {
     var youtubeUrl : String =""
     var subscribeNum : Int = 0
 
+    var artistList : ArrayList<Artist> = ArrayList()
+
     fun getTag() : String ="#$genre #$genre"
 
 

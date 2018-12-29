@@ -9,14 +9,30 @@ data class GetConcertReponse (
 
 data class ConcertData(
     var _id : String,
-    var subscribeNum : Int,
-    var title : String,
     var profileImg : String,
     var backImg : String,
+    var name : String,
+    var subscribeNum : Int,
+    var youtubeUrl : String,
     var location : String,
-    var tag : String,
-    var cast : String,
-    var date : String,
-    var price : String,
-    var youtubeUrl : String
+    var member : List<String>,
+    var memberImg : List<String>,
+    var date : List<String>,
+    var seatName : List<String>,
+    var seatPrice : List<String>,
+
+    @SerializedName("precautionList")
+    var precautionList : List<ConcertPrecautionList>,
+
+    var eventInfoImg : String,
+    var subscribe : Boolean
+){
+
+    fun toConcert
+}
+
+data class ConcertPrecautionList(
+    var code : Int,
+    var name : String,
+    var img : String
 )

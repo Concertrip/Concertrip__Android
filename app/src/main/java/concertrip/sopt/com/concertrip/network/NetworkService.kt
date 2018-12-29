@@ -24,7 +24,7 @@ interface NetworkService {
 
     // ConcertActivity, ExplorerFragment
     @Headers("Content-Type:application/json")
-    @GET("/events/{eventsId}")
+    @GET("/api/event/detail/{eventsId}")
     fun getEventData(
         @Path("eventsId") eventsId : Int
     ) : Call<GetConcertReponse>
