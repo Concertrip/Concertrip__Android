@@ -19,6 +19,7 @@ import concertrip.sopt.com.concertrip.interfaces.BasicListViewHolder
 import concertrip.sopt.com.concertrip.interfaces.ListData
 import concertrip.sopt.com.concertrip.interfaces.OnItemClick
 import concertrip.sopt.com.concertrip.list.viewholder.*
+import concertrip.sopt.com.concertrip.utillity.Constants.Companion.INTENT_TAG_ID
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_ALARM
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_ARTIST
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_CONCERT
@@ -99,16 +100,15 @@ class BasicListAdapter(var mContext : Context, var dataList: ArrayList<out ListD
             when (getItemViewType(position)) {
                 TYPE_ARTIST -> {
                     val intent: Intent = Intent(mContext.applicationContext, ArtistActivity::class.java)
-                    intent.putExtra("idx",dataList[position].getIndex())
+                    intent.putExtra(INTENT_TAG_ID,dataList[position].getIndex())
                     mContext.startActivity(intent)
                 }
                 TYPE_CONCERT-> {
 
                     val intent: Intent = Intent(mContext.applicationContext, ConcertActivity::class.java)
-                    intent.putExtra("idx",dataList[position].getIndex())
+                    intent.putExtra(INTENT_TAG_ID,dataList[position].getIndex())
                     mContext.startActivity(intent)
                 }
-
             }
         }
         basicHolder.getBtn()?.setOnClickListener{
