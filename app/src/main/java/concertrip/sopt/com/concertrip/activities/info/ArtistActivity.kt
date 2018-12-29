@@ -35,9 +35,8 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
     override fun onItemClick(root: RecyclerView.Adapter<out RecyclerView.ViewHolder>, idx: Int) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         // 다가오는 공연을 담은 리사이클러뷰를 클릭했을때
-        val intent =  Intent(this, ConcertActivity::class.java)
-        intent.putExtra(INTENT_TAG_ID, dataList[idx].idx)
-        startActivity(intent)
+        /*TODO 하트 or 종 convert + Toast 바꾸기*/
+        Toast.makeText(this, "내 공연에 추가되었습니다!", Toast.LENGTH_LONG).show()
     }
 
     private val RECOVERY_DIALOG_REQUEST = 1
