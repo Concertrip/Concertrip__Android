@@ -73,7 +73,7 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         }
     }
 
-    var artist: Artist = Artist()
+    var artist: Artist = Artist(0)
     var dataList = arrayListOf<Concert>() // 뭔가 서버에서 artist에 넣어서 한번에 전달해 줄듯
 
     private lateinit var mAdapter : BasicListAdapter
@@ -130,8 +130,8 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
 
         Glide.with(this).load(artist.backImg).into(iv_back)
         Glide.with(this).load(artist.profileImg).apply(RequestOptions.circleCropTransform()).into(iv_profile)
-        tv_title.setText(artist.name)
-        tv_tag.setText(artist.subscribeNum)
+        tv_title.text = artist.name
+        tv_tag.text = artist.subscribeNum.toString()
     }
 
     private fun connectRequestData(id : Int){
