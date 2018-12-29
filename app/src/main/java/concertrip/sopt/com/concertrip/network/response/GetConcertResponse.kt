@@ -15,8 +15,10 @@ data class ConcertData(
     var subscribeNum : Int,
     var youtubeUrl : String,
     var location : String,
-    var member : List<String>,
-    var memberImg : List<String>,
+
+    @SerializedName("memberList")
+    var memberList : List<ConcertMemberList>,
+
     var date : List<String>,
     var seatName : List<String>,
     var seatPrice : List<String>,
@@ -27,8 +29,15 @@ data class ConcertData(
     var eventInfoImg : String,
     var subscribe : Boolean
 ){
-
+    //fun toConcert
 }
+
+data class ConcertMemberList(
+    var _id : String,
+    var name : String,
+    var profileImg : String,
+    var filter : String?
+)
 
 data class ConcertPrecautionList(
     var code : Int,
