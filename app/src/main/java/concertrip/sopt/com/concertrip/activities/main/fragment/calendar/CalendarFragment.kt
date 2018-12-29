@@ -1,6 +1,7 @@
 package concertrip.sopt.com.concertrip.activities.main.fragment.calendar
 
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -11,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import concertrip.sopt.com.concertrip.R
+import concertrip.sopt.com.concertrip.activities.AlramActivity
 import concertrip.sopt.com.concertrip.activities.main.fragment.calendar.adapter.CalendarListAdapter
 import concertrip.sopt.com.concertrip.interfaces.OnFragmentInteractionListener
 import concertrip.sopt.com.concertrip.interfaces.OnItemClick
@@ -196,14 +198,15 @@ class CalendarFragment : Fragment(), OnItemClick {
         listener?.onFragmentInteraction(uri)
     }
 
-    fun changeFragment() {
-        listener?.changeFragment(Constants.FRAGMENT_NOTIFICATION)
-    }
+//    fun changeFragment() {
+//        listener?.changeFragment(Constants.FRAGMENT_NOTIFICATION)
+//    }
 
 
     private fun initialUI() {
         btn_notification.setOnClickListener {
-            changeFragment()
+//            changeFragment()
+            startActivity(Intent(activity, AlramActivity::class.java))
         }
     }
 
