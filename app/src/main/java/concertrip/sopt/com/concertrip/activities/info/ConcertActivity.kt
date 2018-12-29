@@ -112,8 +112,8 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
 
         Glide.with(this).load(concert.backImg).into(iv_back)
         Glide.with(this).load(concert.profileImg).apply(RequestOptions.circleCropTransform()).into(iv_profile)
-        tv_title.setText(concert.title)
-        tv_tag.setText(concert.subscribeNum)
+        tv_title.text = concert.title
+        tv_tag.text  = concert.subscribeNum.toString()
     }
 
     private fun connectRequestData(id : Int){

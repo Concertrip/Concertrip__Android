@@ -11,6 +11,8 @@ import concertrip.sopt.com.concertrip.model.Schedule
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.CALENDAT_TYPE_BLANK
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.CALENDAR_TYPE_DATE
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.CALENDAR_TYPE_DAY
+import org.jetbrains.anko.textColor
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.properties.Delegates
 
@@ -19,8 +21,10 @@ class CalendarListAdapter(var mContext: Context, var dataList: ArrayList<String>
 
     var onClickListener: View.OnClickListener? = null
 
+    var selected = -1
 
     private var inflater: LayoutInflater by Delegates.notNull()
+
 
 
     init {
@@ -42,6 +46,22 @@ class CalendarListAdapter(var mContext: Context, var dataList: ArrayList<String>
     }
 
 
+    private fun getToday() : String{
+
+        val now = System.currentTimeMillis()
+
+        val date = Date(now)
+
+        //연,월,일을 따로 저장
+
+        val curYearFormat = SimpleDateFormat("yyyy", Locale.KOREA)
+
+        val curMonthFormat = SimpleDateFormat("MM", Locale.KOREA)
+
+        val curDayFormat = SimpleDateFormat("dd", Locale.KOREA)
+
+        return curDayFormat.format(date)
+    }
     override fun getItemCount(): Int = dataList.size
 
     override fun getItemViewType(position: Int): Int {
@@ -58,6 +78,9 @@ class CalendarListAdapter(var mContext: Context, var dataList: ArrayList<String>
 
         holder.tvCalendar.text=dataList[position]
 
+        holder.setSelected(mContext, selected==position)
+        holder.setToday(mContext,getToday()==dataList[position] && selected!=position)
+
         if(getItemViewType(position) == CALENDAR_TYPE_DATE) {
             val date : Int = dataList[position].toInt()
 
@@ -69,15 +92,17 @@ class CalendarListAdapter(var mContext: Context, var dataList: ArrayList<String>
 
             holder.itemView.setOnClickListener {
 
-
-                    val s = Schedule.getDummy(date)
-                    if(scheduleMap[date].isNullOrEmpty()){
-                        scheduleMap[date]=ArrayList<Schedule>()
-                        scheduleMap[date]?.add(s)
-                    }else {
-                        scheduleMap[date]?.add(s)
-                    }
-                    addCalendarItem(holder, s)
+                if(selected==position) selected=-1
+                else selected=position
+                notifyDataSetChanged()
+//                    val s = Schedule.getDummy(date)
+//                    if(scheduleMap[date].isNullOrEmpty()){
+//                        scheduleMap[date]=ArrayList<Schedule>()
+//                        scheduleMap[date]?.add(s)
+//                    }else {
+//                        scheduleMap[date]?.add(s)
+//                    }
+//                    addCalendarItem(holder, s)
 
             }
         }
