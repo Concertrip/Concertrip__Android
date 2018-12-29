@@ -16,12 +16,14 @@
                 android:background="#f2f2f2"/>
 
         <ImageView
+
                 android:id="@+id/iv_profile"
                 android:layout_width="110dp"
                 android:layout_height="110dp"
                 android:layout_marginTop="121.4dp"
                 android:layout_marginStart="16.1dp"
-                app:srcCompat="@drawable/ic_account_circle"/>
+                android:src="@drawable/ic_account_circle"
+        />
         
         <LinearLayout
                 android:layout_width="wrap_content"

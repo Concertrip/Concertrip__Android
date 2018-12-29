@@ -7,8 +7,8 @@ class Concert : ListData {
 
     var idx: Int=0
     var title : String = ""
-    var profileImg : String ="https://img.huffingtonpost.com/asset/5ba482b82400003100546bc3.jpeg"
-    var backImg : String ="https://img.huffingtonpost.com/asset/5ba482b82400003100546bc3.jpeg"
+    var profileImg : String =""
+    var backImg : String =""
     var location : String =""
     var station : String =""
     var genre : String =""
