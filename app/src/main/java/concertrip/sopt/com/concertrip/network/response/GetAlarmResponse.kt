@@ -1,10 +1,9 @@
 package concertrip.sopt.com.concertrip.network.response
 
+import concertrip.sopt.com.concertrip.network.response.data.AlarmData
+import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
+
 data class GetAlarmReponse(
     var data : ArrayList<AlarmData>
-):BaseModel()
+): BaseModel()
 
-data class AlarmData(
-    var txt : String,
-    var data : String
-)

@@ -11,7 +11,7 @@ class Alarm  : ListData{
     var imgUrl : String=""
     override fun getType(): Int = Constants.TYPE_ALARM
 
-    override fun getIndex(): Int =0
+    override fun getId(): String =""
 
     override fun getMainTitle(): String =title
 
