@@ -91,7 +91,7 @@ class MainActivity : AppCompatActivity() , OnFragmentInteractionListener {
                 val tt: FragmentManager.BackStackEntry = supportFragmentManager.getBackStackEntryAt(i -1)
 
                 when (tt.breadCrumbShortTitleRes) {
-                    Constants.FRAGMENT_CALENDAR, Constants.FRAGMENT_NOTIFICATION -> {
+                    Constants.FRAGMENT_CALENDAR-> {
                         fragmentAdapter.setTab(TAB_CALENDAR)
                     }
                     Constants.FRAGMENT_EXPLORER, Constants.FRAGMENT_SEARCH -> {
