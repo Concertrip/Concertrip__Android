@@ -21,6 +21,8 @@ class Constants {
         const val TYPE_THEME = 2
         const val TYPE_TICKET = 3
         const val TYPE_ALARM = 4
+        const val TYPE_CAUTION = 5
+
 
 
 
@@ -31,10 +33,9 @@ class Constants {
         const val FRAGMENT_LIKED = 2
         const val FRAGMENT_MY_PAGE = 3
         const val FRAGMENT_TICKET_LIST = 4
-        const val FRAGMENT_NOTIFICATION = 5
-        const val FRAGMENT_SEARCH = 6
-        const val FRAGMENT_TICKET = 7
-        const val FRAGMENT_SETTING = 8
+        const val FRAGMENT_SEARCH = 5
+        const val FRAGMENT_TICKET = 6
+        const val FRAGMENT_SETTING =7
 
         const val INTENT_TAG_ID = "id"
     }

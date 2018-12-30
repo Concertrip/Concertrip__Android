@@ -2,12 +2,8 @@ package concertrip.sopt.com.concertrip.list.adapter
 
 import android.content.Context
 import android.content.Intent
-import android.os.Handler
-import android.os.Message
-import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.webkit.URLUtil
 import com.bumptech.glide.Glide
@@ -22,10 +18,9 @@ import concertrip.sopt.com.concertrip.list.viewholder.*
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.INTENT_TAG_ID
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_ALARM
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_ARTIST
+import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_CAUTION
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_CONCERT
-import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_THEME
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_TICKET
-import org.jetbrains.anko.startActivity
 
 class BasicListAdapter(var mContext : Context, var dataList: ArrayList<out ListData>, var mode : Int, var listener : OnItemClick?) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
@@ -76,6 +71,10 @@ class BasicListAdapter(var mContext : Context, var dataList: ArrayList<out ListD
                 val view = LayoutInflater.from(mContext).inflate(R.layout.li_alarm, parent, false)
                 return AlarmViewHolder(view)
             }
+            TYPE_CAUTION->{
+                val view = LayoutInflater.from(mContext).inflate(R.layout.li_caution,parent,false)
+                return CautionViewHolder(view)
+            }
             else->{
                 throw RuntimeException(mContext.toString() + " type is strange number $viewType")
             }
@@ -100,13 +99,13 @@ class BasicListAdapter(var mContext : Context, var dataList: ArrayList<out ListD
             when (getItemViewType(position)) {
                 TYPE_ARTIST -> {
                     val intent: Intent = Intent(mContext.applicationContext, ArtistActivity::class.java)
-                    intent.putExtra(INTENT_TAG_ID,dataList[position].getIndex())
+                    intent.putExtra(INTENT_TAG_ID,dataList[position].getId())
                     mContext.startActivity(intent)
                 }
                 TYPE_CONCERT-> {
 
                     val intent: Intent = Intent(mContext.applicationContext, ConcertActivity::class.java)
-                    intent.putExtra(INTENT_TAG_ID,dataList[position].getIndex())
+                    intent.putExtra(INTENT_TAG_ID,dataList[position].getId())
                     mContext.startActivity(intent)
                 }
             }

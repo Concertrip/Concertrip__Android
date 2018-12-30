@@ -1,4 +1,4 @@
-package concertrip.sopt.com.concertrip.network.response
+package concertrip.sopt.com.concertrip.network.response.interfaces
 
 abstract class BaseModel(
     open var status : String?=null,

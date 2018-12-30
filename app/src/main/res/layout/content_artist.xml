@@ -20,6 +20,7 @@
                 layout="@layout/content_header"
         />
         <LinearLayout
+                android:id="@+id/li_member"
                 android:visibility="gone"
                 android:orientation="vertical"
                 android:layout_marginHorizontal="16dp"

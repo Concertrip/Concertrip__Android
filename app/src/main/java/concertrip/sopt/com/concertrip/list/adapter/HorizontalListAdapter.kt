@@ -13,7 +13,7 @@ import concertrip.sopt.com.concertrip.list.viewholder.HorizontalViewHolder
 
 
 
-class HorizontalListAdapter(val mContext : Context, var dataList: ArrayList<String>, var listener: OnItemClick?) : RecyclerView.Adapter<HorizontalViewHolder>(){
+class HorizontalListAdapter(private val mContext : Context, var dataList: ArrayList<String>, var listener: OnItemClick?) : RecyclerView.Adapter<HorizontalViewHolder>(){
     var selected: Int = 0
 
     constructor(mContext: Context, dataList: ArrayList<String>) : this(mContext,dataList,null)
@@ -36,7 +36,7 @@ class HorizontalListAdapter(val mContext : Context, var dataList: ArrayList<Stri
         }
     }
 
-    fun setSeleted(position : Int){
+    fun setSelect(position : Int){
         Log.v("1227", position.toString())
         this.selected = position
         notifyDataSetChanged()

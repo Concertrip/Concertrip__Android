@@ -6,21 +6,21 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import concertrip.sopt.com.concertrip.R
 import concertrip.sopt.com.concertrip.activities.AlramActivity
 import concertrip.sopt.com.concertrip.activities.main.fragment.calendar.adapter.CalendarListAdapter
 import concertrip.sopt.com.concertrip.interfaces.OnFragmentInteractionListener
 import concertrip.sopt.com.concertrip.interfaces.OnItemClick
 import concertrip.sopt.com.concertrip.list.adapter.BasicListAdapter
+import concertrip.sopt.com.concertrip.list.adapter.HorizontalListAdapter
 import concertrip.sopt.com.concertrip.model.Artist
 import concertrip.sopt.com.concertrip.model.Concert
 import concertrip.sopt.com.concertrip.model.Schedule
-import concertrip.sopt.com.concertrip.utillity.Constants
 import kotlin.properties.Delegates
 import kotlinx.android.synthetic.main.fragment_calendar.*
 import java.text.SimpleDateFormat
@@ -47,13 +47,14 @@ class CalendarFragment : Fragment(), OnItemClick {
     var dataListFilter = arrayListOf<String>()
     var dataListArtist = arrayListOf<Artist>()
     var dataListConcert = arrayListOf<Concert>()
-    var dataListDay = arrayListOf<String>()
+    var dataListTag = arrayListOf<String>("모두","테마","걸그룹","보이그룹","힙합","발라드")
 
 
     lateinit var calendarListAdapter: CalendarListAdapter
     // 날짜 > date객체(스트링으로 넘어옴)
 
     lateinit var calendarDetailAdapter: BasicListAdapter
+    lateinit var tagAdapter: HorizontalListAdapter
 
     /*TODO
     * have to make interface which contains schedule list
@@ -72,6 +73,19 @@ class CalendarFragment : Fragment(), OnItemClick {
         // 여기서 사용하는 HorixzontalListAdapter에서 사용하며
         // holder.itemView.setOnClickListener에 달아뒀음!
         // 클릭된 아이템의 position 값이 parameter로 전달됨!
+
+        if(root is HorizontalListAdapter) {
+            tagAdapter.setSelect(idx)
+        }
+        else{
+//            toast("?????????? $_id") // 태그 밑에 있는 아티스트 혹은 공연을 클릭한 경우
+            // getBtn()
+            /*TODO 하트 or 종 convert + 토스*/
+            activity?.let {
+                Toast.makeText(it.applicationContext, "내 공연에 추가되었습니다!", Toast.LENGTH_LONG).show()
+            }
+        }
+
     }
 
     fun artistToCal(artist: Artist) {
@@ -102,18 +116,6 @@ class CalendarFragment : Fragment(), OnItemClick {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        activity?.let {
-
-            calendarListAdapter = CalendarListAdapter(it.applicationContext,makeDayList(),Schedule.getDummyMap())
-            recycler_view_calendar.layoutManager=GridLayoutManager(it.applicationContext,7)
-            recycler_view_calendar.adapter=calendarListAdapter
-
-            dataListConcert = Concert.getDummyArray()
-            calendarDetailAdapter = BasicListAdapter(it.applicationContext,dataListConcert,this)
-            recycler_view_calendar_detail.layoutManager = LinearLayoutManager(it.applicationContext)
-            recycler_view_calendar_detail.adapter = calendarDetailAdapter
-
-        }
         initialUI()
         updateUI()
 
@@ -203,11 +205,29 @@ class CalendarFragment : Fragment(), OnItemClick {
 //    }
 
 
+
     private fun initialUI() {
         btn_notification.setOnClickListener {
-//            changeFragment()
             startActivity(Intent(activity, AlramActivity::class.java))
         }
+
+        activity?.let {
+
+            calendarListAdapter = CalendarListAdapter(it.applicationContext,makeDayList(),Schedule.getDummyMap())
+            recycler_view_calendar.layoutManager=GridLayoutManager(it.applicationContext,7)
+            recycler_view_calendar.adapter=calendarListAdapter
+
+            dataListConcert = Concert.getDummyArray()
+            calendarDetailAdapter = BasicListAdapter(it.applicationContext,dataListConcert,this)
+            recycler_view_calendar_detail.adapter = calendarDetailAdapter
+
+
+            tagAdapter = HorizontalListAdapter(it.applicationContext,dataListTag,this)
+            recycler_view_filter.adapter=tagAdapter
+
+
+        }
+
     }
 
 
