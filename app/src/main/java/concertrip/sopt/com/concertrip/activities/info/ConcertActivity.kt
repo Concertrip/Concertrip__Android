@@ -23,7 +23,7 @@ import concertrip.sopt.com.concertrip.list.adapter.BasicListAdapter
 import concertrip.sopt.com.concertrip.model.Artist
 import concertrip.sopt.com.concertrip.model.Caution
 import concertrip.sopt.com.concertrip.model.Concert
-import concertrip.sopt.com.concertrip.network.response.GetConcertReponse
+import concertrip.sopt.com.concertrip.network.response.GetConcertResponse
 import concertrip.sopt.com.concertrip.network.response.data.ConcertData
 import concertrip.sopt.com.concertrip.network.response.data.MemberData
 import concertrip.sopt.com.concertrip.network.response.data.PrecautionData
@@ -132,9 +132,7 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
     }
 
     private fun connectRequestData(id : Int){
-        val concertResponseData : GetConcertReponse = GetConcertReponse(ConcertData("","","","",
-            0,"","",ArrayList<MemberData>(),ArrayList<String>(),ArrayList<String>(),ArrayList<String>(),ArrayList<PrecautionData>(),""
-            ,false))
+        val concertResponseData : GetConcertReponse = GetConcertReponse(ConcertData.getDummy())
         val concert= concertResponseData.data.toConcert()
 
         updateArtistList(ArrayList(concert.artistList))
