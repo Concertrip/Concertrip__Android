@@ -191,7 +191,7 @@ class ExplorerFragment : Fragment(), OnItemClick {
 
 
 
-    
+
 
 
     private fun connectRequestData(tag : String){
