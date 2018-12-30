@@ -132,7 +132,7 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
     }
 
     private fun connectRequestData(id : Int){
-        val concertResponseData : GetConcertReponse = GetConcertReponse(ConcertData.getDummy())
+        val concertResponseData : GetConcertResponse = GetConcertResponse(ConcertData.getDummy())
         val concert= concertResponseData.data.toConcert()
 
         updateArtistList(ArrayList(concert.artistList))

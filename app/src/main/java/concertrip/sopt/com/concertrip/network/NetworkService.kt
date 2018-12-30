@@ -28,7 +28,7 @@ interface NetworkService {
     fun getEventData(
         //@Path("eventsId") eventsId : String
         @Query("eventsId") eventsId : String
-    ) : Call<GetConcertReponse>
+    ) : Call<GetConcertResponse>
 
     // SearchFragment
     @Headers("Content-Type:application/json")
