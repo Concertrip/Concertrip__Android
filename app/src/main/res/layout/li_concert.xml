@@ -41,8 +41,10 @@
             </LinearLayout>
             <ImageButton
                     android:id="@+id/btn_like"
+                    android:src="@drawable/ic_like"
+                    android:background="@android:color/transparent"
                     android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_width="46dp"
                     android:layout_height="46dp"
                     />

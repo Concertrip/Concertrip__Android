@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.webkit.URLUtil
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import concertrip.sopt.com.concertrip.R
@@ -14,22 +15,100 @@ import concertrip.sopt.com.concertrip.activities.info.ConcertActivity
 import concertrip.sopt.com.concertrip.interfaces.BasicListViewHolder
 import concertrip.sopt.com.concertrip.interfaces.ListData
 import concertrip.sopt.com.concertrip.interfaces.OnItemClick
+import concertrip.sopt.com.concertrip.interfaces.OnResponse
 import concertrip.sopt.com.concertrip.list.viewholder.*
+import concertrip.sopt.com.concertrip.model.Artist
+import concertrip.sopt.com.concertrip.model.ArtistSubscribe
+import concertrip.sopt.com.concertrip.model.Concert
+import concertrip.sopt.com.concertrip.network.ApplicationController
+import concertrip.sopt.com.concertrip.network.NetworkService
+import concertrip.sopt.com.concertrip.network.response.GetArtistSubscribeResponse
+import concertrip.sopt.com.concertrip.network.response.GetConcertSubscribeResponse
+import concertrip.sopt.com.concertrip.network.response.GetGenreSubscribeResponse
+import concertrip.sopt.com.concertrip.network.response.MessageResponse
+import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.INTENT_TAG_ID
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_ALARM
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_ARTIST
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_CAUTION
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_CONCERT
+import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_THEME
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_TICKET
+import concertrip.sopt.com.concertrip.utillity.NetworkUtil
+import org.jetbrains.anko.toast
 
-class BasicListAdapter(var mContext : Context, var dataList: ArrayList<out ListData>, var mode : Int, var listener : OnItemClick?) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class BasicListAdapter(
+    var mContext: Context,
+    var dataList: ArrayList<out ListData>,
+    var mode: Int,
+    var listener: OnItemClick?
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), OnResponse {
+    override fun onSuccess(obj: BaseModel, position: Int?) {
+        position?.let {
+            when (getItemViewType(position)) {
+                TYPE_ARTIST -> {
 
-    constructor(mContext: Context,dataList: ArrayList<out ListData>,mode: Int) : this(mContext,dataList,mode,null)
-    constructor(mContext: Context,dataList: ArrayList<out ListData>,listener: OnItemClick?) : this(mContext,dataList, MODE_BASIC,listener)
-    constructor(mContext: Context, dataList: ArrayList<out ListData>):this(mContext,dataList, MODE_BASIC,null)
+                    val artist = dataList[position] as Artist
+                    artist.isSubscribe = !artist.isSubscribe
+                    if(artist.isSubscribe)
+                        Toast.makeText(mContext, "내 아티스트에 추가되었습니다!", Toast.LENGTH_LONG).show()
+                    else
+                        Toast.makeText(mContext, "내 아티스트에서 쫒겨났습니다!", Toast.LENGTH_LONG).show()
+
+                    notifyDataSetChanged()
+
+                }
+                TYPE_CONCERT -> {
+                    val concert = dataList[position] as Concert
+                    concert.isSubscribe = !concert.isSubscribe
+
+
+                    if(concert.isSubscribe)
+                        Toast.makeText(mContext, "내 공연에 추가되었습니다!", Toast.LENGTH_LONG).show()
+                    else
+                        Toast.makeText(mContext, "내 공연에서 쫒겨났습니다!", Toast.LENGTH_LONG).show()
+
+                    notifyDataSetChanged()
+                }
+                TYPE_THEME -> {
+
+                    val artist = dataList[position] as Artist
+
+                    if(artist.isSubscribe)
+                        Toast.makeText(mContext, "내 장르에 추가되었습니다!", Toast.LENGTH_LONG).show()
+                    else
+                        Toast.makeText(mContext, "내 장르에서 쫒겨났습니다!", Toast.LENGTH_LONG).show()
+                    artist.isSubscribe = !artist.isSubscribe
+                    notifyDataSetChanged()
+                }
+
+            }
+        }
+    }
+
+    override fun onFail() {
+        Toast.makeText(mContext,"인터넷을 다시 확인해주세요.",Toast.LENGTH_SHORT).show()
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    private val networkService: NetworkService by lazy {
+        ApplicationController.instance.networkService
+    }
+
+
+    constructor(mContext: Context, dataList: ArrayList<out ListData>, mode: Int) : this(mContext, dataList, mode, null)
+    constructor(mContext: Context, dataList: ArrayList<out ListData>, listener: OnItemClick?) : this(
+        mContext,
+        dataList,
+        MODE_BASIC,
+        listener
+    )
+
+    constructor(mContext: Context, dataList: ArrayList<out ListData>) : this(mContext, dataList, MODE_BASIC, null)
+
     companion object {
         val MODE_BASIC = 0
-        val MODE_THUMB =1
+        val MODE_THUMB = 1
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -38,23 +117,23 @@ class BasicListAdapter(var mContext : Context, var dataList: ArrayList<out ListD
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
-        when(viewType){
-            TYPE_ARTIST->{
-                return when(mode){
-                    MODE_BASIC->{
+        when (viewType) {
+            TYPE_ARTIST -> {
+                return when (mode) {
+                    MODE_BASIC -> {
                         val view = LayoutInflater.from(mContext).inflate(R.layout.li_artist, parent, false)
                         ArtistViewHolder(view)
                     }
-                    MODE_THUMB->{
+                    MODE_THUMB -> {
                         val view = LayoutInflater.from(mContext).inflate(R.layout.li_artist_thumb, parent, false)
                         ArtistThumbViewHolder(view)
                     }
-                    else->{
+                    else -> {
                         throw RuntimeException(mContext.toString() + " mode is strange number $mode")
                     }
                 }
             }
-            TYPE_CONCERT->{
+            TYPE_CONCERT -> {
                 val view = LayoutInflater.from(mContext).inflate(R.layout.li_concert, parent, false)
                 return ConcertViewHolder(view)
             }
@@ -71,11 +150,11 @@ class BasicListAdapter(var mContext : Context, var dataList: ArrayList<out ListD
                 val view = LayoutInflater.from(mContext).inflate(R.layout.li_alarm, parent, false)
                 return AlarmViewHolder(view)
             }
-            TYPE_CAUTION->{
-                val view = LayoutInflater.from(mContext).inflate(R.layout.li_caution,parent,false)
+            TYPE_CAUTION -> {
+                val view = LayoutInflater.from(mContext).inflate(R.layout.li_caution, parent, false)
                 return CautionViewHolder(view)
             }
-            else->{
+            else -> {
                 throw RuntimeException(mContext.toString() + " type is strange number $viewType")
             }
         }
@@ -87,33 +166,49 @@ class BasicListAdapter(var mContext : Context, var dataList: ArrayList<out ListD
 
 
         val basicHolder = holder as BasicListViewHolder
-        basicHolder.getMainTitle().text=dataList[position].getMainTitle()
-        basicHolder.getSubTitle()?.text=dataList[position].getSubTitle()
-        if( URLUtil.isValidUrl(dataList[position].getImageUrl())){
+        basicHolder.getMainTitle().text = dataList[position].getMainTitle()
+        basicHolder.getSubTitle()?.text = dataList[position].getSubTitle()
+        if (URLUtil.isValidUrl(dataList[position].getImageUrl())) {
             Glide.with(mContext).load(dataList[position].getImageUrl()).apply(RequestOptions.circleCropTransform())
                 .into(holder.getIvIcon())
         }
+        basicHolder.setButton(mContext,dataList[position].isSubscribe())
+
 
         holder.itemView.setOnClickListener {
 
             when (getItemViewType(position)) {
                 TYPE_ARTIST -> {
                     val intent: Intent = Intent(mContext.applicationContext, ArtistActivity::class.java)
-                    intent.putExtra(INTENT_TAG_ID,dataList[position].getId())
+                    intent.putExtra(INTENT_TAG_ID, dataList[position].getId())
                     mContext.startActivity(intent)
                 }
-                TYPE_CONCERT-> {
+                TYPE_CONCERT -> {
 
                     val intent: Intent = Intent(mContext.applicationContext, ConcertActivity::class.java)
-                    intent.putExtra(INTENT_TAG_ID,dataList[position].getId())
+                    intent.putExtra(INTENT_TAG_ID, dataList[position].getId())
                     mContext.startActivity(intent)
                 }
             }
         }
-        basicHolder.getBtn()?.setOnClickListener{
-            listener?.onItemClick(this,position)
+        basicHolder.getBtn()?.setOnClickListener {
+            when (getItemViewType(position)) {
+                TYPE_ARTIST -> {
+                    NetworkUtil.subscribeArtist(networkService, this, dataList[position].getId(),position)
+//                    listener?.onItemClick(this,position)
+                }
 
+                TYPE_CONCERT -> {
+                    NetworkUtil.subscribeConcert(networkService, this, dataList[position].getId(),position)
+//                    listener?.onItemClick(this,position)
+                }
+                TYPE_THEME -> {
+                    NetworkUtil.subscribeGenre(networkService, this, dataList[position].getId(),position)
+//                    listener?.onItemClick(this,position)
+                }
+            }
         }
+
 
     }
 

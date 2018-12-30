@@ -93,7 +93,7 @@ class MyPageFragment : Fragment(), OnItemClick, OnFragmentInteractionListener {
             }
     }
 
-    override fun onItemClick(root: RecyclerView.Adapter<out RecyclerView.ViewHolder>, idx: Int){
+    override fun onItemClick(root: RecyclerView.Adapter<out RecyclerView.ViewHolder>, position: Int){
 
     }
 

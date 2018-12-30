@@ -36,9 +36,8 @@ import kotlinx.android.synthetic.main.content_header.*
 
 class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener, OnItemClick {
 
-    override fun onItemClick(root: RecyclerView.Adapter<out RecyclerView.ViewHolder>, idx: Int) {
+    override fun onItemClick(root: RecyclerView.Adapter<out RecyclerView.ViewHolder>, position: Int) {
         Toast.makeText(this, "내 공연에 추가되었습니다!", Toast.LENGTH_LONG).show()
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         /*TODO 하트 or 종 convert + Toast 바꾸기*/
     }
 

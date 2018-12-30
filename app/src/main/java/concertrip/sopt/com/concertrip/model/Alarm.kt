@@ -16,6 +16,7 @@ class Alarm(var title:String, var date:String, var imgUrl:String)  : ListData{
     override fun getSubTitle(): String  =date
 
     override fun getImageUrl(): String =imgUrl
+    override fun isSubscribe(): Boolean? =null
 
 
     companion object {

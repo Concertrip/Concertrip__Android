@@ -10,15 +10,15 @@ data class Artist(
     var name : String,
     var genre : String?,
     var youtubeUrl : String?,
-    var subscribeNum : Int
+    var subscribeNum : Int,
 //, var concertList : List<Concert>
+    var isSubscribe: Boolean
 ) : ListData{
-
 
     var tag : String?=null
 
-    constructor(_id : String, name  :String, profileImg : String) : this(_id,profileImg,null,name,null,null,0)
-    constructor(_id: String): this(_id,"", "", "", "", "", 0)
+    constructor(_id : String, name  :String, profileImg : String) : this(_id,profileImg,null,name,null,null,0,false)
+    constructor(_id: String): this(_id,"", "", "", "", "", 0,false)
 
 
     private fun makeTag() : String="#$genre #$genre"
@@ -32,6 +32,7 @@ data class Artist(
         return makeTag()
     }
     override fun getImageUrl(): String=profileImg
+    override fun isSubscribe(): Boolean? = isSubscribe
 
     companion object {
 
@@ -60,11 +61,11 @@ data class Artist(
             "지코",
             "#힙합",
             "https://www.youtube.com/watch?v=Vl1kO9hObpA",
-            1000)
+            1000,false)
 
         fun getDummy2(_id: String) : Artist = Artist(_id, "https://search.naver.com/search.naver?where=image&sm=tab_jum&query=%EB%A0%88%EB%93%9C%EB%B2%A8%EB%B2%B3#",
             "https://search.naver.com/search.naver?where=image&sm=tab_jum&query=%EB%A0%88%EB%93%9C%EB%B2%A8%EB%B2%B3#", "레드벨벳", "걸그룹",
-            "https://www.youtube.com/watch?v=IWJUPY-2EIM", 2000)
+            "https://www.youtube.com/watch?v=IWJUPY-2EIM", 2000,false)
 
     }
 

@@ -67,7 +67,7 @@ class CalendarFragment : Fragment(), OnItemClick {
     private var listener: OnFragmentInteractionListener? = null
 
 
-    override fun onItemClick(root : RecyclerView.Adapter<out RecyclerView.ViewHolder>,idx: Int) {
+    override fun onItemClick(root : RecyclerView.Adapter<out RecyclerView.ViewHolder>, position: Int) {
         /*TODO have to implement it*/
         // 태그 중 하나를 클릭하면 서버에서 그 태그에 알맞는 일정을 받아오기 위한 함수!
         // 여기서 사용하는 HorixzontalListAdapter에서 사용하며
@@ -75,10 +75,9 @@ class CalendarFragment : Fragment(), OnItemClick {
         // 클릭된 아이템의 position 값이 parameter로 전달됨!
 
         if(root is HorizontalListAdapter) {
-            tagAdapter.setSelect(idx)
+            tagAdapter.setSelect(position)
         }
         else{
-//            toast("?????????? $_id") // 태그 밑에 있는 아티스트 혹은 공연을 클릭한 경우
             // getBtn()
             /*TODO 하트 or 종 convert + 토스*/
             activity?.let {

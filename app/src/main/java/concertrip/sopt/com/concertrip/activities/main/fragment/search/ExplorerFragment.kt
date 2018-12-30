@@ -17,8 +17,6 @@ import concertrip.sopt.com.concertrip.list.adapter.BasicListAdapter
 import concertrip.sopt.com.concertrip.list.adapter.HorizontalListAdapter
 import concertrip.sopt.com.concertrip.model.Artist
 import concertrip.sopt.com.concertrip.model.Concert
-import concertrip.sopt.com.concertrip.network.response.GetSearchResponse
-import concertrip.sopt.com.concertrip.network.response.data.ArtistData
 import concertrip.sopt.com.concertrip.utillity.Constants
 import kotlinx.android.synthetic.main.fragment_explorer.*
 
@@ -61,8 +59,8 @@ class ExplorerFragment : Fragment(), OnItemClick {
         listener?.changeFragment(Constants.FRAGMENT_SEARCH)
     }
 
-  override fun onItemClick(root: RecyclerView.Adapter<out RecyclerView.ViewHolder>,idx: Int) {
-        tagAdapter.setSelect(idx)
+  override fun onItemClick(root: RecyclerView.Adapter<out RecyclerView.ViewHolder>, position: Int) {
+        tagAdapter.setSelect(position)
 
         if(root is HorizontalListAdapter)
 
@@ -74,14 +72,14 @@ class ExplorerFragment : Fragment(), OnItemClick {
             }
         }
 
-        if(idx == 1){
+        if(position == 1){
             // 테마를 선택한 경우 안드 내부에 저장되어있는 것을 출력
             // 해당 데이터가 저장된 어레이를 이용해 updateDataList 함수 호출
             updateDataList(Artist.getDummyArray2())
-        }else if(idx == 0){
+        }else if(position == 0){
             updateDataList(Artist.getDummyArray())
         }
-        else connectRequestData(dataListTag[idx])
+        else connectRequestData(dataListTag[position])
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
