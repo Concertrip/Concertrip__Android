@@ -17,4 +17,14 @@ data class SimpleConcertData(
         c.tag=tag
         return c
     }
+
+    companion object {
+        fun getDummy() : SimpleConcertData = SimpleConcertData("", "힙합 페스티벌", "종합경기장",
+            "2018-12-20", "힙합")
+
+        fun getDummyList() : List<SimpleConcertData> {
+            val list = listOf(getDummy(), getDummy(), getDummy())
+            return list
+        }
+    }
 }

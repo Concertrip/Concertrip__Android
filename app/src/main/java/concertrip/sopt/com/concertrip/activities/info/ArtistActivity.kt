@@ -3,7 +3,6 @@ package concertrip.sopt.com.concertrip.activities.info
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.View
 import android.webkit.URLUtil
 import android.widget.Toast
@@ -27,12 +26,8 @@ import kotlinx.android.synthetic.main.activity_artist.*
 
 import kotlinx.android.synthetic.main.content_artist.*
 import kotlinx.android.synthetic.main.content_header.*
-import org.jetbrains.anko.startActivity
 
 class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener, OnItemClick {
-
-    var dataListMember = arrayListOf<Artist>()
-    lateinit var memberListAdapter : BasicListAdapter
 
     override fun onItemClick(root: RecyclerView.Adapter<out RecyclerView.ViewHolder>, idx: Int) {
         Toast.makeText(this, "내 공연에 추가되었습니다!", Toast.LENGTH_LONG).show()
@@ -74,17 +69,20 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         }
     }
 
-    lateinit  var artist: Artist
-    var dataList = arrayListOf<Concert>() // 뭔가 서버에서 artist에 넣어서 한번에 전달해 줄듯
-
-    private lateinit var mAdapter : BasicListAdapter
     private var artistId: Int? = null
+
+    lateinit  var artist: Artist
+    var dataList = arrayListOf<Concert>()
+
+    private lateinit var adapter : BasicListAdapter
+
+    var dataListMember = arrayListOf<Artist>()
+    lateinit var memberListAdapter : BasicListAdapter
 
     private fun showDialog() {
         val dialog = CustomDialog(this)
         dialog.show()
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,16 +92,12 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         artistId = getIntent().getIntExtra(INTENT_TAG_ID, 0)
 
         initialUI()
-
-
         connectRequestData(artistId!!)
-
-
     }
-    fun initialUI(){
 
-        mAdapter = BasicListAdapter(this, Concert.getDummyArray())
-        recycler_view.adapter = mAdapter
+    fun initialUI(){
+        adapter = BasicListAdapter(this, Concert.getDummyArray())
+        recycler_view.adapter = adapter
 
         dataListMember = Artist.getDummyArray()
         memberListAdapter = BasicListAdapter(this, dataListMember, BasicListAdapter.MODE_THUMB)
@@ -117,9 +111,6 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         }
     }
 
-
-
-
     private fun updateUI(){
             if(dataListMember.size == 0)
                 li_member.visibility = View.GONE
@@ -128,17 +119,14 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
     }
 
 
+    private fun updateConcertList(list : ArrayList<Concert>){
+        dataList.clear()
+        dataList.addAll(list)
+        adapter.notifyDataSetChanged()
+    }
 
     private fun updateArtistData(artist : Artist){
-        // dataList로 mAdapter 데이터 바꿔버리기~
-        // mAdapter notify
-        mAdapter.notifyDataSetChanged()
-
-
-        // Activity도 데이터 다시 세팅!
-
-        // 좋아요 버튼 설정
-
+        // TODO 좋아요 버튼 설정
         if(URLUtil.isValidUrl(artist.backImg))
             Glide.with(this).load(artist.backImg).into(iv_back)
         if(URLUtil.isValidUrl(artist.profileImg))
@@ -159,6 +147,7 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         val getArtistResponse : GetArtistResponse = GetArtistResponse(ArtistData.getDummy())
         val artist = getArtistResponse.data.toArtist()
 
+        //updateConcertList(ArrayList(artist.concertList))
         updateArtistData(artist)
         updateUI()
     }
