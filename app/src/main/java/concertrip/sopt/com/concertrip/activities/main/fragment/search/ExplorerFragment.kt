@@ -19,6 +19,9 @@ import concertrip.sopt.com.concertrip.model.Artist
 import concertrip.sopt.com.concertrip.model.Concert
 import concertrip.sopt.com.concertrip.network.response.GetSearchResponse
 import concertrip.sopt.com.concertrip.network.response.data.ArtistData
+import concertrip.sopt.com.concertrip.network.response.data.ConcertData
+import concertrip.sopt.com.concertrip.network.response.data.SimpleArtistData
+import concertrip.sopt.com.concertrip.network.response.data.SimpleConcertData
 import concertrip.sopt.com.concertrip.utillity.Constants
 import kotlinx.android.synthetic.main.fragment_explorer.*
 
@@ -141,14 +144,13 @@ class ExplorerFragment : Fragment(), OnItemClick {
             }
         }
 
-        if(idx == 1){
-            // 테마를 선택한 경우 안드 내부에 저장되어있는 것을 출력
-            // 해당 데이터가 저장된 어레이를 이용해 updateDataList 함수 호출
-            updateDataList(Artist.getDummyArray2())
-        }else if(idx == 0){
-            updateDataList(Artist.getDummyArray())
+        when (idx) {
+            1 -> // 테마를 선택한 경우 안드 내부에 저장되어있는 것을 출력
+                // 해당 데이터가 저장된 어레이를 이용해 updateDataList 함수 호출
+                updateDataList(Artist.getDummyArray2())
+            0 -> updateDataList(Artist.getDummyArray())
+            else -> connectRequestData(dataListTag[idx])
         }
-        else connectRequestData(dataListTag[idx])
     }
 
 
@@ -188,8 +190,12 @@ class ExplorerFragment : Fragment(), OnItemClick {
         // 어느 데이터를 받아올지 param로 받아옴
 
 
-       // val explorerData : ListData = GetSearchResponse(ConcertData.toConcert(), AritistData.toArtist())
-        //toConcert toArtist
+        val explorerRequestData : GetSearchResponse = GetSearchResponse(SimpleConcertData.getDummyList(), SimpleArtistData.getDummyList())
+        val list = arrayListOf<ListData>()
+        list.addAll(explorerRequestData.toArtistList())
+        list.addAll(explorerRequestData.toConcertList())
+        updateDataList(list)
+
 
 
         //TODO onFail -> Toast, OnSuccess->uodateDataList()

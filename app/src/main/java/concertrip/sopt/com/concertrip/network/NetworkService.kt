@@ -2,7 +2,6 @@ package concertrip.sopt.com.concertrip.network
 
 import com.google.gson.JsonObject
 import concertrip.sopt.com.concertrip.network.response.GetArtistResponse
-import concertrip.sopt.com.concertrip.network.response.GetConcertReponse
 import concertrip.sopt.com.concertrip.network.response.*
 import concertrip.sopt.com.concertrip.deprecated.PostIdCheckResponse
 import concertrip.sopt.com.concertrip.deprecated.PostLoginResponse
@@ -16,18 +15,20 @@ interface NetworkService {
 
     // ArtistActivity, ExplorerFragment
     @Headers("Content-Type:application/json")
-    @GET("/artist/{artistId}")
+    @GET("/api/artist/detail")
     fun getArtistData(
         //@Header("token") token : String, // 위에 Headers랑 겹치지 않나?
-        @Path("artistId") artistId : Int
+        //@Path("artistId") artistId : String
+        @Query("artistId") artistId : String
     ) : Call<GetArtistResponse>
 
     // ConcertActivity, ExplorerFragment
     @Headers("Content-Type:application/json")
-    @GET("/api/event/detail/{eventsId}")
+    @GET("/api/event/detail")
     fun getEventData(
-        @Path("eventsId") eventsId : Int
-    ) : Call<GetConcertReponse>
+        //@Path("eventsId") eventsId : String
+        @Query("eventsId") eventsId : String
+    ) : Call<GetConcertResponse>
 
     // SearchFragment
     @Headers("Content-Type:application/json")

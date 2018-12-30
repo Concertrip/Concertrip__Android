@@ -1,4 +1,4 @@
-package concertrip.sopt.com.concertrip.activities.info;
+package concertrip.sopt.com.concertrip.deprecated;
 
 import android.content.Intent;
 import android.os.Bundle;
