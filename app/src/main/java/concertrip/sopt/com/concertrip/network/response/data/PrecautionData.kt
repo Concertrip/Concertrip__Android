@@ -1,6 +1,6 @@
 package concertrip.sopt.com.concertrip.network.response.data
 
-data class ConcertPrecautionData(
+data class PrecautionData(
     var code : Int,
     var name : String,
     var img : String
