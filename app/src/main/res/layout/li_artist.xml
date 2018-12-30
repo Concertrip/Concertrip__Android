@@ -15,7 +15,7 @@
                 android:layout_height="46dp"
               />
         <RelativeLayout
-                android:layout_marginLeft="13.3dp"
+                android:layout_marginStart="13.3dp"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
             <LinearLayout
@@ -42,8 +42,9 @@
             </LinearLayout>
             <ImageView
                     android:id="@+id/btn_follow"
+                    android:src="@drawable/ic_like"
                     android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_width="73dp"
                     android:layout_height="33dp"
                     />
