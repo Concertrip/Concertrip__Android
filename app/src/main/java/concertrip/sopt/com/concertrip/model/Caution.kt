@@ -3,7 +3,11 @@ package concertrip.sopt.com.concertrip.model
 import concertrip.sopt.com.concertrip.interfaces.ListData
 import concertrip.sopt.com.concertrip.utillity.Constants
 
-data class Caution(var img : String, var code : Int, var content : String) : ListData {
+data class Caution(
+    var img : String,
+    var code : Int,
+    var content : String
+) : ListData {
 
 
 

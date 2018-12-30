@@ -10,7 +10,8 @@ data class ArtistData(
     var profileImg : String,
     var backImg : String,
     var tag : String,
-    var youtubeUrl : String
+    var youtubeUrl : String,
+    var concertList : List<Concert>
 ){
     fun toArtist() : Artist {
         val a =  Artist(_id = _id)
@@ -20,21 +21,21 @@ data class ArtistData(
         a.tag = tag
         a.youtubeUrl = youtubeUrl
 
-//        val list = ArrayList<Concert>()
-//        concertList.forEach{
-//            list.add(it.toConcert())
-//        }
-//        c.concertList = list
+        val list = ArrayList<Concert>()
+        concertList.forEach{
+            list.add(it)
+        }
+        a.concertList = list
 
         return a
     }
   
     companion object {
         fun getDummy() : ArtistData{
-            return ArtistData("",0,"","","","","")
+            return ArtistData("",0,"","","","","", listOf())
         }
 
-              fun getDummyArray(): ArrayList<ArtistData>{
+        fun getDummyArray(): ArrayList<ArtistData>{
             val list = ArrayList<ArtistData>()
             list.add(getDummy())
             list.add(getDummy())

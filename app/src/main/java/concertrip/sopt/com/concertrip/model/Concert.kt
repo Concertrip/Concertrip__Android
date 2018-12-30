@@ -1,6 +1,7 @@
 package concertrip.sopt.com.concertrip.model
 
 import concertrip.sopt.com.concertrip.interfaces.ListData
+import concertrip.sopt.com.concertrip.network.response.data.PrecautionData
 import concertrip.sopt.com.concertrip.utillity.Constants
 
 data class Concert(
@@ -16,17 +17,20 @@ data class Concert(
     var date : List<String>,
     var seatPrice : List<String>,
     var seatName : List<String>,
+    var precaution : List<PrecautionData>,
+    var eventInfoImg : String,
     var youtubeUrl : String,
     var subscribeNum : Int,
-    var artistList : List<Artist>
+    var artistList : List<Artist>,
+    var subscribe : Boolean
 
 ) : ListData {
 
     var tag  : String? = null
 
-    constructor(_id : String) : this(_id = _id, title = "", genre = "", youtubeUrl = "",backImg = "",
-        profileImg = "",cast = "", date = ArrayList(),artistList = ArrayList<Artist>(),location = "",station = "",
-        seatName = ArrayList(), seatPrice=ArrayList() ,  subscribeNum = 0)
+    constructor(_id : String) : this(_id = _id, title = "", genre = "", youtubeUrl = "",backImg = "", eventInfoImg = "",
+        profileImg = "",cast = "", date = ArrayList<String>(),artistList = ArrayList<Artist>(),location = "",station = "",
+        seatName = ArrayList<String>(), precaution=ArrayList<PrecautionData>(),seatPrice=ArrayList<String>() ,  subscribeNum = 0, subscribe = false)
 
 
     private fun makeTag() : String ="#$genre #$genre"
