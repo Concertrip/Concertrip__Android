@@ -34,7 +34,7 @@ data class ConcertData(
         c.subscribeNum = subscribeNum
         c.youtubeUrl = youtubeUrl
         c.location = location
-        c.date= date[0]
+        c.date= date
 
         val list = ArrayList<Artist>()
         memberList.forEach {

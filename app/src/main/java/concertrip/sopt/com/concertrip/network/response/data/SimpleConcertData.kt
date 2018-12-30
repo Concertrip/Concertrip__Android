@@ -13,7 +13,7 @@ data class SimpleConcertData(
         val c =  Concert(_id = _id)
         c.title=title
         c.location = location
-        c.date=date
+        c.date= arrayListOf(date)
         c.tag=tag
         return c
     }
