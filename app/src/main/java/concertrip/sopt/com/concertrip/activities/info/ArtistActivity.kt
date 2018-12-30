@@ -156,7 +156,7 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         //this.dataList.clear()
         //this.dataList.addAll(list)
 
-        val getArtistResponse : GetArtistResponse = GetArtistResponse(ArtistData("",0,"","","","",""))
+        val getArtistResponse : GetArtistResponse = GetArtistResponse(ArtistData.getDummy())
         val artist = getArtistResponse.data.toArtist()
 
         updateArtistData(artist)
