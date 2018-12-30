@@ -19,7 +19,7 @@ class Concert(var _id : String, var title : String, var profileImg : String,
 
 
     private fun makeTag() : String ="#$genre #$genre"
-
+  
     override fun getType(): Int = Constants.TYPE_CONCERT
 
     override fun getId(): String = _id
