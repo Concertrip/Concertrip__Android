@@ -16,17 +16,19 @@ interface NetworkService {
 
     // ArtistActivity, ExplorerFragment
     @Headers("Content-Type:application/json")
-    @GET("/artist/{artistId}")
+    @GET("/api/artist/detail")
     fun getArtistData(
         //@Header("token") token : String, // 위에 Headers랑 겹치지 않나?
-        @Path("artistId") artistId : Int
+        //@Path("artistId") artistId : String
+        @Query("artistId") artistId : String
     ) : Call<GetArtistResponse>
 
     // ConcertActivity, ExplorerFragment
     @Headers("Content-Type:application/json")
-    @GET("/api/event/detail/{eventsId}")
+    @GET("/api/event/detail")
     fun getEventData(
-        @Path("eventsId") eventsId : Int
+        //@Path("eventsId") eventsId : String
+        @Query("eventsId") eventsId : String
     ) : Call<GetConcertReponse>
 
     // SearchFragment
