@@ -17,6 +17,8 @@ import concertrip.sopt.com.concertrip.list.adapter.BasicListAdapter
 import concertrip.sopt.com.concertrip.list.adapter.HorizontalListAdapter
 import concertrip.sopt.com.concertrip.model.Artist
 import concertrip.sopt.com.concertrip.model.Concert
+import concertrip.sopt.com.concertrip.network.response.GetSearchResponse
+import concertrip.sopt.com.concertrip.network.response.data.ArtistData
 import concertrip.sopt.com.concertrip.utillity.Constants
 import kotlinx.android.synthetic.main.fragment_explorer.*
 
@@ -36,12 +38,15 @@ private const val ARG_PARAM2 = "param2"
  */
 class ExplorerFragment : Fragment(), OnItemClick {
 
+    var dataList = arrayListOf<ListData>()
     var dataListArtist = arrayListOf<Artist>()
     var dataListConcert = arrayListOf<Concert>()
     var dataListTag = arrayListOf<String>("모두","테마","걸그룹","보이그룹","힙합","발라드")
 
     lateinit var tagAdapter : HorizontalListAdapter
     lateinit var dataAdapter : BasicListAdapter
+
+
 
     private var listener: OnFragmentInteractionListener? = null
 
@@ -72,7 +77,31 @@ class ExplorerFragment : Fragment(), OnItemClick {
         connectRequestTag() // 태그를 받아옴 // 이 태그는 다른 태그를 선택한다고 바뀌는게 아니니까 처음에만 서버에서 받아옴
     }
 
+    private fun initialUI(){
+        // convert to SearchFragment
+        search_bar.setOnClickListener{
+            changeFragment()
+        }
+
+        activity?.let {
+
+            tagAdapter = HorizontalListAdapter(it.applicationContext, dataListTag,this)
+            recycler_view_horizontal.adapter=tagAdapter
+
+
+            dataListArtist=Artist.getDummyArray()
+            dataAdapter = BasicListAdapter(it.applicationContext, dataList,this)
+            recycler_view.adapter = dataAdapter
+
+        }
+
+    }
+
     fun connectRequestTag(){
+
+
+
+
         /*TODO
         * dataListTag 초기화
         * 따라서, 나중에 클릭리스너로 리사이클러뷰의 포지션 값을 받으면 이 포지션값을 인덱스로해 connectRequestData 호출*/
@@ -115,15 +144,52 @@ class ExplorerFragment : Fragment(), OnItemClick {
         if(idx == 1){
             // 테마를 선택한 경우 안드 내부에 저장되어있는 것을 출력
             // 해당 데이터가 저장된 어레이를 이용해 updateDataList 함수 호출
+            updateDataList(Artist.getDummyArray2())
+        }else if(idx == 0){
+            updateDataList(Artist.getDummyArray())
         }
         else connectRequestData(dataListTag[idx])
     }
 
+
+    fun updateDataList(list : ArrayList<out ListData>){
+
+        dataList.clear()
+
+        dataList.addAll(list)
+        /*dataList.forEach {
+            it as Artist
+            var data : Artist = it
+            dataListArtist.add(data)
+        }*/
+
+        //TODO 1.adapter의 dataList값을 Foreach이용 업데이트
+        //혹은 dataList통째로 바꾸기
+
+        // val position = dataAdapter.itemCount
+        //TODO 2. adapter에 Listener 추가
+
+
+        //TODO 3. notifyAdapter
+
+        //dataList.forEach { dataAdapter.dataList.add() }
+
+        dataAdapter.notifyDataSetChanged()
+    }
+
     private fun connectRequestData(tag : String){
+        //1. 이거에 해당하는 response class 더미데이터 생성
+        //2. 더미데이터에서 필요한 정보 추출
+        //
+
         // 처음 및 태그를 사용자가 클릭했을 때 호출되는 함수
 
         // 모두, 테마, 걸그룹, 보이그룹, 힙합, 발라드 등등,,,
         // 어느 데이터를 받아올지 param로 받아옴
+
+
+       // val explorerData : ListData = GetSearchResponse(ConcertData.toConcert(), AritistData.toArtist())
+        //toConcert toArtist
 
 
         //TODO onFail -> Toast, OnSuccess->uodateDataList()
@@ -143,20 +209,6 @@ class ExplorerFragment : Fragment(), OnItemClick {
 //        })
     }
 
-    fun updateDataList(dataList : ArrayList<out ListData>){
-        //TODO 1.adapter의 dataList값을 Foreach이용 업데이트
-        //혹은 dataList통째로 바꾸기
-
-        val position = dataAdapter.itemCount
-        //TODO 2. adapter에 Listener 추가
-
-
-        //TODO 3. notifyAdapter
-
-        //dataList.forEach { dataAdapter.dataList.add() }
-
-        dataAdapter.notifyDataSetChanged()
-    }
 
 
     private fun changeFragment(){
@@ -164,25 +216,7 @@ class ExplorerFragment : Fragment(), OnItemClick {
     }
 
 
-    private fun initialUI(){
-        // convert to SearchFragment
-        search_bar.setOnClickListener{
-            changeFragment()
-        }
 
-        activity?.let {
-
-            tagAdapter = HorizontalListAdapter(it.applicationContext, dataListTag,this)
-            recycler_view_horizontal.adapter=tagAdapter
-
-
-            dataListArtist=Artist.getDummyArray()
-            dataAdapter = BasicListAdapter(it.applicationContext, dataListArtist,this)
-            recycler_view.adapter = dataAdapter
-
-        }
-
-    }
 
 
 
