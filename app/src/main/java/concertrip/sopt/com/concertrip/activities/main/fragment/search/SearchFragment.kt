@@ -15,6 +15,9 @@ import concertrip.sopt.com.concertrip.interfaces.OnFragmentInteractionListener
 import concertrip.sopt.com.concertrip.list.adapter.BasicListAdapter
 import concertrip.sopt.com.concertrip.model.Artist
 import concertrip.sopt.com.concertrip.model.Concert
+import concertrip.sopt.com.concertrip.network.response.GetSearchResponse
+import concertrip.sopt.com.concertrip.network.response.data.SimpleArtistData
+import concertrip.sopt.com.concertrip.network.response.data.SimpleConcertData
 import kotlinx.android.synthetic.main.fragment_search.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -33,7 +36,6 @@ private const val ARG_PARAM2 = "param2"
  */
 class SearchFragment : Fragment() {
 
-    //var dataList = arrayListOf<ListData>()
     var dataListArtist = arrayListOf<Artist>()
     var dataListConcert = arrayListOf<Concert>()
 
@@ -44,109 +46,10 @@ class SearchFragment : Fragment() {
     private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
 
-
-
     private var searchTxt : String=""
-
 
     lateinit var concertListAdapter: BasicListAdapter
     lateinit var artistListAdapter: BasicListAdapter
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search, container, false)
-
-    }
-
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initialUI()
-        connectRequestData()
-
-
-
-    }
-
-
-    private fun initialUI(){
-
-
-        activity?.let {
-
-            concertListAdapter = BasicListAdapter(it.applicationContext,dataListConcert)
-            recycler_view_concert.adapter=concertListAdapter
-
-            artistListAdapter = BasicListAdapter(it.applicationContext,dataListArtist)
-            recycler_view_artist.adapter=artistListAdapter
-        }
-
-
-        btn_search.setOnClickListener {
-
-            connectRequestData()
-        }
-
-    }
-    private fun connectRequestData(){
-        searchTxt = edt_search.text.toString()
-        tv_result_no.text=("'$searchTxt' ${getString(R.string.txt_result_no)}")
-        btn_result_add.text=("'$searchTxt' ${getString(R.string.txt_result_add)}")
-
-
-        //임시 처리
-        dataListArtist.clear()
-        dataListConcert.clear()
-        if(searchTxt.length>10) {
-            dataListArtist.addAll(Artist.getDummyArray())
-            dataListConcert.addAll(Concert.getDummyArray())
-        }
-        else if(searchTxt.length>5) {
-            dataListConcert.addAll(Concert.getDummyArray())
-        }
-
-        updateUI()
-
-    }
-    private fun updateUI(){
-        //TODO 1. obj의 결과가 아무것도 없는지 확인
-        //없으면 visibility를 GONE, ~~~대한 결과가 없습니다. update해줘야함.
-
-        //아니면 ↓
-        if(dataListArtist.size+dataListConcert.size==0)
-            search_result.visibility=View.GONE
-        else
-            search_result.visibility=View.VISIBLE
-
-        updateListArtist()
-        updateListConcert()
-//      updateListTheme()
-    }
-
-
-    private fun updateListArtist(){
-
-        artistListAdapter.notifyDataSetChanged()
-
-    }
-
-
-    private fun updateListConcert(){
-
-        concertListAdapter.notifyDataSetChanged()
-
-    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -180,4 +83,106 @@ class SearchFragment : Fragment() {
                 }
             }
     }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            param1 = it.getString(ARG_PARAM1)
+            param2 = it.getString(ARG_PARAM2)
+        }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_search, container, false)
+
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initialUI()
+        connectRequestData()
+    }
+
+
+    private fun initialUI(){
+        activity?.let {
+            concertListAdapter = BasicListAdapter(it.applicationContext,dataListConcert)
+            recycler_view_concert.adapter=concertListAdapter
+
+            artistListAdapter = BasicListAdapter(it.applicationContext,dataListArtist)
+            recycler_view_artist.adapter=artistListAdapter
+        }
+
+
+        btn_search.setOnClickListener {
+            connectRequestData()
+        }
+
+    }
+
+    private fun updateUI(){
+        //TODO 1. obj의 결과가 아무것도 없는지 확인
+        //없으면 visibility를 GONE, ~~~대한 결과가 없습니다. update해줘야함.
+
+        //아니면 ↓
+        if(dataListArtist.size+dataListConcert.size==0)
+            search_result.visibility=View.GONE
+        else
+            search_result.visibility=View.VISIBLE
+    }
+
+
+    private fun updateListArtist(list : ArrayList<Artist>){
+        dataListArtist.clear()
+        dataListArtist.addAll(list)
+        artistListAdapter.notifyDataSetChanged()
+    }
+
+
+    private fun updateListConcert(list : ArrayList<Concert>){
+        dataListConcert.clear()
+        dataListConcert.addAll(list)
+        concertListAdapter.notifyDataSetChanged()
+    }
+
+
+    private fun connectRequestData(){
+        searchTxt = edt_search.text.toString()
+        tv_result_no.text=("'$searchTxt' ${getString(R.string.txt_result_no)}")
+        btn_result_add.text=("'$searchTxt' ${getString(R.string.txt_result_add)}")
+
+        /*TODO API 들어오면 이거 다시 정확하게 하고 주석 풀기*/
+        val searchResponseData : GetSearchResponse
+                = GetSearchResponse(SimpleConcertData.getDummyList(), SimpleArtistData.getDummyList())
+        val concertList = searchResponseData.toConcertList()
+        val artistList = searchResponseData.toArtistList()
+
+        //임시 처리
+        dataListConcert.clear()
+        dataListConcert.addAll(concertList)
+
+        dataListArtist.clear()
+        dataListArtist.addAll(artistList)
+
+//        if(searchTxt.length>10) {
+//            dataListArtist.addAll(Artist.getDummyArray())
+//            dataListConcert.addAll(Concert.getDummyArray())
+//        }
+//        else if(searchTxt.length>5) {
+//            dataListConcert.addAll(Concert.getDummyArray())
+//        }
+
+        updateListConcert(ArrayList(concertList))
+        updateListArtist(ArrayList(artistList))
+        //updateListTheme()
+
+        updateUI()
+
+    }
+
 }
