@@ -2,13 +2,10 @@ package concertrip.sopt.com.concertrip.activities.info
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.content.ContextCompat.startActivity
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
 import android.webkit.URLUtil
-import android.widget.ScrollView
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -17,13 +14,13 @@ import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayerView
 import concertrip.sopt.com.concertrip.R
-import concertrip.sopt.com.concertrip.R.id.recycler_view
 import concertrip.sopt.com.concertrip.dialog.CustomDialog
 import concertrip.sopt.com.concertrip.interfaces.OnItemClick
-import concertrip.sopt.com.concertrip.list.adapter.ArtistThumbListAdapter
 import concertrip.sopt.com.concertrip.list.adapter.BasicListAdapter
 import concertrip.sopt.com.concertrip.model.Artist
 import concertrip.sopt.com.concertrip.model.Concert
+import concertrip.sopt.com.concertrip.network.response.GetArtistResponse
+import concertrip.sopt.com.concertrip.network.response.data.ArtistData
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.INTENT_TAG_ID
 import concertrip.sopt.com.concertrip.utillity.Secret
 import kotlinx.android.synthetic.main.activity_artist.*
@@ -33,11 +30,15 @@ import kotlinx.android.synthetic.main.content_header.*
 import org.jetbrains.anko.startActivity
 
 class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener, OnItemClick {
+
+    var dataListMember = arrayListOf<Artist>()
+    lateinit var memberListAdapter : BasicListAdapter
+
     override fun onItemClick(root: RecyclerView.Adapter<out RecyclerView.ViewHolder>, idx: Int) {
+        Toast.makeText(this, "내 공연에 추가되었습니다!", Toast.LENGTH_LONG).show()
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         // 다가오는 공연을 담은 리사이클러뷰를 클릭했을때
         /*TODO 하트 or 종 convert + Toast 바꾸기*/
-        Toast.makeText(this, "내 공연에 추가되었습니다!", Toast.LENGTH_LONG).show()
     }
 
     private val RECOVERY_DIALOG_REQUEST = 1
@@ -73,7 +74,7 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         }
     }
 
-    var artist: Artist = Artist(0)
+    lateinit  var artist: Artist
     var dataList = arrayListOf<Concert>() // 뭔가 서버에서 artist에 넣어서 한번에 전달해 줄듯
 
     private lateinit var mAdapter : BasicListAdapter
@@ -84,10 +85,6 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         dialog.show()
     }
 
-    //TODO OnItemClick Interface로 구현
-//    var onListItemClickListener: View.OnClickListener = View.OnClickListener {
-//        startActivity<ConcertActivity>()
-//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,14 +93,21 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
 
         artistId = getIntent().getIntExtra(INTENT_TAG_ID, 0)
 
-//        val mAdapter = ConcertListAdapter(this, Concert.getDummyArray())
-        // connectRequestData
-        mAdapter = BasicListAdapter(this, Concert.getDummyArray())
-        recycler_view.adapter = mAdapter
+        initialUI()
 
 
         connectRequestData(artistId!!)
 
+
+    }
+    fun initialUI(){
+
+        mAdapter = BasicListAdapter(this, Concert.getDummyArray())
+        recycler_view.adapter = mAdapter
+
+        dataListMember = Artist.getDummyArray()
+        memberListAdapter = BasicListAdapter(this, dataListMember, BasicListAdapter.MODE_THUMB)
+        recycler_view_member.adapter = memberListAdapter
 
         getYouTubePlayerProvider().initialize(Secret.YOUTUBE_API_KEY, this);
         scroll_view.smoothScrollTo(0, 0)
@@ -113,18 +117,23 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         }
     }
 
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//        initialUI()
-//        connectRequestData(STATE_ARTIST)
-//    }
 
-    fun updateArtistData(){
+
+
+    private fun updateUI(){
+            if(dataListMember.size == 0)
+                li_member.visibility = View.GONE
+            else
+                li_member.visibility = View.VISIBLE
+    }
+
+
+
+    private fun updateArtistData(artist : Artist){
         // dataList로 mAdapter 데이터 바꿔버리기~
         // mAdapter notify
         mAdapter.notifyDataSetChanged()
 
-        // &
 
         // Activity도 데이터 다시 세팅!
 
@@ -147,8 +156,11 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         //this.dataList.clear()
         //this.dataList.addAll(list)
 
-        // updateArtistData 호출
-        updateArtistData()
+        val getArtistResponse : GetArtistResponse = GetArtistResponse(ArtistData("",0,"","","","",""))
+        val artist = getArtistResponse.data.toArtist()
+
+        updateArtistData(artist)
+        updateUI()
     }
 
     override fun onResume() {

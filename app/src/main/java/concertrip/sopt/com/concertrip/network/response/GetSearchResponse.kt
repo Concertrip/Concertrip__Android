@@ -1,6 +1,9 @@
 package concertrip.sopt.com.concertrip.network.response
 
 import com.google.gson.annotations.SerializedName
+import concertrip.sopt.com.concertrip.network.response.data.SimpleArtistData
+import concertrip.sopt.com.concertrip.network.response.data.SimpleConcertData
+import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
 
 
 data class GetSearchResponse (
@@ -9,16 +12,5 @@ data class GetSearchResponse (
     var artistDataList : List<SimpleArtistData>
 ): BaseModel()
 
-data class SimpleConcertData(
-    var _id : String,
-    var title : String,
-    var location : String,
-    var date : String,
-    var tag : String
-)
 
-data class SimpleArtistData(
-    var _id : String,
-    var name : String,
-    var tag : String
-)
+

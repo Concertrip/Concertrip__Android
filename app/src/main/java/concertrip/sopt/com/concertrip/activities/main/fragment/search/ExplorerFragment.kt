@@ -1,21 +1,15 @@
 package concertrip.sopt.com.concertrip.activities.main.fragment.search
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Message
 import android.support.v4.app.Fragment
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
 import android.widget.Toast
 
 import concertrip.sopt.com.concertrip.R
-import concertrip.sopt.com.concertrip.activities.info.ArtistActivity
-import concertrip.sopt.com.concertrip.activities.info.ConcertActivity
 import concertrip.sopt.com.concertrip.interfaces.ListData
 import concertrip.sopt.com.concertrip.interfaces.OnFragmentInteractionListener
 import concertrip.sopt.com.concertrip.interfaces.OnItemClick
@@ -24,11 +18,7 @@ import concertrip.sopt.com.concertrip.list.adapter.HorizontalListAdapter
 import concertrip.sopt.com.concertrip.model.Artist
 import concertrip.sopt.com.concertrip.model.Concert
 import concertrip.sopt.com.concertrip.utillity.Constants
-import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_ARTIST
 import kotlinx.android.synthetic.main.fragment_explorer.*
-import kotlinx.android.synthetic.main.li_tag.*
-import org.jetbrains.anko.support.v4.toast
-import java.lang.ref.WeakReference
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -110,12 +100,11 @@ class ExplorerFragment : Fragment(), OnItemClick {
     }
 
     override fun onItemClick(root: RecyclerView.Adapter<out RecyclerView.ViewHolder>,idx: Int) {
-        tagAdapter.setSeleted(idx)
+        tagAdapter.setSelect(idx)
 
         if(root is HorizontalListAdapter)
-            toast("!!!!!!! $idx")
+
         else{
-            toast("?????????? $idx") // 태그 밑에 있는 아티스트 혹은 공연을 클릭한 경우
             // getBtn()
             /*TODO 하트 or 종 convert + 토스*/
             activity?.let {
@@ -130,7 +119,7 @@ class ExplorerFragment : Fragment(), OnItemClick {
         else connectRequestData(dataListTag[idx])
     }
 
-    fun connectRequestData(tag : String){
+    private fun connectRequestData(tag : String){
         // 처음 및 태그를 사용자가 클릭했을 때 호출되는 함수
 
         // 모두, 테마, 걸그룹, 보이그룹, 힙합, 발라드 등등,,,
@@ -170,7 +159,7 @@ class ExplorerFragment : Fragment(), OnItemClick {
     }
 
 
-    fun changeFragment(){
+    private fun changeFragment(){
         listener?.changeFragment(Constants.FRAGMENT_SEARCH)
     }
 
