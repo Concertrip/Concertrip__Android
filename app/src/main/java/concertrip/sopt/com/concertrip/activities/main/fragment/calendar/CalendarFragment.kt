@@ -129,9 +129,11 @@ class CalendarFragment : Fragment(), OnItemClick {
 
     private fun updateUI(){
         if(dataListConcert.size == 0)
-            recycler_view_calendar_detail.visibility = View.GONE
+        {recycler_view_calendar_detail.visibility = View.GONE
+            rl_select_date_view.visibility = View.VISIBLE}
         else
-            recycler_view_calendar_detail.visibility = View.VISIBLE
+        { recycler_view_calendar_detail.visibility = View.VISIBLE
+            rl_select_date_view.visibility = View.GONE}
     }
 
     private var mCal: Calendar by Delegates.notNull()

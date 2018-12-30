@@ -30,11 +30,11 @@ data class Caution(
 
         @JvmStatic fun getDummyArray() : ArrayList<Caution>{
             val list = ArrayList<Caution>()
-            list.add(Caution("만 7세 이상", 1, "https://img.huffingtonpost.com/asset/5ba482b82400003100546bc3.jpeg"))
-            list.add(Caution("음식물 반입 금지", 2, "https://img.huffingtonpost.com/asset/5ba482b82400003100546bc3.jpeg"))
-            list.add(Caution("재입장 불가", 3, "https://img.huffingtonpost.com/asset/5ba482b82400003100546bc3.jpeg"))
+            list.add(Caution("https://img.huffingtonpost.com/asset/5ba482b82400003100546bc3.jpeg", 1, "만 7세 이상"))
+            list.add(Caution("https://img.huffingtonpost.com/asset/5ba482b82400003100546bc3.jpeg", 2, "음식물 반입 금지"))
+            list.add(Caution("https://img.huffingtonpost.com/asset/5ba482b82400003100546bc3.jpeg", 3, "재입장 불가"))
             return list
-
+        //만 7세 이상 음식물 반입 금지재입장 불가
         }
 
     }}
