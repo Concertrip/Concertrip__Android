@@ -60,7 +60,7 @@ data class Concert(
             return list
 
         }
- master
+
         fun getDummy(_id : String)= Concert(_id = _id, title = "힙합 페스티발", genre = "힙합", youtubeUrl = "https://www.youtube.com/watch?v=Vl1kO9hObpA",backImg = "https://img.huffingtonpost.com/asset/5ba482b82400003100546bc3.jpeg",
 eventInfoImg = "",
 
