@@ -159,7 +159,7 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
             0,"","",ArrayList<MemberData>(),ArrayList<String>(),ArrayList<String>(),ArrayList<String>(),ArrayList<PrecautionData>(),""
             ,false)).data
         val c= concertData.toConcert()
-        updateArtistList(c.artistList)
+        updateArtistList(ArrayList(c.artistList))
 
         // updateArtistData 호출
         updateConcertData(Concert.getDummy("temp"))
