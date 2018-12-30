@@ -123,6 +123,8 @@ class LikedFragment : Fragment() ,View.OnClickListener{
 
     private fun connectRequestData(state : Int){
 
+
+        
         when(state){
             STATE_ARTIST->{
                 updateDataList(Artist.getDummyArray())
