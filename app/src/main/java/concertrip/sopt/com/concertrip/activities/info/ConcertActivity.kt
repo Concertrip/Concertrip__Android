@@ -124,7 +124,7 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
         adapter.notifyDataSetChanged()
     }
 
-    private fun updateConcertData(concert : Concert){
+    private fun updateConcertData(){
 
         // TODO 구독하기(종) 버튼 설정
         if(URLUtil.isValidUrl(concert.backImg))
@@ -149,12 +149,12 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
 
     private fun connectRequestData(id : Int){
         val concertResponseData : GetConcertResponse = GetConcertResponse(ConcertData.getDummy())
-        val concert= concertResponseData.data.toConcert()
+        concert= concertResponseData.data.toConcert()
 
         Log.d("youtube test", "1111111111")
 
         updateArtistList(ArrayList(concert.artistList))
-        updateConcertData(concert)
+        updateConcertData()
         updateCautionData(ArrayList(concert.precaution))
     }
 
