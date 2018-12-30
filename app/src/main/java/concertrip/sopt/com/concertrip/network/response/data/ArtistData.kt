@@ -12,7 +12,6 @@ data class ArtistData(
     var tag : String,
     var youtubeUrl : String
 ){
-    //fun toArtist(): Artist = Artist(_id = _id,profileImg = profileImg,backImg = backImg,name = name, genre = "" ,youtubeUrl = youtubeUrl,subscribeNum = subscribeNum)
     fun toArtist() : Artist {
         val a =  Artist(_id = _id)
         a.name = name
@@ -28,5 +27,21 @@ data class ArtistData(
 //        c.concertList = list
 
         return a
+    }
+  
+    companion object {
+        fun getDummy() : ArtistData{
+            return ArtistData("",0,"","","","","")
+        }
+
+              fun getDummyArray(): ArrayList<ArtistData>{
+            val list = ArrayList<ArtistData>()
+            list.add(getDummy())
+            list.add(getDummy())
+            list.add(getDummy())
+            list.add(getDummy())
+            list.add(getDummy())
+            return list
+        }
     }
 }

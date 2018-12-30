@@ -126,6 +126,8 @@ class ExplorerFragment : Fragment(), OnItemClick {
         // 어느 데이터를 받아올지 param로 받아옴
 
 
+
+
         //TODO onFail -> Toast, OnSuccess->uodateDataList()
         //        val loungePostingResponse: Call<LoungePostingResponse> = networkService!!.postLoungePosting(SharedPreferencesService.instance!!.getPrefStringData("token", "")!!, content, isPublic, body)
 //        loungePostingResponse.enqueue(object : Callback<LoungePostingResponse> {

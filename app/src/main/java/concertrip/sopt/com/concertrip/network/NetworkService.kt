@@ -2,7 +2,6 @@ package concertrip.sopt.com.concertrip.network
 
 import com.google.gson.JsonObject
 import concertrip.sopt.com.concertrip.network.response.GetArtistResponse
-import concertrip.sopt.com.concertrip.network.response.GetConcertReponse
 import concertrip.sopt.com.concertrip.network.response.*
 import concertrip.sopt.com.concertrip.deprecated.PostIdCheckResponse
 import concertrip.sopt.com.concertrip.deprecated.PostLoginResponse
@@ -27,7 +26,7 @@ interface NetworkService {
     @GET("/api/event/detail/{eventsId}")
     fun getEventData(
         @Path("eventsId") eventsId : Int
-    ) : Call<GetConcertReponse>
+    ) : Call<GetConcertResponse>
 
     // SearchFragment
     @Headers("Content-Type:application/json")
