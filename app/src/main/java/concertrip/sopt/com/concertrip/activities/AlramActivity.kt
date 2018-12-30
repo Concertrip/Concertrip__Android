@@ -42,13 +42,13 @@ class AlramActivity : AppCompatActivity(){
         recycler_view.adapter=adapter
     }
 
-    private fun connectRequestData() {
-        updateList(Alarm.getDummyArray())
-    }
-
     fun updateList(list : ArrayList<out ListData>) {
         dataList.clear()
         dataList.addAll(list)
         adapter.notifyDataSetChanged()
+    }
+
+    private fun connectRequestData() {
+        updateList(Alarm.getDummyArray())
     }
 }
