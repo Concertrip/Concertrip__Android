@@ -4,11 +4,13 @@ import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 
@@ -24,6 +26,8 @@ import concertrip.sopt.com.concertrip.network.ApplicationController
 import concertrip.sopt.com.concertrip.network.NetworkService
 import concertrip.sopt.com.concertrip.deprecated.PostIdCheckResponse
 import concertrip.sopt.com.concertrip.deprecated.PostLoginResponse
+import concertrip.sopt.com.concertrip.interfaces.OnItemClick
+import concertrip.sopt.com.concertrip.list.adapter.HorizontalListAdapter
 import concertrip.sopt.com.concertrip.network.response.GetArtistSubscribeResponse
 import concertrip.sopt.com.concertrip.network.response.GetConcertSubscribeResponse
 import concertrip.sopt.com.concertrip.network.response.GetGenreSubscribeResponse
@@ -52,8 +56,7 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  *
  */
-class LikedFragment : Fragment() ,View.OnClickListener{
-
+class LikedFragment : Fragment() ,View.OnClickListener, OnItemClick{
     var LOG_TAG = this::class.java.simpleName
 
     var dataList = ArrayList<ListData>()
@@ -62,7 +65,7 @@ class LikedFragment : Fragment() ,View.OnClickListener{
 
     lateinit  var adapter :BasicListAdapter
 
-    val networkService: NetworkService by lazy {
+    private val networkService: NetworkService by lazy {
         ApplicationController.instance.networkService
     }
 
@@ -76,6 +79,62 @@ class LikedFragment : Fragment() ,View.OnClickListener{
     private var param2: String? = null
 
     private var listener: OnFragmentInteractionListener? = null
+
+    private fun changeFragment(to : Int, idx : Int){
+        val bundle = Bundle()
+        bundle.putInt(Constants.BUNDLE_KEY_INDEX,idx)
+
+        //TODO
+        listener?.changeFragment(to,bundle)
+    }
+
+
+    override fun onItemClick(root: RecyclerView.Adapter<out RecyclerView.ViewHolder>, idx: Int) {
+
+
+        when(curTextView?.id ?: R.id.btn_liked_artist){
+            R.id.btn_liked_artist->{
+                activity?.let {
+                    Toast.makeText(it.applicationContext, "내 아티스트에 추가되었습니다!", Toast.LENGTH_LONG).show()
+                }
+
+            }
+            R.id.btn_liked_concert->{
+                activity?.let {
+                    Toast.makeText(it.applicationContext, "내 공연에 추가되었습니다!", Toast.LENGTH_LONG).show()
+                }
+
+            }
+            R.id.btn_liked_theme->{
+
+            }
+        }
+
+    }
+
+
+
+    override fun onClick(view: View) {
+        when(view.id){
+            R.id.btn_liked_concert->{
+                updateTextColor(view as TextView)
+                connectRequestData(STATE_CONCERT)
+            }
+            R.id.btn_liked_artist->{
+                updateTextColor(view as TextView)
+                Log.d(LOG_TAG,"artist click")
+                connectRequestData(STATE_ARTIST)
+            }
+            R.id.btn_liked_theme->{
+                updateTextColor(view as TextView)
+                Log.d(LOG_TAG,"theme click")
+                connectRequestData(STATE_THEME)
+            }
+        }
+
+    }
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -99,16 +158,7 @@ class LikedFragment : Fragment() ,View.OnClickListener{
         connectRequestData(STATE_ARTIST)
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
 
-
-    private fun changeFragment(to : Int, idx : Int){
-        val bundle = Bundle()
-        bundle.putInt(Constants.BUNDLE_KEY_INDEX,idx)
-
-        //TODO
-        listener?.changeFragment(to,bundle)
-    }
 
 
     private fun initialUI(){
@@ -117,7 +167,7 @@ class LikedFragment : Fragment() ,View.OnClickListener{
         btn_liked_theme.setOnClickListener(this)
 
         activity?.let {
-            adapter= BasicListAdapter(it.applicationContext, dataList)
+            adapter= BasicListAdapter(it.applicationContext, dataList,this)
 
             recycler_view.adapter=adapter
         }
@@ -125,16 +175,40 @@ class LikedFragment : Fragment() ,View.OnClickListener{
         updateTextColor(btn_liked_artist)
     }
 
+
+    private var curTextView : TextView?=null
+    private fun updateTextColor(view : TextView){
+        curTextView?.setTextColor(Color.BLACK)
+        curTextView=view
+        view.setTextColor(Color.BLUE)
+    }
+
+
+
+    private fun updateDataList(list : ArrayList<out ListData>){
+        this.dataList.clear()
+        this.dataList.addAll(list)
+        adapter.notifyDataSetChanged()
+
+    }
+
+
+
+
+
     private fun connectRequestData(state : Int){
         when(state){
             STATE_ARTIST->{
                 connectArtistSubscribe()
+                updateTextColor(btn_liked_artist)
             }
             STATE_CONCERT->{
                 connectConcertSubscribe()
+                updateTextColor(btn_liked_concert)
             }
             STATE_THEME->{
                 connectGenreSubscribe()
+                updateTextColor(btn_liked_theme)
             }
             else->{
             }
@@ -160,62 +234,6 @@ class LikedFragment : Fragment() ,View.OnClickListener{
         updateDataList(list)
 
     }
-
-    private fun updateDataList(list : ArrayList<out ListData>){
-
-
-
-        this.dataList.clear()
-        this.dataList.addAll(list)
-        adapter.notifyDataSetChanged()
-
-    }
-
-
-    fun buttonClick(obj : ListData){
-        //TODO
-        when(obj){
-            is Artist->{
-                startActivity<ArtistActivity>()
-            }
-            is Concert->{
-                startActivity<ConcertActivity>()
-
-            }
-        }
-
-
-    }
-
-
-
-    private var curTextView : TextView?=null
-    fun updateTextColor(view : TextView){
-        curTextView?.setTextColor(Color.BLACK)
-        curTextView=view
-        view.setTextColor(Color.BLUE)
-    }
-
-    override fun onClick(view: View) {
-        when(view.id){
-            R.id.btn_liked_concert->{
-                updateTextColor(view as TextView)
-                connectRequestData(STATE_CONCERT)
-            }
-            R.id.btn_liked_artist->{
-                updateTextColor(view as TextView)
-                Log.d(LOG_TAG,"artist click")
-                connectRequestData(STATE_ARTIST)
-            }
-            R.id.btn_liked_theme->{
-                updateTextColor(view as TextView)
-                Log.d(LOG_TAG,"theme click")
-                connectRequestData(STATE_THEME)
-            }
-        }
-
-    }
-
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -253,57 +271,5 @@ class LikedFragment : Fragment() ,View.OnClickListener{
             }
     }
 
-    fun testRetrofit1(){
-        val jsonObject = JSONObject()
-        jsonObject.put("id","heesung6701@naver.com")
-        val gsonObject = JsonParser().parse(jsonObject.toString()) as JsonObject
 
-        Log.d(Constants.LOG_NETWORK, "postIdCheck :$gsonObject")
-        val postSignUpResponse: Call<PostIdCheckResponse> =
-            networkService.postIdCheck(gsonObject)
-        postSignUpResponse.enqueue(object : Callback<PostIdCheckResponse> {
-
-            override fun onFailure(call: Call<PostIdCheckResponse>, t: Throwable) {
-                Log.e("sign up fail", t.toString())
-            }
-            //통신 성공 시 수행되는 메소드
-            override fun onResponse(call: Call<PostIdCheckResponse>, response: Response<PostIdCheckResponse>) {
-                Log.d(Constants.LOG_NETWORK, response.errorBody()?.string()?:response.message())
-                if (response.isSuccessful) {
-                    Log.d(Constants.LOG_NETWORK, "postLogin :${response.body()}")
-                    toast(response.body()!!.message)
-                }else{
-                    Log.d(Constants.LOG_NETWORK, "postLogin : fail")
-                }
-            }
-        })
-    }
-    fun testREtrofit2(){
-        val jsonObject = JSONObject()
-        jsonObject.put("id","teamkerbell@teamkerbell.tk")
-        jsonObject.put("pwd","12341234")
-        jsonObject.put("client_token","")
-        val gsonObject = JsonParser().parse(jsonObject.toString()) as JsonObject
-
-        Log.d(Constants.LOG_NETWORK, "postLogin :$gsonObject")
-        val postLoginResponse: Call<PostLoginResponse> =
-            networkService.postLogin(gsonObject)
-        postLoginResponse.enqueue(object : Callback<PostLoginResponse> {
-
-            override fun onFailure(call: Call<PostLoginResponse>, t: Throwable) {
-                Log.e("sign up fail", t.toString())
-            }
-            //통신 성공 시 수행되는 메소드
-            override fun onResponse(call: Call<PostLoginResponse>, response: Response<PostLoginResponse>) {
-                Log.d(Constants.LOG_NETWORK, response.toString())
-                if (response.isSuccessful) {
-                    Log.d(Constants.LOG_NETWORK, "postLogin :${response.body()}")
-                    toast(response.body()!!.toString())
-                }
-                else{
-                    Log.d(Constants.LOG_NETWORK, "postLogin : fail")
-                }
-            }
-        })
-    }
 }
