@@ -67,7 +67,9 @@
             android:layout_height="wrap_content"
             android:visibility="gone"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
+
     <RelativeLayout
+            android:id="@+id/rl_select_date_view"
             android:background="#e3e3e3"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
