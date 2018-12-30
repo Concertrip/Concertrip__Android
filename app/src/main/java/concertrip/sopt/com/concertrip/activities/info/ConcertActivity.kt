@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 
 import android.view.View
 import android.webkit.URLUtil
@@ -45,8 +46,9 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
     private val RECOVERY_DIALOG_REQUEST = 1
 
     override fun onInitializationSuccess(provider: YouTubePlayer.Provider?, youTubePlayer: YouTubePlayer?, b: Boolean) {
-        if (!b) {
-            youTubePlayer?.cueVideo("ZHoLaLlL5lA")  //http://www.youtube.com/watch?v=IA1hox-v0jQ
+        if (!b && ::concert.isInitialized) {
+            Log.d("youtube test", "33333333")
+            youTubePlayer?.cueVideo(concert.youtubeUrl)  //http://www.youtube.com/watch?v=IA1hox-v0jQ
         }
     }
 
@@ -68,10 +70,16 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
         return findViewById<View>(R.id.youtude) as YouTubePlayerView
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
-        if (requestCode == RECOVERY_DIALOG_REQUEST) {
-            getYouTubePlayerProvider().initialize(Secret.YOUTUBE_API_KEY, this)
-        }
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+//        if (requestCode == RECOVERY_DIALOG_REQUEST) {
+//            getYouTubePlayerProvider().initialize(Secret.YOUTUBE_API_KEY, this)
+//        }
+//    }
+
+    override fun onResume() {
+        super.onResume()
+
+        connectRequestData(concertId)
     }
 
     private var concertId: Int=0
@@ -99,13 +107,10 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
         recycler_view.adapter = adapter
 
         /*TODO have to fix second param*/
-        dataListCaution = Caution.getDummyArray()
-        cautionAdapter = BasicListAdapter(this, dataListCaution)
+        cautionAdapter = BasicListAdapter(this, Caution.getDummyArray())
         recycler_view_caution.layoutManager = GridLayoutManager(applicationContext,3)
         recycler_view_caution.adapter = cautionAdapter
 
-
-        getYouTubePlayerProvider().initialize(Secret.YOUTUBE_API_KEY,this);
         scroll_view.smoothScrollTo(0,0)
 
         btn_follow.setOnClickListener {
@@ -119,30 +124,38 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
         adapter.notifyDataSetChanged()
     }
 
-    private fun updateConcertData( concert : Concert){
+    private fun updateConcertData(concert : Concert){
 
         // TODO 구독하기(종) 버튼 설정
         if(URLUtil.isValidUrl(concert.backImg))
             Glide.with(this).load(concert.backImg).into(iv_back)
         if(URLUtil.isValidUrl(concert.profileImg))
             Glide.with(this).load(concert.profileImg).apply(RequestOptions.circleCropTransform()).into(iv_profile)
+        if(URLUtil.isValidUrl(concert.eventInfoImg))
+            Glide.with(this).load(concert.eventInfoImg).into(iv_concert_info)
 
         tv_title.text = concert.title
         tv_tag.text  = concert.subscribeNum.toString()
+
+        Log.d("youtube test", "2222222")
+        getYouTubePlayerProvider().initialize(Secret.YOUTUBE_API_KEY, this)
+    }
+
+    private fun updateCautionData(list : ArrayList<Caution>){
+        dataListCaution.clear()
+        dataListCaution.addAll(list)
+        cautionAdapter.notifyDataSetChanged()
     }
 
     private fun connectRequestData(id : Int){
         val concertResponseData : GetConcertResponse = GetConcertResponse(ConcertData.getDummy())
         val concert= concertResponseData.data.toConcert()
 
+        Log.d("youtube test", "1111111111")
+
         updateArtistList(ArrayList(concert.artistList))
         updateConcertData(concert)
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        connectRequestData(concertId)
+        updateCautionData(ArrayList(concert.precaution))
     }
 
      private fun showDialog(){
