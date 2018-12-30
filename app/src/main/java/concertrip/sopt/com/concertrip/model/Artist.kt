@@ -10,15 +10,15 @@ data class Artist(
     var name : String,
     var genre : String?,
     var youtubeUrl : String?,
-    var subscribeNum : Int
-//, var concertList : List<Concert>
+    var subscribeNum : Int,
+    var concertList : List<Concert>
 ) : ListData{
 
 
     var tag : String?=null
 
-    constructor(_id : String, name  :String, profileImg : String) : this(_id,profileImg,null,name,null,null,0)
-    constructor(_id: String): this(_id,"", "", "", "", "", 0)
+    constructor(_id : String, name  :String, profileImg : String) : this(_id,profileImg,null,name,null,null,0, listOf())
+    constructor(_id: String): this(_id,"", "", "", "", "", 0, listOf())
 
 
     private fun makeTag() : String="#$genre #$genre"

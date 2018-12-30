@@ -34,13 +34,21 @@ data class ConcertData(
         c.subscribeNum = subscribeNum
         c.youtubeUrl = youtubeUrl
         c.location = location
-        c.date= date
 
-        val list = ArrayList<Artist>()
+        val artistList = ArrayList<Artist>()
         memberList.forEach {
-            list.add(it.toArtist())
+            artistList.add(it.toArtist())
         }
-        c.artistList=list
+        c.artistList=artistList
+
+        c.date = date.toMutableList()
+        c.seatName = seatName.toMutableList()
+        c.seatPrice = seatPrice.toMutableList()
+
+        c.precaution=precautionList.toMutableList()
+
+        c.eventInfoImg = eventInfoImg
+        c.subscribe = subscribe
 
         return c
     }
