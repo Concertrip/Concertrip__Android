@@ -44,4 +44,18 @@ data class ConcertData(
 
         return c
     }
+
+    companion object {
+        fun getDummy() : ConcertData=ConcertData("","","","",
+            0,"","",ArrayList<MemberData>(),ArrayList<String>(),ArrayList<String>(),ArrayList<String>(),ArrayList<PrecautionData>(),""
+            ,false)
+        fun getDummyArray() : List<ConcertData>{
+            val list = ArrayList<ConcertData>()
+            list.add(getDummy())
+            list.add(getDummy())
+            list.add(getDummy())
+            list.add(getDummy())
+            return list
+        }
+    }
 }

@@ -11,6 +11,7 @@ data class Artist(
     var genre : String?,
     var youtubeUrl : String?,
     var subscribeNum : Int
+//, var concertList : List<Concert>
 ) : ListData{
 
 

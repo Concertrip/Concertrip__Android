@@ -188,8 +188,10 @@ class ExplorerFragment : Fragment(), OnItemClick {
         // 어느 데이터를 받아올지 param로 받아옴
 
 
+
        // val explorerData : ListData = GetSearchResponse(ConcertData.toConcert(), AritistData.toArtist())
         //toConcert toArtist
+
 
 
         //TODO onFail -> Toast, OnSuccess->uodateDataList()

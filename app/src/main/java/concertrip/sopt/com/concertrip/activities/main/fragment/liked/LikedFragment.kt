@@ -24,6 +24,11 @@ import concertrip.sopt.com.concertrip.network.ApplicationController
 import concertrip.sopt.com.concertrip.network.NetworkService
 import concertrip.sopt.com.concertrip.deprecated.PostIdCheckResponse
 import concertrip.sopt.com.concertrip.deprecated.PostLoginResponse
+import concertrip.sopt.com.concertrip.network.response.GetArtistSubscribeResponse
+import concertrip.sopt.com.concertrip.network.response.GetConcertSubscribeResponse
+import concertrip.sopt.com.concertrip.network.response.GetGenreSubscribeResponse
+import concertrip.sopt.com.concertrip.network.response.data.ArtistData
+import concertrip.sopt.com.concertrip.network.response.data.ConcertData
 import concertrip.sopt.com.concertrip.utillity.Constants
 import kotlinx.android.synthetic.main.fragment_liked.*
 import org.jetbrains.anko.support.v4.startActivity
@@ -117,31 +122,44 @@ class LikedFragment : Fragment() ,View.OnClickListener{
             recycler_view.adapter=adapter
         }
 
-
         updateTextColor(btn_liked_artist)
     }
 
     private fun connectRequestData(state : Int){
-
         when(state){
             STATE_ARTIST->{
-                updateDataList(Artist.getDummyArray())
+                connectArtistSubscribe()
             }
             STATE_CONCERT->{
-                updateDataList(Concert.getDummyArray())
+                connectConcertSubscribe()
             }
             STATE_THEME->{
-                val list = ArrayList<ListData>()
-                list.addAll(Concert.getDummyArray())
-                list.addAll(Artist.getDummyArray())
-                updateDataList(list)
+                connectGenreSubscribe()
             }
             else->{
             }
         }
         //TODO onFail -> Toast, OnSuccess->udateDataList()
     }
+    private fun connectArtistSubscribe(){
+        val artistSubscribeResponse = GetArtistSubscribeResponse(ArtistData.getDummyArray())
+        updateDataList(artistSubscribeResponse.getArtistList())
+    }
 
+    private fun connectConcertSubscribe(){
+        val concertSubscribeResponse = GetConcertSubscribeResponse(ConcertData.getDummyArray())
+        updateDataList(concertSubscribeResponse.getConcertList())
+    }
+
+    private fun connectGenreSubscribe(){
+
+        val genreSubscribeResponse = GetGenreSubscribeResponse(ArtistData.getDummyArray())
+
+        val list = ArrayList<ListData>()
+        list.addAll(genreSubscribeResponse.getArtistList())
+        updateDataList(list)
+
+    }
 
     private fun updateDataList(list : ArrayList<out ListData>){
 
