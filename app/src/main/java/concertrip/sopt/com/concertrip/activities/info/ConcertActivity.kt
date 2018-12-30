@@ -155,6 +155,7 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
         //this.dataList.addAll(list)
 
 
+
         val concertData : ConcertData = GetConcertReponse(ConcertData("","","","",
             0,"","",ArrayList<MemberData>(),ArrayList<String>(),ArrayList<String>(),ArrayList<String>(),ArrayList<PrecautionData>(),""
             ,false)).data

@@ -34,7 +34,7 @@
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-                android:name=".activities.info.TempConcertActivity"
+                android:name=".deprecated.TempConcertActivity"
                 android:label="@string/title_activity_artist"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
