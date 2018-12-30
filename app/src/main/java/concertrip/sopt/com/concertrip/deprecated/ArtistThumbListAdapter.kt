@@ -1,4 +1,4 @@
-package concertrip.sopt.com.concertrip.list.adapter
+package concertrip.sopt.com.concertrip.deprecated
 
 import android.content.Context
 import android.graphics.drawable.Drawable

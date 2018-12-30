@@ -29,7 +29,7 @@ import kotlinx.android.synthetic.main.content_header.*
 
 class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener, OnItemClick {
 
-    override fun onItemClick(root: RecyclerView.Adapter<out RecyclerView.ViewHolder>, idx: Int) {
+    override fun onItemClick(root: RecyclerView.Adapter<out RecyclerView.ViewHolder>, position: Int) {
         Toast.makeText(this, "내 공연에 추가되었습니다!", Toast.LENGTH_LONG).show()
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         // 다가오는 공연을 담은 리사이클러뷰를 클릭했을때
@@ -40,7 +40,7 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
 
     override fun onInitializationSuccess(provider: YouTubePlayer.Provider?, youTubePlayer: YouTubePlayer?, b: Boolean) {
         if (!b) {
-            youTubePlayer?.cueVideo("ZHoLaLlL5lA")  //http://www.youtube.com/watch?v=IA1hox-v0jQ
+            youTubePlayer?.cueVideo("H8NCOA2bK6k")  //http://www.youtube.com/watch?v=IA1hox-v0jQ
         }
     }
 
