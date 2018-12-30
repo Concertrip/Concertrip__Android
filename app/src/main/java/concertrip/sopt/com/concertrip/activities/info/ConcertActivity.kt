@@ -155,15 +155,14 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
         //this.dataList.addAll(list)
 
 
-
-        val concertData : ConcertData = GetConcertReponse(ConcertData("","","","",
+        val concertResponseData : GetConcertReponse = GetConcertReponse(ConcertData("","","","",
             0,"","",ArrayList<MemberData>(),ArrayList<String>(),ArrayList<String>(),ArrayList<String>(),ArrayList<PrecautionData>(),""
-            ,false)).data
-        val c= concertData.toConcert()
-        updateArtistList(ArrayList(c.artistList))
+            ,false))
+        val concert= concertResponseData.data.toConcert()
+        updateArtistList(ArrayList(concert.artistList))
 
         // updateArtistData 호출
-        updateConcertData(Concert.getDummy("temp"))
+        updateConcertData(concert)
     }
 
     override fun onResume() {
