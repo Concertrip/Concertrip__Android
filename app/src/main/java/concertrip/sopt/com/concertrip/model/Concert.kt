@@ -3,7 +3,7 @@ package concertrip.sopt.com.concertrip.model
 import concertrip.sopt.com.concertrip.interfaces.ListData
 import concertrip.sopt.com.concertrip.utillity.Constants
 
-class Concert(var _id : String, var title : String, var profileImg : String,
+data class Concert(var _id : String, var title : String, var profileImg : String,
               var backImg : String, var location : String, var station: String,var genre: String,
               var cast : String, var date : String,var price : String, var youtubeUrl : String,var  subscribeNum : Int, var artistList : ArrayList<Artist>) : ListData {
 
@@ -19,7 +19,6 @@ class Concert(var _id : String, var title : String, var profileImg : String,
 
 
     private fun makeTag() : String ="#$genre #$genre"
-  
     override fun getType(): Int = Constants.TYPE_CONCERT
 
     override fun getId(): String = _id
