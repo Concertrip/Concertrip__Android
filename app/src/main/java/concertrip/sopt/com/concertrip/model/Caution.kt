@@ -26,13 +26,9 @@ data class Caution(var img : String, var code : Int, var content : String) : Lis
 
         @JvmStatic fun getDummyArray() : ArrayList<Caution>{
             val list = ArrayList<Caution>()
-            for(i in 0..5) {
-                val a = Caution("",0,"")
-                a.content="만 7세 이상"
-                a.code=i
-                a.img="https://img.huffingtonpost.com/asset/5ba482b82400003100546bc3.jpeg"
-                list.add(a)
-            }
+            list.add(Caution("만 7세 이상", 1, "https://img.huffingtonpost.com/asset/5ba482b82400003100546bc3.jpeg"))
+            list.add(Caution("음식물 반입 금지", 2, "https://img.huffingtonpost.com/asset/5ba482b82400003100546bc3.jpeg"))
+            list.add(Caution("재입장 불가", 3, "https://img.huffingtonpost.com/asset/5ba482b82400003100546bc3.jpeg"))
             return list
 
         }

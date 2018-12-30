@@ -18,8 +18,10 @@ data class SimpleArtistData(
     companion object {
         fun getDummy() : SimpleArtistData = SimpleArtistData("", "지코", "힙합")
 
+
         fun getDummyList() : List<SimpleArtistData> {
-            val list = listOf(getDummy(), getDummy(), getDummy())
+            val list = listOf(SimpleArtistData("", "지코", "힙합"), SimpleArtistData("", "태민", "보이그룹"),
+                SimpleArtistData("", "휘성", "발라드"))
             return list
         }
     }
