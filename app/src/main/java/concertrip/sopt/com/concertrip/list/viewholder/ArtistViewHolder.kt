@@ -17,7 +17,7 @@ class ArtistViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) , Bas
     override fun getIvIcon(): ImageView =ivArtist
 
     override fun setButton(context : Context, b: Boolean?) {
-        ivArtist.setImageDrawable(if(b==true) ContextCompat.getDrawable(context,R.drawable.ic_like)
+        btnFollow.setImageDrawable(if(b==true) ContextCompat.getDrawable(context,R.drawable.ic_like)
         else ContextCompat.getDrawable(context,R.drawable.ic_unlike))
     }
 
