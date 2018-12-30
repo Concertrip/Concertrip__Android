@@ -62,6 +62,8 @@ data class Concert(
 
         }
 
+
+
         fun getDummy(_id : String)= Concert(_id = _id, title = "힙합 페스티발", genre = "힙합", youtubeUrl = "IA1hox-v0jQ",backImg = "https://img.huffingtonpost.com/asset/5ba482b82400003100546bc3.jpeg",
             eventInfoImg = "http://tenasia.hankyung.com/webwp_kr/wp-content/uploads/2018/07/2018071709244719489-540x734.jpg",
             profileImg = "https://search.pstatic.net/common?type=a&size=120x150&quality=95&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F201801%2F20180108113919887.jpg"
