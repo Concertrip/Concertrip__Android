@@ -170,7 +170,7 @@
                   android:background="#999999"/>
 
             <TextView
-                    android:id="@+id/concert_location"
+                    android:id="@+id/tv_concert_location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
@@ -201,6 +201,10 @@
                     android:layout_height="wrap_content">
 
             </android.support.v7.widget.RecyclerView>
+
+            <ImageView android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:id="@+id/iv_concert_info"/>
 
         </LinearLayout>
 

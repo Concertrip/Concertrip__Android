@@ -2,6 +2,7 @@ package concertrip.sopt.com.concertrip.network.response.data
 
 import com.google.gson.annotations.SerializedName
 import concertrip.sopt.com.concertrip.model.Artist
+import concertrip.sopt.com.concertrip.model.Caution
 import concertrip.sopt.com.concertrip.model.Concert
 
 data class ConcertData(
@@ -45,7 +46,11 @@ data class ConcertData(
         c.seatName = seatName.toMutableList()
         c.seatPrice = seatPrice.toMutableList()
 
-        c.precaution=precautionList.toMutableList()
+        val cautionList = ArrayList<Caution>()
+        precautionList.forEach {
+            cautionList.add(it.toCaution())
+        }
+        c.precaution=cautionList
 
         c.eventInfoImg = eventInfoImg
         c.subscribe = subscribe
