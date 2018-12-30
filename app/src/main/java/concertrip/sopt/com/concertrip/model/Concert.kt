@@ -3,19 +3,30 @@ package concertrip.sopt.com.concertrip.model
 import concertrip.sopt.com.concertrip.interfaces.ListData
 import concertrip.sopt.com.concertrip.utillity.Constants
 
-data class Concert(var _id : String, var title : String, var profileImg : String,
-              var backImg : String, var location : String, var station: String,var genre: String,
-              var cast : String, var date : String,var price : String, var youtubeUrl : String,var  subscribeNum : Int, var artistList : ArrayList<Artist>) : ListData {
+data class Concert(
 
-//    TODO 바꿔야 할것
-//    var date : List<String>,
-//    var seatName : List<String>,
-//    var seatPrice : List<String>,
+    var _id : String,
+    var title : String,
+    var profileImg : String,
+    var backImg : String,
+    var location : String,
+    var station: String,
+    var genre: String,
+    var cast : String,
+    var date : List<String>,
+    var seatPrice : List<String>,
+    var seatName : List<String>,
+    var youtubeUrl : String,
+    var subscribeNum : Int,
+    var artistList : List<Artist>
+
+) : ListData {
 
     var tag  : String? = null
 
     constructor(_id : String) : this(_id = _id, title = "", genre = "", youtubeUrl = "",backImg = "",
-        profileImg = "",cast = "", date = "",artistList = ArrayList<Artist>(),location = "",station = "",price="" ,  subscribeNum = 0)
+        profileImg = "",cast = "", date = ArrayList(),artistList = ArrayList<Artist>(),location = "",station = "",
+        seatName = ArrayList(), seatPrice=ArrayList() ,  subscribeNum = 0)
 
 
     private fun makeTag() : String ="#$genre #$genre"
@@ -49,6 +60,7 @@ data class Concert(var _id : String, var title : String, var profileImg : String
 
         fun getDummy(_id : String)= Concert(_id = _id, title = "힙합 페스티발", genre = "#힙합", youtubeUrl = "",backImg = "https://img.huffingtonpost.com/asset/5ba482b82400003100546bc3.jpeg",
             profileImg = "https://search.pstatic.net/common?type=a&size=120x150&quality=95&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F201801%2F20180108113919887.jpg"
-            ,cast = "지코", date = "2018-12-20",artistList = ArrayList<Artist>(),location = "",station = "",price="" ,  subscribeNum = 0)
+            ,cast = "지코", date = listOf("2018-12-20", "2018-12-21"),artistList = ArrayList<Artist>(),location = "",station = "",
+            seatName = listOf("R", "VIP"), seatPrice = listOf("80,000", "120,000") ,  subscribeNum = 0)
     }
 }
