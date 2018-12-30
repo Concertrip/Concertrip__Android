@@ -25,8 +25,8 @@ import concertrip.sopt.com.concertrip.model.Caution
 import concertrip.sopt.com.concertrip.model.Concert
 import concertrip.sopt.com.concertrip.network.response.GetConcertReponse
 import concertrip.sopt.com.concertrip.network.response.data.ConcertData
-import concertrip.sopt.com.concertrip.network.response.data.ConcertMemberData
-import concertrip.sopt.com.concertrip.network.response.data.ConcertPrecautionData
+import concertrip.sopt.com.concertrip.network.response.data.MemberData
+import concertrip.sopt.com.concertrip.network.response.data.PrecautionData
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.INTENT_TAG_ID
 import concertrip.sopt.com.concertrip.utillity.Secret
 import kotlinx.android.synthetic.main.activity_concert.*
@@ -156,10 +156,10 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
 
 
         val concertData : ConcertData = GetConcertReponse(ConcertData("","","","",
-            0,"","",ArrayList<ConcertMemberData>(),ArrayList<String>(),ArrayList<String>(),ArrayList<String>(),ArrayList<ConcertPrecautionData>(),""
+            0,"","",ArrayList<MemberData>(),ArrayList<String>(),ArrayList<String>(),ArrayList<String>(),ArrayList<PrecautionData>(),""
             ,false)).data
-        val artistList =concertData.getArtistList()
-        updateArtistList(artistList)
+        val c= concertData.toConcert()
+        updateArtistList(c.artistList)
 
         // updateArtistData 호출
         updateConcertData(Concert.getDummy("temp"))

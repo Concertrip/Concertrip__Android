@@ -2,7 +2,7 @@ package concertrip.sopt.com.concertrip.network.response.data
 
 import concertrip.sopt.com.concertrip.model.Artist
 
-data class ConcertMemberData(
+data class MemberData(
     var _id : String,
     var name : String,
     var profileImg : String,

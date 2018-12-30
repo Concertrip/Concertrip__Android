@@ -14,25 +14,18 @@ data class ConcertData(
     var location : String,
 
     @SerializedName("memberList")
-    var memberList : List<ConcertMemberData>,
+    var memberList : List<MemberData>,
 
     var date : List<String>,
     var seatName : List<String>,
     var seatPrice : List<String>,
 
     @SerializedName("precautionList")
-    var precautionList : List<ConcertPrecautionData>,
+    var precautionList : List<PrecautionData>,
 
     var eventInfoImg : String,
     var subscribe : Boolean
 ){
-    fun getArtistList() : ArrayList<Artist>{
-        val list = ArrayList<Artist>()
-        memberList.forEach {
-            list.add(it.toArtist())
-        }
-        return list
-    }
     fun toConcert() : Concert {
         val c =  Concert(_id = _id)
         c.profileImg = profileImg
@@ -42,6 +35,13 @@ data class ConcertData(
         c.youtubeUrl = youtubeUrl
         c.location = location
         c.date= date[0]
+
+        val list = ArrayList<Artist>()
+        memberList.forEach {
+            list.add(it.toArtist())
+        }
+        c.artistList=list
+
         return c
     }
 }
