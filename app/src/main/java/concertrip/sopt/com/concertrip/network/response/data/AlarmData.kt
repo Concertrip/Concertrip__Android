@@ -7,4 +7,6 @@ data class AlarmData(
     var data : String
 ){
     fun toAlarm() : Alarm = Alarm("","","")
+
+
 }

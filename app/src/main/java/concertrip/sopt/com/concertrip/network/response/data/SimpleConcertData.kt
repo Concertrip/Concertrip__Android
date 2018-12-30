@@ -23,7 +23,9 @@ data class SimpleConcertData(
             "2018-12-20", "힙합")
 
         fun getDummyList() : List<SimpleConcertData> {
-            val list = listOf(getDummy(), getDummy(), getDummy())
+            val list = listOf(SimpleConcertData("", "힙합 페스티벌", "종합경기장", "2018-12-20", "힙합"),
+                SimpleConcertData("", "SM타운 콘서트", "잠실주경기장", "2018-12-17", "보이그룹"),
+                SimpleConcertData("", "휘성 콘서트", "체조 경기장", "2018-12-29","발라드"))
             return list
         }
     }
