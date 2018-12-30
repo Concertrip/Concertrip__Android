@@ -1,6 +1,7 @@
 package concertrip.sopt.com.concertrip.model
 
 import concertrip.sopt.com.concertrip.interfaces.ListData
+import concertrip.sopt.com.concertrip.network.response.data.PrecautionData
 import concertrip.sopt.com.concertrip.utillity.Constants
 
 data class Concert(
@@ -16,17 +17,20 @@ data class Concert(
     var date : List<String>,
     var seatPrice : List<String>,
     var seatName : List<String>,
+    var precaution : List<PrecautionData>,
+    var eventInfoImg : String,
     var youtubeUrl : String,
     var subscribeNum : Int,
-    var artistList : List<Artist>
+    var artistList : List<Artist>,
+    var subscribe : Boolean
 
 ) : ListData {
 
     var tag  : String? = null
 
-    constructor(_id : String) : this(_id = _id, title = "", genre = "", youtubeUrl = "",backImg = "",
-        profileImg = "",cast = "", date = ArrayList(),artistList = ArrayList<Artist>(),location = "",station = "",
-        seatName = ArrayList(), seatPrice=ArrayList() ,  subscribeNum = 0)
+    constructor(_id : String) : this(_id = _id, title = "", genre = "", youtubeUrl = "",backImg = "", eventInfoImg = "",
+        profileImg = "",cast = "", date = ArrayList<String>(),artistList = ArrayList<Artist>(),location = "",station = "",
+        seatName = ArrayList<String>(), precaution=ArrayList<PrecautionData>(),seatPrice=ArrayList<String>() ,  subscribeNum = 0, subscribe = false)
 
 
     private fun makeTag() : String ="#$genre #$genre"
@@ -60,7 +64,8 @@ data class Concert(
 
         fun getDummy(_id : String)= Concert(_id = _id, title = "힙합 페스티발", genre = "#힙합", youtubeUrl = "",backImg = "https://img.huffingtonpost.com/asset/5ba482b82400003100546bc3.jpeg",
             profileImg = "https://search.pstatic.net/common?type=a&size=120x150&quality=95&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F201801%2F20180108113919887.jpg"
-            ,cast = "지코", date = listOf("2018-12-20", "2018-12-21"),artistList = ArrayList<Artist>(),location = "",station = "",
-            seatName = listOf("R", "VIP"), seatPrice = listOf("80,000", "120,000") ,  subscribeNum = 0)
+            ,cast = "지코", date = listOf("2018-12-20", "2018-12-21"),artistList = ArrayList<Artist>(),location = "",station = "", eventInfoImg = "",
+            seatName = listOf("R", "VIP"), seatPrice = listOf("80,000", "120,000"), precaution = ArrayList<PrecautionData>(),  subscribeNum = 0, subscribe = false)
+
     }
 }
