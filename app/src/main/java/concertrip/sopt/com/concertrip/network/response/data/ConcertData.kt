@@ -59,9 +59,11 @@ data class ConcertData(
     }
 
     companion object {
-        fun getDummy() : ConcertData=ConcertData("","","","",
-            0,"","",ArrayList<MemberData>(),ArrayList<String>(),ArrayList<String>(),ArrayList<String>(),ArrayList<PrecautionData>(),""
-            ,false)
+        fun getDummy() : ConcertData=ConcertData("","https://search.pstatic.net/common?type=a&size=120x150&quality=95&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F201801%2F20180108113919887.jpg",
+            "", "지코",
+            0,"ZHoLaLlL5lA","",ArrayList<MemberData>(),ArrayList<String>(),ArrayList<String>(),ArrayList<String>(),ArrayList<PrecautionData>(),
+            "http://tenasia.hankyung.com/webwp_kr/wp-content/uploads/2018/07/2018071709244719489-540x734.jpg",false)
+
         fun getDummy1() : ConcertData=ConcertData("","https://search.pstatic.net/common?type=a&size=120x150&quality=95&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F201801%2F20180108113919887.jpg","https://img.huffingtonpost.com/asset/5ba482b82400003100546bc3.jpeg","힙합페스티벌",
             1000,"https://www.youtube.com/watch?v=Vl1kO9hObpA","",ArrayList<MemberData>(),ArrayList<String>(),ArrayList<String>(),ArrayList<String>(),ArrayList<PrecautionData>(),""
             ,false)
@@ -71,6 +73,7 @@ data class ConcertData(
         fun getDummy3() : ConcertData=ConcertData("","https://search.pstatic.net/common?type=a&size=120x150&quality=95&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F201801%2F20180108113919887.jpg","http://imgnews.naver.net/image/213/2016/07/20/20160720_1468977905_09715900_1_99_20160720103907.jpg","휘성 콘서트",
             1100,"https://www.youtube.com/watch?v=YXiLkrSft1w","",ArrayList<MemberData>(),ArrayList<String>(),ArrayList<String>(),ArrayList<String>(),ArrayList<PrecautionData>(),""
             ,false)
+
         fun getDummyArray() : List<ConcertData>{
             val list = ArrayList<ConcertData>()
             list.add(getDummy1())
