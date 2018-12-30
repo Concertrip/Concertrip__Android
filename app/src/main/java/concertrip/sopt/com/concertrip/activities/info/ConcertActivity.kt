@@ -74,35 +74,33 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
         }
     }
 
+    private var concertId: Int=0
+
     lateinit  var concert : Concert
-    var dataList = arrayListOf<Artist>() // 이것도 서버에서 한번에 concert에 넣어서 전달해줄지도 모름!!
-    // 현재 concert 클래스에 포함되어 있는 변수들은 정확하지 않음
-    // ex. 티켓링크가 포함되어 있지 않음
-    // >> 디비 완전히 나오면 나중에 더 추가하거나 제거할 예정
+    var dataList = arrayListOf<Artist>()
 
     private lateinit var adapter : BasicListAdapter
 
+    var dataListCaution = arrayListOf<Caution>()
     private lateinit var cautionAdapter : BasicListAdapter
-
-    private var concertId: Int=0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_concert)
 //        setSupportActionBar(toolbar)
-
         concertId = intent.getIntExtra(INTENT_TAG_ID, 0)
 
         initialUI()
         connectRequestData(concertId)
-
-
     }
+
     private fun initialUI(){
         adapter = BasicListAdapter(this, Artist.getDummyArray())
         recycler_view.adapter = adapter
 
-        cautionAdapter = BasicListAdapter(this, Caution.getDummyArray() )
+        /*TODO have to fix second param*/
+        dataListCaution = Caution.getDummyArray()
+        cautionAdapter = BasicListAdapter(this, dataListCaution)
         recycler_view_caution.layoutManager = GridLayoutManager(applicationContext,3)
         recycler_view_caution.adapter = cautionAdapter
 
@@ -110,19 +108,12 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
         getYouTubePlayerProvider().initialize(Secret.YOUTUBE_API_KEY,this);
         scroll_view.smoothScrollTo(0,0)
 
-
         btn_follow.setOnClickListener {
             showDialog()
         }
-
     }
 
-
     private fun updateArtistList(list : ArrayList<Artist>){
-
-        // dataList로 adapter 데이터 바꿔버리기~
-        // adapter notify
-        adapter.notifyDataSetChanged()
         dataList.clear()
         dataList.addAll(list)
         adapter.notifyDataSetChanged()
@@ -130,38 +121,23 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
 
     private fun updateConcertData( concert : Concert){
 
-
-        // Activity도 데이터 다시 세팅!
-
-        // 구독하기(종) 버튼 설정
-
-
+        // TODO 구독하기(종) 버튼 설정
         if(URLUtil.isValidUrl(concert.backImg))
             Glide.with(this).load(concert.backImg).into(iv_back)
-
         if(URLUtil.isValidUrl(concert.profileImg))
             Glide.with(this).load(concert.profileImg).apply(RequestOptions.circleCropTransform()).into(iv_profile)
+
         tv_title.text = concert.title
         tv_tag.text  = concert.subscribeNum.toString()
     }
 
     private fun connectRequestData(id : Int){
-        // 서버에 데이터 request보내고
-        // response 데이터를 이용해
-        // 전역변수로 선언되어있는 concert, dataList 업데이트
-
-        // dataList 업데이트
-        //this.dataList.clear()
-        //this.dataList.addAll(list)
-
-
         val concertResponseData : GetConcertReponse = GetConcertReponse(ConcertData("","","","",
             0,"","",ArrayList<MemberData>(),ArrayList<String>(),ArrayList<String>(),ArrayList<String>(),ArrayList<PrecautionData>(),""
             ,false))
         val concert= concertResponseData.data.toConcert()
-        updateArtistList(ArrayList(concert.artistList))
 
-        // updateArtistData 호출
+        updateArtistList(ArrayList(concert.artistList))
         updateConcertData(concert)
     }
 
