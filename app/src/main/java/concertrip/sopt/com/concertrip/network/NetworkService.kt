@@ -84,32 +84,35 @@ interface NetworkService {
     //----------------------------------------
     //*하트(구독)*
     //아티스트 구독하기/취소
-    @GET("/artists/{artistIdx}/heart")
-    fun GetHeartArtirst(
-        @Header("Content-Type") content_type: String,
-        @Path("artistIdx") artistIdx : Int
+    @POST("/api/subscribe/artist")
+    @Headers("Content-Type:application/json")
+    fun postSubScribeArtist(
+//        @Header("token") token: String,
+        @Body() body : JsonObject
     ):Call<MessageResponse>
 
     //장르 구독하기/취소
-    @GET("genre/{genreIdx}/heart")
-    fun GetHeartGenre(
-        @Header("Content-Type") content_type: String,
-        @Path("genreIdx") genreIdx : Int
+    @POST("/api/subscribe/genre")
+    @Headers("Content-Type:application/json")
+    fun postSubscribeGenre(
+//        @Header("token") token: String,
+        @Body() body : JsonObject
     ):Call<MessageResponse>
     //---------------------------------------
     //*종(알림받기)*
     //콘서트 일정 알림받기/취소
-    @GET("/concert/{concertIdx}/bell")
-    fun Getbell(
-        @Header("Content-Type") content_type: String,
-        @Path("concertIdx") concertIdx : Int
+    @POST("/api/subscribe/concert")
+    @Headers("Content-Type:application/json")
+    fun postSubscribeConcert(
+//        @Header("token") token: String,
+        @Body() body : JsonObject
     ):Call<MessageResponse>
 
     //-----------------------------------------
     //*이벤트
     //이벤트 조회
     @GET("/events/{eventsId}")
-    fun GetEvent(
+    fun getEvent(
         @Header("Content-Type") content_type: String,
         @Path("eventsId") eventId : Int
     )
@@ -117,7 +120,7 @@ interface NetworkService {
     //*아티스트
     //아티스트 조회
     @GET("/artists/{artistId}")
-    fun GetArtist(
+    fun getArtist(
         @Header("Content-Type") content_type: String,
         @Path("artistId") artistId : Int
     ):Call<GetArtistResponse>
@@ -125,7 +128,7 @@ interface NetworkService {
     //*검색
     //콘서트/아티스트 검색
     @GET("/search")
-    fun GetSearch(
+    fun getSearch(
         @Header("Content-Type") content_type: String,
         @Query("tag") tag: Int
     ):Call<GetSearchTagResponse>
