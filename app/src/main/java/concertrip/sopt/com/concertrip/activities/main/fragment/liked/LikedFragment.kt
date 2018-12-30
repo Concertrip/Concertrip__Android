@@ -11,12 +11,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
-import com.google.gson.JsonObject
-import com.google.gson.JsonParser
 
 import concertrip.sopt.com.concertrip.R
-import concertrip.sopt.com.concertrip.activities.info.ArtistActivity
-import concertrip.sopt.com.concertrip.activities.info.ConcertActivity
 import concertrip.sopt.com.concertrip.interfaces.ListData
 import concertrip.sopt.com.concertrip.interfaces.OnFragmentInteractionListener
 import concertrip.sopt.com.concertrip.list.adapter.BasicListAdapter
@@ -24,23 +20,17 @@ import concertrip.sopt.com.concertrip.model.Artist
 import concertrip.sopt.com.concertrip.model.Concert
 import concertrip.sopt.com.concertrip.network.ApplicationController
 import concertrip.sopt.com.concertrip.network.NetworkService
-import concertrip.sopt.com.concertrip.deprecated.PostIdCheckResponse
-import concertrip.sopt.com.concertrip.deprecated.PostLoginResponse
 import concertrip.sopt.com.concertrip.interfaces.OnItemClick
-import concertrip.sopt.com.concertrip.list.adapter.HorizontalListAdapter
+import concertrip.sopt.com.concertrip.interfaces.OnResponse
 import concertrip.sopt.com.concertrip.network.response.GetArtistSubscribeResponse
 import concertrip.sopt.com.concertrip.network.response.GetConcertSubscribeResponse
 import concertrip.sopt.com.concertrip.network.response.GetGenreSubscribeResponse
 import concertrip.sopt.com.concertrip.network.response.data.ArtistData
 import concertrip.sopt.com.concertrip.network.response.data.ConcertData
+import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
 import concertrip.sopt.com.concertrip.utillity.Constants
+import concertrip.sopt.com.concertrip.utillity.NetworkUtil
 import kotlinx.android.synthetic.main.fragment_liked.*
-import org.jetbrains.anko.support.v4.startActivity
-import org.jetbrains.anko.support.v4.toast
-import org.json.JSONObject
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -56,18 +46,14 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  *
  */
-class LikedFragment : Fragment() ,View.OnClickListener, OnItemClick{
+class LikedFragment : Fragment() ,View.OnClickListener, OnItemClick,OnResponse{
+
     var LOG_TAG = this::class.java.simpleName
 
     var dataList = ArrayList<ListData>()
-    var dataListArtist = arrayListOf<Artist>()
-    var dataListConcert = arrayListOf<Concert>()
 
     lateinit  var adapter :BasicListAdapter
 
-    private val networkService: NetworkService by lazy {
-        ApplicationController.instance.networkService
-    }
 
 
     val STATE_ARTIST = 0
@@ -80,6 +66,36 @@ class LikedFragment : Fragment() ,View.OnClickListener, OnItemClick{
 
     private var listener: OnFragmentInteractionListener? = null
 
+
+    override fun onSuccess(obj: BaseModel,position: Int?) {
+
+        when(obj){
+            is GetArtistSubscribeResponse->{
+                activity?.let {
+                    Toast.makeText(it.applicationContext, "내 아티스트에 추가되었습니다!", Toast.LENGTH_LONG).show()
+                }
+            }
+            is GetConcertSubscribeResponse->{
+
+                activity?.let {
+                    Toast.makeText(it.applicationContext, "내 공연에 추가되었습니다!", Toast.LENGTH_LONG).show()
+                }
+            }
+            is GetGenreSubscribeResponse->{
+
+                activity?.let {
+                    Toast.makeText(it.applicationContext, "내 장르에 추가되었습니다!", Toast.LENGTH_LONG).show()
+                }
+
+            }
+
+        }
+    }
+
+    override fun onFail() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     private fun changeFragment(to : Int, idx : Int){
         val bundle = Bundle()
         bundle.putInt(Constants.BUNDLE_KEY_INDEX,idx)
@@ -89,26 +105,19 @@ class LikedFragment : Fragment() ,View.OnClickListener, OnItemClick{
     }
 
 
-    override fun onItemClick(root: RecyclerView.Adapter<out RecyclerView.ViewHolder>, idx: Int) {
+    override fun onItemClick(root: RecyclerView.Adapter<out RecyclerView.ViewHolder>, position: Int) {
 
-
-        when(curTextView?.id ?: R.id.btn_liked_artist){
-            R.id.btn_liked_artist->{
-                activity?.let {
-                    Toast.makeText(it.applicationContext, "내 아티스트에 추가되었습니다!", Toast.LENGTH_LONG).show()
-                }
-
-            }
-            R.id.btn_liked_concert->{
-                activity?.let {
-                    Toast.makeText(it.applicationContext, "내 공연에 추가되었습니다!", Toast.LENGTH_LONG).show()
-                }
-
-            }
-            R.id.btn_liked_theme->{
-
-            }
-        }
+//        when(curTextView?.id ?: R.id.btn_liked_artist){
+//            R.id.btn_liked_artist->{
+//                NetworkUtil.subscribeArtist(networkService,this,dataList[position].getId())
+//            }
+//            R.id.btn_liked_concert->{
+//                NetworkUtil.subscribeConcert(networkService,this,dataList[position].getId())
+//            }
+//            R.id.btn_liked_theme->{
+//                NetworkUtil.subscribeGenre(networkService,this,dataList[position].getId())
+//            }
+//        }
 
     }
 
@@ -122,17 +131,17 @@ class LikedFragment : Fragment() ,View.OnClickListener, OnItemClick{
             }
             R.id.btn_liked_artist->{
                 updateTextColor(view as TextView)
-                Log.d(LOG_TAG,"artist click")
                 connectRequestData(STATE_ARTIST)
             }
             R.id.btn_liked_theme->{
                 updateTextColor(view as TextView)
-                Log.d(LOG_TAG,"theme click")
                 connectRequestData(STATE_THEME)
             }
         }
 
     }
+
+
 
 
 
@@ -213,7 +222,6 @@ class LikedFragment : Fragment() ,View.OnClickListener, OnItemClick{
             else->{
             }
         }
-        //TODO onFail -> Toast, OnSuccess->udateDataList()
     }
     private fun connectArtistSubscribe(){
         val artistSubscribeResponse = GetArtistSubscribeResponse(ArtistData.getDummyArray())
@@ -226,6 +234,7 @@ class LikedFragment : Fragment() ,View.OnClickListener, OnItemClick{
     }
 
     private fun connectGenreSubscribe(){
+
 
         val genreSubscribeResponse = GetGenreSubscribeResponse(ArtistData.getDummyArray())
 

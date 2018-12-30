@@ -53,7 +53,7 @@ data class ConcertData(
         c.precaution=cautionList
 
         c.eventInfoImg = eventInfoImg
-        c.subscribe = subscribe
+        c.isSubscribe = subscribe
 
         return c
     }

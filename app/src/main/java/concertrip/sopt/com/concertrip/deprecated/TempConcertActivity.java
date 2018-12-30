@@ -2,18 +2,14 @@ package concertrip.sopt.com.concertrip.deprecated;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
-import com.google.android.youtube.player.YouTubeApiServiceUtil;
-import com.google.android.youtube.player.YouTubePlayer.Provider;
 
 import concertrip.sopt.com.concertrip.R;
-import concertrip.sopt.com.concertrip.list.adapter.ArtistThumbListAdapter;
 import concertrip.sopt.com.concertrip.model.Artist;
 import concertrip.sopt.com.concertrip.utillity.Secret;
 
