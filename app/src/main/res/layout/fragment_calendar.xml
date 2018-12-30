@@ -16,15 +16,10 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="30dp">
 
-        <TextView
-                android:id="@+id/tv_month"
+        <ImageView
+                android:id="@+id/iv_month"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="24sp"
-                android:textColor="#040000"
-                android:lineSpacingExtra="12sp"
-                tools:text="12월"
-                android:text="12월"
+                android:layout_height="25dp"
         />
 
         <TextView
@@ -34,7 +29,7 @@
                 android:textSize="14sp"
                 android:textColor="#040000"
                 android:lineSpacingExtra="2sp"
-                android:layout_below="@id/tv_month"
+                android:layout_below="@id/iv_month"
                 tools:text="2018"
                 android:text="2018"/>
 

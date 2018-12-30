@@ -2,6 +2,7 @@ package concertrip.sopt.com.concertrip.activities.main.fragment.calendar
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -11,7 +12,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import concertrip.sopt.com.concertrip.R
 import concertrip.sopt.com.concertrip.activities.AlramActivity
 import concertrip.sopt.com.concertrip.activities.main.fragment.calendar.adapter.CalendarListAdapter
 import concertrip.sopt.com.concertrip.interfaces.OnFragmentInteractionListener
@@ -26,6 +26,7 @@ import kotlinx.android.synthetic.main.fragment_calendar.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import concertrip.sopt.com.concertrip.R
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -49,6 +50,12 @@ class CalendarFragment : Fragment(), OnItemClick {
     var dataListConcert = arrayListOf<Concert>()
     var dataListTag = arrayListOf<String>("모두","테마","걸그룹","보이그룹","힙합","발라드")
 
+    val monthImgList = listOf<Int>(
+        R.drawable.ic_account_circle, R.drawable.ic_account_circle, R.drawable.ic_account_circle,
+        R.drawable.ic_account_circle, R.drawable.ic_account_circle, R.drawable.ic_account_circle,
+        R.drawable.ic_account_circle, R.drawable.ic_account_circle, R.drawable.ic_account_circle,
+        R.drawable.ic_account_circle, R.drawable.ic_account_circle, R.drawable.ic_account_circle
+    )
 
     lateinit var calendarListAdapter: CalendarListAdapter
     // 날짜 > date객체(스트링으로 넘어옴)
@@ -85,7 +92,6 @@ class CalendarFragment : Fragment(), OnItemClick {
                 Toast.makeText(it.applicationContext, "내 공연에 추가되었습니다!", Toast.LENGTH_LONG).show()
             }
         }
-
     }
 
     fun artistToCal(artist: Artist) {
@@ -132,7 +138,8 @@ class CalendarFragment : Fragment(), OnItemClick {
 
     private fun setCalendarUI(year : String, month : String){
         tv_year.text = year
-        tv_month.text = month
+
+        iv_month.setImageResource(monthImgList[month.toInt()-1])
     }
 
     private fun makeDayList()  : ArrayList<String>{

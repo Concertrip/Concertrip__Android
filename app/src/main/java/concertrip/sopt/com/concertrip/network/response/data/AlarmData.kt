@@ -8,5 +8,5 @@ data class AlarmData(
 ){
     fun toAlarm() : Alarm = Alarm("","","")
 
-    
+
 }

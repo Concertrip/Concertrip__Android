@@ -11,32 +11,6 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface NetworkService {
-
-
-    // ArtistActivity, ExplorerFragment
-    @Headers("Content-Type:application/json")
-    @GET("/api/artist/detail")
-    fun getArtistData(
-        //@Header("token") token : String, // 위에 Headers랑 겹치지 않나?
-        //@Path("artistId") artistId : String
-        @Query("artistId") artistId : String
-    ) : Call<GetArtistResponse>
-
-    // ConcertActivity, ExplorerFragment
-    @Headers("Content-Type:application/json")
-    @GET("/api/event/detail")
-    fun getEventData(
-        //@Path("eventsId") eventsId : String
-        @Query("eventsId") eventsId : String
-    ) : Call<GetConcertResponse>
-
-    // SearchFragment
-    @Headers("Content-Type:application/json")
-    @GET("/search/{tag}")
-    fun getSearchData(
-        @Path("tag") tag : Int
-    ) : Call<GetSearchResponse>
-
     //POST 타입 JSONObject로 받을때 테스트 //테스트
     @Headers("Content-Type:application/json")
     @POST("/auth/register/check")
@@ -84,49 +58,55 @@ interface NetworkService {
     //----------------------------------------
     //*하트(구독)*
     //아티스트 구독하기/취소
-    @GET("/artists/{artistIdx}/heart")
-    fun GetHeartArtirst(
-        @Header("Content-Type") content_type: String,
-        @Path("artistIdx") artistIdx : Int
+    @POST("/api/subscribe/artist")
+    @Headers("Content-Type:application/json")
+    fun postSubScribeArtist(
+//        @Header("token") token: String,
+        @Body() body : JsonObject
     ):Call<MessageResponse>
 
     //장르 구독하기/취소
-    @GET("genre/{genreIdx}/heart")
-    fun GetHeartGenre(
-        @Header("Content-Type") content_type: String,
-        @Path("genreIdx") genreIdx : Int
+    @POST("/api/subscribe/genre")
+    @Headers("Content-Type:application/json")
+    fun postSubscribeGenre(
+//        @Header("token") token: String,
+        @Body() body : JsonObject
     ):Call<MessageResponse>
     //---------------------------------------
     //*종(알림받기)*
     //콘서트 일정 알림받기/취소
-    @GET("/concert/{concertIdx}/bell")
-    fun Getbell(
-        @Header("Content-Type") content_type: String,
-        @Path("concertIdx") concertIdx : Int
+    @POST("/api/subscribe/concert")
+    @Headers("Content-Type:application/json")
+    fun postSubscribeConcert(
+//        @Header("token") token: String,
+        @Body() body : JsonObject
     ):Call<MessageResponse>
 
     //-----------------------------------------
     //*이벤트
     //이벤트 조회
-    @GET("/events/{eventsId}")
-    fun GetEvent(
-        @Header("Content-Type") content_type: String,
-        @Path("eventsId") eventId : Int
-    )
+    @GET("/api/event/detail")
+    @Headers("Content-Type:application/json")
+    fun getEvent(
+        @Header("token") token : String,
+        @Query("eventsId") eventId : Int
+    ) : Call<GetConcertResponse>
     //-----------------------------------------
     //*아티스트
     //아티스트 조회
-    @GET("/artists/{artistId}")
-    fun GetArtist(
-        @Header("Content-Type") content_type: String,
-        @Path("artistId") artistId : Int
+    @GET("/api/artist/detail")
+    @Headers("Content-Type:application/json")
+    fun getArtist(
+        @Header("token") token : String,
+        @Query("artistId") artistId : String
     ):Call<GetArtistResponse>
     //-----------------------------------------
     //*검색
     //콘서트/아티스트 검색
-    @GET("/search")
-    fun GetSearch(
-        @Header("Content-Type") content_type: String,
-        @Query("tag") tag: Int
-    ):Call<GetSearchTagResponse>
+    @GET("/api/search")
+    @Headers("Content-Type:application/json")
+    fun getSearch(
+        @Header("token") token : String,
+        @Query("tag") tag: String
+    ):Call<GetSearchResponse>
 }
