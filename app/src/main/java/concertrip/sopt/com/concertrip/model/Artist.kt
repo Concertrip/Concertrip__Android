@@ -18,7 +18,8 @@ data class Artist(
     var tag : String?=null
 
 
-    constructor(_id : String, name  :String, profileImg : String,name:String, genre:String,youtubeUrl:String,subScribeNum :Int,concertList: List<Concert>) : this(_id,profileImg,null,name,genre,youtubeUrl,subscribeNum, listOf(),false)
+    constructor(_id : String,  profileImg : String,backImg: String?,name  :String, genre:String,youtubeUrl:String,subscribeNum :Int,concertList: List<Concert>)
+            : this(_id,profileImg,null,name,genre,youtubeUrl,subscribeNum, listOf(),false)
     constructor(_id : String, name  :String, profileImg : String) : this(_id,profileImg,null,name,null,null,0, listOf(),false)
     constructor(_id: String): this(_id,"", "", "", "", "", 0, listOf(),false)
 
