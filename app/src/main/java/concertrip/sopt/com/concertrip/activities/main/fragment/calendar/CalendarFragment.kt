@@ -92,7 +92,6 @@ class CalendarFragment : Fragment(), OnItemClick {
                 Toast.makeText(it.applicationContext, "내 공연에 추가되었습니다!", Toast.LENGTH_LONG).show()
             }
         }
-
     }
 
     fun artistToCal(artist: Artist) {
