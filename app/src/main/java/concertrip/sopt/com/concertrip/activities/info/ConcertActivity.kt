@@ -21,9 +21,11 @@ import concertrip.sopt.com.concertrip.R
 import concertrip.sopt.com.concertrip.interfaces.OnItemClick
 import concertrip.sopt.com.concertrip.dialog.CustomDialog
 import concertrip.sopt.com.concertrip.list.adapter.BasicListAdapter
+import concertrip.sopt.com.concertrip.list.adapter.SeatListAdapter
 import concertrip.sopt.com.concertrip.model.Artist
 import concertrip.sopt.com.concertrip.model.Caution
 import concertrip.sopt.com.concertrip.model.Concert
+import concertrip.sopt.com.concertrip.model.Seat
 import concertrip.sopt.com.concertrip.network.response.GetConcertResponse
 import concertrip.sopt.com.concertrip.network.response.data.ConcertData
 import concertrip.sopt.com.concertrip.network.response.data.MemberData
@@ -46,7 +48,6 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
 
     override fun onInitializationSuccess(provider: YouTubePlayer.Provider?, youTubePlayer: YouTubePlayer?, b: Boolean) {
         if (!b && ::concert.isInitialized) {
-            Log.d("youtube test", "33333333")
             youTubePlayer?.cueVideo(concert.youtubeUrl)  //http://www.youtube.com/watch?v=IA1hox-v0jQ
         }
     }
@@ -91,6 +92,9 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
     var dataListCaution = arrayListOf<Caution>()
     private lateinit var cautionAdapter : BasicListAdapter
 
+    var dataListSeat = arrayListOf<Seat>()
+    private lateinit var seatAdapter : SeatListAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_concert)
@@ -109,6 +113,9 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
         cautionAdapter = BasicListAdapter(this, Caution.getDummyArray())
         recycler_view_caution.layoutManager = GridLayoutManager(applicationContext,3)
         recycler_view_caution.adapter = cautionAdapter
+
+        seatAdapter = SeatListAdapter(this, dataListSeat)
+        recycler_view_seat.adapter = seatAdapter
 
         scroll_view.smoothScrollTo(0,0)
 
@@ -136,7 +143,6 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
         tv_title.text = concert.title
         tv_tag.text  = concert.subscribeNum.toString()
 
-        Log.d("youtube test", "2222222")
         getYouTubePlayerProvider().initialize(Secret.YOUTUBE_API_KEY, this)
     }
 
@@ -146,22 +152,25 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
         cautionAdapter.notifyDataSetChanged()
     }
 
+    private fun updateSeatData(list : ArrayList<Seat>){
+        dataListSeat.clear()
+        dataListSeat.addAll(list)
+        seatAdapter.notifyDataSetChanged()
+    }
+
     private fun connectRequestData(id : Int){
         val concertResponseData : GetConcertResponse = GetConcertResponse(ConcertData.getDummy())
         concert= concertResponseData.data.toConcert()
 
-        Log.d("youtube test", "1111111111")
-
         updateArtistList(ArrayList(concert.artistList))
         updateConcertData()
         updateCautionData(ArrayList(concert.precaution))
+        updateSeatData(ArrayList(concert.seatList))
     }
 
      private fun showDialog(){
         val dialog = CustomDialog(this)
         dialog.show()
-
-
     }
 
     companion object {
