@@ -2,6 +2,7 @@ package concertrip.sopt.com.concertrip.list.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -171,6 +172,8 @@ class BasicListAdapter(
         if (URLUtil.isValidUrl(dataList[position].getImageUrl())) {
             Glide.with(mContext).load(dataList[position].getImageUrl()).apply(RequestOptions.circleCropTransform())
                 .into(holder.getIvIcon())
+        }else{
+            holder.getIvIcon().setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.ic_account_circle))
         }
         basicHolder.setButton(mContext,dataList[position].isSubscribe())
 
