@@ -8,7 +8,7 @@ import concertrip.sopt.com.concertrip.list.adapter.BasicListAdapter
 import concertrip.sopt.com.concertrip.model.Alarm
 import kotlinx.android.synthetic.main.fragment_notification.*
 
-class AlramActivity : AppCompatActivity(){
+class AlarmActivity : AppCompatActivity(){
 
     var dataList  = arrayListOf<ListData>()
     lateinit  var adapter : BasicListAdapter

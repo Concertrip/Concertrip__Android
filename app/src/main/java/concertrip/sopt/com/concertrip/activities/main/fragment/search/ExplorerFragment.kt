@@ -78,14 +78,13 @@ class ExplorerFragment : Fragment(), OnItemClick {
             }
         }
 
-        if(position == 1){
-            // 테마를 선택한 경우 안드 내부에 저장되어있는 것을 출력
-            // 해당 데이터가 저장된 어레이를 이용해 updateDataList 함수 호출
-            updateDataList(Artist.getDummyArray2())
-        }else if(position == 0){
-            updateDataList(Artist.getDummyArray())
-        }
-        else connectRequestData(dataListTag[position])
+      when (position) {
+          1 -> // 테마를 선택한 경우 안드 내부에 저장되어있는 것을 출력
+              // 해당 데이터가 저장된 어레이를 이용해 updateDataList 함수 호출
+              updateDataList(Artist.getDummyArray2())
+          0 -> updateDataList(Artist.getDummyArray())
+          else -> connectRequestData(dataListTag[position])
+      }
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -121,9 +120,11 @@ class ExplorerFragment : Fragment(), OnItemClick {
             recycler_view_horizontal.adapter=tagAdapter
 
 
+
             dataListArtist=Artist.getDummyArray()
             dataAdapter = BasicListAdapter(it.applicationContext, dataList,this)
             recycler_view.adapter = dataAdapter
+
 
         }
 
@@ -131,7 +132,7 @@ class ExplorerFragment : Fragment(), OnItemClick {
 
 
   
-    fun updateDataList(list : ArrayList<out ListData>){
+    private fun updateDataList(list : ArrayList<out ListData>){
 
         dataList.clear()
 
@@ -187,6 +188,7 @@ class ExplorerFragment : Fragment(), OnItemClick {
 //            }
 //
 //        })
+
     }
 
 

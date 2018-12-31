@@ -53,6 +53,7 @@ class MainFragmentAdapter(val fragmentManager: FragmentManager, val mainTab: Tab
 
         val fragment = fragments[curFragmentId]
         val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_down)
         fragmentTransaction.add(R.id.container ,fragment)
         fragmentTransaction.commit()
 
@@ -122,9 +123,10 @@ class MainFragmentAdapter(val fragmentManager: FragmentManager, val mainTab: Tab
             }
         }
         //if(fragment.isAdded) return
+        fragmentTransaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_down)
         fragmentTransaction.replace(R.id.container ,fragment)
         fragmentTransaction.addToBackStack(null)
-        fragmentTransaction.setBreadCrumbShortTitle(curFragmentId);
+        fragmentTransaction.setBreadCrumbShortTitle(curFragmentId)
 
         fragmentTransaction.commit()
     }

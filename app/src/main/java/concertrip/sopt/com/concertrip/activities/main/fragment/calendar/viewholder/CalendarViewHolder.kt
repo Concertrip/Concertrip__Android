@@ -14,7 +14,7 @@ import org.jetbrains.anko.textColor
 import kotlin.properties.Delegates
 
 class CalendarViewHolder(itemView : View)  : RecyclerView.ViewHolder(itemView){
-     var lySchedule : GridLayout? = itemView.findViewById(R.id.ly_schedule)
+     var lySchedule : LinearLayout? = itemView.findViewById(R.id.ly_schedule)
      var  tvCalendar : TextView = itemView.findViewById(R.id.tv_calendar)
 
      fun setToday(mContext: Context, b : Boolean){
