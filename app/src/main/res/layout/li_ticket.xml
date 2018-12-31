@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" xmlns:tools="http://schemas.android.com/tools">
+                android:layout_height="wrap_content"
+                android:background="@color/blue"
+                xmlns:tools="http://schemas.android.com/tools">
     <LinearLayout
             android:orientation="horizontal"
+            android:layout_centerInParent="true"
             android:weightSum="10"
-            android:layout_marginBottom="31dp"
-            android:layout_marginLeft="35dp"
-            android:layout_marginTop="28dp"
+            android:paddingHorizontal="28dp"
+            android:paddingVertical="28dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
         <LinearLayout
@@ -22,7 +24,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             <LinearLayout
-                    android:layout_marginTop="18dp"
+                    android:paddingTop="18dp"
                     android:orientation="horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
@@ -39,7 +41,7 @@
             </LinearLayout>
             <LinearLayout
                     android:orientation="horizontal"
-                    android:layout_marginTop="0.3dp"
+                    android:paddingTop="0.3dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                 <TextView
@@ -55,6 +57,10 @@
             </LinearLayout>
 
         </LinearLayout>
-
+        <ImageView
+                android:layout_weight="3"
+                android:src="@drawable/ic_account_circle"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"/>
     </LinearLayout>
 </RelativeLayout>
