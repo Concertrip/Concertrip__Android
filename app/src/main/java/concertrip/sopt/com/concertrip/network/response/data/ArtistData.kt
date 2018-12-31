@@ -32,10 +32,12 @@ data class ArtistData(
   
     companion object {
         fun getDummy() : ArtistData{
-            return ArtistData("",0,"지코","https://search.pstatic.net/common?type=a&size=120x150&quality=95&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F201801%2F20180108113919887.jpg",
-                "https://img.huffingtonpost.com/asset/5ba482b82400003100546bc3.jpeg","","https://www.youtube.com/watch?v=Q8AK_wfGhkg",
+            return ArtistData("",0,"송지은","https://s3.namuwikiusercontent.com/s/ffb9632dd81ca99329391af0017f4e3026ffeaa5cb062c5c91543bbf09a3221bbbecfced0d650c449fb88241d91c8fb97b7ba055dbe4072f52af5cf6400760a175878e3646144264919e9a7cebab6106d626b92ffb27b77d479d30426e512829",
+                "https://i.ytimg.com/vi/lB-GvZY6lTU/hqdefault.jpg",
+                "K-POP","https://www.youtube.com/watch?v=Njttm0_n9Bw",
                 Concert.getDummyArray())
         }
+
 
         fun getDummyArray(): ArrayList<ArtistData>{
             val list = ArrayList<ArtistData>()
