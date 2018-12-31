@@ -4,6 +4,7 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
               android:padding="16dp"
+              android:background="@color/blue"
               tools:context=".activities.main.fragment.liked.LikedFragment"
               android:orientation="vertical">
 
