@@ -18,9 +18,9 @@ class SplashActivity : AppCompatActivity() {
 
         Handler().postDelayed({
             val i = Intent(applicationContext, MainActivity::class.java)
-//            overridePendingTransition(R.anim.slide_in_up,R.anim.slide_out_down)
+            overridePendingTransition(R.anim.fade_in,R.anim.fade_out)
             startActivity(i)
             finish()
-        }, 3000)
+        }, 300)
     }
 }

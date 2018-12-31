@@ -8,8 +8,11 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.youtube.player.internal.s
 import concertrip.sopt.com.concertrip.R
 import concertrip.sopt.com.concertrip.activities.main.fragment.calendar.viewholder.CalendarViewHolder
+import concertrip.sopt.com.concertrip.interfaces.ListData
+import concertrip.sopt.com.concertrip.interfaces.OnItemClick
 import concertrip.sopt.com.concertrip.model.Schedule
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.CALENDAT_TYPE_BLANK
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.CALENDAR_TYPE_DATE
@@ -23,16 +26,15 @@ import kotlin.properties.Delegates
 class CalendarListAdapter(
     private var mContext: Context,
     var dataList: ArrayList<String>,
-    private var scheduleMap: HashMap<Int, ArrayList<Schedule>>
+    var scheduleMap :  HashMap<Int, ArrayList<Schedule>>,
+    var listener : OnItemClick
 ) : RecyclerView.Adapter<CalendarViewHolder>(){
-
-
-    var onClickListener: View.OnClickListener? = null
 
     var selected = -1
 
     private var inflater: LayoutInflater by Delegates.notNull()
 
+    var resetSchedule = false
 
     private val colorArray = arrayListOf(R.color.mainColor, R.color.purple, R.color.gray, R.color.black)
 
@@ -81,7 +83,9 @@ class CalendarListAdapter(
             dataList[position].isNotBlank() -> CALENDAR_TYPE_DAY
             else -> CALENDAT_TYPE_BLANK
         }
+
     }
+
 
     override fun onBindViewHolder(holder: CalendarViewHolder, position: Int) {
 
@@ -94,6 +98,7 @@ class CalendarListAdapter(
         if (getItemViewType(position) == CALENDAR_TYPE_DATE) {
             val date: Int = dataList[position].toInt()
 
+            holder.lySchedule?.removeAllViews()
             if (scheduleMap.containsKey(date)) {
                 scheduleMap[date]?.forEach() { s ->
                     addCalendarItem(holder, s)
@@ -102,17 +107,24 @@ class CalendarListAdapter(
 
             holder.itemView.setOnClickListener {
 
-                if (selected == position) selected = -1
-                else selected = position
+                selected = if (selected == position) -1
+                else position
+
+                //테스트용
+                val s = Schedule.getDummy(date)
+                if(scheduleMap[date].isNullOrEmpty()){
+                    scheduleMap[date]=ArrayList<Schedule>()
+                    scheduleMap[date]?.add(s)
+                }else {
+                    scheduleMap[date]?.add(s)
+                }
+                addCalendarItem(holder, s)
+
+
                 notifyDataSetChanged()
-//                    val s = Schedule.getDummy(date)
-//                    if(scheduleMap[date].isNullOrEmpty()){
-//                        scheduleMap[date]=ArrayList<Schedule>()
-//                        scheduleMap[date]?.add(s)
-//                    }else {
-//                        scheduleMap[date]?.add(s)
-//                    }
-//                    addCalendarItem(holder, s)
+
+
+                listener.onItemClick(this,position)
 
             }
         }
@@ -172,6 +184,7 @@ class CalendarListAdapter(
 
         holder.lySchedule?.addView(scheduleView)
     }
+
 
 
 }
