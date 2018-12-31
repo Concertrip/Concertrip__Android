@@ -70,11 +70,11 @@ class MyPageFragment : Fragment(), OnItemClick, OnFragmentInteractionListener {
     }
 
     override fun onFragmentInteraction(uri: Uri) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+       TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun changeFragment(what: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        listener?.changeFragment(what)
     }
 
     override fun changeFragment(what: Int, bundle: Bundle?) {
@@ -88,7 +88,7 @@ class MyPageFragment : Fragment(), OnItemClick, OnFragmentInteractionListener {
 
             activity?.let{
                 dataListTicket = Ticket.getDummyArray()
-                ticketAdapter = TicketListAdapter(it.applicationContext, dataListTicket)
+                ticketAdapter = TicketListAdapter(it.applicationContext, dataListTicket, this)
                 recycler_view_ticket.adapter = ticketAdapter
             }
     }

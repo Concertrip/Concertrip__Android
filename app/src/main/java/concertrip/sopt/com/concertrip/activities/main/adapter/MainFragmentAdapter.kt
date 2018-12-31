@@ -29,12 +29,12 @@ class MainFragmentAdapter(val fragmentManager: FragmentManager, val mainTab: Tab
     /*TODO have to edit its icons when we get the icons from design team*/
 
     private val setIcons = arrayOf(
-            R.drawable.ic_tab, R.drawable.ic_tab,
-            R.drawable.ic_tab, R.drawable.ic_tab
+            R.drawable.ic_calendar_selected, R.drawable.ic_explorer_selected,
+            R.drawable.ic_liked_selected, R.drawable.ic_mypage_selected
     )
     private val unsetIcons = arrayOf(
-        R.drawable.ic_account_circle, R.drawable.ic_account_circle,
-        R.drawable.ic_account_circle, R.drawable.ic_account_circle
+        R.drawable.ic_calendar, R.drawable.ic_explorer,
+        R.drawable.ic_liked, R.drawable.ic_mypage
     )
 
     private val fragments = arrayOf(
