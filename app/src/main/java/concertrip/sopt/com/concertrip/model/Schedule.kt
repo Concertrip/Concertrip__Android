@@ -9,6 +9,13 @@ class Schedule(var date: Int, var text: String) {
 
 
 
+
+    fun toConcert() : Concert {
+        val c = Concert("test")
+        c.date= listOf(date.toString())
+        c.title=text
+        return c
+    }
     companion object {
 
         fun getDummy(date: Int): Schedule = Schedule(date, "지코")
