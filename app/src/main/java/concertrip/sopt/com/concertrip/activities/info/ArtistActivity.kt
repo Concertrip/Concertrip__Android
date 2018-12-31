@@ -39,8 +39,8 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
     private val RECOVERY_DIALOG_REQUEST = 1
 
     override fun onInitializationSuccess(provider: YouTubePlayer.Provider?, youTubePlayer: YouTubePlayer?, b: Boolean) {
-        if (!b) {
-            youTubePlayer?.cueVideo("H8NCOA2bK6k")  //http://www.youtube.com/watch?v=IA1hox-v0jQ
+        if (!b&& ::artist.isInitialized) {
+            youTubePlayer?.cueVideo(artist.youtubeUrl)  //http://www.youtube.com/watch?v=IA1hox-v0jQ
         }
     }
 
@@ -63,17 +63,16 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         return findViewById<View>(R.id.youtude) as YouTubePlayerView
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
-        if (requestCode == RECOVERY_DIALOG_REQUEST) {
-            getYouTubePlayerProvider().initialize(Secret.YOUTUBE_API_KEY, this)
-        }
-    }
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+//        if (requestCode == RECOVERY_DIALOG_REQUEST) {
+//            getYouTubePlayerProvider().initialize(Secret.YOUTUBE_API_KEY, this)
+//        }
+//    }
 
     private var artistId: Int? = null
 
     lateinit  var artist: Artist
     var dataList = arrayListOf<Concert>()
-
     private lateinit var adapter : BasicListAdapter
 
     var dataListMember = arrayListOf<Artist>()
@@ -95,8 +94,14 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         connectRequestData(artistId!!)
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        connectRequestData(artistId!!)
+    }
+
     fun initialUI(){
-        adapter = BasicListAdapter(this, Concert.getDummyArray())
+        adapter = BasicListAdapter(this, dataList)
         recycler_view.adapter = adapter
 
         dataListMember = Artist.getDummyArray()
@@ -125,14 +130,23 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         adapter.notifyDataSetChanged()
     }
 
-    private fun updateArtistData(artist : Artist){
+    private fun updateArtistData(){
         // TODO 좋아요 버튼 설정
         if(URLUtil.isValidUrl(artist.backImg))
             Glide.with(this).load(artist.backImg).into(iv_back)
         if(URLUtil.isValidUrl(artist.profileImg))
             Glide.with(this).load(artist.profileImg).apply(RequestOptions.circleCropTransform()).into(iv_profile)
+
         tv_title.text = artist.name
         tv_tag.text = artist.subscribeNum.toString()
+
+        getYouTubePlayerProvider().initialize(Secret.YOUTUBE_API_KEY, this)
+    }
+
+    private fun updateMemberList(list : ArrayList<Artist>){
+        dataListMember.clear()
+        dataListMember.addAll(list)
+        memberListAdapter.notifyDataSetChanged()
     }
 
     private fun connectRequestData(id : Int){
@@ -145,17 +159,15 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         //this.dataList.addAll(list)
 
         val getArtistResponse : GetArtistResponse = GetArtistResponse(ArtistData.getDummy())
-        val artist = getArtistResponse.data.toArtist()
+        // getDummy()로 받는 콘서트 리스트는 비어있음 !!
+        artist = getArtistResponse.data.toArtist()
 
-        //updateConcertList(ArrayList(artist.concertList))
-        updateArtistData(artist)
+        /*TODO
+        * 정확한 API 받고 Artist Data 재구성 > 데이터 가공*/
+        updateConcertList(ArrayList(artist.concertList))
+        //updateMemberList
+        updateArtistData()
         updateUI()
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        connectRequestData(artistId!!)
     }
 
     companion object {
