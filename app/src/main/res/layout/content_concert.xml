@@ -36,12 +36,6 @@
                     android:text="@string/txt_content_concert_cast"
                     android:textStyle="bold"/>
 
-            <View android:layout_width="match_parent"
-                  android:layout_height="1dp"
-                  android:layout_marginTop="0.7dp"
-                  android:background="#999999"
-            />
-
             <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycler_view"
                     android:layout_width="wrap_content"
@@ -69,22 +63,17 @@
                     android:textSize="20sp"
                     android:textColor="#000000"
                     android:lineSpacingExtra="9sp"
-                    android:text="@string/txt_content_concert_schedule"
+                    android:text="@string/txt_content_concert_detail_info"
                     android:textStyle="bold"
                     android:layout_marginTop="2.7dp"/>
-
-            <View android:layout_width="match_parent"
-                  android:layout_height="1dp"
-                  android:layout_marginTop="0.7dp"
-                  android:background="#999999"/>
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
-                    android:textColor="#808080"
+                    android:textColor="#343434"
                     android:lineSpacingExtra="11sp"
-                    android:text="@string/txt_content_concert_time"
+                    android:text="@string/txt_content_concert_date"
                     android:layout_marginTop="13.8dp"/>
             <TextView
                     android:id="@+id/tv_concert_date"
@@ -101,74 +90,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
-                    android:textColor="#808080"
+                    android:textColor="#343434"
                     android:lineSpacingExtra="11sp"
-                    android:text="@string/txt_content_concert_price"
+                    android:text="@string/txt_content_concert_location"
                     android:layout_marginTop="17.4dp"/>
-            <TextView
-                    android:id="@+id/tv_concert_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:textColor="#808080"
-                    android:lineSpacingExtra="11sp"
-                    android:text="스탠딩 88,000원"
-                    tools:text="스탠딩 88,000원"
-                    android:layout_marginTop="13.8dp"/>
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:textColor="#808080"
-                    android:lineSpacingExtra="11sp"
-                    android:text="@string/txt_content_concert_lineup"
-                    android:layout_marginTop="17.4dp"/>
-            <TextView
-                    android:id="@+id/tv_concert_cast"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:textColor="#808080"
-                    android:lineSpacingExtra="11sp"
-                    android:text="지코, 페노메코, 크러쉬, 해쉬스완 등"
-                    tools:text="지코, 페노메코, 크러쉬, 해쉬스완 등"
-                    android:layout_marginTop="13.8dp"/>
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:textColor="#808080"
-                    android:lineSpacingExtra="11sp"
-                    android:text="@string/txt_content_concert_buy"
-                    android:layout_marginTop="17.4dp"/>
-            <TextView
-                    android:id="@+id/tv_concert_link"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:textColor="#808080"
-                    android:lineSpacingExtra="11sp"
-                    android:text="concertrip.buy.com"
-                    tools:text="concertrip.buy.com"
-                    android:layout_marginTop="13.8dp"/>
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:textColor="#000000"
-                    android:lineSpacingExtra="9sp"
-                    android:text="@string/txt_content_concert_place"
-                    android:textStyle="bold"
-                    android:layout_marginTop="17.8dp"/>
-
-            <View android:layout_width="match_parent"
-                  android:layout_height="1dp"
-                  android:layout_marginTop="0.7dp"
-                  android:background="#999999"/>
-
             <TextView
                     android:id="@+id/tv_concert_location"
                     android:layout_width="wrap_content"
@@ -176,9 +101,25 @@
                     android:textSize="14sp"
                     android:textColor="#808080"
                     android:lineSpacingExtra="11sp"
-                    android:text="세종대학교 광개토대왕"
-                    tools:text="세종대학교 광개토대왕"
+                    android:text="세종대학교 컨벤션센터"
                     android:layout_marginTop="13.8dp"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="#343434"
+                    android:lineSpacingExtra="11sp"
+                    android:text="@string/txt_content_concert_price"
+                    android:layout_marginTop="17.4dp"/>
+
+            <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_view_seat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="13.8dp"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
+
 
             <TextView
                     android:layout_width="wrap_content"
@@ -189,11 +130,6 @@
                     android:text="@string/txt_content_concert_caution"
                     android:textStyle="bold"
                     android:layout_marginTop="17.8dp"/>
-
-            <View android:layout_width="match_parent"
-                  android:layout_height="1dp"
-                  android:layout_marginTop="0.7dp"
-                  android:background="#999999"/>
 
             <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycler_view_caution"

@@ -33,12 +33,12 @@
     <string name="txt_liked_tag3">공연</string>
     <string name="txt_calendar_select_date">날짜를 선택해주세요</string>
     <string name="txt_content_concert_cast">출연진</string>
-    <string name="txt_content_concert_schedule">일정내용</string>
-    <string name="txt_content_concert_time">공연시간</string>
+    <string name="txt_content_concert_detail_info">세부정보</string>
+    <string name="txt_content_concert_date">공연날짜</string>
     <string name="txt_content_concert_price">티켓가격</string>
     <string name="txt_content_concert_lineup">출연</string>
     <string name="txt_content_concert_buy">티켓구매</string>
-    <string name="txt_content_concert_place">위치</string>
+    <string name="txt_content_concert_location">공연위치</string>
     <string name="txt_content_concert_caution">주의사항</string>
     <string name="txt_content_artist_comingsoon">다가오는 콘서트</string>
     <string name="title_activity_splash">SplashActivity</string>
