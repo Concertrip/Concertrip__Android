@@ -40,7 +40,8 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
 
     override fun onInitializationSuccess(provider: YouTubePlayer.Provider?, youTubePlayer: YouTubePlayer?, b: Boolean) {
         if (!b&& ::artist.isInitialized) {
-            youTubePlayer?.cueVideo(artist.youtubeUrl)  //http://www.youtube.com/watch?v=IA1hox-v0jQ
+            val youtubeUrlList = artist.youtubeUrl!!.split("?v=")
+            youTubePlayer?.cueVideo(youtubeUrlList[youtubeUrlList.size-1])  //http://www.youtube.com/watch?v=IA1hox-v0jQ
         }
     }
 
@@ -162,9 +163,9 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         // getDummy()로 받는 콘서트 리스트는 비어있음 !!
         artist = getArtistResponse.data.toArtist()
 
+        updateConcertList(ArrayList(artist.concertList))
         /*TODO
         * 정확한 API 받고 Artist Data 재구성 > 데이터 가공*/
-        updateConcertList(ArrayList(artist.concertList))
         //updateMemberList
         updateArtistData()
         updateUI()

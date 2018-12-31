@@ -33,7 +33,7 @@ data class ArtistData(
     companion object {
         fun getDummy() : ArtistData{
             return ArtistData("",0,"지코","https://search.pstatic.net/common?type=a&size=120x150&quality=95&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F201801%2F20180108113919887.jpg",
-                "https://img.huffingtonpost.com/asset/5ba482b82400003100546bc3.jpeg","","NHglTopVlKQ",
+                "https://img.huffingtonpost.com/asset/5ba482b82400003100546bc3.jpeg","","https://www.youtube.com/watch?v=Q8AK_wfGhkg",
                 Concert.getDummyArray())
         }
 
