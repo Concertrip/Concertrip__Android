@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translate xmlns:android="http://schemas.android.com/apk/res/android"
+           android:fromYDelta="100%p" android:toYDelta="100%p"
+           android:duration="@android:integer/config_shortAnimTime"/>
+
+<!--down되면 정신 없어서 그냥 애니메이션 없는걸로 변경해놓음-->

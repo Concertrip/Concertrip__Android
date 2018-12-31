@@ -15,11 +15,18 @@
               android:background="@drawable/ic_circle"
     />
 
-    <GridLayout
+    <!--<GridLayout-->
+            <!--android:id="@+id/ly_schedule"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:columnCount="4"-->
+            <!--android:layout_height="wrap_content"-->
+    <!--&gt;-->
+    <LinearLayout
             android:id="@+id/ly_schedule"
             android:layout_width="wrap_content"
-            android:columnCount="3"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
     >
-    </GridLayout>
+    </LinearLayout>
 </LinearLayout>

@@ -2,7 +2,6 @@ package concertrip.sopt.com.concertrip.activities.main.fragment.calendar
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -12,7 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import concertrip.sopt.com.concertrip.activities.AlramActivity
+import concertrip.sopt.com.concertrip.activities.AlarmActivity
 import concertrip.sopt.com.concertrip.activities.main.fragment.calendar.adapter.CalendarListAdapter
 import concertrip.sopt.com.concertrip.interfaces.OnFragmentInteractionListener
 import concertrip.sopt.com.concertrip.interfaces.OnItemClick
@@ -216,7 +215,7 @@ class CalendarFragment : Fragment(), OnItemClick {
 
     private fun initialUI() {
         btn_notification.setOnClickListener {
-            startActivity(Intent(activity, AlramActivity::class.java))
+            startActivity(Intent(activity, AlarmActivity::class.java))
         }
 
         activity?.let {

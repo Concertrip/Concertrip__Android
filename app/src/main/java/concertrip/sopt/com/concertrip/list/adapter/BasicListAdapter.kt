@@ -107,8 +107,8 @@ class BasicListAdapter(
     constructor(mContext: Context, dataList: ArrayList<out ListData>) : this(mContext, dataList, MODE_BASIC, null)
 
     companion object {
-        val MODE_BASIC = 0
-        val MODE_THUMB = 1
+        const val MODE_BASIC = 0
+        const val MODE_THUMB = 1
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -121,17 +121,17 @@ class BasicListAdapter(
             TYPE_ARTIST -> {
                 return when (mode) {
                     MODE_BASIC -> {
-                        val view = LayoutInflater.from(mContext).inflate(R.layout.li_artist, parent, false)
-                        ArtistViewHolder(view)
-                    }
-                    MODE_THUMB -> {
-                        val view = LayoutInflater.from(mContext).inflate(R.layout.li_artist_thumb, parent, false)
-                        ArtistThumbViewHolder(view)
-                    }
-                    else -> {
-                        throw RuntimeException(mContext.toString() + " mode is strange number $mode")
-                    }
+                    val view = LayoutInflater.from(mContext).inflate(R.layout.li_artist, parent, false)
+                    ArtistViewHolder(view)
                 }
+                MODE_THUMB -> {
+                    val view = LayoutInflater.from(mContext).inflate(R.layout.li_artist_thumb, parent, false)
+                    ArtistThumbViewHolder(view)
+                }
+                else -> {
+                    throw RuntimeException(mContext.toString() + " mode is strange number $mode")
+                }
+            }
             }
             TYPE_CONCERT -> {
                 val view = LayoutInflater.from(mContext).inflate(R.layout.li_concert, parent, false)
