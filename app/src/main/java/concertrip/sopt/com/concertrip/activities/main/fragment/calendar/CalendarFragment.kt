@@ -137,8 +137,6 @@ class CalendarFragment : Fragment(), OnItemClick {
     private var mCal: Calendar by Delegates.notNull()
 
     private fun setCalendarUI(year : String, month : String){
-        tv_year.text = year
-
         iv_month.setImageResource(monthImgList[month.toInt()-1])
     }
 

@@ -34,11 +34,7 @@
                     android:lineSpacingExtra="9sp"
                     android:textStyle="bold"
                     android:text="@string/txt_content_artist_member"/>
-            <View android:layout_width="match_parent"
-                  android:layout_height="1dp"
-                  android:layout_marginTop="0.7dp"
-                  android:background="#999999"
-            />
+
             <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycler_view_member"
                     android:orientation="horizontal"
@@ -65,11 +61,6 @@
                     android:lineSpacingExtra="9sp"
                     android:textStyle="bold"
                     android:text="@string/txt_content_artist_comingsoon"
-            />
-            <View android:layout_width="match_parent"
-                  android:layout_height="1dp"
-                  android:layout_marginTop="0.7dp"
-                  android:background="#999999"
             />
 
             <android.support.v7.widget.RecyclerView
