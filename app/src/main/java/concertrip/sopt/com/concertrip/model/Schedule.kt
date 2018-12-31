@@ -12,6 +12,7 @@ class Schedule(var date: Int, var text: String) {
 
     fun toConcert() : Concert {
         val c = Concert("test")
+
         c.date= listOf(date.toString())
         c.title=text
         return c
