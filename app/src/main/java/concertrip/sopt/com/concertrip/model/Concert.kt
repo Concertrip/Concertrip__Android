@@ -15,8 +15,11 @@ data class Concert(
     var genre: String,
     var cast : String, // dont need it
     var date : List<String>,
-    var seatPrice : List<String>,
-    var seatName : List<String>,
+//    var seatPrice : List<String>,
+//    var seatName : List<String>,
+
+    var seatList : List<Seat>,
+
     var precaution : List<Caution>,
     var eventInfoImg : String,
     var youtubeUrl : String,
@@ -30,7 +33,7 @@ data class Concert(
 
     constructor(_id : String) : this(_id = _id, title = "", genre = "", youtubeUrl = "",backImg = "", eventInfoImg = "",
         profileImg = "",cast = "", date = ArrayList<String>(),artistList = ArrayList<Artist>(),location = "",station = "",
-        seatName = ArrayList<String>(), precaution=ArrayList<Caution>(),seatPrice=ArrayList<String>() ,  subscribeNum = 0, isSubscribe = false)
+        seatList = ArrayList<Seat>(), precaution=ArrayList<Caution>(), subscribeNum = 0, isSubscribe = false)
 
 
     private fun makeTag() : String ="#$genre #$genre"
@@ -68,18 +71,18 @@ data class Concert(
             eventInfoImg = "http://tenasia.hankyung.com/webwp_kr/wp-content/uploads/2018/07/2018071709244719489-540x734.jpg",
             profileImg = "https://search.pstatic.net/common?type=a&size=120x150&quality=95&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F201801%2F20180108113919887.jpg"
             ,cast = "지코", date = listOf("2018-12-20", "2018-12-21"),artistList = ArrayList<Artist>(),location = "",station = "",
-            seatName = listOf("R", "VIP"), seatPrice = listOf("80,000", "120,000") , precaution = ArrayList<Caution>(),  subscribeNum = 0, isSubscribe = false)
+            seatList = listOf(Seat("R", "80,000"), Seat("VIP", "120,000")), precaution = ArrayList<Caution>(),  subscribeNum = 0, isSubscribe = false)
 
         fun getDummy_1(_id : String)= Concert(_id = _id, title = "SM콘서트", genre = "보이그룹", youtubeUrl = "",backImg = "http://blogfiles.naver.net/20150115_278/jimin1226_1421248926310a8IkG_JPEG/vsbspvs.jpg",
             eventInfoImg = "http://tenasia.hankyung.com/webwp_kr/wp-content/uploads/2018/03/2018032909340067040-540x810.jpg",
             profileImg = "https://search.pstatic.net/common?type=a&size=120x150&quality=95&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F201805%2F20180530151238597-2777067.jpg"
             ,cast = "태민", date = listOf("2018-12-16", "2018-12-17"),artistList = ArrayList<Artist>(),location = "",station = "",
-            seatName = listOf("플로어", "3층"), seatPrice = listOf("110,000", "120,000") ,  precaution = ArrayList<Caution>(),  subscribeNum = 0, isSubscribe = false)
+            seatList = listOf(Seat("R", "80,000"), Seat("VIP", "120,000")),  precaution = ArrayList<Caution>(),  subscribeNum = 0, isSubscribe = false)
 
         fun getDummy_2(_id : String)= Concert(_id = _id, title = "휘성 콘서트", genre = "#발라드", youtubeUrl = "",backImg = "http://imgnews.naver.net/image/213/2016/07/20/20160720_1468977905_09715900_1_99_20160720103907.jpg",
             eventInfoImg = "https://i.pinimg.com/originals/db/6f/73/db6f73d92812997c9e59aa7e33786a96.jpg",
             profileImg = "https://search.pstatic.net/common?type=a&size=120x150&quality=95&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2F185%2F201709151548017101.jpg"
             ,cast = "휘성", date = listOf("2018-12-28", "2018-12-29"),artistList = ArrayList<Artist>(),location = "",station = "",
-            seatName = listOf("R", "VIP"), seatPrice = listOf("70,000", "80,000") ,  precaution = ArrayList<Caution>(),  subscribeNum = 0, isSubscribe = false)
+            seatList = listOf(Seat("R", "80,000"), Seat("VIP", "120,000")),  precaution = ArrayList<Caution>(),  subscribeNum = 0, isSubscribe = false)
     }
 }

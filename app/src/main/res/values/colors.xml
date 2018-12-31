@@ -26,4 +26,7 @@
     <color name="gray">#777777</color>
     <color name="purple">#593EFF</color>
     <color name="blue">#1bbbff</color>
+
+    <color name="seat_1">#ff3e3e</color>
+    <color name="seat_2">#1bbbff</color>
 </resources>
