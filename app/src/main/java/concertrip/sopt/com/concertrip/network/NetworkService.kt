@@ -106,7 +106,7 @@ interface NetworkService {
     @GET("/api/search")
     @Headers("Content-Type:application/json")
     fun getSearch(
-        @Header("token") token : String,
+        @Header("Authorization") token : Int,
         @Query("tag") tag: String
     ):Call<GetSearchResponse>
 }

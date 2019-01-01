@@ -12,12 +12,17 @@ import android.view.inputmethod.InputMethodManager
 import concertrip.sopt.com.concertrip.R
 import concertrip.sopt.com.concertrip.interfaces.ListData
 import concertrip.sopt.com.concertrip.interfaces.OnFragmentInteractionListener
+import concertrip.sopt.com.concertrip.interfaces.OnResponse
 import concertrip.sopt.com.concertrip.list.adapter.BasicListAdapter
 import concertrip.sopt.com.concertrip.model.Artist
 import concertrip.sopt.com.concertrip.model.Concert
+import concertrip.sopt.com.concertrip.network.ApplicationController
+import concertrip.sopt.com.concertrip.network.NetworkService
 import concertrip.sopt.com.concertrip.network.response.GetSearchResponse
 import concertrip.sopt.com.concertrip.network.response.data.SimpleArtistData
 import concertrip.sopt.com.concertrip.network.response.data.SimpleConcertData
+import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
+import concertrip.sopt.com.concertrip.utillity.NetworkUtil
 import kotlinx.android.synthetic.main.fragment_search.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -34,12 +39,53 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  *
  */
-class SearchFragment : Fragment() {
+class SearchFragment : Fragment() ,OnResponse{
+    override fun onSuccess(obj: BaseModel, position: Int?) {
+
+        if(obj is GetSearchResponse){
+            val searchResponseData = obj as GetSearchResponse
+            /*TODO API 들어오면 이거 다시 정확하게 하고 주석 풀기*/
+//            val searchResponseData : GetSearchResponse
+//                    = GetSearchResponse(SimpleConcertData.getDummyList(), SimpleArtistData.getDummyList())
+            val concertList = searchResponseData.toConcertList()
+            val artistList = searchResponseData.toArtistList()
+
+            //임시 처리
+            dataListConcert.clear()
+            dataListConcert.addAll(concertList)
+
+            dataListArtist.clear()
+            dataListArtist.addAll(artistList)
+
+//        if(searchTxt.length>10) {
+//            dataListArtist.addAll(Artist.getDummyArray())
+//            dataListConcert.addAll(Concert.getDummyArray())
+//        }
+//        else if(searchTxt.length>5) {
+//            dataListConcert.addAll(Concert.getDummyArray())
+//        }
+
+            updateListConcert(ArrayList(concertList))
+            updateListArtist(ArrayList(artistList))
+            //updateListTheme()
+
+            updateUI()
+        }
+    }
+
+    override fun onFail() {
+    }
 
     var dataListArtist = arrayListOf<Artist>()
     var dataListConcert = arrayListOf<Concert>()
 
     var adapter : BasicListAdapter?= null
+
+
+    private val networkService: NetworkService by lazy {
+        ApplicationController.instance.networkService
+    }
+
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -63,6 +109,7 @@ class SearchFragment : Fragment() {
     override fun onDetach() {
         super.onDetach()
         listener = null
+
     }
     companion object {
         /**
@@ -152,36 +199,19 @@ class SearchFragment : Fragment() {
 
 
     private fun connectRequestData(){
+
+
+
         searchTxt = edt_search.text.toString()
         tv_result_no.text=("'$searchTxt' ${getString(R.string.txt_result_no)}")
         btn_result_add.text=("'$searchTxt' ${getString(R.string.txt_result_add)}")
 
-        /*TODO API 들어오면 이거 다시 정확하게 하고 주석 풀기*/
-        val searchResponseData : GetSearchResponse
-                = GetSearchResponse(SimpleConcertData.getDummyList(), SimpleArtistData.getDummyList())
-        val concertList = searchResponseData.toConcertList()
-        val artistList = searchResponseData.toArtistList()
 
-        //임시 처리
-        dataListConcert.clear()
-        dataListConcert.addAll(concertList)
 
-        dataListArtist.clear()
-        dataListArtist.addAll(artistList)
 
-//        if(searchTxt.length>10) {
-//            dataListArtist.addAll(Artist.getDummyArray())
-//            dataListConcert.addAll(Concert.getDummyArray())
-//        }
-//        else if(searchTxt.length>5) {
-//            dataListConcert.addAll(Concert.getDummyArray())
-//        }
+        NetworkUtil.search(networkService,this,searchTxt)
 
-        updateListConcert(ArrayList(concertList))
-        updateListArtist(ArrayList(artistList))
-        //updateListTheme()
 
-        updateUI()
 
     }
 
