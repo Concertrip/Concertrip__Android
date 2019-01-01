@@ -12,6 +12,7 @@
               android:layout_height="match_parent"
               android:id="@+id/tv_calendar"
               tools:text="월"
+              android:textColor="@color/white"
               android:textSize="15sp"
               android:textStyle="bold"
               android:gravity="center_horizontal"/>

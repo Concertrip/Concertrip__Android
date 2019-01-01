@@ -24,7 +24,7 @@
                 android:id="@+id/v_underline"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:visibility="invisible"
+                android:visibility="gone"
                 android:background="#b4b4b5"
                 android:layout_marginTop="4.6dp"/>
 
