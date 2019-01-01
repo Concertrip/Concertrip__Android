@@ -3,6 +3,7 @@ package concertrip.sopt.com.concertrip.activities.info
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.View
 import android.webkit.URLUtil
 import android.widget.Toast
@@ -18,6 +19,8 @@ import concertrip.sopt.com.concertrip.interfaces.OnItemClick
 import concertrip.sopt.com.concertrip.list.adapter.BasicListAdapter
 import concertrip.sopt.com.concertrip.model.Artist
 import concertrip.sopt.com.concertrip.model.Concert
+import concertrip.sopt.com.concertrip.network.ApplicationController
+import concertrip.sopt.com.concertrip.network.NetworkService
 import concertrip.sopt.com.concertrip.network.response.GetArtistResponse
 import concertrip.sopt.com.concertrip.network.response.data.ArtistData
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.INTENT_TAG_ID
@@ -26,6 +29,9 @@ import kotlinx.android.synthetic.main.activity_artist.*
 
 import kotlinx.android.synthetic.main.content_artist.*
 import kotlinx.android.synthetic.main.content_header.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener, OnItemClick {
 
@@ -40,8 +46,9 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
 
     override fun onInitializationSuccess(provider: YouTubePlayer.Provider?, youTubePlayer: YouTubePlayer?, b: Boolean) {
         if (!b&& ::artist.isInitialized) {
-            val youtubeUrlList = artist.youtubeUrl!!.split("?v=")
-            youTubePlayer?.cueVideo(youtubeUrlList[youtubeUrlList.size-1])  //http://www.youtube.com/watch?v=IA1hox-v0jQ
+//            val youtubeUrlList = artist.youtubeUrl!!.split("?v=")
+//            youTubePlayer?.cueVideo(youtubeUrlList[youtubeUrlList.size-1])  //http://www.youtube.com/watch?v=IA1hox-v0jQ
+            youTubePlayer?.cueVideo(artist.youtubeUrl)  //http://www.youtube.com/watch?v=IA1hox-v0jQ
         }
     }
 
@@ -59,16 +66,9 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         }
     }
 
-
     private fun getYouTubePlayerProvider(): YouTubePlayer.Provider {
         return findViewById<View>(R.id.youtude) as YouTubePlayerView
     }
-
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
-//        if (requestCode == RECOVERY_DIALOG_REQUEST) {
-//            getYouTubePlayerProvider().initialize(Secret.YOUTUBE_API_KEY, this)
-//        }
-//    }
 
     private var artistId: Int? = null
 
@@ -79,6 +79,10 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
     var dataListMember = arrayListOf<Artist>()
     lateinit var memberListAdapter : BasicListAdapter
 
+    private val networkService: NetworkService by lazy {
+        ApplicationController.instance.networkService
+    }
+
     private fun showDialog() {
         val dialog = CustomDialog(this)
         dialog.show()
@@ -87,7 +91,6 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_artist)
-//        setSupportActionBar(toolbar)
 
         artistId = getIntent().getIntExtra(INTENT_TAG_ID, 0)
 
@@ -105,7 +108,7 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         adapter = BasicListAdapter(this, dataList)
         recycler_view.adapter = adapter
 
-        dataListMember = Artist.getDummyArray()
+//        dataListMember = Artist.getDummyArray()
         memberListAdapter = BasicListAdapter(this, dataListMember, BasicListAdapter.MODE_THUMB)
         recycler_view_member.adapter = memberListAdapter
 
@@ -159,16 +162,29 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         //this.dataList.clear()
         //this.dataList.addAll(list)
 
-        val getArtistResponse : GetArtistResponse = GetArtistResponse(ArtistData.getDummy())
+//        val getArtistResponse : GetArtistResponse = GetArtistResponse(ArtistData.getDummy())
         // getDummy()로 받는 콘서트 리스트는 비어있음 !!
-        artist = getArtistResponse.data.toArtist()
+        val getArtistResponse : Call<GetArtistResponse> = networkService.getArtist("", "5c287b713eea39d2b0049f3f")
 
-        updateConcertList(ArrayList(artist.concertList))
-        /*TODO
-        * 정확한 API 받고 Artist Data 재구성 > 데이터 가공*/
-        //updateMemberList
-        updateArtistData()
-        updateUI()
+        getArtistResponse.enqueue(object : Callback<GetArtistResponse>
+        {
+            override fun onFailure(call: Call<GetArtistResponse>?, t: Throwable?) {
+                Log.v("test0101", "getArtistResponse in onFailure" + t.toString())
+            }
+            override fun onResponse(call: Call<GetArtistResponse>?, response: Response<GetArtistResponse>?) {
+                if (response!!.body()?.status == 200) {
+                    artist = response!!.body()!!.data.toArtist()
+                    updateConcertList(ArrayList(artist.concertList))
+                    /*TODO
+                    * 정확한 API 받고 Artist Data 재구성 > 데이터 가공*/
+                    //updateMemberList
+                    updateArtistData()
+                    updateUI()
+                } else {
+                    Log.v("test0101", "getArtistResponse in "+ response!!.body()?.status.toString())
+                }
+            }
+        })
     }
 
     companion object {

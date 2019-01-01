@@ -223,8 +223,8 @@ class LikedFragment : Fragment() ,View.OnClickListener, OnItemClick,OnResponse{
         }
     }
     private fun connectArtistSubscribe(){
-        val artistSubscribeResponse = GetArtistSubscribeResponse(ArtistData.getDummyArray())
-        updateDataList(artistSubscribeResponse.getArtistList())
+//        val artistSubscribeResponse = GetArtistSubscribeResponse(ArtistData.getDummyArray())
+//        updateDataList(artistSubscribeResponse.getArtistList())
     }
 
     private fun connectConcertSubscribe(){
@@ -235,11 +235,11 @@ class LikedFragment : Fragment() ,View.OnClickListener, OnItemClick,OnResponse{
     private fun connectGenreSubscribe(){
 
 
-        val genreSubscribeResponse = GetGenreSubscribeResponse(ArtistData.getDummyArray())
-
-        val list = ArrayList<ListData>()
-        list.addAll(genreSubscribeResponse.getArtistList())
-        updateDataList(list)
+//        val genreSubscribeResponse = GetGenreSubscribeResponse(ArtistData.getDummyArray())
+//
+//        val list = ArrayList<ListData>()
+//        list.addAll(genreSubscribeResponse.getArtistList())
+//        updateDataList(list)
 
     }
 
