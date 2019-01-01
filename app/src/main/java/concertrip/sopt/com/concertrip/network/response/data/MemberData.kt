@@ -10,6 +10,20 @@ data class MemberData(
     var subscribe : Boolean
 ){
     fun toArtist(): Artist {
-        return Artist(_id, name,profileImg)
+        val artist = Artist(_id)
+
+        artist.name = name
+        artist.profileImg = profileImg
+        artist.subscribe = subscribe
+
+        return artist
     }
+
+
+    override fun toString(): String ="MemberData{\n" +
+            "_id : $_id\n" +
+            "name : $name\n" +
+            "profileImg : $profileImg\n" +
+            "filter : $filter\n" +
+            "subscribe : $subscribe}"
 }

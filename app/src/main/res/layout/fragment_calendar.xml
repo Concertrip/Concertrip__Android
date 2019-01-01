@@ -21,12 +21,19 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="30dp">
 
+
             <ImageView
                     android:id="@+id/iv_month"
                     android:layout_width="wrap_content"
                     android:layout_height="25dp"
             />
+            <!--<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"-->
 
+                      <!--android:id="@+id/tv_calendar"-->
+                      <!--android:textSize="30dp"-->
+                      <!--android:text="12345"-->
+
+            <!--/>-->
 
             <Button android:layout_width="40dp"
                     android:layout_height="40dp"
@@ -76,6 +83,7 @@
                 android:textColor="#2e2e2e"
                 android:textSize="17sp"
                 android:text="@string/txt_calendar_select_date"
+
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>

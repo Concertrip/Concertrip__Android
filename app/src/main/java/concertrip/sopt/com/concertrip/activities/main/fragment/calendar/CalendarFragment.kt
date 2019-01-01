@@ -26,6 +26,11 @@ import java.util.*
 import kotlin.collections.ArrayList
 import concertrip.sopt.com.concertrip.R
 import concertrip.sopt.com.concertrip.interfaces.ListData
+import android.graphics.Shader.TileMode
+import android.graphics.LinearGradient
+import android.graphics.Shader
+
+
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -259,6 +264,14 @@ class CalendarFragment : Fragment(), OnItemClick {
 
 
         }
+
+
+//        val textShader = LinearGradient(
+//            0f, 0f, 0f, 20f,
+//            intArrayOf(R.color.white, R.color.black),
+//            floatArrayOf(1f, 1f), TileMode.CLAMP
+//        )
+//        tv_calendar.paint.shader = textShader
 
     }
 

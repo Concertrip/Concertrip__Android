@@ -18,7 +18,7 @@ data class SimpleGenreData(
         return a
     }
 
-    override fun toString(): String ="_id : $_id, name = $name, profileImg = $profileImg, subscribe = $subscribe"
+    override fun toString(): String ="SimpleGenreData{_id : $_id, name = $name, profileImg = $profileImg, subscribe = $subscribe}"
 
     companion object {
         fun getDummy() : SimpleGenreData = SimpleGenreData("", "지코", "힙합",false)

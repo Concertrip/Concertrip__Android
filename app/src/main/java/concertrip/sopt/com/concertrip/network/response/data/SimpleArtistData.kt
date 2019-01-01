@@ -14,7 +14,7 @@ data class SimpleArtistData(
 
         return a
     }
-    override fun toString(): String ="_id : $_id, name = $name, tag = $tag"
+    override fun toString(): String ="SimpleArtistData{_id : $_id, name = $name, tag = $tag}"
 
     companion object {
         fun getDummy() : SimpleArtistData = SimpleArtistData("", "지코", "힙합")

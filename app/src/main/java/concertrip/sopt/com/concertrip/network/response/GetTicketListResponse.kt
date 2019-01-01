@@ -8,5 +8,11 @@ data class GetTicketListResponse(
     @SerializedName("data")
     var data: List<TicketData>
 ) : BaseModel(){
-
+    override fun toString(): String {
+        var result = ""
+        data.forEach {
+            result=result.plus(it)+","
+        }
+        return result
+    }
 }

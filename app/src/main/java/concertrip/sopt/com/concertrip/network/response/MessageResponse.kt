@@ -5,4 +5,6 @@ import org.json.JSONObject
 
 data class MessageResponse(
     var data : JSONObject
-): BaseModel()
+): BaseModel(){
+    override fun toString(): String =data.toString()
+}

@@ -3,6 +3,7 @@ package concertrip.sopt.com.concertrip.network.response
 import com.google.gson.annotations.SerializedName
 import concertrip.sopt.com.concertrip.model.Artist
 import concertrip.sopt.com.concertrip.model.Concert
+import concertrip.sopt.com.concertrip.network.response.data.SearchData
 import concertrip.sopt.com.concertrip.network.response.data.SimpleArtistData
 import concertrip.sopt.com.concertrip.network.response.data.SimpleConcertData
 import concertrip.sopt.com.concertrip.network.response.data.SimpleGenreData
@@ -29,27 +30,5 @@ data class GetSearchResponse (
         return list
     }
 
-    override fun toString(): String {
-        var result : String =""
-        result = result.plus("\nconcerts:[")
-        data.concerts?.forEach {
-            result = result.plus("\n\t{ $it }")
-        }
-        result = result.plus("]\nartists:[")
-        data.artists?.forEach {
-            result = result.plus("\n\t{ $it }")
-        }
-        result = result.plus("]\ngenres:[")
-        data.genres?.forEach {
-            result = result.plus("\n\t{ $it }")
-        }
-        result = result.plus("]\n")
-
-        return result
-    }
+    override fun toString(): String = data.toString()
 }
-data class SearchData(
-    var concerts : List<SimpleConcertData>?,
-    var artists : List<SimpleArtistData>?,
-    var genres : List<SimpleGenreData>?
-)

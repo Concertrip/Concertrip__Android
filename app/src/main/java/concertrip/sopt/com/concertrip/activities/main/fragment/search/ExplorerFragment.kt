@@ -18,7 +18,6 @@ import concertrip.sopt.com.concertrip.list.adapter.HorizontalListAdapter
 import concertrip.sopt.com.concertrip.model.Artist
 import concertrip.sopt.com.concertrip.model.Concert
 import concertrip.sopt.com.concertrip.network.response.GetSearchResponse
-import concertrip.sopt.com.concertrip.network.response.SearchData
 import concertrip.sopt.com.concertrip.network.response.data.*
 
 import concertrip.sopt.com.concertrip.utillity.Constants

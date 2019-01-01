@@ -64,6 +64,35 @@ data class ConcertData(
 
         return c
     }
+//    @SerializedName("memberList")
+//    var memberList : List<MemberData>,
+//
+//    var date : List<String>,
+//    var seatName : List<String>,
+//    var seatPrice : List<String>,
+//
+//    @SerializedName("precautionList")
+//    var precautionList : List<PrecautionData>,
+//
+//    var eventInfoImg : String,
+//    var subscribe : Boolean
+
+    override fun toString(): String ="ConcertData{\n" +
+            "_id : $_id\n" +
+            "profileImg : $profileImg\n" +
+            "backImg : $backImg\n " +
+            "name : $name\n" +
+            "subscribeNum : $subscribeNum\n" +
+            "youtubeUrl : $youtubeUrl\n" +
+            "location : $location\n"+
+            "memberList : $memberList\n" +
+            "date : $date\n" +
+            "seatName : $seatName\n" +
+            "seatPrice : $seatPrice\n" +
+            "precautionList : $precautionList\n" +
+            "eventInfoImg : $eventInfoImg\n" +
+            "subscribe : $subscribe" +
+            "}"
 
     companion object {
         fun getDummy() : ConcertData=ConcertData("",false, "https://search.pstatic.net/common?type=a&size=120x150&quality=95&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F201801%2F20180108113919887.jpg",
