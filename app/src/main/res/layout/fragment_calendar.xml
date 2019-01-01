@@ -5,46 +5,57 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
+
               tools:context=".activities.main.fragment.calendar.CalendarFragment">
 
-    <RelativeLayout android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  android:background="@color/white"
+                  android:elevation="6dp">
 
-                    android:paddingTop="16dp"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="30dp">
+        <RelativeLayout android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
 
-        <ImageView
-                android:id="@+id/iv_month"
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"
+                        android:paddingTop="16dp"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="30dp">
+
+            <ImageView
+                    android:id="@+id/iv_month"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+            />
+
+
+            <Button android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/btn_notification"
+                    android:layout_alignParentEnd="true"
+            />
+        </RelativeLayout>
+
+
+        <android.support.v7.widget.RecyclerView
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="21dp"
+                android:layout_marginTop="13dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:id="@+id/recycler_view_filter"
+                android:orientation="horizontal"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         />
 
-
-        <Button android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:id="@+id/btn_notification"
-                android:layout_alignParentEnd="true"
-        />
-    </RelativeLayout>
-
-
-    <android.support.v7.widget.RecyclerView
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:layout_marginBottom="21dp"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:id="@+id/recycler_view_filter"
-            android:orientation="horizontal"
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-    />
-
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
+                                            android:overScrollMode="never"
+                                            android:background="@color/white"
                                             android:id="@+id/recycler_view_calendar">
 
     </android.support.v7.widget.RecyclerView>
@@ -52,7 +63,9 @@
     <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view_calendar_detail"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:elevation="6dp"
             android:visibility="gone"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
 
