@@ -9,6 +9,8 @@ import android.support.v7.widget.RecyclerView
 import android.util.Log
 
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.webkit.URLUtil
 import android.widget.Toast
 import com.bumptech.glide.Glide
@@ -36,6 +38,9 @@ import kotlinx.android.synthetic.main.activity_concert.*
 
 import kotlinx.android.synthetic.main.content_concert.*
 import kotlinx.android.synthetic.main.content_header.*
+import android.view.ViewTreeObserver.OnScrollChangedListener
+
+
 
 class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener, OnItemClick {
 
@@ -119,6 +124,20 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
         recycler_view_seat.adapter = seatAdapter
 
         scroll_view.smoothScrollTo(0,0)
+        scroll_view.viewTreeObserver.addOnScrollChangedListener {
+            val scrollY = scroll_view.getScrollY() // For ScrollView
+            // DO SOMETHING WITH THE SCROLL COORDINATES
+            if(scrollY > 10 && btn_ticket.visibility == GONE){
+                btn_ticket.visibility = VISIBLE
+            }
+            else if(scrollY <= 10 && btn_ticket.visibility == VISIBLE){
+                btn_ticket.visibility = GONE
+            }
+        };
+
+        btn_ticket.setOnClickListener{
+            showDialog()
+        }
 
         btn_follow.setOnClickListener {
             showDialog()
