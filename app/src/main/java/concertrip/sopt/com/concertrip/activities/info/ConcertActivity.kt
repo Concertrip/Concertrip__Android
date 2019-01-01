@@ -1,12 +1,10 @@
 package concertrip.sopt.com.concertrip.activities.info
 
-import android.content.Intent
 import android.os.Bundle
 
 import android.support.v7.widget.GridLayoutManager
 
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 
 import android.view.View
 import android.view.View.GONE
@@ -30,16 +28,12 @@ import concertrip.sopt.com.concertrip.model.Concert
 import concertrip.sopt.com.concertrip.model.Seat
 import concertrip.sopt.com.concertrip.network.response.GetConcertResponse
 import concertrip.sopt.com.concertrip.network.response.data.ConcertData
-import concertrip.sopt.com.concertrip.network.response.data.MemberData
-import concertrip.sopt.com.concertrip.network.response.data.PrecautionData
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.INTENT_TAG_ID
 import concertrip.sopt.com.concertrip.utillity.Secret
 import kotlinx.android.synthetic.main.activity_concert.*
 
 import kotlinx.android.synthetic.main.content_concert.*
 import kotlinx.android.synthetic.main.content_header.*
-import android.view.ViewTreeObserver.OnScrollChangedListener
-
 
 
 class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener, OnItemClick {
