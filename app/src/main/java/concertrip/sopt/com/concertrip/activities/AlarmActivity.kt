@@ -6,7 +6,7 @@ import concertrip.sopt.com.concertrip.R
 import concertrip.sopt.com.concertrip.interfaces.ListData
 import concertrip.sopt.com.concertrip.list.adapter.BasicListAdapter
 import concertrip.sopt.com.concertrip.model.Alarm
-import kotlinx.android.synthetic.main.fragment_notification.*
+import kotlinx.android.synthetic.main.activity_alram.*
 
 class AlarmActivity : AppCompatActivity(){
 
