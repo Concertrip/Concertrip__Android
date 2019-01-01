@@ -157,16 +157,6 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
     }
 
     private fun connectRequestData(id : Int){
-        // 서버에 데이터 request보내고
-        // response 데이터를 이용해
-        // 전역변수로 선언되어있는 artist, dataList 업데이트
-
-        // dataList 업데이트
-        //this.dataList.clear()
-        //this.dataList.addAll(list)
-
-//        val getArtistResponse : GetArtistResponse = GetArtistResponse(ArtistData.getDummy())
-        // getDummy()로 받는 콘서트 리스트는 비어있음 !!
         val getArtistResponse : Call<GetArtistResponse> = networkService.getArtist("", "5c287b713eea39d2b0049f3f")
 
         getArtistResponse.enqueue(object : Callback<GetArtistResponse>
