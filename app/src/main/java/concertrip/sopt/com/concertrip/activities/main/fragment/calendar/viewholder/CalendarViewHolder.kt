@@ -20,12 +20,12 @@ class CalendarViewHolder(itemView : View)  : RecyclerView.ViewHolder(itemView){
      var  ivSelected : ImageView? = itemView.findViewById(R.id.iv_calendar)
 
      fun setToday(mContext: Context, b : Boolean){
-          if(b){
-               tvCalendar.textColor=mContext.getColor(R.color.mainColorP)
-          }else{
-//               tvCalendar.textColor=mContext.getColor(R.color.black)
-
-          }
+//          if(b){
+//               tvCalendar.textColor=mContext.getColor(R.color.mainColorP)
+//          }else{
+//               tvCalendar.textColor=mContext.getColor(R.color.white)
+//
+//          }
 
      }
      fun setSelected(mContext: Context, b : Boolean){
@@ -34,7 +34,7 @@ class CalendarViewHolder(itemView : View)  : RecyclerView.ViewHolder(itemView){
                tvCalendar.textColor=mContext.getColor(R.color.white)
           }else{
                ivSelected?.visibility=View.GONE
-               tvCalendar.textColor=mContext.getColor(R.color.black)
+               tvCalendar.textColor=mContext.getColor(R.color.white)
           }
 
      }
