@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import android.widget.TextView
 import android.widget.Toast
 
 import concertrip.sopt.com.concertrip.R
+import concertrip.sopt.com.concertrip.R.id.*
 import concertrip.sopt.com.concertrip.interfaces.ListData
 import concertrip.sopt.com.concertrip.interfaces.OnFragmentInteractionListener
 import concertrip.sopt.com.concertrip.list.adapter.BasicListAdapter
@@ -125,16 +127,13 @@ class LikedFragment : Fragment() ,View.OnClickListener, OnItemClick,OnResponse{
 
     override fun onClick(view: View) {
         when(view.id){
-            R.id.btn_liked_concert->{
-                updateTextColor(view as TextView)
+            R.id.tv_liked_concert->{
                 connectRequestData(STATE_CONCERT)
             }
-            R.id.btn_liked_artist->{
-                updateTextColor(view as TextView)
+            R.id.tv_liked_artist->{
                 connectRequestData(STATE_ARTIST)
             }
-            R.id.btn_liked_theme->{
-                updateTextColor(view as TextView)
+            R.id.tv_liked_theme->{
                 connectRequestData(STATE_THEME)
             }
         }
@@ -171,9 +170,9 @@ class LikedFragment : Fragment() ,View.OnClickListener, OnItemClick,OnResponse{
 
 
     private fun initialUI(){
-        btn_liked_artist.setOnClickListener(this)
-        btn_liked_concert.setOnClickListener(this)
-        btn_liked_theme.setOnClickListener(this)
+        tv_liked_artist.setOnClickListener(this)
+        tv_liked_concert.setOnClickListener(this)
+        tv_liked_theme.setOnClickListener(this)
 
         activity?.let {
             adapter= BasicListAdapter(it.applicationContext, dataList,this)
@@ -181,15 +180,16 @@ class LikedFragment : Fragment() ,View.OnClickListener, OnItemClick,OnResponse{
             recycler_view.adapter=adapter
         }
 
-        updateTextColor(btn_liked_artist)
     }
 
 
     private var curTextView : TextView?=null
     private fun updateTextColor(view : TextView){
-        curTextView?.setTextColor(Color.BLACK)
-        curTextView=view
-        view.setTextColor(Color.BLUE)
+        activity?.let {
+            curTextView?.setTextColor(ContextCompat.getColor(it.applicationContext, R.color.textTagDefault))
+            curTextView=view
+            view.setTextColor(ContextCompat.getColor(it.applicationContext, R.color.textSelected))
+        }
     }
 
 
@@ -198,7 +198,6 @@ class LikedFragment : Fragment() ,View.OnClickListener, OnItemClick,OnResponse{
         this.dataList.clear()
         this.dataList.addAll(list)
         adapter.notifyDataSetChanged()
-
     }
 
 
@@ -209,15 +208,15 @@ class LikedFragment : Fragment() ,View.OnClickListener, OnItemClick,OnResponse{
         when(state){
             STATE_ARTIST->{
                 connectArtistSubscribe()
-                updateTextColor(btn_liked_artist)
+                updateTextColor(tv_liked_artist)
             }
             STATE_CONCERT->{
                 connectConcertSubscribe()
-                updateTextColor(btn_liked_concert)
+                updateTextColor(tv_liked_concert)
             }
             STATE_THEME->{
                 connectGenreSubscribe()
-                updateTextColor(btn_liked_theme)
+                updateTextColor(tv_liked_theme)
             }
             else->{
             }

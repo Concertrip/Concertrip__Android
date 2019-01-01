@@ -18,8 +18,8 @@
 
 
 
-    <color name="textHashTag">@color/grayLight</color>
-    <color name="textTagDefault">@color/grayLight</color>
+    <color name="textHashTag">@color/gray</color>
+    <color name="textTagDefault">@color/gray</color>
     <color name="textSelected">@color/white</color>
     <color name="textDialog">@color/white</color>
 
