@@ -1,6 +1,5 @@
 package concertrip.sopt.com.concertrip.activities.info
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -22,7 +21,6 @@ import concertrip.sopt.com.concertrip.model.Concert
 import concertrip.sopt.com.concertrip.network.ApplicationController
 import concertrip.sopt.com.concertrip.network.NetworkService
 import concertrip.sopt.com.concertrip.network.response.GetArtistResponse
-import concertrip.sopt.com.concertrip.network.response.data.ArtistData
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.INTENT_TAG_ID
 import concertrip.sopt.com.concertrip.utillity.Secret
 import kotlinx.android.synthetic.main.activity_artist.*
@@ -168,9 +166,6 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
                 if (response!!.body()?.status == 200) {
                     artist = response!!.body()!!.data.toArtist()
                     updateConcertList(ArrayList(artist.concertList)) // 굳이 param으로 안넘겨줘도됨!
-
-                    /*TODO
-                    * 정확한 API 받고 Artist Data 재구성 > 데이터 가공*/
                     updateMemberList(ArrayList(artist.memberList))
                     updateArtistData()
                     updateUI()

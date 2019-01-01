@@ -55,13 +55,14 @@ class BasicListAdapter(
                 }
                 TYPE_CONCERT -> {
                     val concert = dataList[position] as Concert
-                    concert.subscribe = !concert.subscribe
+                    concert.subscribe = concert.subscribe
 
-
-                    if(concert.subscribe)
-                        Toast.makeText(mContext, "내 공연에 추가되었습니다!", Toast.LENGTH_LONG).show()
-                    else
-                        Toast.makeText(mContext, "내 공연에서 쫒겨났습니다!", Toast.LENGTH_LONG).show()
+                    concert?.subscribe?.let {
+                        if (concert!!.subscribe!!)
+                            Toast.makeText(mContext, "내 공연에 추가되었습니다!", Toast.LENGTH_LONG).show()
+                        else
+                            Toast.makeText(mContext, "내 공연에서 쫒겨났습니다!", Toast.LENGTH_LONG).show()
+                    }
 
                     notifyDataSetChanged()
                 }
