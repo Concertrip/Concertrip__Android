@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-              android:background="@android:color/holo_blue_bright"
-              android:orientation="vertical" xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:minHeight="15dp"
-              android:layout_height="wrap_content"
-              android:gravity="center">
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:minHeight="22dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        >
     <TextView android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:id="@+id/tv_calendar"
-              android:text="월"
+              tools:text="월"
+              android:textSize="15sp"
+              android:textStyle="bold"
               android:gravity="center_horizontal"/>
 </LinearLayout>

@@ -5,15 +5,33 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
+        android:minHeight="45dp"
         xmlns:tools="http://schemas.android.com/tools">
-    <TextView android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:id="@+id/tv_calendar"
-              tools:text="1"
-              android:gravity="center"
-              android:textColor="@color/white"
-              android:background="@drawable/ic_circle"
-    />
+    <RelativeLayout android:layout_width="28dp" android:layout_height="28dp">
+
+        <ImageView
+                android:id="@+id/iv_calendar"
+                android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:src="@drawable/ic_circle"
+                   android:layout_centerInParent="true"
+                   android:scaleType="fitXY"
+                android:visibility="gone"
+        />
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_calendar"
+                android:layout_centerInParent="true"
+                tools:text="1"
+                android:textSize="15sp"
+                android:gravity="center"
+                android:textColor="@color/black"
+        />
+
+
+    </RelativeLayout>
+
 
     <!--<GridLayout-->
             <!--android:id="@+id/ly_schedule"-->
@@ -27,6 +45,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
+            android:layout_marginTop="-8dp"
     >
     </LinearLayout>
+
 </LinearLayout>
