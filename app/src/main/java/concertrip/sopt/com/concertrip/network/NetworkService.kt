@@ -106,7 +106,15 @@ interface NetworkService {
     @GET("/api/search")
     @Headers("Content-Type:application/json")
     fun getSearch(
-        @Header("Authorization") token : String,
+        @Header("Authorization") token : Int,
         @Query("tag") tag: String
     ):Call<GetSearchResponse>
+
+    //------------------------------------------
+    //*내 티켓 리스트
+    @GET("/api/ticket")
+    @Headers("Content-Type:application/json")
+    fun getTicketList(
+        @Header("token") token : Int
+    ):Call<GetTicketListResponse>
 }

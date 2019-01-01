@@ -11,7 +11,12 @@ import android.view.ViewGroup
 import concertrip.sopt.com.concertrip.R
 import concertrip.sopt.com.concertrip.interfaces.OnFragmentInteractionListener
 import concertrip.sopt.com.concertrip.list.adapter.BasicListAdapter
+import concertrip.sopt.com.concertrip.list.adapter.TicketListAdapter
 import concertrip.sopt.com.concertrip.model.Ticket
+import concertrip.sopt.com.concertrip.network.response.GetTicketListResponse
+import concertrip.sopt.com.concertrip.network.response.data.TicketData
+import kotlinx.android.synthetic.main.fragment_my_page.*
+import kotlinx.android.synthetic.main.fragment_ticket_list.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,7 +32,11 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  *
  */
-class TicketListFragment : Fragment() {
+class TicketListFragment : Fragment() , OnFragmentInteractionListener{
+
+    var dataListTicket = arrayListOf<Ticket>()
+    lateinit var ticketAdapter : TicketListAdapter
+
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -53,13 +62,48 @@ class TicketListFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_ticket_list, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initialUI()
+    }
+
     // TODO: Rename method, update argument and hook method into UI event
     fun onButtonPressed(uri: Uri) {
         listener?.onFragmentInteraction(uri)
     }
 
     private fun initialUI(){
-        Adapter = BasicListAdapter(activity!!.applicationContext, dataList)
+
+
+        activity?.let{
+            dataListTicket = Ticket.getDummyArray()
+            ticketAdapter = TicketListAdapter(it.applicationContext, dataListTicket, this)
+            recycler_view_ticket_list.adapter = ticketAdapter
+        }
+    }
+
+
+    override fun onFragmentInteraction(uri: Uri) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun changeFragment(what: Int) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun changeFragment(what: Int, bundle: Bundle?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+
+    private fun updateListTicket(list : ArrayList<Ticket>){
+        dataListTicket.clear()
+        dataListTicket.addAll(list)
+        ticketAdapter.notifyDataSetChanged()
+    }
+
+    private fun ConnectRequestData(){
+        //val searchResponseData : GetTicketListResponse = GetTicketListResponse()
     }
 
 

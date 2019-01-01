@@ -52,7 +52,7 @@ data class ConcertData(
 //            seatList.add(Seat(it, ))
 //        }
 
-        for(i in 0..seatName.size-1){
+        for(i in 0 until seatName.size){
             seatList.add(Seat(seatGrade = seatName[i], seatPrice = seatPrice[i]))
         }
         c.seatList = seatList
@@ -64,7 +64,7 @@ data class ConcertData(
         c.precaution=cautionList
 
         c.eventInfoImg = eventInfoImg
-        c.isSubscribe = subscribe
+        c.subscribe = subscribe
 
         return c
     }

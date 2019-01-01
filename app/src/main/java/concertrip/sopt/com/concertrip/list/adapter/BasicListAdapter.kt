@@ -19,14 +19,9 @@ import concertrip.sopt.com.concertrip.interfaces.OnItemClick
 import concertrip.sopt.com.concertrip.interfaces.OnResponse
 import concertrip.sopt.com.concertrip.list.viewholder.*
 import concertrip.sopt.com.concertrip.model.Artist
-import concertrip.sopt.com.concertrip.model.ArtistSubscribe
 import concertrip.sopt.com.concertrip.model.Concert
 import concertrip.sopt.com.concertrip.network.ApplicationController
 import concertrip.sopt.com.concertrip.network.NetworkService
-import concertrip.sopt.com.concertrip.network.response.GetArtistSubscribeResponse
-import concertrip.sopt.com.concertrip.network.response.GetConcertSubscribeResponse
-import concertrip.sopt.com.concertrip.network.response.GetGenreSubscribeResponse
-import concertrip.sopt.com.concertrip.network.response.MessageResponse
 import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.INTENT_TAG_ID
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_ALARM
@@ -36,7 +31,6 @@ import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_CONCERT
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_THEME
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_TICKET
 import concertrip.sopt.com.concertrip.utillity.NetworkUtil
-import org.jetbrains.anko.toast
 
 class BasicListAdapter(
     var mContext: Context,
@@ -50,8 +44,8 @@ class BasicListAdapter(
                 TYPE_ARTIST -> {
 
                     val artist = dataList[position] as Artist
-                    artist.isSubscribe = !artist.isSubscribe
-                    if(artist.isSubscribe)
+                    artist.subscribe = !artist.subscribe
+                    if(artist.subscribe)
                         Toast.makeText(mContext, "내 아티스트에 추가되었습니다!", Toast.LENGTH_LONG).show()
                     else
                         Toast.makeText(mContext, "내 아티스트에서 쫒겨났습니다!", Toast.LENGTH_LONG).show()
@@ -61,10 +55,10 @@ class BasicListAdapter(
                 }
                 TYPE_CONCERT -> {
                     val concert = dataList[position] as Concert
-                    concert.isSubscribe = !concert.isSubscribe
+                    concert.subscribe = !concert.subscribe
 
 
-                    if(concert.isSubscribe)
+                    if(concert.subscribe)
                         Toast.makeText(mContext, "내 공연에 추가되었습니다!", Toast.LENGTH_LONG).show()
                     else
                         Toast.makeText(mContext, "내 공연에서 쫒겨났습니다!", Toast.LENGTH_LONG).show()
@@ -75,11 +69,11 @@ class BasicListAdapter(
 
                     val artist = dataList[position] as Artist
 
-                    if(artist.isSubscribe)
+                    if(artist.subscribe)
                         Toast.makeText(mContext, "내 장르에 추가되었습니다!", Toast.LENGTH_LONG).show()
                     else
                         Toast.makeText(mContext, "내 장르에서 쫒겨났습니다!", Toast.LENGTH_LONG).show()
-                    artist.isSubscribe = !artist.isSubscribe
+                    artist.subscribe = !artist.subscribe
                     notifyDataSetChanged()
                 }
 
