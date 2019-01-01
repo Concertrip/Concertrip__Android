@@ -48,10 +48,10 @@ class MainActivity : AppCompatActivity() , OnFragmentInteractionListener {
         setContentView(R.layout.activity_main)
 //      setSupportActionBar(toolbar)
 
-        main_tab.addTab(main_tab.newTab().setIcon(R.drawable.ic_account_circle).setText("캘린더"))
-        main_tab.addTab(main_tab.newTab().setIcon(R.drawable.ic_account_circle).setText("탐색"))
-        main_tab.addTab(main_tab.newTab().setIcon(R.drawable.ic_account_circle).setText("찜목록"))
-        main_tab.addTab(main_tab.newTab().setIcon(R.drawable.ic_account_circle).setText("마이페이지"))
+        main_tab.addTab(main_tab.newTab().setIcon(R.drawable.ic_calendar).setText("캘린더"))
+        main_tab.addTab(main_tab.newTab().setIcon(R.drawable.ic_explorer).setText("탐색"))
+        main_tab.addTab(main_tab.newTab().setIcon(R.drawable.ic_liked).setText("찜목록"))
+        main_tab.addTab(main_tab.newTab().setIcon(R.drawable.ic_mypage).setText("마이페이지"))
 
         main_tab.getTabAt(0)?.select()
 
@@ -91,7 +91,7 @@ class MainActivity : AppCompatActivity() , OnFragmentInteractionListener {
                 val tt: FragmentManager.BackStackEntry = supportFragmentManager.getBackStackEntryAt(i -1)
 
                 when (tt.breadCrumbShortTitleRes) {
-                    Constants.FRAGMENT_CALENDAR, Constants.FRAGMENT_NOTIFICATION -> {
+                    Constants.FRAGMENT_CALENDAR-> {
                         fragmentAdapter.setTab(TAB_CALENDAR)
                     }
                     Constants.FRAGMENT_EXPLORER, Constants.FRAGMENT_SEARCH -> {

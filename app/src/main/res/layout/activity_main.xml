@@ -5,6 +5,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/shape_background_gradation"
         tools:context=".activities.main.MainActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -26,7 +27,6 @@
 
     <FrameLayout
             android:id="@+id/container"
-            android:overScrollMode="never"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
 

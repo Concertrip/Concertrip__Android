@@ -1,6 +1,7 @@
 package concertrip.sopt.com.concertrip.activities.main.fragment.calendar
 
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -9,19 +10,22 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import concertrip.sopt.com.concertrip.R
+import concertrip.sopt.com.concertrip.activities.AlarmActivity
 import concertrip.sopt.com.concertrip.activities.main.fragment.calendar.adapter.CalendarListAdapter
 import concertrip.sopt.com.concertrip.interfaces.OnFragmentInteractionListener
 import concertrip.sopt.com.concertrip.interfaces.OnItemClick
+import concertrip.sopt.com.concertrip.list.adapter.BasicListAdapter
+import concertrip.sopt.com.concertrip.list.adapter.HorizontalListAdapter
 import concertrip.sopt.com.concertrip.model.Artist
 import concertrip.sopt.com.concertrip.model.Concert
 import concertrip.sopt.com.concertrip.model.Schedule
-import concertrip.sopt.com.concertrip.utillity.Constants
 import kotlin.properties.Delegates
 import kotlinx.android.synthetic.main.fragment_calendar.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import concertrip.sopt.com.concertrip.R
+import concertrip.sopt.com.concertrip.interfaces.ListData
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -40,14 +44,27 @@ private const val ARG_PARAM2 = "param2"
  */
 class CalendarFragment : Fragment(), OnItemClick {
 
-    var dataListFilter = arrayListOf<String>()
     var dataListArtist = arrayListOf<Artist>()
     var dataListConcert = arrayListOf<Concert>()
-    var dataListDay = arrayListOf<String>()
+    var dataListOrigin = arrayListOf<ListData>()
+    var dataListTag = arrayListOf<String>("모두","테마","걸그룹","보이그룹","힙합","발라드")
 
+    private var scheduleMap : HashMap<Int,ArrayList<Schedule>> by Delegates.notNull()
+
+
+    private lateinit var dayList : ArrayList<String>
+    private val monthImgList = listOf<Int>(
+        R.drawable.ic_account_circle, R.drawable.ic_account_circle, R.drawable.ic_account_circle,
+        R.drawable.ic_account_circle, R.drawable.ic_account_circle, R.drawable.ic_account_circle,
+        R.drawable.ic_account_circle, R.drawable.ic_account_circle, R.drawable.ic_account_circle,
+        R.drawable.ic_account_circle, R.drawable.ic_account_circle, R.drawable.ic_account_circle
+    )
 
     lateinit var calendarListAdapter: CalendarListAdapter
     // 날짜 > date객체(스트링으로 넘어옴)
+
+    lateinit var calendarDetailAdapter: BasicListAdapter
+    lateinit var tagAdapter: HorizontalListAdapter
 
     /*TODO
     * have to make interface which contains schedule list
@@ -60,12 +77,26 @@ class CalendarFragment : Fragment(), OnItemClick {
     private var listener: OnFragmentInteractionListener? = null
 
 
-    override fun onItemClick(root : RecyclerView.Adapter<out RecyclerView.ViewHolder>,idx: Int) {
+    override fun onItemClick(root : RecyclerView.Adapter<out RecyclerView.ViewHolder>, position: Int) {
         /*TODO have to implement it*/
         // 태그 중 하나를 클릭하면 서버에서 그 태그에 알맞는 일정을 받아오기 위한 함수!
         // 여기서 사용하는 HorixzontalListAdapter에서 사용하며
         // holder.itemView.setOnClickListener에 달아뒀음!
         // 클릭된 아이템의 position 값이 parameter로 전달됨!
+
+        if(root is HorizontalListAdapter) {
+            tagAdapter.setSelect(position)
+            updateCalendar()
+        }
+
+        else if(root is CalendarListAdapter){
+            if(calendarListAdapter.selected==-1){
+                recycler_view_calendar_detail.visibility=View.GONE
+            }else {
+                recycler_view_calendar_detail.visibility=View.VISIBLE
+                updateCalendarDetail(dayList[position].toInt())
+            }
+        }
     }
 
     fun artistToCal(artist: Artist) {
@@ -75,6 +106,7 @@ class CalendarFragment : Fragment(), OnItemClick {
     fun concertToCal(concert: Concert) {
         /*TODO have to implement it*/
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,22 +128,24 @@ class CalendarFragment : Fragment(), OnItemClick {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        activity?.let {
-
-            calendarListAdapter = CalendarListAdapter(it.applicationContext,makeDayList(),Schedule.getDummyMap())
-            recycler_view_calendar.layoutManager=GridLayoutManager(it.applicationContext,7)
-            recycler_view_calendar.adapter=calendarListAdapter
-
-        }
         initialUI()
+        updateUI()
 
+    }
+
+    private fun updateUI(){
+        if(dataListConcert.size == 0)
+        {recycler_view_calendar_detail.visibility = View.GONE
+            rl_select_date_view.visibility = View.VISIBLE}
+        else
+        { recycler_view_calendar_detail.visibility = View.VISIBLE
+            rl_select_date_view.visibility = View.GONE}
     }
 
     private var mCal: Calendar by Delegates.notNull()
 
     private fun setCalendarUI(year : String, month : String){
-        tv_year.text = year
-        tv_month.text = month
+        iv_month.setImageResource(monthImgList[month.toInt()-1])
     }
 
     private fun makeDayList()  : ArrayList<String>{
@@ -135,7 +169,7 @@ class CalendarFragment : Fragment(), OnItemClick {
 
         //gridview 요일 표시
 
-        val dayList = ArrayList<String>()
+        dayList = ArrayList<String>()
 
         dayList.add("일")
         dayList.add("월")
@@ -173,21 +207,59 @@ class CalendarFragment : Fragment(), OnItemClick {
         }
     }
 
+    private fun updateCalendar(){
+
+    }
+
+    private fun updateCalendarDetail(date : Int){
+
+        val list = scheduleMap[date]
+
+        dataListConcert.clear()
+        list?.forEach {
+            dataListConcert.add(it.toConcert())
+        }
+        calendarDetailAdapter.notifyDataSetChanged()
+
+    }
+
+
 
     // TODO: Rename method, update argument and hook method into UI event
     fun onButtonPressed(uri: Uri) {
         listener?.onFragmentInteraction(uri)
     }
 
-    fun changeFragment() {
-        listener?.changeFragment(Constants.FRAGMENT_NOTIFICATION)
-    }
+//    fun changeFragment() {
+//        listener?.changeFragment(Constants.FRAGMENT_NOTIFICATION)
+//    }
+
 
 
     private fun initialUI() {
         btn_notification.setOnClickListener {
-            changeFragment()
+            startActivity(Intent(activity, AlarmActivity::class.java))
         }
+
+        activity?.let {
+
+            scheduleMap= Schedule.getDummyMap()
+            calendarListAdapter = CalendarListAdapter(it.applicationContext,makeDayList(),scheduleMap,this)
+            recycler_view_calendar.layoutManager=GridLayoutManager(it.applicationContext,7)
+            recycler_view_calendar.adapter=calendarListAdapter
+
+            dataListConcert = Concert.getDummyArray()
+            dataListOrigin.addAll(Concert.getDummyArray())
+            calendarDetailAdapter = BasicListAdapter(it.applicationContext,dataListConcert,this)
+            recycler_view_calendar_detail.adapter = calendarDetailAdapter
+
+
+            tagAdapter = HorizontalListAdapter(it.applicationContext,dataListTag,this, false)
+            recycler_view_filter.adapter=tagAdapter
+
+
+        }
+
     }
 
 

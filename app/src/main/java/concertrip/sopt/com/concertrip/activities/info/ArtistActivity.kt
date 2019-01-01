@@ -2,35 +2,46 @@ package concertrip.sopt.com.concertrip.activities.info
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.content.ContextCompat.startActivity
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log
+import android.support.v7.widget.RecyclerView
 import android.view.View
-import android.widget.ScrollView
+import android.webkit.URLUtil
 import android.widget.Toast
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.youtube.player.YouTubeBaseActivity
 import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayerView
 import concertrip.sopt.com.concertrip.R
-import concertrip.sopt.com.concertrip.R.id.recycler_view
-import concertrip.sopt.com.concertrip.list.adapter.ArtistThumbListAdapter
+import concertrip.sopt.com.concertrip.dialog.CustomDialog
+import concertrip.sopt.com.concertrip.interfaces.OnItemClick
 import concertrip.sopt.com.concertrip.list.adapter.BasicListAdapter
 import concertrip.sopt.com.concertrip.model.Artist
 import concertrip.sopt.com.concertrip.model.Concert
+import concertrip.sopt.com.concertrip.network.response.GetArtistResponse
+import concertrip.sopt.com.concertrip.network.response.data.ArtistData
+import concertrip.sopt.com.concertrip.utillity.Constants.Companion.INTENT_TAG_ID
 import concertrip.sopt.com.concertrip.utillity.Secret
 import kotlinx.android.synthetic.main.activity_artist.*
 
 import kotlinx.android.synthetic.main.content_artist.*
-import org.jetbrains.anko.startActivity
+import kotlinx.android.synthetic.main.content_header.*
 
-class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener{
+class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener, OnItemClick {
+
+    override fun onItemClick(root: RecyclerView.Adapter<out RecyclerView.ViewHolder>, position: Int) {
+        Toast.makeText(this, "내 공연에 추가되었습니다!", Toast.LENGTH_LONG).show()
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        // 다가오는 공연을 담은 리사이클러뷰를 클릭했을때
+        /*TODO 하트 or 종 convert + Toast 바꾸기*/
+    }
 
     private val RECOVERY_DIALOG_REQUEST = 1
 
     override fun onInitializationSuccess(provider: YouTubePlayer.Provider?, youTubePlayer: YouTubePlayer?, b: Boolean) {
-        if (!b) {
-            youTubePlayer?.cueVideo("ZHoLaLlL5lA")  //http://www.youtube.com/watch?v=IA1hox-v0jQ
+        if (!b&& ::artist.isInitialized) {
+            val youtubeUrlList = artist.youtubeUrl!!.split("?v=")
+            youTubePlayer?.cueVideo(youtubeUrlList[youtubeUrlList.size-1])  //http://www.youtube.com/watch?v=IA1hox-v0jQ
         }
     }
 
@@ -39,34 +50,38 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         youTubeInitializationResult: YouTubeInitializationResult
     ) {
         if (youTubeInitializationResult.isUserRecoverableError) {
-        youTubeInitializationResult.getErrorDialog(this, RECOVERY_DIALOG_REQUEST).show()
-    } else {
-        val errorMessage = String.format(
-            "There was an error initializing the YouTubePlayer (%1\$s)", youTubeInitializationResult.toString()
-        )
-        Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
+            youTubeInitializationResult.getErrorDialog(this, RECOVERY_DIALOG_REQUEST).show()
+        } else {
+            val errorMessage = String.format(
+                "There was an error initializing the YouTubePlayer (%1\$s)", youTubeInitializationResult.toString()
+            )
+            Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
+        }
     }
-    }
-
-
 
 
     private fun getYouTubePlayerProvider(): YouTubePlayer.Provider {
         return findViewById<View>(R.id.youtude) as YouTubePlayerView
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
-        if (requestCode == RECOVERY_DIALOG_REQUEST) {
-            getYouTubePlayerProvider().initialize(Secret.YOUTUBE_API_KEY, this)
-        }
-    }
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+//        if (requestCode == RECOVERY_DIALOG_REQUEST) {
+//            getYouTubePlayerProvider().initialize(Secret.YOUTUBE_API_KEY, this)
+//        }
+//    }
 
-    var artist : Artist = Artist()
-    var dataList = arrayListOf<Concert>() // 뭔가 서버에서 artist에 넣어서 한번에 전달해 줄듯
+    private var artistId: Int? = null
 
-    //TODO OnItemClick Interface로 구현
-    var onListItemClickListener : View.OnClickListener = View.OnClickListener {
-        startActivity<ConcertActivity>()
+    lateinit  var artist: Artist
+    var dataList = arrayListOf<Concert>()
+    private lateinit var adapter : BasicListAdapter
+
+    var dataListMember = arrayListOf<Artist>()
+    lateinit var memberListAdapter : BasicListAdapter
+
+    private fun showDialog() {
+        val dialog = CustomDialog(this)
+        dialog.show()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,13 +89,86 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         setContentView(R.layout.activity_artist)
 //        setSupportActionBar(toolbar)
 
-//        val mAdapter = ConcertListAdapter(this, Concert.getDummyArray())
-        val mAdapter = BasicListAdapter(this, Concert.getDummyArray())
-        recycler_view.adapter = mAdapter
+        artistId = getIntent().getIntExtra(INTENT_TAG_ID, 0)
+
+        initialUI()
+        connectRequestData(artistId!!)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        connectRequestData(artistId!!)
+    }
+
+    fun initialUI(){
+        adapter = BasicListAdapter(this, dataList)
+        recycler_view.adapter = adapter
+
+        dataListMember = Artist.getDummyArray()
+        memberListAdapter = BasicListAdapter(this, dataListMember, BasicListAdapter.MODE_THUMB)
+        recycler_view_member.adapter = memberListAdapter
+
+        getYouTubePlayerProvider().initialize(Secret.YOUTUBE_API_KEY, this);
+        scroll_view.smoothScrollTo(0, 0)
+
+        btn_follow.setOnClickListener {
+            showDialog()
+        }
+    }
+
+    private fun updateUI(){
+            if(dataListMember.size == 0)
+                li_member.visibility = View.GONE
+            else
+                li_member.visibility = View.VISIBLE
+    }
 
 
-        getYouTubePlayerProvider().initialize(Secret.YOUTUBE_API_KEY,this);
-        scroll_view.smoothScrollTo(0,0)
+    private fun updateConcertList(list : ArrayList<Concert>){
+        dataList.clear()
+        dataList.addAll(list)
+        adapter.notifyDataSetChanged()
+    }
+
+    private fun updateArtistData(){
+        // TODO 좋아요 버튼 설정
+        if(URLUtil.isValidUrl(artist.backImg))
+            Glide.with(this).load(artist.backImg).into(iv_back)
+        if(URLUtil.isValidUrl(artist.profileImg))
+            Glide.with(this).load(artist.profileImg).apply(RequestOptions.circleCropTransform()).into(iv_profile)
+
+        tv_title.text = artist.name
+        tv_tag.text = artist.subscribeNum.toString()
+
+        getYouTubePlayerProvider().initialize(Secret.YOUTUBE_API_KEY, this)
+    }
+
+    private fun updateMemberList(list : ArrayList<Artist>){
+        dataListMember.clear()
+        dataListMember.addAll(list)
+        memberListAdapter.notifyDataSetChanged()
+    }
+
+    private fun connectRequestData(id : Int){
+        // 서버에 데이터 request보내고
+        // response 데이터를 이용해
+        // 전역변수로 선언되어있는 artist, dataList 업데이트
+
+        // dataList 업데이트
+        //this.dataList.clear()
+        //this.dataList.addAll(list)
+
+        val getArtistResponse : GetArtistResponse = GetArtistResponse(ArtistData.getDummy())
+        // getDummy()로 받는 콘서트 리스트는 비어있음 !!
+        artist = getArtistResponse.data.toArtist()
+
+        updateConcertList(ArrayList(artist.concertList))
+        /*TODO
+        * 정확한 API 받고 Artist Data 재구성 > 데이터 가공*/
+        //updateMemberList
+        updateArtistData()
+        updateUI()
     }
 
     companion object {

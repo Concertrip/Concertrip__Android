@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:layout_width="280dp"
+              android:layout_height="wrap_content"
+              android:background="@drawable/shape_dialog"
+              android:padding="18dp"
+              android:gravity="center"
+>
+    <ImageView android:layout_width="72dp"
+               android:layout_height="72dp"
+               app:srcCompat="@drawable/ic_tab"
+    />
+
+
+    <TextView
+            android:id="@+id/dialog_tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="@string/txt_calendar_added"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+    <!--<Button-->
+            <!--android:theme="@style/FlatButton"-->
+            <!--android:id="@+id/btn_confirm"-->
+            <!--android:background="@drawable/shape_round_btn"-->
+            <!--android:text="@string/action_commit"-->
+            <!--android:textSize="20sp"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--tools:ignore="ButtonStyle" />-->
+
+
+
+
+
+</LinearLayout>

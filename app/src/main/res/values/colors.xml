@@ -3,4 +3,32 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+
+    <color name="mainColor">@color/purple</color>
+    <color name="mainColorB">@color/blue</color>
+    <color name="mainColorP">@color/purple</color>
+
+
+
+
+    <color name="white">#ffffff</color>
+    <color name="white_0_9">#14ffffff</color>
+
+
+
+
+    
+    <color name="grayDarker">#7b7b7b</color>
+    <color name="grayDark">#b3b3b3</color>
+    <color name="grayLight">#f2f2f2</color>
+
+
+    <color name="black">#1e1e1e</color>
+    <color name="gray">#777777</color>
+    <color name="purple">#593EFF</color>
+    <color name="blue">#1bbbff</color>
+
+    <color name="seat_1">#ff3e3e</color>
+    <color name="seat_2">#1bbbff</color>
 </resources>

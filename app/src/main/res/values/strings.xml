@@ -6,8 +6,40 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_artist">ArtistActivity</string>
     <string name="title_activity_concert">ConcertActivity</string>
+    <string name="title_activity_splash">SplashActivity</string>
 
 
     <string name="txt_result_no">에 대한 검색 결과가 없습니다</string>
     <string name="txt_result_add">아티스트/콘서트 추가요청하기</string>
+    <string name="txt_calendar_added">캘린더에 추가 되었습니다.</string>
+
+    <string name="txt_ticket">티켓</string>
+    <string name="txt_li_ticket_date">날짜:</string>
+    <string name="txt_li_ticket_place">장소:</string>
+    <string name="txt_setting">설정</string>
+    <string name="txt_setting_1">푸시알림 설정</string>
+    <string name="txt_setting_2">공지사항</string>
+    <string name="txt_setting_3">문의/건의하기</string>
+    <string name="txt_setting_4">서비스 이용약관</string>
+    <string name="txt_setting_5">공연 기획자</string>
+    <string name="txt_setting_6">공연 기획자</string>
+    <string name="txt_notification">알림</string>
+    <string name="txt_my_page">마이페이지</string>
+    <string name="txt_my_page_myticket">내 티켓</string>
+    <string name="txt_my_page_payment">결제 관리</string>
+    <string name="txt_liked">관심 목록</string>
+    <string name="txt_liked_tag1">아티스트</string>
+    <string name="txt_liked_tag2">테마</string>
+    <string name="txt_liked_tag3">공연</string>
+    <string name="txt_calendar_select_date">날짜를 선택해주세요</string>
+    <string name="txt_content_concert_cast">출연진</string>
+    <string name="txt_content_concert_detail_info">세부정보</string>
+    <string name="txt_content_concert_date">공연날짜</string>
+    <string name="txt_content_concert_price">티켓가격</string>
+    <string name="txt_content_concert_lineup">출연</string>
+    <string name="txt_content_concert_buy">티켓구매</string>
+    <string name="txt_content_concert_location">공연위치</string>
+    <string name="txt_content_concert_caution">주의사항</string>
+    <string name="txt_content_artist_comingsoon">다가오는 콘서트</string>
+    <string name="txt_content_artist_member">멤버</string>
 </resources>

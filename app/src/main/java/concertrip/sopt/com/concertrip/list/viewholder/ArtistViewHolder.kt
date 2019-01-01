@@ -1,5 +1,7 @@
 package concertrip.sopt.com.concertrip.list.viewholder
 
+import android.content.Context
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.Button
@@ -13,6 +15,11 @@ class ArtistViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) , Bas
     override fun getSubTitle(): TextView? =tvTag
     override fun getBtn(): View? =btnFollow
     override fun getIvIcon(): ImageView =ivArtist
+
+    override fun setButton(context : Context, b: Boolean?) {
+        btnFollow.setImageDrawable(if(b==true) ContextCompat.getDrawable(context,R.drawable.ic_like)
+        else ContextCompat.getDrawable(context,R.drawable.ic_unlike))
+    }
 
     val tvArtist : TextView = itemView.findViewById(R.id.tv_artist)
     val tvTag : TextView = itemView.findViewById(R.id.tv_artist_tag)

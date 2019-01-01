@@ -9,6 +9,14 @@ class Schedule(var date: Int, var text: String) {
 
 
 
+
+    fun toConcert() : Concert {
+        val c = Concert("test")
+
+        c.date= listOf(date.toString())
+        c.title=text
+        return c
+    }
     companion object {
 
         fun getDummy(date: Int): Schedule = Schedule(date, "지코")
@@ -16,99 +24,22 @@ class Schedule(var date: Int, var text: String) {
 
             val list = ArrayList<Schedule>()
             list.add(Schedule(1, "지코"))
-            list.add(Schedule(3, "피오"))
-            list.add(Schedule(7, "지코"))
-
             list.add(Schedule(1, "지코"))
+
             list.add(Schedule(3, "피오"))
+            list.add(Schedule(3, "피오"))
+
+
+            list.add(Schedule(7, "지코"))
             list.add(Schedule(7, "지코"))
 
-            list.add(Schedule(1, "지코"))
-            list.add(Schedule(3, "피오"))
-            list.add(Schedule(7, "지코"))
-
-            list.add(Schedule(1, "지코"))
-            list.add(Schedule(3, "피오"))
-            list.add(Schedule(7, "지코"))
-
-            list.add(Schedule(1, "지코"))
-            list.add(Schedule(3, "피오"))
-            list.add(Schedule(7, "지코"))
-
-            list.add(Schedule(1, "지코"))
-            list.add(Schedule(3, "피오"))
-            list.add(Schedule(7, "지코"))
-            list.add(Schedule(12, "피오"))
-            list.add(Schedule(12, "피오"))
-            list.add(Schedule(12, "피오"))
-            list.add(Schedule(12, "피오"))
-            list.add(Schedule(12, "피오"))
-            list.add(Schedule(12, "피오"))
-            list.add(Schedule(12, "피오"))
-            list.add(Schedule(12, "피오"))
-            list.add(Schedule(12, "피오"))
-            list.add(Schedule(12, "피오"))
-            list.add(Schedule(12, "피오"))
-            list.add(Schedule(12, "피오"))
-            list.add(Schedule(12, "피오"))
-            list.add(Schedule(12, "피오"))
-            list.add(Schedule(12, "피오"))
-            list.add(Schedule(12, "피오"))
-            list.add(Schedule(12, "피오"))
-            list.add(Schedule(12, "피오"))
-            list.add(Schedule(12, "피오"))
-            list.add(Schedule(12, "피오"))
-            list.add(Schedule(12, "피오"))
-            list.add(Schedule(12, "피오"))
-            list.add(Schedule(12, "피오"))
-            list.add(Schedule(12, "피오"))
             list.add(Schedule(12, "피오"))
 
 
             list.add(Schedule(28, "윤딴딴"))
             list.add(Schedule(28, "윤딴딴"))
-            list.add(Schedule(28, "윤딴딴"))
-            list.add(Schedule(28, "윤딴딴"))
-            list.add(Schedule(28, "윤딴딴"))
-            list.add(Schedule(28, "윤딴딴"))
-            list.add(Schedule(28, "윤딴딴"))
-            list.add(Schedule(28, "윤딴딴"))
-            list.add(Schedule(28, "윤딴딴"))
-            list.add(Schedule(28, "윤딴딴"))
-            list.add(Schedule(28, "윤딴딴"))
-            list.add(Schedule(28, "윤딴딴"))
-            list.add(Schedule(28, "윤딴딴"))
-            list.add(Schedule(28, "윤딴딴"))
-            list.add(Schedule(28, "윤딴딴"))
-            list.add(Schedule(28, "윤딴딴"))
-            list.add(Schedule(28, "윤딴딴"))
-            list.add(Schedule(28, "윤딴딴"))
-            list.add(Schedule(28, "윤딴딴"))
-            list.add(Schedule(28, "윤딴딴"))
-            list.add(Schedule(28, "윤딴딴"))
-            list.add(Schedule(28, "윤딴딴"))
-            list.add(Schedule(28, "윤딴딴"))
-            list.add(Schedule(28, "윤딴딴"))
-            list.add(Schedule(28, "윤딴딴"))
 
-            list.add(Schedule(29, "마인드유"))
-            list.add(Schedule(29, "마인드유"))
-            list.add(Schedule(29, "마인드유"))
-            list.add(Schedule(29, "마인드유"))
-            list.add(Schedule(29, "마인드유"))
-            list.add(Schedule(29, "마인드유"))
-            list.add(Schedule(29, "마인드유"))
-            list.add(Schedule(29, "마인드유"))
-            list.add(Schedule(29, "마인드유"))
-            list.add(Schedule(29, "마인드유"))
-            list.add(Schedule(29, "마인드유"))
-            list.add(Schedule(29, "마인드유"))
-            list.add(Schedule(29, "마인드유"))
-            list.add(Schedule(29, "마인드유"))
-            list.add(Schedule(29, "마인드유"))
-            list.add(Schedule(29, "마인드유"))
-            list.add(Schedule(29, "마인드유"))
-            list.add(Schedule(29, "마인드유"))
+
             list.add(Schedule(29, "마인드유"))
             list.add(Schedule(29, "마인드유"))
             list.add(Schedule(29, "마인드유"))

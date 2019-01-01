@@ -4,15 +4,18 @@ import concertrip.sopt.com.concertrip.interfaces.ListData
 import concertrip.sopt.com.concertrip.utillity.Constants
 
 class Ticket : ListData{
+
     override fun getType(): Int = Constants.TYPE_TICKET
 
-    override fun getIndex(): Int=0
+    override fun getId(): String=0.toString()
 
     override fun getMainTitle(): String = ""
 
     override fun getSubTitle(): String =""
 
     override fun getImageUrl(): String  =""
+    override fun isSubscribe(): Boolean? =null
+
     var title : String = ""
     var place : String = ""
     var date : String = ""
@@ -31,6 +34,8 @@ class Ticket : ListData{
                 list.add(a)
             }
             return list
+
+
 
         }
 

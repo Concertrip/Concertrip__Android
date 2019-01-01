@@ -1,5 +1,7 @@
 package concertrip.sopt.com.concertrip.list.viewholder
 
+import android.content.Context
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ImageButton
@@ -16,6 +18,15 @@ class ConcertViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView)  ,B
     override fun getBtn(): View? =ivLike
 
     override fun getIvIcon(): ImageView =ivConcert
+
+
+
+    override fun setButton(context : Context, b: Boolean?) {
+        ivLike.setImageDrawable(if(b==true) ContextCompat.getDrawable(context,R.drawable.ic_like)
+        else ContextCompat.getDrawable(context,R.drawable.ic_unlike))
+    }
+
+
 
     val ivConcert: ImageView = itemView.findViewById(R.id.iv_concert) as ImageView
     val tvname : TextView = itemView.findViewById(R.id.tv_concert) as TextView

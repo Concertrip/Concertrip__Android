@@ -2,11 +2,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_height="match_parent"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 tools:context=".activities.main.fragment.mypage.MyPageFragment">
 
         <LinearLayout
-                android:layout_marginHorizontal="16dp"
+                android:paddingHorizontal="16dp"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -16,15 +17,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                 <TextView
-                        android:text="마이페이지"
-                        android:textSize="24dp"
+                        android:text="@string/txt_my_page"
+                        android:textSize="24sp"
                         android:textColor="#000000"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                 <ImageView
                         android:id="@+id/btn_setting"
                         android:layout_marginLeft="170dp"
-                        android:src="@drawable/ic_account_circle"
+                        android:src="@drawable/ic_setting"
                         android:layout_width="46dp"
                         android:layout_height="46dp"/>
             </LinearLayout>
@@ -38,7 +39,7 @@
                     android:layout_height="wrap_content">
 
                 <TextView
-                        android:text="내 티켓"
+                        android:text="@string/txt_my_page_myticket"
                         android:textSize="17sp"
                         android:textColor="#010101"
                         android:layout_width="wrap_content"
@@ -56,7 +57,7 @@
 
                 <TextView
                         android:layout_marginTop="55.7dp"
-                        android:text="결제 관리"
+                        android:text="@string/txt_my_page_payment"
                         android:textSize="17sp"
                         android:textColor="#010101"
                         android:layout_width="wrap_content"
@@ -73,6 +74,7 @@
                             android:layout_height="wrap_content">
                         <LinearLayout
                                 android:orientation="vertical"
+                                android:paddingHorizontal="10dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
                             <ImageView
@@ -89,6 +91,7 @@
                         </LinearLayout>
                         <LinearLayout
                                 android:orientation="vertical"
+                                android:paddingHorizontal="10dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
                             <ImageView
@@ -105,6 +108,7 @@
                         </LinearLayout>
                         <LinearLayout
                                 android:orientation="vertical"
+                                android:paddingHorizontal="10dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
                             <ImageView
@@ -121,6 +125,7 @@
                         </LinearLayout>
                         <LinearLayout
                                 android:orientation="vertical"
+                                android:paddingHorizontal="10dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
                             <ImageView
@@ -142,6 +147,7 @@
                             android:layout_height="wrap_content">
                         <LinearLayout
                                 android:orientation="vertical"
+                                android:paddingHorizontal="10dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
                             <ImageView
@@ -158,6 +164,7 @@
                         </LinearLayout>
                         <LinearLayout
                                 android:orientation="vertical"
+                                android:paddingHorizontal="10dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
                             <ImageView
@@ -174,6 +181,7 @@
                         </LinearLayout>
                         <LinearLayout
                                 android:orientation="vertical"
+                                android:paddingHorizontal="10dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
                             <ImageView
@@ -190,6 +198,7 @@
                         </LinearLayout>
                         <LinearLayout
                                 android:orientation="vertical"
+                                android:paddingHorizontal="10dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
                             <ImageView
