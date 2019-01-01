@@ -20,9 +20,9 @@ class TicketListAdapter(val mContext : Context, var dataList : ArrayList<Ticket>
     override fun getItemCount(): Int = dataList.size
 
     override fun onBindViewHolder(holder: TicketViewHolder, position: Int) {
-        holder.title.text = dataList[position].title
+        holder.title.text = dataList[position].name
         holder.date.text = dataList[position].date
-        holder.place.text = dataList[position].place
+        holder.place.text = dataList[position].location
 
         holder.itemView.setOnClickListener {
             listener.changeFragment(Constants.FRAGMENT_TICKET)
