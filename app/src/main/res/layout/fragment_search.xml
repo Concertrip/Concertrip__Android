@@ -7,25 +7,44 @@
               xmlns:app="http://schemas.android.com/apk/res-auto"
                 tools:context=".activities.main.fragment.search.SearchFragment">
     <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#b4b4b5"
             android:layout_marginTop="8dp"
-            android:layout_marginHorizontal="16dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:layout_marginHorizontal="8dp"
+            android:orientation="horizontal"
 
-    <EditText
-            android:id="@+id/edt_search"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"/>
-    <Button android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:id="@+id/btn_search"
-            android:background="@drawable/ic_search"
-    />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <Button
+                android:id="@+id/btn_back"
+                android:background="@drawable/ic_back"
+                android:layout_gravity="center"
+                android:layout_width="30dp"
+                android:layout_height="30dp"/>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_searchbar"
+                android:paddingRight = "16dp"
+                android:paddingLeft = "16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+            <EditText
+                    android:id="@+id/edt_search"
+                    android:layout_weight="1"
+                    android:textSize="15sp"
+                    android:layout_width="0dp"
+                    android:backgroundTint="@color/white"
+                    android:textCursorDrawable="@color/white"
+                    android:layout_height="wrap_content"/>
+            <Button android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:id="@+id/btn_search"
+                    android:background="@drawable/ic_search"
+            />
+        </LinearLayout>
     </LinearLayout>
+
+
 
     <android.support.v4.widget.NestedScrollView
             android:id="@+id/search_result"

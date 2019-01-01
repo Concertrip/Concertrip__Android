@@ -93,12 +93,12 @@ interface NetworkService {
     ) : Call<GetConcertResponse>
     //-----------------------------------------
     //*아티스트
-    //아티스트 조회
+    //아티스트 상세 페이지
     @GET("/api/artist/detail")
     @Headers("Content-Type:application/json")
     fun getArtist(
-        @Header("token") token : String,
-        @Query("artistId") artistId : String
+        @Header("Authorization") Authorization : String,
+        @Query("id") id : String
     ):Call<GetArtistResponse>
     //-----------------------------------------
     //*검색
@@ -109,4 +109,12 @@ interface NetworkService {
         @Header("Authorization") token : Int,
         @Query("tag") tag: String
     ):Call<GetSearchResponse>
+
+    //------------------------------------------
+    //*내 티켓 리스트
+    @GET("/api/ticket")
+    @Headers("Content-Type:application/json")
+    fun getTicketList(
+        @Header("token") token : Int
+    ):Call<GetTicketListResponse>
 }

@@ -64,13 +64,13 @@ data class Artist(
         @JvmStatic
         fun getDummyArray(): ArrayList<Artist> {
             val list = ArrayList<Artist>()
-            list.add(Artist.getDummy(1.toString()))
-            list.add(Artist.getDummy_2(2.toString()))
-            list.add(Artist.getDummy_3(3.toString()))
-            /*for(i in 0..5) {
-                val a = Artist.getDummy(i.toString())
-                list.add(a)
-            }*/
+//            list.add(Artist.getDummy(1.toString()))
+//            list.add(Artist.getDummy_2(2.toString()))
+//            list.add(Artist.getDummy_3(3.toString()))
+//            /*for(i in 0..5) {
+//                val a = Artist.getDummy(i.toString())
+//                list.add(a)
+//            }*/
             return list
 
         }

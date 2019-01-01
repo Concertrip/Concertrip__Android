@@ -66,7 +66,7 @@ class MyPageFragment : Fragment(), OnItemClick, OnFragmentInteractionListener {
 
     // TODO: Rename method, update argument and hook method into UI event
     fun changeFragment(){
-        listener?.changeFragment(Constants.FRAGMENT_SETTING)
+        listener?.changeFragment(Constants.FRAGMENT_TICKET_LIST)
     }
 
     override fun onFragmentInteraction(uri: Uri) {

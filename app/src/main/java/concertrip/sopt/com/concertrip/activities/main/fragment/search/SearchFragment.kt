@@ -170,6 +170,10 @@ class SearchFragment : Fragment() ,OnResponse{
             connectRequestData()
         }
 
+        btn_back.setOnClickListener {
+            activity?.onBackPressed()
+        }
+
     }
 
     private fun updateUI(){
