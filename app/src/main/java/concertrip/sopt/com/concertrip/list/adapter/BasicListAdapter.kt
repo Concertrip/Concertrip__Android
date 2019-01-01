@@ -2,6 +2,7 @@ package concertrip.sopt.com.concertrip.list.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -107,8 +108,8 @@ class BasicListAdapter(
     constructor(mContext: Context, dataList: ArrayList<out ListData>) : this(mContext, dataList, MODE_BASIC, null)
 
     companion object {
-        val MODE_BASIC = 0
-        val MODE_THUMB = 1
+        const val MODE_BASIC = 0
+        const val MODE_THUMB = 1
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -121,17 +122,17 @@ class BasicListAdapter(
             TYPE_ARTIST -> {
                 return when (mode) {
                     MODE_BASIC -> {
-                        val view = LayoutInflater.from(mContext).inflate(R.layout.li_artist, parent, false)
-                        ArtistViewHolder(view)
-                    }
-                    MODE_THUMB -> {
-                        val view = LayoutInflater.from(mContext).inflate(R.layout.li_artist_thumb, parent, false)
-                        ArtistThumbViewHolder(view)
-                    }
-                    else -> {
-                        throw RuntimeException(mContext.toString() + " mode is strange number $mode")
-                    }
+                    val view = LayoutInflater.from(mContext).inflate(R.layout.li_artist, parent, false)
+                    ArtistViewHolder(view)
                 }
+                MODE_THUMB -> {
+                    val view = LayoutInflater.from(mContext).inflate(R.layout.li_artist_thumb, parent, false)
+                    ArtistThumbViewHolder(view)
+                }
+                else -> {
+                    throw RuntimeException(mContext.toString() + " mode is strange number $mode")
+                }
+            }
             }
             TYPE_CONCERT -> {
                 val view = LayoutInflater.from(mContext).inflate(R.layout.li_concert, parent, false)
@@ -171,6 +172,8 @@ class BasicListAdapter(
         if (URLUtil.isValidUrl(dataList[position].getImageUrl())) {
             Glide.with(mContext).load(dataList[position].getImageUrl()).apply(RequestOptions.circleCropTransform())
                 .into(holder.getIvIcon())
+        }else{
+            holder.getIvIcon().setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.ic_account_circle))
         }
         basicHolder.setButton(mContext,dataList[position].isSubscribe())
 

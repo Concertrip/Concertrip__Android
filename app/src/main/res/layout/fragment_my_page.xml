@@ -2,11 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_height="match_parent"
+                android:background="@color/blue"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 tools:context=".activities.main.fragment.mypage.MyPageFragment">
 
         <LinearLayout
-                android:layout_marginHorizontal="16dp"
+                android:paddingHorizontal="16dp"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -24,7 +26,7 @@
                 <ImageView
                         android:id="@+id/btn_setting"
                         android:layout_marginLeft="170dp"
-                        android:src="@drawable/ic_account_circle"
+                        android:src="@drawable/ic_setting"
                         android:layout_width="46dp"
                         android:layout_height="46dp"/>
             </LinearLayout>
@@ -73,6 +75,7 @@
                             android:layout_height="wrap_content">
                         <LinearLayout
                                 android:orientation="vertical"
+                                android:paddingHorizontal="10dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
                             <ImageView
@@ -89,6 +92,7 @@
                         </LinearLayout>
                         <LinearLayout
                                 android:orientation="vertical"
+                                android:paddingHorizontal="10dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
                             <ImageView
@@ -105,6 +109,7 @@
                         </LinearLayout>
                         <LinearLayout
                                 android:orientation="vertical"
+                                android:paddingHorizontal="10dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
                             <ImageView
@@ -121,6 +126,7 @@
                         </LinearLayout>
                         <LinearLayout
                                 android:orientation="vertical"
+                                android:paddingHorizontal="10dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
                             <ImageView
@@ -142,6 +148,7 @@
                             android:layout_height="wrap_content">
                         <LinearLayout
                                 android:orientation="vertical"
+                                android:paddingHorizontal="10dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
                             <ImageView
@@ -158,6 +165,7 @@
                         </LinearLayout>
                         <LinearLayout
                                 android:orientation="vertical"
+                                android:paddingHorizontal="10dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
                             <ImageView
@@ -174,6 +182,7 @@
                         </LinearLayout>
                         <LinearLayout
                                 android:orientation="vertical"
+                                android:paddingHorizontal="10dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
                             <ImageView
@@ -190,6 +199,7 @@
                         </LinearLayout>
                         <LinearLayout
                                 android:orientation="vertical"
+                                android:paddingHorizontal="10dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
                             <ImageView

@@ -26,6 +26,7 @@ class HorizontalListAdapter(private val mContext : Context, var dataList: ArrayL
     override fun getItemCount(): Int = dataList.size
 
     override fun onBindViewHolder(holder: HorizontalViewHolder, position: Int) {
+
         if(position == selected) holder.vUnderline.visibility = View.VISIBLE
         else holder.vUnderline.visibility = View.GONE
 

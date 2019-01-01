@@ -2,7 +2,6 @@ package concertrip.sopt.com.concertrip.activities.main.fragment.calendar
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -11,8 +10,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import concertrip.sopt.com.concertrip.activities.AlramActivity
+import concertrip.sopt.com.concertrip.activities.AlarmActivity
 import concertrip.sopt.com.concertrip.activities.main.fragment.calendar.adapter.CalendarListAdapter
 import concertrip.sopt.com.concertrip.interfaces.OnFragmentInteractionListener
 import concertrip.sopt.com.concertrip.interfaces.OnItemClick
@@ -27,6 +25,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 import concertrip.sopt.com.concertrip.R
+import concertrip.sopt.com.concertrip.interfaces.ListData
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -45,12 +44,16 @@ private const val ARG_PARAM2 = "param2"
  */
 class CalendarFragment : Fragment(), OnItemClick {
 
-    var dataListFilter = arrayListOf<String>()
     var dataListArtist = arrayListOf<Artist>()
     var dataListConcert = arrayListOf<Concert>()
+    var dataListOrigin = arrayListOf<ListData>()
     var dataListTag = arrayListOf<String>("모두","테마","걸그룹","보이그룹","힙합","발라드")
 
-    val monthImgList = listOf<Int>(
+    private var scheduleMap : HashMap<Int,ArrayList<Schedule>> by Delegates.notNull()
+
+
+    private lateinit var dayList : ArrayList<String>
+    private val monthImgList = listOf<Int>(
         R.drawable.ic_account_circle, R.drawable.ic_account_circle, R.drawable.ic_account_circle,
         R.drawable.ic_account_circle, R.drawable.ic_account_circle, R.drawable.ic_account_circle,
         R.drawable.ic_account_circle, R.drawable.ic_account_circle, R.drawable.ic_account_circle,
@@ -83,12 +86,15 @@ class CalendarFragment : Fragment(), OnItemClick {
 
         if(root is HorizontalListAdapter) {
             tagAdapter.setSelect(position)
+            updateCalendar()
         }
-        else{
-            // getBtn()
-            /*TODO 하트 or 종 convert + 토스*/
-            activity?.let {
-                Toast.makeText(it.applicationContext, "내 공연에 추가되었습니다!", Toast.LENGTH_LONG).show()
+
+        else if(root is CalendarListAdapter){
+            if(calendarListAdapter.selected==-1){
+                recycler_view_calendar_detail.visibility=View.GONE
+            }else {
+                recycler_view_calendar_detail.visibility=View.VISIBLE
+                updateCalendarDetail(dayList[position].toInt())
             }
         }
     }
@@ -100,6 +106,7 @@ class CalendarFragment : Fragment(), OnItemClick {
     fun concertToCal(concert: Concert) {
         /*TODO have to implement it*/
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -162,7 +169,7 @@ class CalendarFragment : Fragment(), OnItemClick {
 
         //gridview 요일 표시
 
-        val dayList = ArrayList<String>()
+        dayList = ArrayList<String>()
 
         dayList.add("일")
         dayList.add("월")
@@ -200,6 +207,23 @@ class CalendarFragment : Fragment(), OnItemClick {
         }
     }
 
+    private fun updateCalendar(){
+
+    }
+
+    private fun updateCalendarDetail(date : Int){
+
+        val list = scheduleMap[date]
+
+        dataListConcert.clear()
+        list?.forEach {
+            dataListConcert.add(it.toConcert())
+        }
+        calendarDetailAdapter.notifyDataSetChanged()
+
+    }
+
+
 
     // TODO: Rename method, update argument and hook method into UI event
     fun onButtonPressed(uri: Uri) {
@@ -214,16 +238,18 @@ class CalendarFragment : Fragment(), OnItemClick {
 
     private fun initialUI() {
         btn_notification.setOnClickListener {
-            startActivity(Intent(activity, AlramActivity::class.java))
+            startActivity(Intent(activity, AlarmActivity::class.java))
         }
 
         activity?.let {
 
-            calendarListAdapter = CalendarListAdapter(it.applicationContext,makeDayList(),Schedule.getDummyMap())
+            scheduleMap= Schedule.getDummyMap()
+            calendarListAdapter = CalendarListAdapter(it.applicationContext,makeDayList(),scheduleMap,this)
             recycler_view_calendar.layoutManager=GridLayoutManager(it.applicationContext,7)
             recycler_view_calendar.adapter=calendarListAdapter
 
             dataListConcert = Concert.getDummyArray()
+            dataListOrigin.addAll(Concert.getDummyArray())
             calendarDetailAdapter = BasicListAdapter(it.applicationContext,dataListConcert,this)
             recycler_view_calendar_detail.adapter = calendarDetailAdapter
 

@@ -101,15 +101,13 @@ class ExplorerFragment : Fragment(), OnItemClick {
 
       //-------------- 밑으로 테스트용------------------
 
-        if(position == 1){
-            // 테마를 선택한 경우 안드 내부에 저장되어있는 것을 출력
-            // 해당 데이터가 저장된 어레이를 이용해 updateDataList 함수 호출
-            updateDataList(Artist.getDummyArray2())
-        }else if(position == 0){
-            updateDataList(Artist.getDummyArray())
-        }
-        else connectRequestData(dataListTag[position])
-
+      when (position) {
+          1 -> // 테마를 선택한 경우 안드 내부에 저장되어있는 것을 출력
+              // 해당 데이터가 저장된 어레이를 이용해 updateDataList 함수 호출
+              updateDataList(Artist.getDummyArray2())
+          0 -> updateDataList(Artist.getDummyArray())
+          else -> connectRequestData(dataListTag[position])
+      }
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -144,20 +142,18 @@ class ExplorerFragment : Fragment(), OnItemClick {
             tagAdapter = HorizontalListAdapter(it.applicationContext, dataListTag,this)
             recycler_view_horizontal.adapter=tagAdapter
 
-
             /*TODO 이부분 이상함*/
 //            dataListArtist=Artist.getDummyArray()
             //dataList=Artist.getDummyArray()
             dataAdapter = BasicListAdapter(it.applicationContext, dataList,this)
             recycler_view.adapter = dataAdapter
 
+
         }
 
     }
 
-
-  
-    fun updateDataList(list : ArrayList<out ListData>){
+    private fun updateDataList(list : ArrayList<out ListData>){
         dataList.clear()
         dataList.addAll(list)
         dataAdapter.notifyDataSetChanged()
@@ -190,6 +186,7 @@ class ExplorerFragment : Fragment(), OnItemClick {
 //            }
 //
 //        })
+
     }
 
 

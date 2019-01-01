@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" xmlns:tools="http://schemas.android.com/tools">
+                android:layout_height="wrap_content"
+                xmlns:tools="http://schemas.android.com/tools">
     <LinearLayout 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -15,15 +16,15 @@
                 android:id="@+id/tv_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                android:layout_marginLeft="2dp"
+                android:paddingVertical="1dp"
+                android:paddingHorizontal="2dp"
         />
         
         <View
                 android:id="@+id/v_underline"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:visibility="invisible"
+                android:visibility="gone"
                 android:background="#b4b4b5"
                 android:layout_marginTop="4.6dp"/>
 

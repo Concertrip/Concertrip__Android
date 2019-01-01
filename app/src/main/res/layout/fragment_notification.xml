@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
-              android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_height="match_parent"
+              android:background="@color/blue"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               tools:context=".deprecated.NotificationFragment"
               android:orientation="vertical">
     <TextView
@@ -14,7 +16,7 @@
             android:text = "@string/txt_notification"
             android:textStyle="bold"
             android:layout_marginLeft="17dp"
-            android:layout_marginVertical="30dp"
+            android:paddingVertical="30dp"
     />
 
     <android.support.v7.widget.RecyclerView

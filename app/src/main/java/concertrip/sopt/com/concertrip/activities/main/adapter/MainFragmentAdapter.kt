@@ -29,12 +29,12 @@ class MainFragmentAdapter(val fragmentManager: FragmentManager, val mainTab: Tab
     /*TODO have to edit its icons when we get the icons from design team*/
 
     private val setIcons = arrayOf(
-            R.drawable.ic_tab, R.drawable.ic_tab,
-            R.drawable.ic_tab, R.drawable.ic_tab
+            R.drawable.ic_calendar_selected, R.drawable.ic_explorer_selected,
+            R.drawable.ic_liked_selected, R.drawable.ic_mypage_selected
     )
     private val unsetIcons = arrayOf(
-        R.drawable.ic_account_circle, R.drawable.ic_account_circle,
-        R.drawable.ic_account_circle, R.drawable.ic_account_circle
+        R.drawable.ic_calendar, R.drawable.ic_explorer,
+        R.drawable.ic_liked, R.drawable.ic_mypage
     )
 
     private val fragments = arrayOf(
@@ -53,6 +53,7 @@ class MainFragmentAdapter(val fragmentManager: FragmentManager, val mainTab: Tab
 
         val fragment = fragments[curFragmentId]
         val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_down)
         fragmentTransaction.add(R.id.container ,fragment)
         fragmentTransaction.commit()
 
@@ -122,9 +123,10 @@ class MainFragmentAdapter(val fragmentManager: FragmentManager, val mainTab: Tab
             }
         }
         //if(fragment.isAdded) return
+        fragmentTransaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_down)
         fragmentTransaction.replace(R.id.container ,fragment)
         fragmentTransaction.addToBackStack(null)
-        fragmentTransaction.setBreadCrumbShortTitle(curFragmentId);
+        fragmentTransaction.setBreadCrumbShortTitle(curFragmentId)
 
         fragmentTransaction.commit()
     }
