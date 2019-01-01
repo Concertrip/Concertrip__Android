@@ -72,7 +72,7 @@ data class ConcertData(
     companion object {
         fun getDummy() : ConcertData=ConcertData("","https://search.pstatic.net/common?type=a&size=120x150&quality=95&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F201801%2F20180108113919887.jpg",
             "", "지코",
-            0,"https://www.youtube.com/watch?v=YfQzz00Oc_M","",ArrayList<MemberData>(),ArrayList<String>(), listOf("VIP", "R"),listOf("120,000", "80,000"),ArrayList<PrecautionData>(),
+            0,"https://www.youtube.com/watch?v=YfQzz00Oc_M","",ArrayList<MemberData>(),ArrayList<String>(), listOf("VIP", "R", "스탠딩"),listOf("120,000", "80,000", "70,000"),ArrayList<PrecautionData>(),
             "http://tenasia.hankyung.com/webwp_kr/wp-content/uploads/2018/07/2018071709244719489-540x734.jpg",false)
 
         fun getDummy1() : ConcertData=ConcertData("","https://search.pstatic.net/common?type=a&size=120x150&quality=95&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F201801%2F20180108113919887.jpg","https://img.huffingtonpost.com/asset/5ba482b82400003100546bc3.jpeg","힙합페스티벌",
