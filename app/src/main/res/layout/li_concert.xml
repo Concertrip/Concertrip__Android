@@ -27,7 +27,7 @@
                 <TextView
                         android:id="@+id/tv_concert"
                         android:textSize="15sp"
-                        android:textColor="@color/textTagDefault"
+                        android:textColor="@color/white"
                         android:text="더 몬스터 페스티벌"
                         tools:text="더 몬스터 페스티벌"
                         android:layout_width="wrap_content"
