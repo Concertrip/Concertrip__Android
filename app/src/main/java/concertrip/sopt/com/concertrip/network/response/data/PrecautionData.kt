@@ -9,6 +9,12 @@ data class PrecautionData(
 ){
     fun toCaution() : Caution = Caution(img = img, content = name, code = code)
 
+
+    override fun toString(): String ="PrecautionData{\n" +
+            "code : $code\n" +
+            "name : $name\n" +
+            "img : $img\n}"
+
     companion object {
         fun getDummyList() : List<PrecautionData>{
             val list = listOf(PrecautionData(1,"만 7세 이상","https://img.huffingtonpost.com/asset/5ba482b82400003100546bc3.jpeg"),

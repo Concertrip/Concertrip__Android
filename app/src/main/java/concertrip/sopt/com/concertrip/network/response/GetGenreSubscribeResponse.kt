@@ -18,7 +18,16 @@ data class GetGenreSubscribeResponse (
         }
         return list
     }
+
+    override fun toString(): String {
+        var result : String = ""
+        data.forEach {
+            result=result.plus(it)+","
+        }
+        return result
+    }
 }
+
 
 
 
