@@ -11,26 +11,60 @@ data class ArtistData(
     var subscribeNum : Int,
     var youtubeUrl : String,
     var memberList : List<MemberData>,
-    var eventList : List<Concert>,
+    var eventList : List<SimpleConcertData>,
     var subscribe : Boolean
 ){
     fun toArtist() : Artist {
         val a =  Artist(_id = _id)
-        a.name = name
+
         a.profileImg =  profileImg
         a.backImg = backImg
+        a.name = name
+        a.subscribeNum = subscribeNum
         a.youtubeUrl = youtubeUrl
 
-        val list = ArrayList<Concert>()
-        eventList.forEach{
-            list.add(it)
+        val aList = ArrayList<Artist>()
+        memberList.forEach {
+            aList.add(MemberDataToArtist(it))
         }
-        a.concertList = list
+        a.memberList = aList
+
+        val cList = ArrayList<Concert>()
+        eventList.forEach{
+            cList.add(SimpleConcertDatatoConcert(it))
+        }
+        a.concertList = cList
+
+        a.isSubscribe = subscribe
 
         return a
     }
+
+    fun SimpleConcertDatatoConcert(simpleConcert : SimpleConcertData) : Concert {
+        val concert = Concert(_id = simpleConcert._id)
+
+        concert.title = simpleConcert.name
+        concert.profileImg = simpleConcert.profileImg
+        //concert.date = date
+        // Concert의 date는 List이고 SimpleConcertData의 date는 String임
+        // TODO >> 서버에 물어보기 // List로 안넘겨주냐고
+        // aws. 기획단에서 정해진게 없어서 보류중
+        concert.location = simpleConcert.location
+
+        return concert
+    }
+
+    fun MemberDataToArtist(member : MemberData) : Artist {
+        val artist = Artist(_id = member._id)
+
+        artist.name = member.name
+        artist.profileImg = member.profileImg
+        artist.isSubscribe = member.subscribe
+
+        return artist
+    }
   
-//    companion object {
+    companion object {
 //        fun getDummy() : ArtistData{
 //            return ArtistData("",0,"송지은","https://s3.namuwikiusercontent.com/s/ffb9632dd81ca99329391af0017f4e3026ffeaa5cb062c5c91543bbf09a3221bbbecfced0d650c449fb88241d91c8fb97b7ba055dbe4072f52af5cf6400760a175878e3646144264919e9a7cebab6106d626b92ffb27b77d479d30426e512829",
 //                "https://i.ytimg.com/vi/lB-GvZY6lTU/hqdefault.jpg",
@@ -51,5 +85,5 @@ data class ArtistData(
 //
 //            return list
 //        }
-//    }
+    }
 }

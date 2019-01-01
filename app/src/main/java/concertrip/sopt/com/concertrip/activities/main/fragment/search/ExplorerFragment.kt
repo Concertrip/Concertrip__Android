@@ -104,7 +104,7 @@ class ExplorerFragment : Fragment(), OnItemClick {
       when (position) {
           1 -> // 테마를 선택한 경우 안드 내부에 저장되어있는 것을 출력
               // 해당 데이터가 저장된 어레이를 이용해 updateDataList 함수 호출
-              updateDataList(Artist.getDummyArray2())
+              updateDataList(Artist.getDummyArray())
           0 -> updateDataList(Artist.getDummyArray())
           else -> connectRequestData(dataListTag[position])
       }

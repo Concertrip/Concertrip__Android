@@ -4,28 +4,26 @@ import concertrip.sopt.com.concertrip.model.Concert
 
 data class SimpleConcertData(
     var _id : String,
-    var title : String,
-    var location : String,
-    var date : String,
-    var tag : String
+    var name : String,
+    var profileImg : String,
+    //var date : String, // list아닌가?
+    var location : String
 ){
     fun toConcert() : Concert {
         val c =  Concert(_id = _id)
-        c.title=title
+        c.title=name
         c.location = location
-        c.date= arrayListOf(date)
-        c.tag=tag
+        //c.date= arrayListOf(date)
         return c
     }
 
     companion object {
-        fun getDummy() : SimpleConcertData = SimpleConcertData("", "힙합 페스티벌", "종합경기장",
-            "2018-12-20", "힙합")
+        fun getDummy() : SimpleConcertData = SimpleConcertData("", "힙합 페스티벌","", "종합경기장")
 
         fun getDummyList() : List<SimpleConcertData> {
-            val list = listOf(SimpleConcertData("", "힙합 페스티벌", "종합경기장", "2018-12-20", "힙합"),
-                SimpleConcertData("", "SM타운 콘서트", "잠실주경기장", "2018-12-17", "보이그룹"),
-                SimpleConcertData("", "휘성 콘서트", "체조 경기장", "2018-12-29","발라드"))
+            val list = listOf(SimpleConcertData("", "힙합 페스티벌", "","종합경기장"),
+                SimpleConcertData("", "SM타운 콘서트", "","종합경기장"),
+                SimpleConcertData("", "휘성 콘서트", "","종합경기장"))
             return list
         }
     }
