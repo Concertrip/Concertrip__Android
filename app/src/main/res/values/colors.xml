@@ -22,6 +22,8 @@
     <color name="textTagDefault">@color/grayLight</color>
     <color name="textSelected">@color/white</color>
     <color name="textDialog">@color/white</color>
+    <color name="textTicket">@color/black</color>
+
 
     
     <color name="grayDarker">#7b7b7b</color>

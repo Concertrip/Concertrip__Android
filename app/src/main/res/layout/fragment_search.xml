@@ -47,7 +47,7 @@
                         >
                 <TextView
                         android:text="아티스트"
-                        android:textColor="#000000"
+                        android:textColor="@color/textTagDefault"
                         android:textSize="20sp"
                         android:lineSpacingExtra="9sp"
                         android:layout_width="wrap_content"
@@ -83,7 +83,7 @@
                 <TextView
                         android:layout_marginTop="20dp"
                         android:text="콘서트"
-                        android:textColor="#000000"
+                        android:textColor="@color/textTagDefault"
                         android:textSize="20sp"
                         android:lineSpacingExtra="9sp"
                         android:layout_width="wrap_content"

@@ -10,8 +10,9 @@
     <TextView
             android:text="@string/txt_ticket"
             android:textSize="24sp"
-            android:textColor="#000000"
+            android:textColor="@color/textTagDefault"
             android:layout_marginLeft="17dp"
+            android:textStyle="bold"
             android:paddingVertical="25dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

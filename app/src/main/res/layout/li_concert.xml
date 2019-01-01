@@ -27,7 +27,7 @@
                 <TextView
                         android:id="@+id/tv_concert"
                         android:textSize="15sp"
-                        android:textColor="#000000"
+                        android:textColor="@color/textTagDefault"
                         android:text="더 몬스터 페스티벌"
                         tools:text="더 몬스터 페스티벌"
                         android:layout_width="wrap_content"
@@ -35,6 +35,7 @@
                 <TextView
                         android:id="@+id/tv_concert_tag"
                         android:textSize="12sp"
+                        android:textColor="@color/textHashTag"
                         android:text="#12월 23일 #대전"
                         tools:text="#12월 23일 #대전"
                         android:layout_width="wrap_content"

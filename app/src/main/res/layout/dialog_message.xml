@@ -23,7 +23,7 @@
             android:layout_marginBottom="20dp"
             android:text="@string/txt_calendar_added"
             android:gravity="center"
-            android:textColor="@color/black"
+            android:textColor="@color/textDialog"
             android:textSize="18sp" />
 
     <!--<Button-->
