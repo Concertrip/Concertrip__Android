@@ -6,7 +6,8 @@ data class MemberData(
     var _id : String,
     var name : String,
     var profileImg : String,
-    var filter : String?
+    var filter : List<String>,
+    var subscribe : Boolean
 ){
     fun toArtist(): Artist {
         return Artist(_id, name,profileImg)
