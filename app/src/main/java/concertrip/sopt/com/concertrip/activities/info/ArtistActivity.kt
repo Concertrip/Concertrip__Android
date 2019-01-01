@@ -70,7 +70,7 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         return findViewById<View>(R.id.youtude) as YouTubePlayerView
     }
 
-    private var artistId: Int? = null
+    private var artistId: String ="5c287b713eea39d2b0049f3f"
 
     lateinit  var artist: Artist
     var dataList = arrayListOf<Concert>()
@@ -92,16 +92,17 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_artist)
 
-        artistId = intent.getIntExtra(INTENT_TAG_ID, 0)
+//        if(intent.hasExtra(INTENT_TAG_ID))
+//            artistId = intent.getStringExtra(INTENT_TAG_ID)
 
         initialUI()
-        connectRequestData(artistId!!)
+        connectRequestData(artistId)
     }
 
     override fun onResume() {
         super.onResume()
 
-        connectRequestData(artistId!!)
+        connectRequestData(artistId)
     }
 
     fun initialUI(){
@@ -157,8 +158,7 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
     }
 
     private fun connectRequestData(id : Int){
-        val getArtistResponse : Call<GetArtistResponse> = networkService.getArtist("", "5c287b713eea39d2b0049f3f")
-
+        val getArtistResponse : Call<GetArtistResponse> = networkService.getArtist("", artistId)
         getArtistResponse.enqueue(object : Callback<GetArtistResponse>
         {
             override fun onFailure(call: Call<GetArtistResponse>?, t: Throwable?) {
