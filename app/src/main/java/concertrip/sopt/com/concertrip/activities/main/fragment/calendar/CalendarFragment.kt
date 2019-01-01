@@ -249,7 +249,7 @@ class CalendarFragment : Fragment(), OnItemClick {
             recycler_view_calendar_detail.adapter = calendarDetailAdapter
 
 
-            tagAdapter = HorizontalListAdapter(it.applicationContext,dataListTag,this)
+            tagAdapter = HorizontalListAdapter(it.applicationContext,dataListTag,this, false)
             recycler_view_filter.adapter=tagAdapter
 
 
