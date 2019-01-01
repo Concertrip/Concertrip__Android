@@ -19,12 +19,12 @@
                 <TextView
                         android:text="@string/txt_my_page"
                         android:textSize="24sp"
-                        android:textColor="#000000"
+                        android:textColor="@color/white"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                 <ImageView
                         android:id="@+id/btn_setting"
-                        android:layout_marginLeft="170dp"
+                        android:layout_marginStart="170dp"
                         android:src="@drawable/ic_setting"
                         android:layout_width="46dp"
                         android:layout_height="46dp"/>

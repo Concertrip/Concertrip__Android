@@ -18,10 +18,8 @@ import concertrip.sopt.com.concertrip.list.adapter.HorizontalListAdapter
 import concertrip.sopt.com.concertrip.model.Artist
 import concertrip.sopt.com.concertrip.model.Concert
 import concertrip.sopt.com.concertrip.network.response.GetSearchResponse
-import concertrip.sopt.com.concertrip.network.response.data.ArtistData
-import concertrip.sopt.com.concertrip.network.response.data.ConcertData
-import concertrip.sopt.com.concertrip.network.response.data.SimpleArtistData
-import concertrip.sopt.com.concertrip.network.response.data.SimpleConcertData
+import concertrip.sopt.com.concertrip.network.response.SearchData
+import concertrip.sopt.com.concertrip.network.response.data.*
 
 import concertrip.sopt.com.concertrip.utillity.Constants
 import kotlinx.android.synthetic.main.fragment_explorer.*
@@ -93,7 +91,7 @@ class ExplorerFragment : Fragment(), OnItemClick {
 //        }
 //        else{
 //            // getBtn()
-//            /*TODO 하트 or 종 convert + isSubscribe 전환*/
+//            /*TODO 하트 or 종 convert + subscribe 전환*/
 //            activity?.let {
 //                Toast.makeText(it.applicationContext, "내 공연에 추가되었습니다!", Toast.LENGTH_LONG).show()
 //            }
@@ -205,7 +203,7 @@ class ExplorerFragment : Fragment(), OnItemClick {
         // 모두, 테마, 걸그룹, 보이그룹, 힙합, 발라드 등등,,,
         // 어느 데이터를 받아올지 param로 받아옴
 
-        val explorerRequestData : GetSearchResponse = GetSearchResponse(SimpleConcertData.getDummyList(), SimpleArtistData.getDummyList())
+        val explorerRequestData : GetSearchResponse = GetSearchResponse(SearchData(SimpleConcertData.getDummyList(), SimpleArtistData.getDummyList(),SimpleGenreData.getDummyList()))
         val list = arrayListOf<ListData>()
         list.addAll(explorerRequestData.toArtistList())
         list.addAll(explorerRequestData.toConcertList())

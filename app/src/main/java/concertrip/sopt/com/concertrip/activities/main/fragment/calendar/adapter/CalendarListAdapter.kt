@@ -35,7 +35,7 @@ class CalendarListAdapter(
     private var inflater: LayoutInflater by Delegates.notNull()
 
 
-    private val colorArray = arrayListOf(R.color.mainColor, R.color.purple, R.color.gray, R.color.black)
+    private val colorArray = arrayListOf(R.color.blue, R.color.purple, R.color.gray, R.color.black)
 
 
     init {
@@ -118,7 +118,6 @@ class CalendarListAdapter(
                     scheduleMap[date]?.add(s)
                 }
                 addCalendarItem(holder, s)
-
 
                 notifyDataSetChanged()
 
