@@ -34,7 +34,6 @@ class CalendarListAdapter(
 
     private var inflater: LayoutInflater by Delegates.notNull()
 
-    var resetSchedule = false
 
     private val colorArray = arrayListOf(R.color.mainColor, R.color.purple, R.color.gray, R.color.black)
 

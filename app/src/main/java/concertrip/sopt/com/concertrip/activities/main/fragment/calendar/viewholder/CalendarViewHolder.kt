@@ -5,6 +5,7 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.GridLayout
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import concertrip.sopt.com.concertrip.R
@@ -16,23 +17,24 @@ import kotlin.properties.Delegates
 class CalendarViewHolder(itemView : View)  : RecyclerView.ViewHolder(itemView){
      var lySchedule : LinearLayout? = itemView.findViewById(R.id.ly_schedule)
      var  tvCalendar : TextView = itemView.findViewById(R.id.tv_calendar)
+     var  ivSelected : ImageView? = itemView.findViewById(R.id.iv_calendar)
 
      fun setToday(mContext: Context, b : Boolean){
-          if(b){
-               tvCalendar.textColor=mContext.getColor(R.color.mainColorP)
-          }else{
-//               tvCalendar.textColor=mContext.getColor(R.color.black)
-
-          }
+//          if(b){
+//               tvCalendar.textColor=mContext.getColor(R.color.mainColorP)
+//          }else{
+//               tvCalendar.textColor=mContext.getColor(R.color.white)
+//
+//          }
 
      }
      fun setSelected(mContext: Context, b : Boolean){
           if(b){
-               tvCalendar.background=ContextCompat.getDrawable(mContext,R.drawable.ic_circle)
+               ivSelected?.visibility=View.VISIBLE
                tvCalendar.textColor=mContext.getColor(R.color.white)
           }else{
-               tvCalendar.background=null
-               tvCalendar.textColor=mContext.getColor(R.color.black)
+               ivSelected?.visibility=View.GONE
+               tvCalendar.textColor=mContext.getColor(R.color.white)
           }
 
      }

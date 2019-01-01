@@ -90,7 +90,12 @@ class CalendarFragment : Fragment(), OnItemClick {
         }
 
         else if(root is CalendarListAdapter){
-            updateCalendarDetail(dayList[position].toInt())
+            if(calendarListAdapter.selected==-1){
+                recycler_view_calendar_detail.visibility=View.GONE
+            }else {
+                recycler_view_calendar_detail.visibility=View.VISIBLE
+                updateCalendarDetail(dayList[position].toInt())
+            }
         }
     }
 
