@@ -18,6 +18,11 @@
 
 
 
+    <color name="textHashTag">@color/grayLight</color>
+    <color name="textTagDefault">@color/grayLight</color>
+    <color name="textSelected">@color/white</color>
+    <color name="textDialog">@color/white</color>
+
     
     <color name="grayDarker">#7b7b7b</color>
     <color name="grayDark">#b3b3b3</color>
