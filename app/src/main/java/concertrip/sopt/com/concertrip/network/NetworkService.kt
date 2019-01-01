@@ -97,7 +97,7 @@ interface NetworkService {
     @GET("/api/artist/detail")
     @Headers("Content-Type:application/json")
     fun getArtist(
-        @Header("Authorization") Authorization : String,
+        @Header("Authorization") token : String,
         @Query("id") id : String
     ):Call<GetArtistResponse>
     //-----------------------------------------
@@ -106,7 +106,7 @@ interface NetworkService {
     @GET("/api/search")
     @Headers("Content-Type:application/json")
     fun getSearch(
-        @Header("token") token : String,
+        @Header("Authorization") token : String,
         @Query("tag") tag: String
     ):Call<GetSearchResponse>
 }

@@ -138,8 +138,12 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         // TODO 좋아요 버튼 설정
         if(URLUtil.isValidUrl(artist.backImg))
             Glide.with(this).load(artist.backImg).into(iv_back)
+//        else
+//            // 기본이미지로 설정
         if(URLUtil.isValidUrl(artist.profileImg))
             Glide.with(this).load(artist.profileImg).apply(RequestOptions.circleCropTransform()).into(iv_profile)
+//        else
+//            // 기본이미지로 설정
 
         tv_title.text = artist.name
         tv_tag.text = artist.subscribeNum.toString()
@@ -174,10 +178,10 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
             override fun onResponse(call: Call<GetArtistResponse>?, response: Response<GetArtistResponse>?) {
                 if (response!!.body()?.status == 200) {
                     artist = response!!.body()!!.data.toArtist()
-                    updateConcertList(ArrayList(artist.concertList))
+                    updateConcertList(ArrayList(artist.concertList)) // 굳이 param으로 안넘겨줘도됨!
                     /*TODO
                     * 정확한 API 받고 Artist Data 재구성 > 데이터 가공*/
-                    //updateMemberList
+                    updateMemberList(ArrayList(artist.memberList))
                     updateArtistData()
                     updateUI()
                 } else {
