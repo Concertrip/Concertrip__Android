@@ -13,7 +13,7 @@
             android:lineSpacingExtra="12sp"
             android:text = "@string/txt_notification"
             android:textStyle="bold"
-            android:layout_marginLeft="17dp"
+            android:layout_marginStart="17dp"
             android:layout_marginVertical="30dp"
     />
 
