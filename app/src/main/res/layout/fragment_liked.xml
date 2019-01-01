@@ -28,23 +28,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
         <TextView
-                android:id="@+id/btn_liked_artist"
+                android:id="@+id/tv_liked_artist"
                 android:text="@string/txt_liked_tag1"
                 android:textSize="20sp"
+                android:textColor="@color/textTagDefault"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         <TextView
-                android:id="@+id/btn_liked_theme"
+                android:id="@+id/tv_liked_theme"
                 android:text="@string/txt_liked_tag2"
                 android:textSize="20sp"
-                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:textColor="@color/textTagDefault"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         <TextView
-                android:id="@+id/btn_liked_concert"
+                android:id="@+id/tv_liked_concert"
                 android:text="@string/txt_liked_tag3"
                 android:textSize="20sp"
-                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:textColor="@color/textTagDefault"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
     </LinearLayout>
