@@ -4,42 +4,43 @@ import concertrip.sopt.com.concertrip.model.Artist
 import concertrip.sopt.com.concertrip.model.Concert
 
 data class ArtistData(
-    var _id : String,
-    var profileImg : String,
-    var backImg : String,
-    var name : String,
-    var subscribeNum : Int,
-    var youtubeUrl : String,
-    var memberList : List<MemberData>,
-    var eventList : List<SimpleConcertData>,
-    var subscribe : Boolean
+    var _id : String?,
+    var profileImg : String?,
+    var backImg : String?,
+    var name : String?,
+    var subscribeNum : Int?,
+    var youtubeUrl : String?,
+    var memberList : List<MemberData>?,
+    var eventList : List<SimpleConcertData>?,
+    var subscribe : Boolean?
 ){
     fun toArtist() : Artist {
-        val a =  Artist(_id = _id)
+        val a =  Artist(_id = _id?:"0")
 
-        a.profileImg =  profileImg
-        a.backImg = backImg
-        a.name = name
-        a.subscribeNum = subscribeNum
-        a.youtubeUrl = youtubeUrl
+        a.profileImg =  profileImg?:""
+        a.backImg = backImg?:""
+        a.name = name?:"서버 에서 안왔습니다."
+        a.subscribeNum = subscribeNum?:0
+        a.youtubeUrl = youtubeUrl?:""
 
         val aList = ArrayList<Artist>()
-        memberList.forEach {
+        memberList?.forEach {
             aList.add(MemberDataToArtist(it))
         }
         a.memberList = aList
 
         val cList = ArrayList<Concert>()
-        eventList.forEach{
+        eventList?.forEach{
             cList.add(SimpleConcertDatatoConcert(it))
         }
         a.concertList = cList
 
-        a.isSubscribe = subscribe
+        a.subscribe = subscribe?:false
 
         return a
     }
 
+//TODO SimpleCincertData로 옮기기
     fun SimpleConcertDatatoConcert(simpleConcert : SimpleConcertData) : Concert {
         val concert = Concert(_id = simpleConcert._id)
 
@@ -49,17 +50,18 @@ data class ArtistData(
         // Concert의 date는 List이고 SimpleConcertData의 date는 String임
         // TODO >> 서버에 물어보기 // List로 안넘겨주냐고
         // aws. 기획단에서 정해진게 없어서 보류중
-        concert.location = simpleConcert.location
+        concert.location = ""
 
         return concert
     }
 
+    //TODO MemberData로 옮기기
     fun MemberDataToArtist(member : MemberData) : Artist {
         val artist = Artist(_id = member._id)
 
         artist.name = member.name
         artist.profileImg = member.profileImg
-        artist.isSubscribe = member.subscribe
+        artist.subscribe = member.subscribe
 
         return artist
     }

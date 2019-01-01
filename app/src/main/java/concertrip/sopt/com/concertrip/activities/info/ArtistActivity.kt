@@ -46,9 +46,9 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
 
     override fun onInitializationSuccess(provider: YouTubePlayer.Provider?, youTubePlayer: YouTubePlayer?, b: Boolean) {
         if (!b&& ::artist.isInitialized) {
-//            val youtubeUrlList = artist.youtubeUrl!!.split("?v=")
-//            youTubePlayer?.cueVideo(youtubeUrlList[youtubeUrlList.size-1])  //http://www.youtube.com/watch?v=IA1hox-v0jQ
-            youTubePlayer?.cueVideo(artist.youtubeUrl)  //http://www.youtube.com/watch?v=IA1hox-v0jQ
+            val youtubeUrlList = artist.youtubeUrl!!.split("?v=")
+            youTubePlayer?.cueVideo(youtubeUrlList[youtubeUrlList.size-1])  //http://www.youtube.com/watch?v=IA1hox-v0jQ
+//            youTubePlayer?.cueVideo(artist.youtubeUrl)  //http://www.youtube.com/watch?v=IA1hox-v0jQ
         }
     }
 
@@ -92,7 +92,7 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_artist)
 
-        artistId = getIntent().getIntExtra(INTENT_TAG_ID, 0)
+        artistId = intent.getIntExtra(INTENT_TAG_ID, 0)
 
         initialUI()
         connectRequestData(artistId!!)
@@ -112,7 +112,6 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         memberListAdapter = BasicListAdapter(this, dataListMember, BasicListAdapter.MODE_THUMB)
         recycler_view_member.adapter = memberListAdapter
 
-        getYouTubePlayerProvider().initialize(Secret.YOUTUBE_API_KEY, this);
         scroll_view.smoothScrollTo(0, 0)
 
         btn_follow.setOnClickListener {
@@ -173,7 +172,7 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
             }
             override fun onResponse(call: Call<GetArtistResponse>?, response: Response<GetArtistResponse>?) {
                 if (response!!.body()?.status == 200) {
-                    artist = response!!.body()!!.data.toArtist()
+                    artist = response.body()!!.data.toArtist()
                     updateConcertList(ArrayList(artist.concertList))
                     /*TODO
                     * 정확한 API 받고 Artist Data 재구성 > 데이터 가공*/
@@ -181,7 +180,7 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
                     updateArtistData()
                     updateUI()
                 } else {
-                    Log.v("test0101", "getArtistResponse in "+ response!!.body()?.status.toString())
+                    Log.v("test0101", "getArtistResponse in "+ response.body()?.status.toString())
                 }
             }
         })
