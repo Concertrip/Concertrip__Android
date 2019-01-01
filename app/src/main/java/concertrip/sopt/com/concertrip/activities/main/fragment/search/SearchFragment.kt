@@ -123,6 +123,10 @@ class SearchFragment : Fragment() {
             connectRequestData()
         }
 
+        btn_back.setOnClickListener {
+            activity?.onBackPressed()
+        }
+
     }
 
     private fun updateUI(){
