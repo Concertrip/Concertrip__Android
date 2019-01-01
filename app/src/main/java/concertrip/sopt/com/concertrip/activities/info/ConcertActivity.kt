@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 
 import android.view.View
 import android.view.View.GONE
@@ -26,14 +27,19 @@ import concertrip.sopt.com.concertrip.model.Artist
 import concertrip.sopt.com.concertrip.model.Caution
 import concertrip.sopt.com.concertrip.model.Concert
 import concertrip.sopt.com.concertrip.model.Seat
+import concertrip.sopt.com.concertrip.network.ApplicationController
+import concertrip.sopt.com.concertrip.network.NetworkService
+import concertrip.sopt.com.concertrip.network.response.GetArtistResponse
 import concertrip.sopt.com.concertrip.network.response.GetConcertResponse
-import concertrip.sopt.com.concertrip.network.response.data.ConcertData
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.INTENT_TAG_ID
 import concertrip.sopt.com.concertrip.utillity.Secret
 import kotlinx.android.synthetic.main.activity_concert.*
 
 import kotlinx.android.synthetic.main.content_concert.*
 import kotlinx.android.synthetic.main.content_header.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener, OnItemClick {
@@ -47,9 +53,9 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
 
     override fun onInitializationSuccess(provider: YouTubePlayer.Provider?, youTubePlayer: YouTubePlayer?, b: Boolean) {
         if (!b && ::concert.isInitialized) {
-//            val youtubeUrlList = concert.youtubeUrl!!.split("?v=")
-//            youTubePlayer?.cueVideo(youtubeUrlList[youtubeUrlList.size-1])
-            youTubePlayer?.cueVideo(concert.youtubeUrl)
+            val youtubeUrlList = concert.youtubeUrl!!.split("?v=")
+            youTubePlayer?.cueVideo(youtubeUrlList[youtubeUrlList.size-1])
+            //youTubePlayer?.cueVideo(concert.youtubeUrl)
         }
     }
 
@@ -83,7 +89,7 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
         connectRequestData(concertId)
     }
 
-    private var concertId: Int=0
+    private var concertId: String= "5c28663f3eea39d2b003f94b"
 
     lateinit  var concert : Concert
     var dataList = arrayListOf<Artist>()
@@ -96,11 +102,15 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
     var dataListSeat = arrayListOf<Seat>()
     private lateinit var seatAdapter : SeatListAdapter
 
+    private val networkService: NetworkService by lazy {
+        ApplicationController.instance.networkService
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_concert)
-//        setSupportActionBar(toolbar)
-        concertId = intent.getIntExtra(INTENT_TAG_ID, 0)
+
+        //concertId = intent.getStringExtra(INTENT_TAG_ID)
 
         initialUI()
         connectRequestData(concertId)
@@ -111,7 +121,7 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
         recycler_view.adapter = adapter
 
         /*TODO have to fix second param*/
-        cautionAdapter = BasicListAdapter(this, Caution.getDummyArray())
+        cautionAdapter = BasicListAdapter(this, dataListCaution)
         recycler_view_caution.layoutManager = GridLayoutManager(applicationContext,3)
         recycler_view_caution.adapter = cautionAdapter
 
@@ -173,14 +183,26 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
         seatAdapter.notifyDataSetChanged()
     }
 
-    private fun connectRequestData(id : Int){
-        val concertResponseData : GetConcertResponse = GetConcertResponse(ConcertData.getDummy())
-        concert= concertResponseData.data.toConcert()
+    private fun connectRequestData(id : String){
+        val concertResponse : Call<GetConcertResponse> = networkService.getEvent(1, concertId)
 
-        updateArtistList(ArrayList(concert.artistList))
-        updateConcertData()
-        updateCautionData(ArrayList(concert.precaution))
-        updateSeatData(ArrayList(concert.seatList))
+        concertResponse.enqueue(object : Callback<GetConcertResponse>
+        {
+            override fun onFailure(call: Call<GetConcertResponse>?, t: Throwable?) {
+                Log.v("test0101", "getConcertResponse in onFailure" + t.toString())
+            }
+            override fun onResponse(call: Call<GetConcertResponse>?, response: Response<GetConcertResponse>?) {
+                if (response!!.body()?.status == 200) {
+                    concert = response!!.body()!!.data.toConcert()
+                    updateArtistList(ArrayList(concert.artistList))
+                    updateConcertData()
+                    updateCautionData(ArrayList(concert.precaution))
+                    updateSeatData(ArrayList(concert.seatList))
+                } else {
+                    Log.v("test0101", "getConcertResponse in "+ response.body()?.status.toString())
+                }
+            }
+        })
     }
 
      private fun showDialog(){
