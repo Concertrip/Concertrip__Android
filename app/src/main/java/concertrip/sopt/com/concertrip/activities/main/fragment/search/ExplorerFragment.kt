@@ -43,8 +43,8 @@ private const val ARG_PARAM2 = "param2"
 class ExplorerFragment : Fragment(), OnItemClick {
 
     var dataList = arrayListOf<ListData>()
-    var dataListArtist = arrayListOf<Artist>()
-    var dataListConcert = arrayListOf<Concert>()
+//    var dataListArtist = arrayListOf<Artist>()
+//    var dataListConcert = arrayListOf<Concert>()
     var dataListTag = arrayListOf<String>("모두","테마","걸그룹","보이그룹","힙합","발라드")
 
     lateinit var tagAdapter : HorizontalListAdapter
@@ -65,18 +65,41 @@ class ExplorerFragment : Fragment(), OnItemClick {
         listener?.changeFragment(Constants.FRAGMENT_SEARCH)
     }
 
-  override fun onItemClick(root: RecyclerView.Adapter<out RecyclerView.ViewHolder>, position: Int) {
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnFragmentInteractionListener) {
+            listener = context
+        } else {
+            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        listener = null
+    }
+
+    override fun onItemClick(root: RecyclerView.Adapter<out RecyclerView.ViewHolder>, position: Int) {
         tagAdapter.setSelect(position)
 
-        if(root is HorizontalListAdapter)
+      /*TODO 서버 API받고 똑바로 구성한 뒤, 주석풀기*/
+//        if(root is HorizontalListAdapter){ // 태그를 클릭했을 때
+//            if(position == 1){  // 테마를 선택하면 이 내부에 저장된 것들을 불러옴
+//
+//            }
+//            else{
+//                connectRequestData(dataListTag[position])
+//            }
+//        }
+//        else{
+//            // getBtn()
+//            /*TODO 하트 or 종 convert + isSubscribe 전환*/
+//            activity?.let {
+//                Toast.makeText(it.applicationContext, "내 공연에 추가되었습니다!", Toast.LENGTH_LONG).show()
+//            }
+//        }
 
-        else{
-            // getBtn()
-            /*TODO 하트 or 종 convert + 토스*/
-            activity?.let {
-                Toast.makeText(it.applicationContext, "내 공연에 추가되었습니다!", Toast.LENGTH_LONG).show()
-            }
-        }
+      //-------------- 밑으로 테스트용------------------
 
         if(position == 1){
             // 테마를 선택한 경우 안드 내부에 저장되어있는 것을 출력
@@ -86,6 +109,7 @@ class ExplorerFragment : Fragment(), OnItemClick {
             updateDataList(Artist.getDummyArray())
         }
         else connectRequestData(dataListTag[position])
+
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -121,7 +145,9 @@ class ExplorerFragment : Fragment(), OnItemClick {
             recycler_view_horizontal.adapter=tagAdapter
 
 
-            dataListArtist=Artist.getDummyArray()
+            /*TODO 이부분 이상함*/
+//            dataListArtist=Artist.getDummyArray()
+            //dataList=Artist.getDummyArray()
             dataAdapter = BasicListAdapter(it.applicationContext, dataList,this)
             recycler_view.adapter = dataAdapter
 
@@ -132,37 +158,14 @@ class ExplorerFragment : Fragment(), OnItemClick {
 
   
     fun updateDataList(list : ArrayList<out ListData>){
-
         dataList.clear()
-
         dataList.addAll(list)
-        /*dataList.forEach {
-            it as Artist
-            var data : Artist = it
-            dataListArtist.add(data)
-        }*/
-
-        //TODO 1.adapter의 dataList값을 Foreach이용 업데이트
-        //혹은 dataList통째로 바꾸기
-
-        // val position = dataAdapter.itemCount
-        //TODO 2. adapter에 Listener 추가
-
-
-        //TODO 3. notifyAdapter
-
-        //dataList.forEach { dataAdapter.dataList.add() }
-
         dataAdapter.notifyDataSetChanged()
     }
 
   
 
     private fun connectRequestTag(){
-
-
-
-
         /*TODO
         * dataListTag 초기화
         * 따라서, 나중에 클릭리스너로 리사이클러뷰의 포지션 값을 받으면 이 포지션값을 인덱스로해 connectRequestData 호출*/
@@ -233,25 +236,6 @@ class ExplorerFragment : Fragment(), OnItemClick {
 //
 //        })
     }
-
-
-
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnFragmentInteractionListener) {
-            listener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
-        }
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        listener = null
-    }
-
-
 
 
     companion object {
