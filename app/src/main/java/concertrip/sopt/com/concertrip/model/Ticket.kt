@@ -4,7 +4,7 @@ import concertrip.sopt.com.concertrip.interfaces.ListData
 import concertrip.sopt.com.concertrip.utillity.Constants
 
 data class Ticket(var _id : Int, var name : String, var location: String,
-                  var date: String, var seat:String, var userIdx: Int,
+                  var date: String?, var seat:String, var userIdx: Int,
                   var eventId : String) : ListData{
 
     override fun getType(): Int = Constants.TYPE_TICKET
