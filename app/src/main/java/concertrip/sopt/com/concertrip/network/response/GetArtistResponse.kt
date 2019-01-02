@@ -7,7 +7,7 @@ import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
 
 data class GetArtistResponse (
     @SerializedName("data")
-    var data : ArtistData
+    var data : ArtistData?
 ): BaseModel(){
-    override fun toString(): String =data.toString()
+    override fun toString(): String =data?.toString()?:"null"
 }
