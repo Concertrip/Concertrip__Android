@@ -155,7 +155,7 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         memberListAdapter.notifyDataSetChanged()
     }
 
-    private fun connectRequestData(id : Int){
+    private fun connectRequestData(id : String){
         val getArtistResponse : Call<GetArtistResponse> = networkService.getArtist("", artistId)
         getArtistResponse.enqueue(object : Callback<GetArtistResponse>
         {
