@@ -70,10 +70,13 @@ class SearchFragment : Fragment() ,OnResponse{
             //updateListTheme()
 
             updateUI()
+
         }
     }
 
     override fun onFail() {
+
+        updateUI()
     }
 
     var dataListArtist = arrayListOf<Artist>()
@@ -152,7 +155,7 @@ class SearchFragment : Fragment() ,OnResponse{
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initialUI()
-        connectRequestData()
+//        connectRequestData()
     }
 
 
@@ -177,14 +180,11 @@ class SearchFragment : Fragment() ,OnResponse{
     }
 
     private fun updateUI(){
-        //TODO 1. obj의 결과가 아무것도 없는지 확인
-        //없으면 visibility를 GONE, ~~~대한 결과가 없습니다. update해줘야함.
-
-        //아니면 ↓
         if(dataListArtist.size+dataListConcert.size==0)
             search_result.visibility=View.GONE
-        else
-            search_result.visibility=View.VISIBLE
+        else {
+            search_result.visibility = View.VISIBLE
+        }
     }
 
 
@@ -203,8 +203,6 @@ class SearchFragment : Fragment() ,OnResponse{
 
 
     private fun connectRequestData(){
-
-
 
         searchTxt = edt_search.text.toString()
         tv_result_no.text=("'$searchTxt' ${getString(R.string.txt_result_no)}")

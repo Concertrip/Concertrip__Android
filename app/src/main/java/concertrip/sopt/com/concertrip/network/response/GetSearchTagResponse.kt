@@ -4,11 +4,11 @@ import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
 
 
 data class GetSearchTagResponse(
-    var data : ArrayList<Any>
+    var data : ArrayList<Any>?
 ): BaseModel(){
     override fun toString(): String {
         var result = ""
-        data.forEach {
+        data?.forEach {
             result = result.plus(it)+","
         }
         return result

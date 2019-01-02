@@ -22,6 +22,7 @@ import concertrip.sopt.com.concertrip.network.response.data.TicketData
 import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
 import concertrip.sopt.com.concertrip.utillity.NetworkUtil.Companion.getTicketList
 import kotlinx.android.synthetic.main.fragment_my_page.*
+import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.android.synthetic.main.fragment_ticket_list.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -89,6 +90,10 @@ class TicketListFragment : Fragment() , OnFragmentInteractionListener, OnRespons
 
     private fun initialUI(){
 
+        btn_ticket_list_back.setOnClickListener {
+            activity?.onBackPressed()
+        }
+
 
         activity?.let{
             //dataListTicket = Ticket.getDummyArray()
@@ -103,7 +108,7 @@ class TicketListFragment : Fragment() , OnFragmentInteractionListener, OnRespons
     }
 
     override fun changeFragment(what: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        listener?.changeFragment(what)
     }
 
     override fun changeFragment(what: Int, bundle: Bundle?) {

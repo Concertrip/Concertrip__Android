@@ -1,16 +1,16 @@
 package concertrip.sopt.com.concertrip.utillity
 
 import android.util.Log
-import android.widget.Toast
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
-import concertrip.sopt.com.concertrip.deprecated.PostIdCheckResponse
-import concertrip.sopt.com.concertrip.deprecated.PostLoginResponse
 import concertrip.sopt.com.concertrip.interfaces.OnResponse
 import concertrip.sopt.com.concertrip.network.NetworkService
 import concertrip.sopt.com.concertrip.network.USGS_REQUEST_URL
 import concertrip.sopt.com.concertrip.network.response.*
 import concertrip.sopt.com.concertrip.network.response.data.ConcertData
+import concertrip.sopt.com.concertrip.network.response.GetSearchResponse
+import concertrip.sopt.com.concertrip.network.response.GetTicketListResponse
+import concertrip.sopt.com.concertrip.network.response.MessageResponse
 import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_ARTIST
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_CONCERT
@@ -36,25 +36,22 @@ class NetworkUtil {
 
             Log.d(Constants.LOG_NETWORK, "$LOG_SUBSCRIBE_ARTIST, POST :$gsonObject")
             val subscribeArtist: Call<MessageResponse> =
-                networkService.postSubScribeArtist(gsonObject)
+                networkService.postSubScribeArtist(1, gsonObject)
             subscribeArtist.enqueue(object : Callback<MessageResponse> {
-
                 override fun onFailure(call: Call<MessageResponse>, t: Throwable) {
                     Log.e(Constants.LOG_NETWORK, t.toString())
                     listener?.onFail()
-
                 }
 
                 //통신 성공 시 수행되는 메소드
                 override fun onResponse(call: Call<MessageResponse>, response: Response<MessageResponse>) {
                     Log.d(Constants.LOG_NETWORK, response.errorBody()?.string() ?: response.message())
-
-                    if (response.isSuccessful) {
+                    if (response.isSuccessful && response.body()?.status==200) {
                         Log.d(Constants.LOG_NETWORK, "$LOG_SUBSCRIBE_ARTIST :${response.body()}")
                         listener?.onSuccess(response.body() as BaseModel, position)
                     } else {
-                        Log.d(Constants.LOG_NETWORK, "$LOG_SUBSCRIBE_ARTIST : fail")
-
+                        Log.d(Constants.LOG_NETWORK, "$LOG_SUBSCRIBE_ARTIST : fail ${response.body()?.message}")
+                        listener?.onFail()
                     }
                 }
             })
@@ -73,7 +70,7 @@ class NetworkUtil {
             Log.d(Constants.LOG_NETWORK, "$LOG_SUBSCRIBE_GENRE, POST :$gsonObject")
 
             val subscribeGenre: Call<MessageResponse> =
-                networkService.postSubScribeArtist(gsonObject)
+                networkService.postSubscribeGenre(1, gsonObject)
             subscribeGenre.enqueue(object : Callback<MessageResponse> {
 
                 override fun onFailure(call: Call<MessageResponse>, t: Throwable) {
@@ -85,12 +82,12 @@ class NetworkUtil {
                 override fun onResponse(call: Call<MessageResponse>, response: Response<MessageResponse>) {
                     Log.d(Constants.LOG_NETWORK, response.errorBody()?.string() ?: response.message())
 
-                    if (response.isSuccessful) {
+                    if (response.isSuccessful && response.body()?.status==200) {
                         Log.d(Constants.LOG_NETWORK, "$LOG_SUBSCRIBE_GENRE :${response.body()}")
                         listener?.onSuccess(response.body() as BaseModel, position)
                     } else {
-                        Log.d(Constants.LOG_NETWORK, "$LOG_SUBSCRIBE_GENRE : fail")
-                        listener?.onSuccess(GetConcertResponse(ConcertData.getDummy()), position)//TODO 테스트용임
+                        Log.d(Constants.LOG_NETWORK, "$LOG_SUBSCRIBE_GENRE : fail  ${response.body()?.message}")
+                        listener?.onFail()
                     }
                 }
             })
@@ -109,13 +106,11 @@ class NetworkUtil {
             Log.d(Constants.LOG_NETWORK, "$LOG_SUBSCRIBE_CONCERT, POST :$gsonObject")
 
             val subscribeConcert: Call<MessageResponse> =
-                networkService.postSubScribeArtist(gsonObject)
+                networkService.postSubscribeConcert(1, gsonObject)
             subscribeConcert.enqueue(object : Callback<MessageResponse> {
 
                 override fun onFailure(call: Call<MessageResponse>, t: Throwable) {
                     Log.e(Constants.LOG_NETWORK, t.toString())
-
-
                     listener?.onFail()
                 }
 
@@ -123,13 +118,12 @@ class NetworkUtil {
                 override fun onResponse(call: Call<MessageResponse>, response: Response<MessageResponse>) {
                     Log.d(Constants.LOG_NETWORK, response.errorBody()?.string() ?: response.message())
 
-                    if (response.isSuccessful) {
+                    if (response.isSuccessful && response.body()?.status==200) {
                         Log.d(Constants.LOG_NETWORK, "$LOG_SUBSCRIBE_CONCERT :${response.body()}")
                         listener?.onSuccess(response.body() as BaseModel, position)
                     } else {
-                        Log.d(Constants.LOG_NETWORK, "$LOG_SUBSCRIBE_CONCERT: fail")
-
-                        listener?.onSuccess(GetConcertResponse(ConcertData.getDummy()), position)//TODO 테스트용임
+                        Log.d(Constants.LOG_NETWORK, "$LOG_SUBSCRIBE_CONCERT: fail  ${response.body()?.message}")
+                        listener?.onFail()
                     }
                 }
             })
@@ -163,12 +157,13 @@ class NetworkUtil {
                             if (it.status == 200) {
                                 Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH :${response.body().toString()}")
                                 listener?.onSuccess(response.body() as BaseModel, position)
-                            } else
+                            } else{
+                                Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH: fail  ${response.body()?.message}")
                                 listener?.onFail()
+                            }
                         }
 
                     } else {
-                        Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH: fail")
                         listener?.onFail()
 
                     }
@@ -289,6 +284,5 @@ class NetworkUtil {
                 }
             })
         }
-
     }
 }
