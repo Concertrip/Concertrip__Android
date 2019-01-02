@@ -1,16 +1,13 @@
 package concertrip.sopt.com.concertrip.activities.main.fragment.search
 
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 
 import concertrip.sopt.com.concertrip.R
-import concertrip.sopt.com.concertrip.interfaces.ListData
 import concertrip.sopt.com.concertrip.interfaces.OnFragmentInteractionListener
 import concertrip.sopt.com.concertrip.interfaces.OnResponse
 import concertrip.sopt.com.concertrip.list.adapter.BasicListAdapter
@@ -19,10 +16,9 @@ import concertrip.sopt.com.concertrip.model.Concert
 import concertrip.sopt.com.concertrip.network.ApplicationController
 import concertrip.sopt.com.concertrip.network.NetworkService
 import concertrip.sopt.com.concertrip.network.response.GetSearchResponse
-import concertrip.sopt.com.concertrip.network.response.data.SimpleArtistData
-import concertrip.sopt.com.concertrip.network.response.data.SimpleConcertData
 import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
 import concertrip.sopt.com.concertrip.utillity.NetworkUtil
+import concertrip.sopt.com.concertrip.utillity.Secret
 import kotlinx.android.synthetic.main.fragment_search.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -49,6 +45,11 @@ class SearchFragment : Fragment() ,OnResponse{
 //                    = GetSearchResponse(SimpleConcertData.getDummyList(), SimpleArtistData.getDummyList())
             val concertList = searchResponseData.toConcertList()
             val artistList = searchResponseData.toArtistList()
+            val genreList = searchResponseData.toGenreList()
+
+            showListView((concertList.size+ artistList.size + genreList.size )>0)
+
+
 
             //임시 처리
             dataListConcert.clear()
@@ -56,6 +57,10 @@ class SearchFragment : Fragment() ,OnResponse{
 
             dataListArtist.clear()
             dataListArtist.addAll(artistList)
+
+
+            dataListGenre.clear()
+            dataListGenre.addAll(artistList)
 
 //        if(searchTxt.length>10) {
 //            dataListArtist.addAll(Artist.getDummyArray())
@@ -67,19 +72,24 @@ class SearchFragment : Fragment() ,OnResponse{
 
             updateListConcert(ArrayList(concertList))
             updateListArtist(ArrayList(artistList))
+            updateListGenre(ArrayList(genreList))
             //updateListTheme()
 
-            updateUI()
 
         }
     }
 
-    override fun onFail() {
+    override fun onFail(status : Int) {
+        when(status){
+            Secret.NETWORK_NO_DATA->{
+                showListView(false)
+            }
+        }
 
-        updateUI()
     }
 
     var dataListArtist = arrayListOf<Artist>()
+    var dataListGenre = arrayListOf<Artist>()
     var dataListConcert = arrayListOf<Concert>()
 
     var adapter : BasicListAdapter?= null
@@ -99,6 +109,7 @@ class SearchFragment : Fragment() ,OnResponse{
 
     lateinit var concertListAdapter: BasicListAdapter
     lateinit var artistListAdapter: BasicListAdapter
+    lateinit var genreListAdapter: BasicListAdapter
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -166,6 +177,10 @@ class SearchFragment : Fragment() ,OnResponse{
 
             artistListAdapter = BasicListAdapter(it.applicationContext,dataListArtist)
             recycler_view_artist.adapter=artistListAdapter
+
+
+            genreListAdapter = BasicListAdapter(it.applicationContext,dataListGenre)
+            recycler_view_genre.adapter=genreListAdapter
         }
 
 
@@ -179,12 +194,8 @@ class SearchFragment : Fragment() ,OnResponse{
 
     }
 
-    private fun updateUI(){
-        if(dataListArtist.size+dataListConcert.size==0)
-            search_result.visibility=View.GONE
-        else {
-            search_result.visibility = View.VISIBLE
-        }
+    private fun showListView(b : Boolean){
+            search_result.visibility=if (b) View.VISIBLE else View.GONE
     }
 
 
@@ -192,6 +203,11 @@ class SearchFragment : Fragment() ,OnResponse{
         dataListArtist.clear()
         dataListArtist.addAll(list)
         artistListAdapter.notifyDataSetChanged()
+    }
+    private fun updateListGenre(list : ArrayList<Artist>){
+        dataListGenre.clear()
+        dataListGenre.addAll(list)
+        genreListAdapter.notifyDataSetChanged()
     }
 
 

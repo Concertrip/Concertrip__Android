@@ -57,7 +57,7 @@ class ExplorerFragment : Fragment(), OnItemClick ,OnResponse{
 
     }
 
-    override fun onFail() {
+    override fun onFail(status : Int) {
         Toast.makeText(activity!!.applicationContext,"실패",Toast.LENGTH_SHORT).show()
     }
 

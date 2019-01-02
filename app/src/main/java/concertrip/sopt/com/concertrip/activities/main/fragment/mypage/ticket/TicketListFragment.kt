@@ -131,9 +131,9 @@ class TicketListFragment : Fragment() , OnFragmentInteractionListener, OnRespons
 
     override fun onSuccess(obj: BaseModel, position: Int?) {
         if(obj is GetTicketListResponse){
-            var responseBody = obj as GetTicketListResponse
+            val responseBody = obj as GetTicketListResponse
 
-            responseBody?.let{
+            responseBody.let{
                 if(it.status  == 200){
                     val ticketList = it.toTicketList()
                     updateListTicket(ticketList)}
@@ -144,7 +144,7 @@ class TicketListFragment : Fragment() , OnFragmentInteractionListener, OnRespons
         }
     }
 
-    override fun onFail() {
+    override fun onFail(status : Int) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         Log.d("testTicket", "getTicketListResponse in onFailure ")
     }
