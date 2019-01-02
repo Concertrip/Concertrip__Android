@@ -35,18 +35,18 @@ class NetworkUtil {
             subscribeArtist.enqueue(object : Callback<MessageResponse> {
                 override fun onFailure(call: Call<MessageResponse>, t: Throwable) {
                     Log.e(Constants.LOG_NETWORK, t.toString())
-                    listener?.onFail()
+                    listener?.onFail(Secret.NETWORK_UNKNOWN)
                 }
 
                 //통신 성공 시 수행되는 메소드
                 override fun onResponse(call: Call<MessageResponse>, response: Response<MessageResponse>) {
                     Log.d(Constants.LOG_NETWORK, response.errorBody()?.string() ?: response.message())
-                    if (response.isSuccessful && response.body()?.status==200) {
+                    if (response.isSuccessful && response.body()?.status== Secret.NETWORK_SUCCESS) {
                         Log.d(Constants.LOG_NETWORK, "$LOG_SUBSCRIBE_ARTIST :${response.body()}")
                         listener?.onSuccess(response.body() as BaseModel, position)
                     } else {
                         Log.d(Constants.LOG_NETWORK, "$LOG_SUBSCRIBE_ARTIST : fail ${response.body()?.message}")
-                        listener?.onFail()
+                        listener?.onFail(response.body()?.status?: Secret.NETWORK_UNKNOWN)
                     }
                 }
             })
@@ -70,19 +70,19 @@ class NetworkUtil {
 
                 override fun onFailure(call: Call<MessageResponse>, t: Throwable) {
                     Log.e(Constants.LOG_NETWORK, t.toString())
-                    listener?.onFail()
+                    listener?.onFail(Secret.NETWORK_UNKNOWN)
                 }
 
                 //통신 성공 시 수행되는 메소드
                 override fun onResponse(call: Call<MessageResponse>, response: Response<MessageResponse>) {
                     Log.d(Constants.LOG_NETWORK, response.errorBody()?.string() ?: response.message())
 
-                    if (response.isSuccessful && response.body()?.status==200) {
+                    if (response.isSuccessful && response.body()?.status==Secret.NETWORK_SUCCESS) {
                         Log.d(Constants.LOG_NETWORK, "$LOG_SUBSCRIBE_GENRE :${response.body()}")
                         listener?.onSuccess(response.body() as BaseModel, position)
                     } else {
                         Log.d(Constants.LOG_NETWORK, "$LOG_SUBSCRIBE_GENRE : fail  ${response.body()?.message}")
-                        listener?.onFail()
+                        listener?.onFail(response.body()?.status?:Secret.NETWORK_UNKNOWN)
                     }
                 }
             })
@@ -106,19 +106,19 @@ class NetworkUtil {
 
                 override fun onFailure(call: Call<MessageResponse>, t: Throwable) {
                     Log.e(Constants.LOG_NETWORK, t.toString())
-                    listener?.onFail()
+                    listener?.onFail(Secret.NETWORK_UNKNOWN)
                 }
 
                 //통신 성공 시 수행되는 메소드
                 override fun onResponse(call: Call<MessageResponse>, response: Response<MessageResponse>) {
                     Log.d(Constants.LOG_NETWORK, response.errorBody()?.string() ?: response.message())
 
-                    if (response.isSuccessful && response.body()?.status==200) {
+                    if (response.isSuccessful && response.body()?.status==Secret.NETWORK_SUCCESS) {
                         Log.d(Constants.LOG_NETWORK, "$LOG_SUBSCRIBE_CONCERT :${response.body()}")
                         listener?.onSuccess(response.body() as BaseModel, position)
                     } else {
                         Log.d(Constants.LOG_NETWORK, "$LOG_SUBSCRIBE_CONCERT: fail  ${response.body()?.message}")
-                        listener?.onFail()
+                        listener?.onFail(response.body()?.status?:Secret.NETWORK_UNKNOWN)
                     }
                 }
             })
@@ -139,7 +139,7 @@ class NetworkUtil {
 
                 override fun onFailure(call: Call<GetSearchResponse>, t: Throwable) {
                     Log.e(Constants.LOG_NETWORK, t.toString())
-                    listener?.onFail()
+                    listener?.onFail(Secret.NETWORK_UNKNOWN)
                 }
 
                 //통신 성공 시 수행되는 메소드
@@ -149,17 +149,17 @@ class NetworkUtil {
                     if (response.isSuccessful) {
                         Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH :${response.body()?.status}")
                         response.body()?.let {
-                            if (it.status == 200) {
+                            if (it.status == Secret.NETWORK_SUCCESS) {
                                 Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH :${response.body().toString()}")
                                 listener?.onSuccess(response.body() as BaseModel, position)
                             } else{
                                 Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH: fail  ${response.body()?.message}")
-                                listener?.onFail()
+                                listener?.onFail(response.body()?.status ?: Secret.NETWORK_UNKNOWN)
                             }
                         }
 
                     } else {
-                        listener?.onFail()
+                        listener?.onFail(Secret.NETWORK_UNKNOWN)
 
                     }
                 }
@@ -173,17 +173,17 @@ class NetworkUtil {
 
                 override fun onFailure(call: Call<GetTicketListResponse>, t: Throwable) {
                     Log.e(Constants.LOG_NETWORK, t.toString())
-                    listener?.onFail()
+                    listener?.onFail(Secret.NETWORK_UNKNOWN)
                 }
 
                 override fun onResponse(call: Call<GetTicketListResponse>, response: Response<GetTicketListResponse>) {
                     response.body()?.let {
-                        if (it.status == 200) {
+                        if (it.status == Secret.NETWORK_SUCCESS) {
                             Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH :${response.body().toString()}")
                             listener?.onSuccess(response.body() as BaseModel, 0)
                         } else {
                             Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH: fail")
-                            listener?.onFail()
+                            listener?.onFail(response.body()?.status?: Secret.NETWORK_UNKNOWN)
                         }
                     }
                 }

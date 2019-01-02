@@ -94,7 +94,7 @@ class LikedFragment : Fragment() ,View.OnClickListener, OnItemClick,OnResponse{
         }
     }
 
-    override fun onFail() {
+    override fun onFail(status : Int) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

@@ -82,7 +82,7 @@ class BasicListAdapter(
         }
     }
 
-    override fun onFail() {
+    override fun onFail(status : Int) {
         Toast.makeText(mContext,"인터넷을 다시 확인해주세요.",Toast.LENGTH_SHORT).show()
     }
 

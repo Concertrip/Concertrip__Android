@@ -104,9 +104,9 @@ class MyPageFragment : Fragment(), OnItemClick, OnFragmentInteractionListener, O
 
     override fun onSuccess(obj: BaseModel, position: Int?) {
         if(obj is GetTicketListResponse){
-            var responseBody = obj as GetTicketListResponse
+            val responseBody = obj as GetTicketListResponse
 
-            responseBody?.let{
+            responseBody.let{
                 if(it.status  == 200){
                     val ticketInfo = it.toTicketList()[0]
                     tv_ticket_title.setText(ticketInfo.name)
@@ -120,7 +120,7 @@ class MyPageFragment : Fragment(), OnItemClick, OnFragmentInteractionListener, O
         }
     }
 
-    override fun onFail() {
+    override fun onFail(status : Int) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         Log.d("testTicket", "getTicketListResponse in onFailure ")
     }

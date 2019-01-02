@@ -30,5 +30,13 @@ data class GetSearchResponse (
         return list
     }
 
+    fun toGenreList() : ArrayList<Artist>{
+        val list = ArrayList<Artist>()
+        data?.genres?.forEach {
+            list.add(it.toArtist())
+        }
+        return list
+    }
+
     override fun toString(): String = data?.toString()?:"null"
 }

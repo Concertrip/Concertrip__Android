@@ -5,5 +5,5 @@ import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
 
 interface OnResponse {
     fun onSuccess(obj : BaseModel,position : Int?)
-    fun onFail()
+    fun onFail(status : Int)
 }
