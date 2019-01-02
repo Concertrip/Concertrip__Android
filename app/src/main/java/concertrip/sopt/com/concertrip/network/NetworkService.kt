@@ -117,4 +117,13 @@ interface NetworkService {
     fun getTicketList(
         @Header("Authorization") token : Int
     ):Call<GetTicketListResponse>
+
+    //--------------------------------------------
+    //*티켓 상세정보
+    @GET("/api/ticket/detail")
+    @Headers("Content-Type:application/json")
+    fun getTicketDetail(
+        @Header("Authorization") token: Int,
+        @Query("id") id: Int
+    ):Call<GetTicketDetailResponse>
 }
