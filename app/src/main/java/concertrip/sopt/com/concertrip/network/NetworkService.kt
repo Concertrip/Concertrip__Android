@@ -97,9 +97,18 @@ interface NetworkService {
     @GET("/api/artist/detail")
     @Headers("Content-Type:application/json")
     fun getArtist(
-        @Header("Authorization") token : String,
+        @Header("Authorization") token : Int,
         @Query("id") id : String
     ):Call<GetArtistResponse>
+    //-----------------------------------------
+    //*장르
+    // 장르 상세 페이지
+    @GET("/api/genre/detail")
+    @Headers("Content-Type:application/json")
+    fun getGenre(
+        @Header("Authorization") token : Int,
+        @Query("id") id : String
+    ):Call<GetGenreResponse>
     //-----------------------------------------
     //*검색
     //콘서트/아티스트 검색

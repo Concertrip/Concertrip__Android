@@ -29,12 +29,9 @@ import concertrip.sopt.com.concertrip.model.Concert
 import concertrip.sopt.com.concertrip.model.Seat
 import concertrip.sopt.com.concertrip.network.ApplicationController
 import concertrip.sopt.com.concertrip.network.NetworkService
-import concertrip.sopt.com.concertrip.network.response.GetArtistResponse
 import concertrip.sopt.com.concertrip.network.response.GetConcertResponse
-import concertrip.sopt.com.concertrip.utillity.Constants.Companion.INTENT_TAG_ID
 import concertrip.sopt.com.concertrip.utillity.Secret
 import kotlinx.android.synthetic.main.activity_concert.*
-
 import kotlinx.android.synthetic.main.content_concert.*
 import kotlinx.android.synthetic.main.content_header.*
 import retrofit2.Call
@@ -90,11 +87,10 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
     }
 
     private var concertId: String= "5c28663f3eea39d2b003f94b"
-
     lateinit  var concert : Concert
-    var dataList = arrayListOf<Artist>()
 
-    private lateinit var adapter : BasicListAdapter
+    var dataListMember = arrayListOf<Artist>()
+    private lateinit var memberAdapter : BasicListAdapter
 
     var dataListCaution = arrayListOf<Caution>()
     private lateinit var cautionAdapter : BasicListAdapter
@@ -117,13 +113,14 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
     }
 
     private fun initialUI(){
-        adapter = BasicListAdapter(this, Artist.getDummyArray())
-        recycler_view.adapter = adapter
+        memberAdapter = BasicListAdapter(this, dataListMember, BasicListAdapter.MODE_THUMB)
+        recycler_view.adapter = memberAdapter
 
-        /*TODO have to fix second param*/
         cautionAdapter = BasicListAdapter(this, dataListCaution)
         recycler_view_caution.layoutManager = GridLayoutManager(applicationContext,3)
         recycler_view_caution.adapter = cautionAdapter
+
+        /*TODO have to implement memberList*/
 
         seatAdapter = SeatListAdapter(this, dataListSeat)
         recycler_view_seat.adapter = seatAdapter
@@ -150,9 +147,9 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
     }
 
     private fun updateArtistList(list : ArrayList<Artist>){
-        dataList.clear()
-        dataList.addAll(list)
-        adapter.notifyDataSetChanged()
+        dataListMember.clear()
+        dataListMember.addAll(list)
+        memberAdapter.notifyDataSetChanged()
     }
 
     private fun updateConcertData(){
