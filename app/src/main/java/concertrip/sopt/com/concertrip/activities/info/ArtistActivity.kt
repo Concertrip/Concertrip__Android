@@ -183,7 +183,7 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
             })
         }
         else{
-            val getArtistResponse : Call<GetArtistResponse> = networkService.getArtist("", artistId)
+            val getArtistResponse : Call<GetArtistResponse> = networkService.getArtist(1, artistId)
             getArtistResponse.enqueue(object : Callback<GetArtistResponse>
             {
                 override fun onFailure(call: Call<GetArtistResponse>?, t: Throwable?) {

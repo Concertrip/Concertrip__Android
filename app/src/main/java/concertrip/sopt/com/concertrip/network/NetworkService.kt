@@ -97,7 +97,7 @@ interface NetworkService {
     @GET("/api/artist/detail")
     @Headers("Content-Type:application/json")
     fun getArtist(
-        @Header("Authorization") token : String,
+        @Header("Authorization") token : Int,
         @Query("id") id : String
     ):Call<GetArtistResponse>
     //-----------------------------------------
