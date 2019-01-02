@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,10 +13,16 @@ import android.view.ViewGroup
 import concertrip.sopt.com.concertrip.R
 import concertrip.sopt.com.concertrip.interfaces.OnFragmentInteractionListener
 import concertrip.sopt.com.concertrip.interfaces.OnItemClick
+import concertrip.sopt.com.concertrip.interfaces.OnResponse
 import concertrip.sopt.com.concertrip.list.adapter.TicketListAdapter
 
 import concertrip.sopt.com.concertrip.utillity.Constants
 import concertrip.sopt.com.concertrip.model.Ticket
+import concertrip.sopt.com.concertrip.network.ApplicationController
+import concertrip.sopt.com.concertrip.network.NetworkService
+import concertrip.sopt.com.concertrip.network.response.GetTicketListResponse
+import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
+import concertrip.sopt.com.concertrip.utillity.NetworkUtil
 import kotlinx.android.synthetic.main.fragment_my_page.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -32,7 +39,7 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  *
  */
-class MyPageFragment : Fragment(), OnItemClick, OnFragmentInteractionListener {
+class MyPageFragment : Fragment(), OnItemClick, OnFragmentInteractionListener, OnResponse {
 
     var dataListTicket = arrayListOf<Ticket>()
     lateinit var ticketAdapter : TicketListAdapter
@@ -41,6 +48,10 @@ class MyPageFragment : Fragment(), OnItemClick, OnFragmentInteractionListener {
     private var param1: String? = null
     private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
+
+    private val networkServicce : NetworkService by lazy {
+        ApplicationController.instance.networkService
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,10 +98,31 @@ class MyPageFragment : Fragment(), OnItemClick, OnFragmentInteractionListener {
             }
 
             activity?.let{
-                dataListTicket = Ticket.getDummyArray()
-                ticketAdapter = TicketListAdapter(it.applicationContext, dataListTicket, this)
-                recycler_view_ticket.adapter = ticketAdapter
+                NetworkUtil.getTicketList(networkServicce, this, "")
             }
+    }
+
+    override fun onSuccess(obj: BaseModel, position: Int?) {
+        if(obj is GetTicketListResponse){
+            var responseBody = obj as GetTicketListResponse
+
+            responseBody?.let{
+                if(it.status  == 200){
+                    val ticketInfo = it.toTicketList()[0]
+                    tv_ticket_title.setText(ticketInfo.name)
+                    tv_ticket_place.setText(ticketInfo.location)
+                    tv_ticket_date.setText(ticketInfo.date)
+                }
+                else{
+                    Log.d("testTicket", "getTicketListResponse in" + responseBody?.status.toString())
+                }
+            }
+        }
+    }
+
+    override fun onFail() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Log.d("testTicket", "getTicketListResponse in onFailure ")
     }
 
     override fun onItemClick(root: RecyclerView.Adapter<out RecyclerView.ViewHolder>, position: Int){

@@ -32,6 +32,7 @@
                     android:id="@+id/edt_search"
                     android:layout_weight="1"
                     android:textSize="15sp"
+                    android:textColor="@color/white"
                     android:layout_width="0dp"
                     android:backgroundTint="@color/white"
                     android:textCursorDrawable="@color/white"
@@ -145,7 +146,8 @@
                 android:id="@+id/btn_result_add"
                 android:layout_gravity="center"
                 android:text="@string/txt_result_add"
-                android:background="#b4b4b5"
+                android:textColor="@color/white"
+                android:background="@drawable/shape_searchbar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
     </LinearLayout>

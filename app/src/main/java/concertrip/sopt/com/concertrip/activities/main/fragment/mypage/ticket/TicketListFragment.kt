@@ -11,6 +11,7 @@ import android.view.ViewGroup
 
 import concertrip.sopt.com.concertrip.R
 import concertrip.sopt.com.concertrip.interfaces.OnFragmentInteractionListener
+import concertrip.sopt.com.concertrip.interfaces.OnResponse
 import concertrip.sopt.com.concertrip.list.adapter.BasicListAdapter
 import concertrip.sopt.com.concertrip.list.adapter.TicketListAdapter
 import concertrip.sopt.com.concertrip.model.Ticket
@@ -18,7 +19,10 @@ import concertrip.sopt.com.concertrip.network.ApplicationController
 import concertrip.sopt.com.concertrip.network.NetworkService
 import concertrip.sopt.com.concertrip.network.response.GetTicketListResponse
 import concertrip.sopt.com.concertrip.network.response.data.TicketData
+import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
+import concertrip.sopt.com.concertrip.utillity.NetworkUtil.Companion.getTicketList
 import kotlinx.android.synthetic.main.fragment_my_page.*
+import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.android.synthetic.main.fragment_ticket_list.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -38,8 +42,7 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  *
  */
-class TicketListFragment : Fragment() , OnFragmentInteractionListener{
-
+class TicketListFragment : Fragment() , OnFragmentInteractionListener, OnResponse{
     var dataListTicket = arrayListOf<Ticket>()
     lateinit var ticketAdapter : TicketListAdapter
 
@@ -87,9 +90,13 @@ class TicketListFragment : Fragment() , OnFragmentInteractionListener{
 
     private fun initialUI(){
 
+        btn_ticket_list_back.setOnClickListener {
+            activity?.onBackPressed()
+        }
+
 
         activity?.let{
-            dataListTicket = Ticket.getDummyArray()
+            //dataListTicket = Ticket.getDummyArray()
             ticketAdapter = TicketListAdapter(it.applicationContext, dataListTicket, this)
             recycler_view_ticket_list.adapter = ticketAdapter
         }
@@ -101,7 +108,7 @@ class TicketListFragment : Fragment() , OnFragmentInteractionListener{
     }
 
     override fun changeFragment(what: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        listener?.changeFragment(what)
     }
 
     override fun changeFragment(what: Int, bundle: Bundle?) {
@@ -119,30 +126,27 @@ class TicketListFragment : Fragment() , OnFragmentInteractionListener{
     }
 
     private fun ConnectRequestData(){
-        val getTicketListResponse : Call<GetTicketListResponse> = networkServicce.getTicketList(1)
+        getTicketList(networkServicce, this, "")
+    }
 
-        getTicketListResponse.enqueue(object : Callback<GetTicketListResponse>{
+    override fun onSuccess(obj: BaseModel, position: Int?) {
+        if(obj is GetTicketListResponse){
+            var responseBody = obj as GetTicketListResponse
 
-            override fun onFailure(call: Call<GetTicketListResponse>, t: Throwable) {
-                Log.d("testTicket", "getTicketListResponse in onFailure " + t.toString())
-            }
-
-            override fun onResponse(call: Call<GetTicketListResponse>, response: Response<GetTicketListResponse>) {
-             response.body()?.let{
-                 if(it.status  == 200){
+            responseBody?.let{
+                if(it.status  == 200){
                     val ticketList = it.toTicketList()
                     updateListTicket(ticketList)}
-                 else{
-                     Log.d("testTicket", "getTicketListResponse in" + response.body()?.status.toString())
-                 }
-             }
-
-
+                else{
+                    Log.d("testTicket", "getTicketListResponse in" + responseBody?.status.toString())
+                }
             }
-        })
+        }
+    }
 
-
-
+    override fun onFail() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Log.d("testTicket", "getTicketListResponse in onFailure ")
     }
 
 

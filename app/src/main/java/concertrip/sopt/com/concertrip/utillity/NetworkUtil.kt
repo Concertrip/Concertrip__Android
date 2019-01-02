@@ -7,6 +7,7 @@ import concertrip.sopt.com.concertrip.interfaces.OnResponse
 import concertrip.sopt.com.concertrip.network.NetworkService
 import concertrip.sopt.com.concertrip.network.USGS_REQUEST_URL
 import concertrip.sopt.com.concertrip.network.response.GetSearchResponse
+import concertrip.sopt.com.concertrip.network.response.GetTicketListResponse
 import concertrip.sopt.com.concertrip.network.response.MessageResponse
 import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
 import org.json.JSONObject
@@ -165,6 +166,30 @@ class NetworkUtil {
             })
         }
 
+        fun getTicketList(networkService: NetworkService, listener: OnResponse?, _id: String) {
+            val getTicketListResponse: Call<GetTicketListResponse> = networkService.getTicketList(1) // _id
+
+            getTicketListResponse.enqueue(object : Callback<GetTicketListResponse> {
+
+                override fun onFailure(call: Call<GetTicketListResponse>, t: Throwable) {
+                    Log.e(Constants.LOG_NETWORK, t.toString())
+                    listener?.onFail()
+                }
+
+                override fun onResponse(call: Call<GetTicketListResponse>, response: Response<GetTicketListResponse>) {
+                    response.body()?.let {
+                        if (it.status == 200) {
+                            Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH :${response.body().toString()}")
+                            listener?.onSuccess(response.body() as BaseModel, 0)
+                        } else {
+                            Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH: fail")
+                            listener?.onFail()
+                        }
+                    }
+                }
+
+            })
+        }
 
     }
 }
