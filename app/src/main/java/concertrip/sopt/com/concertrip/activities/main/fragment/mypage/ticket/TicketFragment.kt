@@ -22,6 +22,8 @@ import kotlinx.android.synthetic.main.fragment_ticket.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.util.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -87,7 +89,7 @@ class TicketFragment : Fragment() {
 
     private fun updateUI(ticket: Ticket){
         tv_ticket_detail_name.text = ticket.name
-        tv_ticket_detail_date.text = ticket.date
+        tv_ticket_detail_date.text = convertDate(ticket.date)
         tv_ticket_detail_seat.text = ticket.seat
         tv_ticket_detail_location.text = ticket.location
     }
@@ -112,6 +114,29 @@ class TicketFragment : Fragment() {
             }
         })
 
+    }
+
+    val dayNum : List<String> = listOf("일", "월", "화", "수", "목", "금", "토")
+
+    private fun convertDate(input: String?) : String?{
+        var convertedDate = StringBuilder()
+
+        if(input != null){
+            val dateInfoList = input.split("T")
+            val dateFormat = SimpleDateFormat("yyyy-MM-dd").parse(input.split("T")[0])
+            val instance : Calendar = Calendar.getInstance()
+            instance.setTime(dateFormat)
+            val dayNumIdx = instance.get(Calendar.DAY_OF_WEEK)
+
+            val splitedList = dateInfoList[0].split("-")
+
+            convertedDate.append(splitedList[0]+"."+splitedList[1]+"."+splitedList[2]+"("+dayNum[dayNumIdx-1]+")")
+
+            return convertedDate.toString()
+        }
+        else{
+            return convertedDate.toString()
+        }
     }
 
     override fun onAttach(context: Context) {
