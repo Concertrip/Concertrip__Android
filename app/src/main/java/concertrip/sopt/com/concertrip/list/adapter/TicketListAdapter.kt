@@ -10,6 +10,8 @@ import concertrip.sopt.com.concertrip.interfaces.OnFragmentInteractionListener
 import concertrip.sopt.com.concertrip.list.viewholder.TicketViewHolder
 import concertrip.sopt.com.concertrip.model.Ticket
 import concertrip.sopt.com.concertrip.utillity.Constants
+import java.text.SimpleDateFormat
+import java.util.*
 
 class TicketListAdapter(val mContext : Context, var dataList : ArrayList<Ticket>, var listener: OnFragmentInteractionListener)  : RecyclerView.Adapter<TicketViewHolder>(){
 
@@ -31,22 +33,27 @@ class TicketListAdapter(val mContext : Context, var dataList : ArrayList<Ticket>
         }
     }
 
+    val dayNum : List<String> = listOf("일", "월", "화", "수", "목", "금", "토")
 
-    private fun convertDate(original: String?) : String{
-            var converted : String = ""
+    private fun convertDate(input: String?) : String?{
+        var convertedDate = StringBuilder()
 
-            if(original != null){
+            if(input != null){
+                val dateInfoList = input.split("T")
+                val dateFormat = SimpleDateFormat("yyyy-MM-dd").parse(input.split("T")[0])
+                val instance : Calendar = Calendar.getInstance()
+                instance.setTime(dateFormat)
+                val dayNumIdx = instance.get(Calendar.DAY_OF_WEEK)
 
-                val convertedList = original.split("T")
-                converted = convertedList[0]
+                val splitedList = dateInfoList[0].split("-")
 
-                return converted
+                convertedDate.append(splitedList[0]+"."+splitedList[1]+"."+splitedList[2]+"("+dayNum[dayNumIdx-1]+")")
+
+                return convertedDate.toString()
             }
             else{
-                converted = "데이터 오류"
-                return converted
+                return convertedDate.toString()
             }
     }
-
 
 }
