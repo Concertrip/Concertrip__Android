@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.li_ticket.view.*
 class TicketViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
 
-    val title : TextView = itemView.findViewById(R.id.item_ticket_title)
-    val place : TextView = itemView.findViewById(R.id.item_ticket_place)
+    val name : TextView = itemView.findViewById(R.id.item_ticket_title)
+    val location : TextView = itemView.findViewById(R.id.item_ticket_place)
     val date : TextView = itemView.findViewById(R.id.item_ticket_date)
 }

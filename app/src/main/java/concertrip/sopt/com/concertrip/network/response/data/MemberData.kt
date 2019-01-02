@@ -24,6 +24,8 @@ data class MemberData(
             "_id : $_id\n" +
             "name : $name\n" +
             "profileImg : $profileImg\n" +
+
             /*"filter : $filter\n" + */
+
             "subscribe : $subscribe}"
 }

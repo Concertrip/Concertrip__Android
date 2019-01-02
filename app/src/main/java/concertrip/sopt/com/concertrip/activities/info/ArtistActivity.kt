@@ -162,6 +162,8 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
     }
 
     private fun connectRequestData(id : String){
+
+
         // 서버에서 넘어오는 데이터 구조가 달라서 따로 구현할 수 밖에 없음ㅠ
         if(isGenre){
             val getGenreResponse : Call<GetGenreResponse> = networkService.getGenre(1, artistId)
@@ -199,6 +201,7 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
                     } else {
                         Log.v("test0101", "getArtistResponse in "+ response.body()?.status.toString())
                     }
+
                 }
             })
         }

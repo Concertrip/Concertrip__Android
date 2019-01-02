@@ -124,7 +124,7 @@ class TicketListFragment : Fragment() , OnFragmentInteractionListener{
         getTicketListResponse.enqueue(object : Callback<GetTicketListResponse>{
 
             override fun onFailure(call: Call<GetTicketListResponse>, t: Throwable) {
-                Log.d("testTicket", "getTicketListResponse in onFailure" + t.toString())
+                Log.d("testTicket", "getTicketListResponse in onFailure " + t.toString())
             }
 
             override fun onResponse(call: Call<GetTicketListResponse>, response: Response<GetTicketListResponse>) {
