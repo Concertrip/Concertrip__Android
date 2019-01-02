@@ -6,10 +6,15 @@ import com.google.gson.JsonParser
 import concertrip.sopt.com.concertrip.interfaces.OnResponse
 import concertrip.sopt.com.concertrip.network.NetworkService
 import concertrip.sopt.com.concertrip.network.USGS_REQUEST_URL
+import concertrip.sopt.com.concertrip.network.response.*
+import concertrip.sopt.com.concertrip.network.response.data.ConcertData
 import concertrip.sopt.com.concertrip.network.response.GetSearchResponse
 import concertrip.sopt.com.concertrip.network.response.GetTicketListResponse
 import concertrip.sopt.com.concertrip.network.response.MessageResponse
 import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
+import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_ARTIST
+import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_CONCERT
+import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_THEME
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -191,5 +196,93 @@ class NetworkUtil {
             })
         }
 
+        fun getSubscribedList(networkService: NetworkService, listener: OnResponse?, _id: String, type : Int) {
+            lateinit var getSubscribedResonse : Call<GetSubscribedResponse>
+
+            when(type){
+                TYPE_ARTIST->getSubscribedResonse = networkService.getSubscribedArtist(1)
+                TYPE_CONCERT->getSubscribedResonse = networkService.getSubscribedEvent(1)
+                TYPE_THEME->getSubscribedResonse = networkService.getSubscribedGenre(1)
+            }
+
+            getSubscribedResonse.enqueue(object : Callback<GetSubscribedResponse> {
+
+                override fun onFailure(call: Call<GetSubscribedResponse>, t: Throwable) {
+                    Log.e(Constants.LOG_NETWORK, t.toString())
+                    listener?.onFail()
+                }
+
+                override fun onResponse(call: Call<GetSubscribedResponse>, response: Response<GetSubscribedResponse>) {
+                    response.body()?.let {
+                        if (it.status == 200) {
+                            Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH :${response.body().toString()}")
+                            listener?.onSuccess(response.body() as BaseModel, 0)
+                        } else {
+                            Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH: fail")
+                            listener?.onFail()
+                        }
+                    }
+                }
+
+            })
+        }
+
+        fun testRetrofit1(networkService: NetworkService, listener: OnResponse?) {
+            val jsonObject = JSONObject()
+            jsonObject.put("id", "heesung6701@naver.com")
+            val gsonObject = JsonParser().parse(jsonObject.toString()) as JsonObject
+
+            Log.d(Constants.LOG_NETWORK, "postIdCheck :$gsonObject")
+            val postSignUpResponse: Call<PostIdCheckResponse> =
+                networkService.postIdCheck(gsonObject)
+            postSignUpResponse.enqueue(object : Callback<PostIdCheckResponse> {
+
+                override fun onFailure(call: Call<PostIdCheckResponse>, t: Throwable) {
+                    Log.e(Constants.LOG_NETWORK, t.toString())
+                    listener?.onFail()
+                }
+
+                //통신 성공 시 수행되는 메소드
+                override fun onResponse(call: Call<PostIdCheckResponse>, response: Response<PostIdCheckResponse>) {
+                    Log.d(Constants.LOG_NETWORK, response.errorBody()?.string() ?: response.message())
+
+                    if (response.isSuccessful) {
+                        Log.d(Constants.LOG_NETWORK, "postLogin :${response.body()}")
+                        listener?.onSuccess(response.body() as BaseModel, 0)
+                    } else {
+                        Log.d(Constants.LOG_NETWORK, "postLogin : fail")
+                    }
+                }
+            })
+        }
+
+        fun testREtrofit2(networkService: NetworkService, listener: OnResponse?) {
+            val jsonObject = JSONObject()
+            jsonObject.put("id", "teamkerbell@teamkerbell.tk")
+            jsonObject.put("pwd", "12341234")
+            jsonObject.put("client_token", "")
+            val gsonObject = JsonParser().parse(jsonObject.toString()) as JsonObject
+
+            Log.d(Constants.LOG_NETWORK, "postLogin :$gsonObject")
+            val postLoginResponse: Call<PostLoginResponse> =
+                networkService.postLogin(gsonObject)
+            postLoginResponse.enqueue(object : Callback<PostLoginResponse> {
+
+                override fun onFailure(call: Call<PostLoginResponse>, t: Throwable) {
+                    Log.e("sign up fail", t.toString())
+                }
+
+                //통신 성공 시 수행되는 메소드
+                override fun onResponse(call: Call<PostLoginResponse>, response: Response<PostLoginResponse>) {
+                    Log.d(Constants.LOG_NETWORK, response.toString())
+                    if (response.isSuccessful) {
+                        Log.d(Constants.LOG_NETWORK, "postLogin :${response.body()}")
+//                        listener?.onSuccess()
+                    } else {
+                        Log.d(Constants.LOG_NETWORK, "postLogin : fail")
+                    }
+                }
+            })
+        }
     }
 }
