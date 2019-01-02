@@ -27,10 +27,14 @@ import concertrip.sopt.com.concertrip.interfaces.OnResponse
 import concertrip.sopt.com.concertrip.network.response.GetArtistSubscribeResponse
 import concertrip.sopt.com.concertrip.network.response.GetConcertSubscribeResponse
 import concertrip.sopt.com.concertrip.network.response.GetGenreSubscribeResponse
+import concertrip.sopt.com.concertrip.network.response.GetSubscribedResponse
 import concertrip.sopt.com.concertrip.network.response.data.ArtistData
 import concertrip.sopt.com.concertrip.network.response.data.ConcertData
 import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
 import concertrip.sopt.com.concertrip.utillity.Constants
+import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_ARTIST
+import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_CONCERT
+import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_THEME
 import concertrip.sopt.com.concertrip.utillity.NetworkUtil
 import kotlinx.android.synthetic.main.fragment_liked.*
 
@@ -48,19 +52,13 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  *
  */
-class LikedFragment : Fragment() ,View.OnClickListener, OnItemClick,OnResponse{
+class LikedFragment : Fragment() ,View.OnClickListener, OnItemClick, OnResponse{
 
     var LOG_TAG = this::class.java.simpleName
 
     var dataList = ArrayList<ListData>()
 
     lateinit  var adapter :BasicListAdapter
-
-
-
-    val STATE_ARTIST = 0
-    val STATE_THEME = 1
-    val STATE_CONCERT = 2
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -89,6 +87,9 @@ class LikedFragment : Fragment() ,View.OnClickListener, OnItemClick,OnResponse{
                     Toast.makeText(it.applicationContext, "내 장르에 추가되었습니다!", Toast.LENGTH_LONG).show()
                 }
 
+            }
+            is GetSubscribedResponse->{
+                // 아티스트, 이벤트, 장르를 리사이클러뷰에 출력
             }
 
         }
@@ -128,13 +129,13 @@ class LikedFragment : Fragment() ,View.OnClickListener, OnItemClick,OnResponse{
     override fun onClick(view: View) {
         when(view.id){
             R.id.tv_liked_concert->{
-                connectRequestData(STATE_CONCERT)
+                connectRequestData(TYPE_CONCERT)
             }
             R.id.tv_liked_artist->{
-                connectRequestData(STATE_ARTIST)
+                connectRequestData(TYPE_ARTIST)
             }
             R.id.tv_liked_theme->{
-                connectRequestData(STATE_THEME)
+                connectRequestData(TYPE_THEME)
             }
         }
 
@@ -163,7 +164,7 @@ class LikedFragment : Fragment() ,View.OnClickListener, OnItemClick,OnResponse{
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initialUI()
-        connectRequestData(STATE_ARTIST)
+        connectRequestData(TYPE_ARTIST)
     }
 
 
@@ -206,15 +207,15 @@ class LikedFragment : Fragment() ,View.OnClickListener, OnItemClick,OnResponse{
 
     private fun connectRequestData(state : Int){
         when(state){
-            STATE_ARTIST->{
+            TYPE_ARTIST->{
                 connectArtistSubscribe()
                 updateTextColor(tv_liked_artist)
             }
-            STATE_CONCERT->{
+            TYPE_CONCERT->{
                 connectConcertSubscribe()
                 updateTextColor(tv_liked_concert)
             }
-            STATE_THEME->{
+            TYPE_THEME->{
                 connectGenreSubscribe()
                 updateTextColor(tv_liked_theme)
             }

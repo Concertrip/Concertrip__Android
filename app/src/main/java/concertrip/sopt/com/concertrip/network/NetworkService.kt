@@ -126,4 +126,26 @@ interface NetworkService {
     fun getTicketList(
         @Header("Authorization") token : Int
     ):Call<GetTicketListResponse>
+    //------------------------------------------
+    //*구독 아티스트 리스트
+    @GET("/api/subscribe/artist")
+    @Headers("Content-Type:application/json")
+    fun getSubscribedArtist(
+        @Header("Authorization") token : Int
+    ):Call<GetSubscribedResponse>
+
+    //*구독 이벤트 리스트
+    @GET("/api/subscribe/event")
+    @Headers("Content-Type:application/json")
+    fun getSubscribedEvent(
+        @Header("Authorization") token : Int
+    ):Call<GetSubscribedResponse>
+
+    //*구독 장르 리스트
+    @GET("/api/subscribe/genre")
+    @Headers("Content-Type:application/json")
+    fun getSubscribedGenre(
+        @Header("Authorization") token : Int
+    ):Call<GetSubscribedResponse>
+
 }

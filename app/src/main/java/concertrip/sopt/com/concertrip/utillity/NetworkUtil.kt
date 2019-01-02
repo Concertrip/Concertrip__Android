@@ -9,12 +9,12 @@ import concertrip.sopt.com.concertrip.deprecated.PostLoginResponse
 import concertrip.sopt.com.concertrip.interfaces.OnResponse
 import concertrip.sopt.com.concertrip.network.NetworkService
 import concertrip.sopt.com.concertrip.network.USGS_REQUEST_URL
-import concertrip.sopt.com.concertrip.network.response.GetConcertResponse
-import concertrip.sopt.com.concertrip.network.response.GetSearchResponse
-import concertrip.sopt.com.concertrip.network.response.GetTicketListResponse
-import concertrip.sopt.com.concertrip.network.response.MessageResponse
+import concertrip.sopt.com.concertrip.network.response.*
 import concertrip.sopt.com.concertrip.network.response.data.ConcertData
 import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
+import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_ARTIST
+import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_CONCERT
+import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_THEME
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -187,6 +187,37 @@ class NetworkUtil {
                 }
 
                 override fun onResponse(call: Call<GetTicketListResponse>, response: Response<GetTicketListResponse>) {
+                    response.body()?.let {
+                        if (it.status == 200) {
+                            Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH :${response.body().toString()}")
+                            listener?.onSuccess(response.body() as BaseModel, 0)
+                        } else {
+                            Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH: fail")
+                            listener?.onFail()
+                        }
+                    }
+                }
+
+            })
+        }
+
+        fun getSubscribedList(networkService: NetworkService, listener: OnResponse?, _id: String, type : Int) {
+            lateinit var getSubscribedResonse : Call<GetSubscribedResponse>
+
+            when(type){
+                TYPE_ARTIST->getSubscribedResonse = networkService.getSubscribedArtist(1)
+                TYPE_CONCERT->getSubscribedResonse = networkService.getSubscribedEvent(1)
+                TYPE_THEME->getSubscribedResonse = networkService.getSubscribedGenre(1)
+            }
+
+            getSubscribedResonse.enqueue(object : Callback<GetSubscribedResponse> {
+
+                override fun onFailure(call: Call<GetSubscribedResponse>, t: Throwable) {
+                    Log.e(Constants.LOG_NETWORK, t.toString())
+                    listener?.onFail()
+                }
+
+                override fun onResponse(call: Call<GetSubscribedResponse>, response: Response<GetSubscribedResponse>) {
                     response.body()?.let {
                         if (it.status == 200) {
                             Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH :${response.body().toString()}")
