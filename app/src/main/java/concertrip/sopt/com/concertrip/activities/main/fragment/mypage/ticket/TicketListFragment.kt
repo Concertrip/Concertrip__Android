@@ -89,7 +89,7 @@ class TicketListFragment : Fragment() , OnFragmentInteractionListener{
 
 
         activity?.let{
-            dataListTicket = Ticket.getDummyArray()
+            //dataListTicket = Ticket.getDummyArray()
             ticketAdapter = TicketListAdapter(it.applicationContext, dataListTicket, this)
             recycler_view_ticket_list.adapter = ticketAdapter
         }

@@ -87,7 +87,7 @@ class MyPageFragment : Fragment(), OnItemClick, OnFragmentInteractionListener {
             }
 
             activity?.let{
-                dataListTicket = Ticket.getDummyArray()
+                //dataListTicket = Ticket.getDummyArray()
                 ticketAdapter = TicketListAdapter(it.applicationContext, dataListTicket, this)
                 recycler_view_ticket.adapter = ticketAdapter
             }
