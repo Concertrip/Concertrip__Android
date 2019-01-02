@@ -7,15 +7,33 @@
               android:orientation="vertical"
               android:background="@color/blue"
               tools:context=".activities.main.fragment.mypage.ticket.TicketListFragment">
-    <TextView
-            android:text="@string/txt_ticket"
-            android:textSize="24sp"
-            android:textColor="@color/textTagDefault"
-            android:layout_marginLeft="17dp"
-            android:textStyle="bold"
-            android:paddingVertical="25dp"
+
+    <LinearLayout
+            android:paddingLeft="15dp"
+            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content">
+
+
+        <Button
+                android:id="@+id/btn_ticket_list_back"
+                android:background="@drawable/ic_back"
+                android:layout_width="21dp"
+                android:layout_height="21dp"/>
+
+        <TextView
+                android:text="@string/txt_ticket"
+                android:textSize="24sp"
+                android:textColor="@color/textTagDefault"
+                android:layout_marginLeft="17dp"
+                android:textStyle="bold"
+                android:paddingVertical="25dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+
     <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view_ticket_list"
             android:paddingHorizontal="16dp"
