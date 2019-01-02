@@ -88,8 +88,8 @@ interface NetworkService {
     @GET("/api/event/detail")
     @Headers("Content-Type:application/json")
     fun getEvent(
-        @Header("token") token : String,
-        @Query("eventsId") eventId : Int
+        @Header("Authorization") token : Int,
+        @Query("id") id : String
     ) : Call<GetConcertResponse>
     //-----------------------------------------
     //*아티스트
@@ -97,7 +97,7 @@ interface NetworkService {
     @GET("/api/artist/detail")
     @Headers("Content-Type:application/json")
     fun getArtist(
-        @Header("Authorization") Authorization : String,
+        @Header("Authorization") token : String,
         @Query("id") id : String
     ):Call<GetArtistResponse>
     //-----------------------------------------

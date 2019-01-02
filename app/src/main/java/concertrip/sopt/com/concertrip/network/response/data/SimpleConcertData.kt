@@ -15,12 +15,14 @@ data class SimpleConcertData(
         c.title=name
 //        c.location = location
         c.location = ""
+        c.profileImg=profileImg
         c.date= arrayListOf()
         c.subscribe= subscribe
         return c
     }
 
-    override fun toString(): String ="_id : $_id, name = $name, profileImg = $profileImg, subscribe = $subscribe"
+
+    override fun toString(): String ="SimpleConcertData{_id : $_id, name = $name, profileImg = $profileImg, subscribe = $subscribe}"
 
     companion object {
         fun getDummy() : SimpleConcertData = SimpleConcertData("", "힙합 페스티벌", "종합경기장",

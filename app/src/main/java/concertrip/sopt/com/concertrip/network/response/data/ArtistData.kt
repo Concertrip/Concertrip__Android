@@ -25,13 +25,13 @@ data class ArtistData(
 
         val aList = ArrayList<Artist>()
         memberList?.forEach {
-            aList.add(MemberDataToArtist(it))
+            aList.add(it.toArtist())
         }
         a.memberList = aList
 
         val cList = ArrayList<Concert>()
         eventList?.forEach{
-            cList.add(SimpleConcertDatatoConcert(it))
+            cList.add(it.toConcert())
         }
         a.concertList = cList
 
@@ -40,31 +40,19 @@ data class ArtistData(
         return a
     }
 
-//TODO SimpleCincertData로 옮기기
-    fun SimpleConcertDatatoConcert(simpleConcert : SimpleConcertData) : Concert {
-        val concert = Concert(_id = simpleConcert._id)
 
-        concert.title = simpleConcert.name
-        concert.profileImg = simpleConcert.profileImg
-        //concert.date = date
-        // Concert의 date는 List이고 SimpleConcertData의 date는 String임
-        // TODO >> 서버에 물어보기 // List로 안넘겨주냐고
-        // aws. 기획단에서 정해진게 없어서 보류중
-        concert.location = ""
 
-        return concert
-    }
-
-    //TODO MemberData로 옮기기
-    fun MemberDataToArtist(member : MemberData) : Artist {
-        val artist = Artist(_id = member._id)
-
-        artist.name = member.name
-        artist.profileImg = member.profileImg
-        artist.subscribe = member.subscribe
-
-        return artist
-    }
+    override fun toString(): String ="ArtistData{\n" +
+        "_id : $_id\n" +
+        "profileImg : $profileImg\n" +
+        "backImg : $backImg\n " +
+        "name : $name\n" +
+        "subscribeNum : $subscribeNum\n" +
+        "youtubeUrl : $youtubeUrl\n" +
+        "memberList : $memberList\n" +//member는 forEach 돌면서 보내져야함
+        "eventList : $eventList\n" +
+        "subscribe : $subscribe" +
+            "}"
   
     companion object {
 //        fun getDummy() : ArtistData{

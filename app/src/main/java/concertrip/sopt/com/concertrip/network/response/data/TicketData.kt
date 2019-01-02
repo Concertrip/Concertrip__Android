@@ -11,4 +11,13 @@ data class TicketData(var _id : Int,
                       var eventId : String) {
 
     fun toTicket() : Ticket = Ticket(_id = _id, name = name, location = location, date = date,seat = seat, userIdx = userIdx, eventId = eventId)
+
+    override fun toString(): String ="TicketData{\n" +
+            "id : $_id \n" +
+            "name : $name\n" +
+            "location : $location\n" +
+            "date : $date\n" +
+            "seat : $seat\n" +
+            "userIdx : $userIdx\n" +
+            "eventId : $eventId}"
 }

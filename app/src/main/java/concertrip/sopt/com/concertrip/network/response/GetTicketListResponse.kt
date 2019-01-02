@@ -11,6 +11,7 @@ data class GetTicketListResponse(
     var data: TicketListData
 ) : BaseModel(){
 
+
     fun toTicketList() : ArrayList<Ticket>{
         val list = ArrayList<Ticket>()
         data.tickets?.forEach {
@@ -18,8 +19,20 @@ data class GetTicketListResponse(
         }
         return list
     }
+  
+      override fun toString(): String {
+        var result = ""
+        data.forEach {
+            result=result.plus(it)+","
+        }
+        return result
+    }
 }
 
 data class TicketListData(
     var tickets : List<SimpleTicketData>?
 )
+
+
+
+

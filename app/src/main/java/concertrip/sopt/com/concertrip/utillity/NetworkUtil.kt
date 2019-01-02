@@ -141,8 +141,6 @@ class NetworkUtil {
 
                 override fun onFailure(call: Call<GetSearchResponse>, t: Throwable) {
                     Log.e(Constants.LOG_NETWORK, t.toString())
-
-
                     listener?.onFail()
                 }
                 //통신 성공 시 수행되는 메소드

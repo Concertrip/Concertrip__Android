@@ -17,6 +17,14 @@ data class GetArtistSubscribeResponse (
         }
         return list
     }
+
+    override fun toString(): String {
+        var result =""
+        data.forEach {
+            result=result.plus(it.toString())+","
+        }
+        return result
+    }
 }
 
 

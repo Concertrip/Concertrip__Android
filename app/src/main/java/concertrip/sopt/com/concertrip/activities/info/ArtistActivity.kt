@@ -1,6 +1,5 @@
 package concertrip.sopt.com.concertrip.activities.info
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -22,7 +21,6 @@ import concertrip.sopt.com.concertrip.model.Concert
 import concertrip.sopt.com.concertrip.network.ApplicationController
 import concertrip.sopt.com.concertrip.network.NetworkService
 import concertrip.sopt.com.concertrip.network.response.GetArtistResponse
-import concertrip.sopt.com.concertrip.network.response.data.ArtistData
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.INTENT_TAG_ID
 import concertrip.sopt.com.concertrip.utillity.Secret
 import kotlinx.android.synthetic.main.activity_artist.*
@@ -70,7 +68,7 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         return findViewById<View>(R.id.youtude) as YouTubePlayerView
     }
 
-    private var artistId: Int? = null
+    private var artistId: String ="5c287b713eea39d2b0049f3f"
 
     lateinit  var artist: Artist
     var dataList = arrayListOf<Concert>()
@@ -92,16 +90,17 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_artist)
 
-        artistId = intent.getIntExtra(INTENT_TAG_ID, 0)
+//        if(intent.hasExtra(INTENT_TAG_ID))
+//            artistId = intent.getStringExtra(INTENT_TAG_ID)
 
         initialUI()
-        connectRequestData(artistId!!)
+        connectRequestData(artistId)
     }
 
     override fun onResume() {
         super.onResume()
 
-        connectRequestData(artistId!!)
+        connectRequestData(artistId)
     }
 
     fun initialUI(){
@@ -137,8 +136,12 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         // TODO 좋아요 버튼 설정
         if(URLUtil.isValidUrl(artist.backImg))
             Glide.with(this).load(artist.backImg).into(iv_back)
+//        else
+//            // 기본이미지로 설정
         if(URLUtil.isValidUrl(artist.profileImg))
             Glide.with(this).load(artist.profileImg).apply(RequestOptions.circleCropTransform()).into(iv_profile)
+//        else
+//            // 기본이미지로 설정
 
         tv_title.text = artist.name
         tv_tag.text = artist.subscribeNum.toString()
@@ -153,18 +156,7 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
     }
 
     private fun connectRequestData(id : Int){
-        // 서버에 데이터 request보내고
-        // response 데이터를 이용해
-        // 전역변수로 선언되어있는 artist, dataList 업데이트
-
-        // dataList 업데이트
-        //this.dataList.clear()
-        //this.dataList.addAll(list)
-
-//        val getArtistResponse : GetArtistResponse = GetArtistResponse(ArtistData.getDummy())
-        // getDummy()로 받는 콘서트 리스트는 비어있음 !!
-        val getArtistResponse : Call<GetArtistResponse> = networkService.getArtist("", "5c287b713eea39d2b0049f3f")
-
+        val getArtistResponse : Call<GetArtistResponse> = networkService.getArtist("", artistId)
         getArtistResponse.enqueue(object : Callback<GetArtistResponse>
         {
             override fun onFailure(call: Call<GetArtistResponse>?, t: Throwable?) {
@@ -172,11 +164,9 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
             }
             override fun onResponse(call: Call<GetArtistResponse>?, response: Response<GetArtistResponse>?) {
                 if (response!!.body()?.status == 200) {
-                    artist = response.body()!!.data.toArtist()
-                    updateConcertList(ArrayList(artist.concertList))
-                    /*TODO
-                    * 정확한 API 받고 Artist Data 재구성 > 데이터 가공*/
-                    //updateMemberList
+                    artist = response!!.body()!!.data.toArtist()
+                    updateConcertList(ArrayList(artist.concertList)) // 굳이 param으로 안넘겨줘도됨!
+                    updateMemberList(ArrayList(artist.memberList))
                     updateArtistData()
                     updateUI()
                 } else {

@@ -8,5 +8,8 @@ data class AlarmData(
 ){
     fun toAlarm() : Alarm = Alarm("","","")
 
-
+    override fun toString(): String ="AlarmData{\n" +
+            "txt : $txt\n" +
+            "data : $data\n" +
+            "}"
 }
