@@ -24,10 +24,7 @@ import concertrip.sopt.com.concertrip.network.ApplicationController
 import concertrip.sopt.com.concertrip.network.NetworkService
 import concertrip.sopt.com.concertrip.interfaces.OnItemClick
 import concertrip.sopt.com.concertrip.interfaces.OnResponse
-import concertrip.sopt.com.concertrip.network.response.GetArtistSubscribeResponse
-import concertrip.sopt.com.concertrip.network.response.GetConcertSubscribeResponse
-import concertrip.sopt.com.concertrip.network.response.GetGenreSubscribeResponse
-import concertrip.sopt.com.concertrip.network.response.GetSubscribedResponse
+import concertrip.sopt.com.concertrip.network.response.*
 import concertrip.sopt.com.concertrip.network.response.data.ArtistData
 import concertrip.sopt.com.concertrip.network.response.data.ConcertData
 import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
@@ -36,6 +33,7 @@ import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_ARTIST
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_CONCERT
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_THEME
 import concertrip.sopt.com.concertrip.utillity.NetworkUtil
+import concertrip.sopt.com.concertrip.utillity.NetworkUtil.Companion.getSubscribedList
 import kotlinx.android.synthetic.main.fragment_liked.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -57,8 +55,11 @@ class LikedFragment : Fragment() ,View.OnClickListener, OnItemClick, OnResponse{
     var LOG_TAG = this::class.java.simpleName
 
     var dataList = ArrayList<ListData>()
-
     lateinit  var adapter :BasicListAdapter
+
+    private val networkService: NetworkService by lazy {
+        ApplicationController.instance.networkService
+    }
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -90,6 +91,13 @@ class LikedFragment : Fragment() ,View.OnClickListener, OnItemClick, OnResponse{
             }
             is GetSubscribedResponse->{
                 // 아티스트, 이벤트, 장르를 리사이클러뷰에 출력
+                var responseBody = obj as GetSubscribedResponse
+
+                responseBody?.let{
+                    dataList.clear()
+                    dataList.addAll(responseBody.toArtistList())
+                    adapter.notifyDataSetChanged()
+                }
             }
 
         }
@@ -177,7 +185,6 @@ class LikedFragment : Fragment() ,View.OnClickListener, OnItemClick, OnResponse{
 
         activity?.let {
             adapter= BasicListAdapter(it.applicationContext, dataList,this)
-
             recycler_view.adapter=adapter
         }
 
@@ -226,22 +233,17 @@ class LikedFragment : Fragment() ,View.OnClickListener, OnItemClick, OnResponse{
     private fun connectArtistSubscribe(){
 //        val artistSubscribeResponse = GetArtistSubscribeResponse(ArtistData.getDummyArray())
 //        updateDataList(artistSubscribeResponse.getArtistList())
+        getSubscribedList(networkService, this, "", TYPE_ARTIST)
     }
 
     private fun connectConcertSubscribe(){
-        val concertSubscribeResponse = GetConcertSubscribeResponse(ConcertData.getDummyArray())
-        updateDataList(concertSubscribeResponse.getConcertList())
+//        val concertSubscribeResponse = GetConcertSubscribeResponse(ConcertData.getDummyArray())
+//        updateDataList(concertSubscribeResponse.getConcertList())
+        getSubscribedList(networkService, this, "", TYPE_CONCERT)
     }
 
     private fun connectGenreSubscribe(){
-
-
-//        val genreSubscribeResponse = GetGenreSubscribeResponse(ArtistData.getDummyArray())
-//
-//        val list = ArrayList<ListData>()
-//        list.addAll(genreSubscribeResponse.getArtistList())
-//        updateDataList(list)
-
+        getSubscribedList(networkService, this, "", TYPE_THEME)
     }
 
     override fun onAttach(context: Context) {
