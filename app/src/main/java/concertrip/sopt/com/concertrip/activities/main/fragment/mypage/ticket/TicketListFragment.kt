@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,10 +14,15 @@ import concertrip.sopt.com.concertrip.interfaces.OnFragmentInteractionListener
 import concertrip.sopt.com.concertrip.list.adapter.BasicListAdapter
 import concertrip.sopt.com.concertrip.list.adapter.TicketListAdapter
 import concertrip.sopt.com.concertrip.model.Ticket
+import concertrip.sopt.com.concertrip.network.ApplicationController
+import concertrip.sopt.com.concertrip.network.NetworkService
 import concertrip.sopt.com.concertrip.network.response.GetTicketListResponse
 import concertrip.sopt.com.concertrip.network.response.data.TicketData
 import kotlinx.android.synthetic.main.fragment_my_page.*
 import kotlinx.android.synthetic.main.fragment_ticket_list.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -37,6 +43,10 @@ class TicketListFragment : Fragment() , OnFragmentInteractionListener{
     var dataListTicket = arrayListOf<Ticket>()
     lateinit var ticketAdapter : TicketListAdapter
 
+    private val networkServicce : NetworkService by lazy {
+        ApplicationController.instance.networkService
+    }
+
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -52,7 +62,9 @@ class TicketListFragment : Fragment() , OnFragmentInteractionListener{
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-    }
+
+
+            }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -65,6 +77,7 @@ class TicketListFragment : Fragment() , OnFragmentInteractionListener{
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initialUI()
+        ConnectRequestData()
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -95,6 +108,9 @@ class TicketListFragment : Fragment() , OnFragmentInteractionListener{
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    private fun updateUI(){
+
+    }
 
     private fun updateListTicket(list : ArrayList<Ticket>){
         dataListTicket.clear()
@@ -103,7 +119,30 @@ class TicketListFragment : Fragment() , OnFragmentInteractionListener{
     }
 
     private fun ConnectRequestData(){
-        //val searchResponseData : GetTicketListResponse = GetTicketListResponse()
+        val getTicketListResponse : Call<GetTicketListResponse> = networkServicce.getTicketList(1)
+
+        getTicketListResponse.enqueue(object : Callback<GetTicketListResponse>{
+
+            override fun onFailure(call: Call<GetTicketListResponse>, t: Throwable) {
+                Log.d("testTicket", "getTicketListResponse in onFailure" + t.toString())
+            }
+
+            override fun onResponse(call: Call<GetTicketListResponse>, response: Response<GetTicketListResponse>) {
+             response.body()?.let{
+                 if(it.status  == 200){
+                    val ticketList = it.toTicketList()
+                    updateListTicket(ticketList)}
+                 else{
+                     Log.d("testTicket", "getTicketListResponse in" + response.body()?.status.toString())
+                 }
+             }
+
+
+            }
+        })
+
+
+
     }
 
 

@@ -115,6 +115,6 @@ interface NetworkService {
     @GET("/api/ticket")
     @Headers("Content-Type:application/json")
     fun getTicketList(
-        @Header("token") token : Int
+        @Header("Authorization") token : Int
     ):Call<GetTicketListResponse>
 }
