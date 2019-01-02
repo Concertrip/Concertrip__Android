@@ -13,7 +13,7 @@
     <string name="txt_result_add">아티스트/콘서트 추가요청하기</string>
     <string name="txt_calendar_added">캘린더에 추가 되었습니다.</string>
 
-    <string name="txt_ticket">티켓</string>
+    <string name="txt_ticket">내 티켓</string>
     <string name="txt_li_ticket_date">날짜:</string>
     <string name="txt_li_ticket_place">장소:</string>
     <string name="txt_setting">설정</string>

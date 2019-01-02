@@ -19,6 +19,7 @@ import concertrip.sopt.com.concertrip.network.NetworkService
 import concertrip.sopt.com.concertrip.network.response.GetTicketListResponse
 import concertrip.sopt.com.concertrip.network.response.data.TicketData
 import kotlinx.android.synthetic.main.fragment_my_page.*
+import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.android.synthetic.main.fragment_ticket_list.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -86,6 +87,10 @@ class TicketListFragment : Fragment() , OnFragmentInteractionListener{
     }
 
     private fun initialUI(){
+
+        btn_ticket_list_back.setOnClickListener {
+            activity?.onBackPressed()
+        }
 
 
         activity?.let{
