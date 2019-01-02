@@ -21,6 +21,7 @@ import concertrip.sopt.com.concertrip.model.Concert
 import concertrip.sopt.com.concertrip.network.ApplicationController
 import concertrip.sopt.com.concertrip.network.NetworkService
 import concertrip.sopt.com.concertrip.network.response.GetArtistResponse
+import concertrip.sopt.com.concertrip.network.response.GetGenreResponse
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.INTENT_TAG_ID
 import concertrip.sopt.com.concertrip.utillity.Secret
 import kotlinx.android.synthetic.main.activity_artist.*
@@ -68,7 +69,11 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         return findViewById<View>(R.id.youtude) as YouTubePlayerView
     }
 
-    private var artistId: String ="5c287b713eea39d2b0049f3f"
+    private var isGenre: Boolean = true
+    private var artistId: String ="5c298b2a3eea39d2b00ca7d4"
+
+//    private var isGenre: Boolean = false
+//    private var artistId: String ="5c287b713eea39d2b0049f3f"
 
     lateinit  var artist: Artist
     var dataList = arrayListOf<Concert>()
@@ -92,6 +97,7 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
 
 //        if(intent.hasExtra(INTENT_TAG_ID))
 //            artistId = intent.getStringExtra(INTENT_TAG_ID)
+// 장르인지 아티스트인지 intent에서 받아오기
 
         initialUI()
         connectRequestData(artistId)
@@ -156,24 +162,46 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
     }
 
     private fun connectRequestData(id : String){
-        val getArtistResponse : Call<GetArtistResponse> = networkService.getArtist("", artistId)
-        getArtistResponse.enqueue(object : Callback<GetArtistResponse>
-        {
-            override fun onFailure(call: Call<GetArtistResponse>?, t: Throwable?) {
-                Log.v("test0101", "getArtistResponse in onFailure" + t.toString())
-            }
-            override fun onResponse(call: Call<GetArtistResponse>?, response: Response<GetArtistResponse>?) {
-                if (response!!.body()?.status == 200) {
-                    artist = response!!.body()!!.data.toArtist()
-                    updateConcertList(ArrayList(artist.concertList)) // 굳이 param으로 안넘겨줘도됨!
-                    updateMemberList(ArrayList(artist.memberList))
-                    updateArtistData()
-                    updateUI()
-                } else {
-                    Log.v("test0101", "getArtistResponse in "+ response.body()?.status.toString())
+        // 서버에서 넘어오는 데이터 구조가 달라서 따로 구현할 수 밖에 없음ㅠ
+        if(isGenre){
+            val getGenreResponse : Call<GetGenreResponse> = networkService.getGenre(1, artistId)
+            getGenreResponse.enqueue(object : Callback<GetGenreResponse>
+            {
+                override fun onFailure(call: Call<GetGenreResponse>?, t: Throwable?) {
+                    Log.v("test0101", "getArtistResponse in onFailure" + t.toString())
                 }
-            }
-        })
+                override fun onResponse(call: Call<GetGenreResponse>?, response: Response<GetGenreResponse>?) {
+                    if (response!!.body()?.status == 200) {
+                        artist = response!!.body()!!.data.toArtist()
+                        updateConcertList(ArrayList(artist.concertList))
+                        updateArtistData()
+                        updateUI()
+                    } else {
+                        Log.v("test0102", "getGenreResponse in "+ response.body()?.status.toString())
+                    }
+                }
+            })
+        }
+        else{
+            val getArtistResponse : Call<GetArtistResponse> = networkService.getArtist(1, artistId)
+            getArtistResponse.enqueue(object : Callback<GetArtistResponse>
+            {
+                override fun onFailure(call: Call<GetArtistResponse>?, t: Throwable?) {
+                    Log.v("test0101", "getArtistResponse in onFailure" + t.toString())
+                }
+                override fun onResponse(call: Call<GetArtistResponse>?, response: Response<GetArtistResponse>?) {
+                    if (response!!.body()?.status == 200) {
+                        artist = response!!.body()!!.data.toArtist()
+                        updateConcertList(ArrayList(artist.concertList)) // 굳이 param으로 안넘겨줘도됨!
+                        updateMemberList(ArrayList(artist.memberList))
+                        updateArtistData()
+                        updateUI()
+                    } else {
+                        Log.v("test0101", "getArtistResponse in "+ response.body()?.status.toString())
+                    }
+                }
+            })
+        }
     }
 
     companion object {
