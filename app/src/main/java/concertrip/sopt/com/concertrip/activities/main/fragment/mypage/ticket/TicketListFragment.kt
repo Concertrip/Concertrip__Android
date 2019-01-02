@@ -101,7 +101,7 @@ class TicketListFragment : Fragment() , OnFragmentInteractionListener{
     }
 
     override fun changeFragment(what: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        listener?.changeFragment(what)
     }
 
     override fun changeFragment(what: Int, bundle: Bundle?) {
