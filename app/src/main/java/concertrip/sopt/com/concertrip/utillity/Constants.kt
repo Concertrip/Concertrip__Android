@@ -38,5 +38,7 @@ class Constants {
         const val FRAGMENT_SETTING =7
 
         const val INTENT_TAG_ID = "id"
+        const val INTENT_ARTIST = "artist"
+
     }
 }

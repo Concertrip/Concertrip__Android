@@ -30,6 +30,7 @@ import concertrip.sopt.com.concertrip.model.Seat
 import concertrip.sopt.com.concertrip.network.ApplicationController
 import concertrip.sopt.com.concertrip.network.NetworkService
 import concertrip.sopt.com.concertrip.network.response.GetConcertResponse
+import concertrip.sopt.com.concertrip.utillity.Constants.Companion.INTENT_TAG_ID
 import concertrip.sopt.com.concertrip.utillity.Secret
 import kotlinx.android.synthetic.main.activity_concert.*
 import kotlinx.android.synthetic.main.content_concert.*
@@ -106,7 +107,7 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_concert)
 
-        //concertId = intent.getStringExtra(INTENT_TAG_ID)
+        concertId = intent.getStringExtra(INTENT_TAG_ID)
 
         initialUI()
         connectRequestData(concertId)
