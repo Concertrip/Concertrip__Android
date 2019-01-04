@@ -13,13 +13,13 @@
               android:text="스탠딩"
               android:id="@+id/tv_seat_grade"
               android:textSize="14sp"
-              android:textColor="@color/grayDarker"
+              android:textColor="@color/textInfo"
               android:paddingHorizontal="3dp"/>
     <TextView android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:text="88,000원"
               android:id="@+id/tv_seat_price"
               android:textSize="14sp"
-              android:textColor="@color/grayDarker"/>
+              android:textColor="@color/textInfo"/>
 
 </LinearLayout>
