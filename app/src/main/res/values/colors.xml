@@ -24,6 +24,8 @@
     <color name="textDialog">@color/white</color>
     <color name="textTicket">@color/black</color>
 
+    <color name="textInfo">#d1d1d1</color>
+
 
     
     <color name="grayDarker">#7b7b7b</color>
