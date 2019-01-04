@@ -23,6 +23,7 @@ import concertrip.sopt.com.concertrip.model.Concert
 import concertrip.sopt.com.concertrip.network.ApplicationController
 import concertrip.sopt.com.concertrip.network.NetworkService
 import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
+import concertrip.sopt.com.concertrip.utillity.Constants.Companion.INTENT_ARTIST
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.INTENT_TAG_ID
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_ALARM
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_ARTIST
@@ -178,6 +179,13 @@ class BasicListAdapter(
                 TYPE_ARTIST -> {
                     val intent: Intent = Intent(mContext.applicationContext, ArtistActivity::class.java)
                     intent.putExtra(INTENT_TAG_ID, dataList[position].getId())
+                    intent.putExtra(INTENT_ARTIST, TYPE_ARTIST)
+                    mContext.startActivity(intent)
+                }
+                TYPE_THEME -> {
+                    val intent: Intent = Intent(mContext.applicationContext, ArtistActivity::class.java)
+                    intent.putExtra(INTENT_TAG_ID, dataList[position].getId())
+                    intent.putExtra(INTENT_ARTIST, TYPE_THEME)
                     mContext.startActivity(intent)
                 }
                 TYPE_CONCERT -> {
