@@ -14,6 +14,8 @@ import concertrip.sopt.com.concertrip.network.response.MessageResponse
 import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_ARTIST
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_CONCERT
+import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_DAY
+import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_MONTH
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_THEME
 import org.json.JSONObject
 import retrofit2.Call
@@ -220,6 +222,41 @@ class NetworkUtil {
                         } else {
                             Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH: fail")
                             listener?.onFail()
+                        }
+                    }
+                }
+
+            })
+        }
+
+        fun getCalendarList(networkService: NetworkService, listener: OnResponse?,
+                            type: String, id:String, year: String, month: String, day: String?=null) {
+            lateinit var getCalendarResponse: Call<GetCalendarResponse>
+            var networkServiceType = TYPE_MONTH
+
+            if(day == null){
+                networkService.getCalendarList(1, "all", null, "2019", "1")
+            }
+            else{
+                networkService.getCalendarDayList(1, "all", null, "2019", "1", "1")
+                networkServiceType = TYPE_DAY
+            }
+
+            getCalendarResponse?.enqueue(object : Callback<GetCalendarResponse> {
+
+                override fun onFailure(call: Call<GetCalendarResponse>, t: Throwable) {
+                    Log.e(Constants.LOG_NETWORK, t.toString())
+                    listener?.onFail(Secret.NETWORK_UNKNOWN)
+                }
+
+                override fun onResponse(call: Call<GetCalendarResponse>, response: Response<GetCalendarResponse>) {
+                    response.body()?.let {
+                        if (it.status == Secret.NETWORK_SUCCESS) {
+                            Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH :${response.body().toString()}")
+                            listener?.onSuccess(response.body() as BaseModel, networkServiceType)
+                        } else {
+                            Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH: fail")
+                            listener?.onFail(response.body()?.status?: Secret.NETWORK_UNKNOWN)
                         }
                     }
                 }
