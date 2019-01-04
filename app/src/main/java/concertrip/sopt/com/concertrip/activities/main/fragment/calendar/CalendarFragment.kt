@@ -2,7 +2,6 @@ package concertrip.sopt.com.concertrip.activities.main.fragment.calendar
 
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
@@ -26,10 +25,19 @@ import java.util.*
 import kotlin.collections.ArrayList
 import concertrip.sopt.com.concertrip.R
 import concertrip.sopt.com.concertrip.interfaces.ListData
+import android.util.Log
+import concertrip.sopt.com.concertrip.interfaces.OnResponse
+import concertrip.sopt.com.concertrip.list.adapter.CalendarTagListAdapter
+import concertrip.sopt.com.concertrip.model.CalendarTag
+import concertrip.sopt.com.concertrip.network.ApplicationController
+import concertrip.sopt.com.concertrip.network.NetworkService
+import concertrip.sopt.com.concertrip.network.response.GetCalendarTypeResponse
+import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
+import concertrip.sopt.com.concertrip.utillity.Constants
+import concertrip.sopt.com.concertrip.utillity.Secret
 import android.graphics.Shader.TileMode
 import android.graphics.LinearGradient
 import android.graphics.Shader
-import android.util.Log
 import concertrip.sopt.com.concertrip.interfaces.OnResponse
 import concertrip.sopt.com.concertrip.network.ApplicationController
 import concertrip.sopt.com.concertrip.network.NetworkService
@@ -60,16 +68,24 @@ private const val ARG_PARAM2 = "param2"
  *
  */
 class CalendarFragment : Fragment(), OnItemClick, OnResponse {
+
+    var year: Int  by Delegates.notNull()
+    var month: Int by Delegates.notNull()
+
     var dataListArtist = arrayListOf<Artist>()
     var dataListConcert = arrayListOf<Concert>()
     var dataListOrigin = arrayListOf<ListData>()
-    var dataListTag = arrayListOf<String>(/*"모두","테마","걸그룹","보이그룹","힙합","발라드"*/)
+    var dataListTag = CalendarTag.instanceArray()
     var dataListTagInfo = arrayListOf<Tab>()
 
-    private var scheduleMap : HashMap<Int,ArrayList<Schedule>> by Delegates.notNull()
+    private var scheduleMap: HashMap<Int, ArrayList<Schedule>> by Delegates.notNull()
+
+    private val networkService: NetworkService by lazy {
+        ApplicationController.instance.networkService
+    }
 
 
-    private lateinit var dayList : ArrayList<String>
+    private lateinit var dayList: ArrayList<String>
     private val monthImgList = listOf<Int>(
         R.drawable.m_1, R.drawable.m_2, R.drawable.m_3,
         R.drawable.m_4, R.drawable.m_5, R.drawable.m_6,
@@ -81,7 +97,7 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
     // 날짜 > date객체(스트링으로 넘어옴)
 
     lateinit var calendarDetailAdapter: BasicListAdapter
-    lateinit var tagAdapter: HorizontalListAdapter
+    lateinit var tagAdapter: CalendarTagListAdapter
 
     /*TODO
     * have to make interface which contains schedule list
@@ -98,34 +114,43 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
     }
 
 
-    override fun onItemClick(root : RecyclerView.Adapter<out RecyclerView.ViewHolder>, position: Int) {
+    override fun onItemClick(root: RecyclerView.Adapter<out RecyclerView.ViewHolder>, position: Int) {
         /*TODO have to implement it*/
         // 태그 중 하나를 클릭하면 서버에서 그 태그에 알맞는 일정을 받아오기 위한 함수!
         // 여기서 사용하는 HorixzontalListAdapter에서 사용하며
         // holder.itemView.setOnClickListener에 달아뒀음!
         // 클릭된 아이템의 position 값이 parameter로 전달됨!
 
-        if(root is HorizontalListAdapter) {
+        if (root is CalendarTagListAdapter) {
             tagAdapter.setSelect(position)
-            connectRequestCalendarData(position)
-        }
-
-        else if(root is CalendarListAdapter){
-            if(calendarListAdapter.selected==-1){
-                recycler_view_calendar_detail.visibility=View.GONE
-            }else {
-                recycler_view_calendar_detail.visibility=View.VISIBLE
+            connectRequestMonthData(position)
+            connectRequestCalendar(dataListTag[position].type, dataListTag[position]._id)
+//            updateCalendar()
+        } else if (root is CalendarListAdapter) {
+            if (calendarListAdapter.selected == -1) {
+                recycler_view_calendar_detail.visibility = View.GONE
+            } else {
+                recycler_view_calendar_detail.visibility = View.VISIBLE
                 updateCalendarDetail(dayList[position].toInt())
             }
         }
     }
 
-    fun artistToCal(artist: Artist) {
-        /*TODO have to implement it*/
+
+    override fun onSuccess(obj: BaseModel, position: Int?) {
+        if (obj is GetCalendarTypeResponse) {
+            val map = obj.toScheduleMap()
+            calendarListAdapter.scheduleMap.clear()
+            calendarListAdapter.scheduleMap.putAll(map)
+            calendarListAdapter.notifyDataSetChanged()
+        }
     }
 
-    fun concertToCal(concert: Concert) {
-        /*TODO have to implement it*/
+    override fun onFail(status: Int) {
+        when(status){
+
+
+        }
     }
 
 
@@ -154,22 +179,58 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
 
     }
 
-    private fun updateUI(){
-        if(dataListConcert.size == 0)
-        {recycler_view_calendar_detail.visibility = View.GONE
-            rl_select_date_view.visibility = View.VISIBLE}
-        else
-        { recycler_view_calendar_detail.visibility = View.VISIBLE
-            rl_select_date_view.visibility = View.GONE}
+
+    private fun initialUI() {
+        btn_notification.setOnClickListener {
+            startActivity(Intent(activity, AlarmActivity::class.java))
+        }
+
+        activity?.let {
+
+            scheduleMap = Schedule.getDummyMap()
+            calendarListAdapter = CalendarListAdapter(it.applicationContext, makeDayList(), scheduleMap, this)
+            recycler_view_calendar.layoutManager = GridLayoutManager(it.applicationContext, 7)
+            recycler_view_calendar.adapter = calendarListAdapter
+
+            dataListConcert = Concert.getDummyArray()
+            dataListOrigin.addAll(Concert.getDummyArray())
+            calendarDetailAdapter = BasicListAdapter(it.applicationContext, dataListConcert, this)
+            recycler_view_calendar_detail.adapter = calendarDetailAdapter
+
+
+            tagAdapter = CalendarTagListAdapter(it.applicationContext, dataListTag, this, false)
+            recycler_view_filter.adapter = tagAdapter
+
+
+        }
+
+
+//        val textShader = LinearGradient(
+//            0f, 0f, 0f, 20f,
+//            intArrayOf(R.color.white, R.color.black),
+//            floatArrayOf(1f, 1f), TileMode.CLAMP
+//        )
+//        tv_calendar.paint.shader = textShader
+
+    }
+
+    private fun updateUI() {
+        if (dataListConcert.size == 0) {
+            recycler_view_calendar_detail.visibility = View.GONE
+            rl_select_date_view.visibility = View.VISIBLE
+        } else {
+            recycler_view_calendar_detail.visibility = View.VISIBLE
+            rl_select_date_view.visibility = View.GONE
+        }
     }
 
     private var mCal: Calendar by Delegates.notNull()
 
-    private fun setCalendarUI(year : String, month : String){
-        iv_month.setImageResource(monthImgList[month.toInt()-1])
+    private fun setCalendarUI(year: String, month: String) {
+        iv_month.setImageResource(monthImgList[month.toInt() - 1])
     }
 
-    private fun makeDayList()  : ArrayList<String>{
+    private fun makeDayList(): ArrayList<String> {
 
         //        this.inflater = mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
@@ -185,8 +246,10 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
 
         val curDayFormat = SimpleDateFormat("dd", Locale.KOREA)
 
+        year = curYearFormat.format(date).toInt()
 
-        setCalendarUI(curYearFormat.format(date),curMonthFormat.format(date))
+        month = curMonthFormat.format(date).toInt()
+        setCalendarUI(year.toString(), month.toString())
 
         //gridview 요일 표시
 
@@ -214,16 +277,16 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
             dayList.add("")
         }
 
-        setCalendarDate(dayList,mCal.get(Calendar.MONTH) + 1)
+        setCalendarDate(dayList, mCal.get(Calendar.MONTH) + 1)
 
 
         return dayList
 
     }
 
-    private fun setCalendarDate(dayList: ArrayList<String>,month : Int) {
+    private fun setCalendarDate(dayList: ArrayList<String>, month: Int) {
         mCal.set(Calendar.MONTH, month - 1);
-        for ( i  in 0 until mCal.getActualMaximum(Calendar.DAY_OF_MONTH)) {
+        for (i in 0 until mCal.getActualMaximum(Calendar.DAY_OF_MONTH)) {
             dayList.add("" + (i + 1));
         }
     }
@@ -232,7 +295,7 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
 
     }
 
-    private fun updateCalendarDetail(date : Int){
+    private fun updateCalendarDetail(date: Int) {
 
         val list = scheduleMap[date]
 
@@ -245,31 +308,43 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
     }
 
 
+    private fun connectRequestCalendar(type: String, _id: String) {
 
-    // TODO: Rename method, update argument and hook method into UI event
-    fun onButtonPressed(uri: Uri) {
-        listener?.onFragmentInteraction(uri)
-    }
+        val LOG_CALENDAR_TYPE = "/api/calendar/type"
+        Log.d(Constants.LOG_NETWORK, "$LOG_CALENDAR_TYPE, GET ? type=$type, id=$_id, year = $year, month = $month")
 
-//    fun changeFragment() {
-//        listener?.changeFragment(Constants.FRAGMENT_NOTIFICATION)
-//    }
+        val search: Call<GetCalendarTypeResponse> =
+            networkService.getCalendarType(1, type, _id, year, month)
+        search.enqueue(object : Callback<GetCalendarTypeResponse> {
 
+            override fun onFailure(call: Call<GetCalendarTypeResponse>, t: Throwable) {
+                Log.e(Constants.LOG_NETWORK, t.toString())
+                onFail(Secret.NETWORK_UNKNOWN)
+            }
 
+            //통신 성공 시 수행되는 메소드
+            override fun onResponse(call: Call<GetCalendarTypeResponse>, response: Response<GetCalendarTypeResponse>) {
+                Log.d(Constants.LOG_NETWORK, response.errorBody()?.string() ?: response.message())
 
-    private fun initialUI() {
-        btn_notification.setOnClickListener {
-            startActivity(Intent(activity, AlarmActivity::class.java))
-        }
+                if (response.isSuccessful) {
+                    Log.d(Constants.LOG_NETWORK, "$LOG_CALENDAR_TYPE :${response.body()?.status}")
+                    response.body()?.let {
+                        if (it.status == Secret.NETWORK_SUCCESS) {
+                            Log.d(Constants.LOG_NETWORK, "$LOG_CALENDAR_TYPE :${response.body().toString()}")
+                            onSuccess(response.body() as BaseModel, null)
+                        } else {
+                            Log.d(Constants.LOG_NETWORK, "$LOG_CALENDAR_TYPE: fail  ${response.body()?.message}")
+                            onFail(response.body()?.status ?: Secret.NETWORK_UNKNOWN)
+                        }
+                    }
 
-        activity?.let {
+                } else {
+                    onFail(Secret.NETWORK_UNKNOWN)
 
-            scheduleMap= Schedule.getDummyMap()
-            calendarListAdapter = CalendarListAdapter(it.applicationContext,makeDayList(),scheduleMap,this)
-            recycler_view_calendar.layoutManager=GridLayoutManager(it.applicationContext,7)
-            recycler_view_calendar.adapter=calendarListAdapter
-
-            dataListConcert = Concert.getDummyArray()
+                }
+            }
+        })
+              dataListConcert = Concert.getDummyArray()
             dataListOrigin.addAll(Concert.getDummyArray())
             calendarDetailAdapter = BasicListAdapter(it.applicationContext,dataListConcert,this)
             recycler_view_calendar_detail.adapter = calendarDetailAdapter
@@ -278,15 +353,7 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
             recycler_view_filter.adapter=tagAdapter
 
             connectRequestTagData()
-        }
 
-
-//        val textShader = LinearGradient(
-//            0f, 0f, 0f, 20f,
-//            intArrayOf(R.color.white, R.color.black),
-//            floatArrayOf(1f, 1f), TileMode.CLAMP
-//        )
-//        tv_calendar.paint.shader = textShader
 
     }
 

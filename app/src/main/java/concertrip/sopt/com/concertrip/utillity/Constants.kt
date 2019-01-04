@@ -22,8 +22,14 @@ class Constants {
         const val TYPE_TICKET = 3
         const val TYPE_ALARM = 4
         const val TYPE_CAUTION = 5
+        const val TYPE_CALENDAR_TAG = 6
 
 
+        //TODO 이거 변수명 마음에 안듬
+        const val REQUEST_ALL = "all"
+        const val REQUEST_MVP = "mvp"
+        const val REQUEST_ARTIST = "artist"
+        const val REQUEST_GENRE = "genre"
 
 
         const val BUNDLE_KEY_INDEX = "INDEX"
@@ -39,7 +45,9 @@ class Constants {
 
         const val INTENT_TAG_ID = "id"
 
+        const val INTENT_ARTIST = "artist"
         const val TYPE_MONTH = 0
         const val TYPE_DAY = 1
+
     }
 }

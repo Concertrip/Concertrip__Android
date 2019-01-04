@@ -22,12 +22,16 @@ import concertrip.sopt.com.concertrip.network.ApplicationController
 import concertrip.sopt.com.concertrip.network.NetworkService
 import concertrip.sopt.com.concertrip.network.response.GetArtistResponse
 import concertrip.sopt.com.concertrip.network.response.GetGenreResponse
+import concertrip.sopt.com.concertrip.utillity.Constants.Companion.INTENT_ARTIST
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.INTENT_TAG_ID
+import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_ARTIST
+import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_THEME
 import concertrip.sopt.com.concertrip.utillity.Secret
 import kotlinx.android.synthetic.main.activity_artist.*
 
 import kotlinx.android.synthetic.main.content_artist.*
 import kotlinx.android.synthetic.main.content_header.*
+import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -95,8 +99,16 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_artist)
 
-//        if(intent.hasExtra(INTENT_TAG_ID))
-//            artistId = intent.getStringExtra(INTENT_TAG_ID)
+        if(intent.hasExtra(INTENT_TAG_ID))
+            artistId = intent.getStringExtra(INTENT_TAG_ID)
+
+
+        if(intent.getIntExtra(INTENT_ARTIST, TYPE_ARTIST) == TYPE_ARTIST)
+            isGenre = false
+        else
+            isGenre = true
+
+
 // 장르인지 아티스트인지 intent에서 받아오기
 
         initialUI()
@@ -122,6 +134,8 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         btn_follow.setOnClickListener {
             showDialog()
         }
+
+        toast(isGenre.toString())
     }
 
     private fun updateUI() {
