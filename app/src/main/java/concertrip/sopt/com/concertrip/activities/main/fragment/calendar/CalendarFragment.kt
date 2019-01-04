@@ -37,8 +37,6 @@ import concertrip.sopt.com.concertrip.utillity.Constants
 import concertrip.sopt.com.concertrip.utillity.Secret
 import concertrip.sopt.com.concertrip.network.response.GetCalendarTabResponse
 import concertrip.sopt.com.concertrip.network.response.TabData
-import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_MONTH
-import concertrip.sopt.com.concertrip.utillity.NetworkUtil.Companion.getCalendarList
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -395,7 +393,7 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
 
     fun updateTagList(list : ArrayList<TabData>) {
         dataListTag.clear()
-        dataListTag.addAll(CalendarTag.instanceArray())
+//        dataListTag.addAll(CalendarTag.instanceArray())
         list.forEach {
             dataListTag.add(it.toCalendarTag())
         }
