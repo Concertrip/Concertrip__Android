@@ -111,5 +111,19 @@ interface NetworkService {
         @Header("Authorization") token: Int,
         @Query("id") id: Int
     ):Call<GetTicketDetailResponse>
-  
+
+
+
+    //*캘린더 스케쥴
+    @GET("/api/calendar/type")
+    @Headers("Content-Type:application/json")
+    fun getCalendarType(
+        @Header("Authorization") token: Int,
+        @Query("type") type: String,
+        @Query("id") _id: String,
+        @Query("year") year: Int,
+        @Query("month") month: Int
+    ):Call<GetCalendarTypeResponse>
+
+
 }
