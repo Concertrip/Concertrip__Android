@@ -39,10 +39,7 @@ class HorizontalListAdapter(
     override fun getItemCount(): Int = dataList.size
 
     override fun onBindViewHolder(holder: HorizontalViewHolder, position: Int) {
-
-
-                holder.vUnderline.visibility = if (isUnderline && position == selected) View.VISIBLE else View.GONE
-
+        holder.vUnderline.visibility = if (isUnderline && position == selected) View.VISIBLE else View.GONE
 
         if(position == selected){
             holder.tvtext.typeface = Typeface.DEFAULT_BOLD
@@ -51,7 +48,6 @@ class HorizontalListAdapter(
             holder.tvtext.typeface = Typeface.DEFAULT
             holder.tvtext.setTextColor(ContextCompat.getColor(mContext, R.color.grayDark))
         }
-
 
         holder.tvtext.text = dataList[position]
 

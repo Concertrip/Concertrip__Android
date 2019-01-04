@@ -111,5 +111,34 @@ interface NetworkService {
         @Header("Authorization") token: Int,
         @Query("id") id: Int
     ):Call<GetTicketDetailResponse>
-  
+
+    //*캘린더 탭 리스트
+    @GET("/api/calendar/tab")
+    @Headers("Content-Type:application/json")
+    fun getCalendarTabList(
+        @Header("Authorization") token: Int
+    ):Call<GetCalendarTabResponse>
+
+    //*캘린더 리스트
+    @GET("/api/calendar")
+    @Headers("Content-Type:application/json")
+    fun getCalendarList(
+        @Header("Authorization") token: Int,
+        @Query("type") type: String,
+        @Query("id") id: String?,
+        @Query("year") year: String,
+        @Query("month") month: String
+    ):Call<GetCalendarResponse>
+
+    //*캘린더 데이 리스트
+    @GET("/api/calendar/day")
+    @Headers("Content-Type:application/json")
+    fun getCalendarDayList(
+        @Header("Authorization") token: Int,
+        @Query("type") type: String,
+        @Query("id") id: String?,
+        @Query("year") year: String,
+        @Query("month") month: String,
+        @Query("day") day: String
+    ):Call<GetCalendarResponse>
 }
