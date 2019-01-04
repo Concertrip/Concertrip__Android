@@ -58,8 +58,8 @@ class BasicListAdapter(
                     val concert = dataList[position] as Concert
                     concert.subscribe = concert.subscribe
 
-                    concert?.subscribe?.let {
-                        if (concert!!.subscribe!!)
+                    concert.subscribe?.let {
+                        if (concert.subscribe!!)
                             Toast.makeText(mContext, "내 공연에 추가되었습니다!", Toast.LENGTH_LONG).show()
                         else
                             Toast.makeText(mContext, "내 공연에서 쫒겨났습니다!", Toast.LENGTH_LONG).show()
@@ -83,9 +83,8 @@ class BasicListAdapter(
         }
     }
 
-    override fun onFail() {
+    override fun onFail(status : Int) {
         Toast.makeText(mContext,"인터넷을 다시 확인해주세요.",Toast.LENGTH_SHORT).show()
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     private val networkService: NetworkService by lazy {

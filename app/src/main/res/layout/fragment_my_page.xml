@@ -45,15 +45,70 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
-                <android.support.v7.widget.RecyclerView
-                        android:id="@+id/recycler_view_ticket"
-                        android:layout_marginTop="20dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        app:layoutManager="android.support.v7.widget.LinearLayoutManager">
+                <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_centerInParent="true"
+                        android:weightSum="10"
+                        android:paddingHorizontal="28dp"
+                        android:paddingVertical="28dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                    <LinearLayout
+                            android:layout_weight="7"
+                            android:orientation="vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                        <TextView
+                                android:id="@+id/tv_ticket_title"
+                                android:text="더 몬스터 페스티벌"
+                                tools:text="더 몬스터 페스티벌"
+                                android:textColor="@color/textTicket"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        <LinearLayout
+                                android:paddingTop="18dp"
+                                android:orientation="horizontal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+                            <TextView
+                                    android:text="@string/txt_li_ticket_place"
+                                    android:textColor="@color/textTicket"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                            <TextView
+                                    android:id="@+id/tv_ticket_place"
+                                    android:text="성남아트센터"
+                                    tools:text="성남아트센터"
+                                    android:textColor="@color/textTicket"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                        <LinearLayout
+                                android:orientation="horizontal"
+                                android:paddingTop="0.3dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+                            <TextView
+                                    android:text="@string/txt_li_ticket_date"
+                                    android:textColor="@color/textTicket"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                            <TextView
+                                    android:id="@+id/tv_ticket_date"
+                                    android:text="2018.12.23(월)"
+                                    tools:text="2018.12.23(월)"
+                                    android:textColor="@color/textTicket"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                        </LinearLayout>
 
-                </android.support.v7.widget.RecyclerView>
+                    </LinearLayout>
+                    <ImageView
+                            android:layout_weight="3"
+                            android:src="@drawable/ic_account_circle"
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"/>
+                </LinearLayout>
 
                 <TextView
                         android:layout_marginTop="55.7dp"

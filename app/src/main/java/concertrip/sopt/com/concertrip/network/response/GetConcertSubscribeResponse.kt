@@ -7,11 +7,11 @@ import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
 
 data class GetConcertSubscribeResponse (
     @SerializedName("data")
-    var data : List<ConcertData>
+    var data : List<ConcertData>?
 ): BaseModel(){
     fun getConcertList() : ArrayList<Concert>{
         val list = ArrayList<Concert>()
-        data.forEach {
+        data?.forEach {
             list.add(it.toConcert())
         }
         return list
@@ -19,7 +19,7 @@ data class GetConcertSubscribeResponse (
 
     override fun toString(): String {
         var result =""
-        data.forEach {
+        data?.forEach {
             result = result.plus(it.toString())+","
         }
         return result

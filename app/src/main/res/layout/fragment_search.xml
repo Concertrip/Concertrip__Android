@@ -50,7 +50,6 @@
     <android.support.v4.widget.NestedScrollView
             android:id="@+id/search_result"
             android:layout_width="match_parent"
-            android:visibility="gone"
             android:layout_height="match_parent">
         <LinearLayout
                 android:layout_marginHorizontal="16dp"
@@ -78,27 +77,36 @@
                         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                 >
                 </android.support.v7.widget.RecyclerView>
+            </LinearLayout>
+
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+            >
                 <TextView
-                        android:id="@+id/btn_more_artist"
-                        android:text="전체보기"
-                        android:textSize="12sp"
-                        android:textColor="#666666"
-                        android:layout_marginTop="6.8dp"
-                        android:layout_marginLeft="304.8dp"
-                        android:lineSpacingExtra="6sp"
+                        android:layout_marginTop="20dp"
+                        android:text="테마"
+                        android:textColor="@color/textTagDefault"
+                        android:textSize="20sp"
+                        android:lineSpacingExtra="9sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
-                <View
+                <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycler_view_genre"
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="9dp"
-                        android:background="#9e9e9f"/>
+                        android:layout_height="match_parent"
+                        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+
+                >
+                </android.support.v7.widget.RecyclerView>
             </LinearLayout>
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                            >
+            >
                 <TextView
                         android:layout_marginTop="20dp"
                         android:text="콘서트"
@@ -115,19 +123,11 @@
 
                 >
                 </android.support.v7.widget.RecyclerView>
-                <TextView
-                        android:id="@+id/btn_more_list"
-                        android:text="전체보기"
-                        android:textSize="12sp"
-                        android:textColor="#666666"
-                        android:layout_marginTop="6.8dp"
-                        android:layout_marginStart="304.8dp"
-                        android:lineSpacingExtra="6sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-            </LinearLayout>
 
+            </LinearLayout>
         </LinearLayout>
+
+
 
 
     </android.support.v4.widget.NestedScrollView>

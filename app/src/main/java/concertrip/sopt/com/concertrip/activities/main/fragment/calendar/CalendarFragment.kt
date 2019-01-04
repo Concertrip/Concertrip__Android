@@ -29,8 +29,18 @@ import concertrip.sopt.com.concertrip.interfaces.ListData
 import android.graphics.Shader.TileMode
 import android.graphics.LinearGradient
 import android.graphics.Shader
-
-
+import android.util.Log
+import concertrip.sopt.com.concertrip.interfaces.OnResponse
+import concertrip.sopt.com.concertrip.network.ApplicationController
+import concertrip.sopt.com.concertrip.network.NetworkService
+import concertrip.sopt.com.concertrip.network.response.GetCalendarTabResponse
+import concertrip.sopt.com.concertrip.network.response.GetGenreResponse
+import concertrip.sopt.com.concertrip.network.response.Tab
+import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
+import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_MONTH
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -47,12 +57,12 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  *
  */
-class CalendarFragment : Fragment(), OnItemClick {
-
+class CalendarFragment : Fragment(), OnItemClick, OnResponse {
     var dataListArtist = arrayListOf<Artist>()
     var dataListConcert = arrayListOf<Concert>()
     var dataListOrigin = arrayListOf<ListData>()
-    var dataListTag = arrayListOf<String>("모두","테마","걸그룹","보이그룹","힙합","발라드")
+    var dataListTag = arrayListOf<String>(/*"모두","테마","걸그룹","보이그룹","힙합","발라드"*/)
+    var dataListTagInfo = arrayListOf<Tab>()
 
     private var scheduleMap : HashMap<Int,ArrayList<Schedule>> by Delegates.notNull()
 
@@ -81,6 +91,10 @@ class CalendarFragment : Fragment(), OnItemClick {
     private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
 
+    private val networkService: NetworkService by lazy {
+        ApplicationController.instance.networkService
+    }
+
 
     override fun onItemClick(root : RecyclerView.Adapter<out RecyclerView.ViewHolder>, position: Int) {
         /*TODO have to implement it*/
@@ -91,7 +105,8 @@ class CalendarFragment : Fragment(), OnItemClick {
 
         if(root is HorizontalListAdapter) {
             tagAdapter.setSelect(position)
-            updateCalendar()
+            connectRequestMonthData(position)
+            // 여기여기~
         }
 
         else if(root is CalendarListAdapter){
@@ -212,7 +227,7 @@ class CalendarFragment : Fragment(), OnItemClick {
         }
     }
 
-    private fun updateCalendar(){
+    private fun updateCalendar(idx : Int){
 
     }
 
@@ -258,11 +273,10 @@ class CalendarFragment : Fragment(), OnItemClick {
             calendarDetailAdapter = BasicListAdapter(it.applicationContext,dataListConcert,this)
             recycler_view_calendar_detail.adapter = calendarDetailAdapter
 
-
             tagAdapter = HorizontalListAdapter(it.applicationContext,dataListTag,this, false)
             recycler_view_filter.adapter=tagAdapter
 
-
+            connectRequestTagData()
         }
 
 
@@ -275,6 +289,74 @@ class CalendarFragment : Fragment(), OnItemClick {
 
     }
 
+    fun connectRequestTagData(){
+        val getCalendarTabResponse : Call<GetCalendarTabResponse> = networkService.getCalendarTabList(1)
+
+        getCalendarTabResponse.enqueue(object : Callback<GetCalendarTabResponse> {
+            override fun onFailure(call: Call<GetCalendarTabResponse>?, t: Throwable?) {
+                Log.v("test0101", "getArtistResponse in onFailure" + t.toString())
+            }
+
+            override fun onResponse(call: Call<GetCalendarTabResponse>?, response: Response<GetCalendarTabResponse>?) {
+                response?.let { res ->
+                    if (res.body()?.status == 200) {
+                        res.body()!!.data?.let {
+                            dataListTagInfo = ArrayList(res.body()?.data)
+                            updateTagList()
+                        }
+                    } else {
+                        Log.v("test0102", "getGenreResponse in " + response.body()?.status.toString())
+                    }
+                }
+
+            }
+        })
+    }
+
+    fun connectRequestMonthData(idx : Int){
+        val getCalendarTabResponse : Call<GetCalendarTabResponse> = networkService.getCalendarTabList(1)
+
+        getCalendarTabResponse.enqueue(object : Callback<GetCalendarTabResponse> {
+            override fun onFailure(call: Call<GetCalendarTabResponse>?, t: Throwable?) {
+                Log.v("test0101", "getArtistResponse in onFailure" + t.toString())
+            }
+
+            override fun onResponse(call: Call<GetCalendarTabResponse>?, response: Response<GetCalendarTabResponse>?) {
+                response?.let { res ->
+                    if (res.body()?.status == 200) {
+                        res.body()!!.data?.let {
+                            dataListTagInfo = ArrayList(res.body()?.data)
+                            updateTagList()
+                        }
+                    } else {
+                        Log.v("test0102", "getGenreResponse in " + response.body()?.status.toString())
+                    }
+                }
+
+            }
+        })
+    }
+
+    override fun onSuccess(obj: BaseModel, position: Int?) {
+        if(position == TYPE_MONTH){
+
+        }
+        else{
+
+        }
+    }
+
+    override fun onFail(status: Int) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    fun updateTagList(){
+        dataListTag.clear()
+        dataListTagInfo.forEach{
+            dataListTag.add(it.name)
+        }
+        tagAdapter.notifyDataSetChanged()
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

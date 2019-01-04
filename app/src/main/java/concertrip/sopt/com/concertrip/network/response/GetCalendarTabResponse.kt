@@ -1,13 +1,15 @@
 package concertrip.sopt.com.concertrip.network.response
 
-
 import com.google.gson.annotations.SerializedName
-import concertrip.sopt.com.concertrip.network.response.data.ArtistData
 import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
 
-data class GetArtistResponse (
+data class GetCalendarTabResponse (
     @SerializedName("data")
-    var data : ArtistData?
-): BaseModel(){
-    override fun toString(): String =data?.toString()?:"null"
-}
+    var data : List<Tab>?
+): BaseModel()
+
+data class Tab(
+    var _id : String,
+    var type : String,
+    var name : String
+)

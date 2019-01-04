@@ -6,9 +6,9 @@ import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
 
 data class GetConcertResponse (
     @SerializedName("data")
-    var data : ConcertData
+    var data : ConcertData?
 ): BaseModel(){
-    override fun toString(): String  = data.toString()
+    override fun toString(): String  = data?.toString()?:"null"
 }
 
 

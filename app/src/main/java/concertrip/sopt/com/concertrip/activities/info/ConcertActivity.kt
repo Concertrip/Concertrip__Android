@@ -190,15 +190,21 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
                 Log.v("test0101", "getConcertResponse in onFailure" + t.toString())
             }
             override fun onResponse(call: Call<GetConcertResponse>?, response: Response<GetConcertResponse>?) {
-                if (response!!.body()?.status == 200) {
-                    concert = response!!.body()!!.data.toConcert()
-                    updateArtistList(ArrayList(concert.artistList))
-                    updateConcertData()
-                    updateCautionData(ArrayList(concert.precaution))
-                    updateSeatData(ArrayList(concert.seatList))
-                } else {
-                    Log.v("test0101", "getConcertResponse in "+ response.body()?.status.toString())
+                response?.let { res->
+                    if (res.body()?.status == 200) {
+                        res.body()!!.data?.let {
+                            concert = it.toConcert()
+                            updateArtistList(ArrayList(concert.artistList))
+                            updateConcertData()
+                            updateCautionData(ArrayList(concert.precaution))
+                            updateSeatData(ArrayList(concert.seatList))
+                        }
+
+                    } else {
+                        Log.v("test0101", "getConcertResponse in "+ response.body()?.status.toString())
+                    }
                 }
+
             }
         })
     }

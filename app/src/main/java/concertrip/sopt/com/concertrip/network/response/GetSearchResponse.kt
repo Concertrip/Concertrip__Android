@@ -12,11 +12,11 @@ import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
 
 data class GetSearchResponse (
     @SerializedName("data")
-    var data : SearchData
+    var data : SearchData?
 ): BaseModel(){
     fun toConcertList() : ArrayList<Concert>{
         val list = ArrayList<Concert>()
-        data.concerts?.forEach {
+        data?.concerts?.forEach {
             list.add(it.toConcert())
         }
         return list
@@ -24,11 +24,19 @@ data class GetSearchResponse (
 
     fun toArtistList() : ArrayList<Artist>{
         val list = ArrayList<Artist>()
-        data.artists?.forEach {
+        data?.artists?.forEach {
             list.add(it.toArtist())
         }
         return list
     }
 
-    override fun toString(): String = data.toString()
+    fun toGenreList() : ArrayList<Artist>{
+        val list = ArrayList<Artist>()
+        data?.genres?.forEach {
+            list.add(it.toArtist())
+        }
+        return list
+    }
+
+    override fun toString(): String = data?.toString()?:"null"
 }
