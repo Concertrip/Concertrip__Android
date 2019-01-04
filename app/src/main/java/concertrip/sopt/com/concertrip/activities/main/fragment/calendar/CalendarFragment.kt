@@ -38,6 +38,7 @@ import concertrip.sopt.com.concertrip.utillity.Secret
 import concertrip.sopt.com.concertrip.network.response.GetCalendarTabResponse
 import concertrip.sopt.com.concertrip.network.response.TabData
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_MONTH
+import concertrip.sopt.com.concertrip.utillity.NetworkUtil.Companion.getCalendarList
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -72,10 +73,10 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
 
     private lateinit var dayList: ArrayList<String>
     private val monthImgList = listOf<Int>(
-        R.drawable.ic_account_circle, R.drawable.ic_account_circle, R.drawable.ic_account_circle,
-        R.drawable.ic_account_circle, R.drawable.ic_account_circle, R.drawable.ic_account_circle,
-        R.drawable.ic_account_circle, R.drawable.ic_account_circle, R.drawable.ic_account_circle,
-        R.drawable.ic_account_circle, R.drawable.ic_account_circle, R.drawable.ic_account_circle
+        R.drawable.m_1, R.drawable.m_2, R.drawable.m_3,
+        R.drawable.m_4, R.drawable.m_5, R.drawable.m_6,
+        R.drawable.m_7, R.drawable.m_8, R.drawable.m_9,
+        R.drawable.m_10, R.drawable.m_11, R.drawable.m_12
     )
 
     lateinit var calendarListAdapter: CalendarListAdapter
@@ -398,6 +399,7 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
         list.forEach {
             dataListTag.add(it.toCalendarTag())
         }
+
         tagAdapter.notifyDataSetChanged()
     }
 

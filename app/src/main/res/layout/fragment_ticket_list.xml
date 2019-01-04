@@ -17,14 +17,14 @@
 
         <Button
                 android:id="@+id/btn_ticket_list_back"
-                android:background="@drawable/ic_back"
+                android:background="@drawable/back_arrow"
                 android:layout_width="21dp"
                 android:layout_height="21dp"/>
 
         <TextView
                 android:text="@string/txt_ticket"
                 android:textSize="24sp"
-                android:textColor="@color/textTagDefault"
+                android:textColor="@color/white"
                 android:layout_marginLeft="17dp"
                 android:textStyle="bold"
                 android:paddingVertical="25dp"

@@ -15,7 +15,7 @@
             android:layout_height="wrap_content">
         <Button
                 android:id="@+id/btn_back"
-                android:background="@drawable/ic_back"
+                android:background="@drawable/back_arrow"
                 android:layout_gravity="center"
                 android:layout_width="30dp"
                 android:layout_height="30dp"/>
@@ -37,8 +37,8 @@
                     android:backgroundTint="@color/white"
                     android:textCursorDrawable="@color/white"
                     android:layout_height="wrap_content"/>
-            <Button android:layout_width="24dp"
-                    android:layout_height="24dp"
+            <Button android:layout_width="16dp"
+                    android:layout_height="16dp"
                     android:id="@+id/btn_search"
                     android:background="@drawable/ic_search"
             />
