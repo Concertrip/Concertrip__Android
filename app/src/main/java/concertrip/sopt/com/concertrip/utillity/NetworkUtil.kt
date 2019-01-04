@@ -211,7 +211,7 @@ class NetworkUtil {
 
                 override fun onFailure(call: Call<GetSubscribedResponse>, t: Throwable) {
                     Log.e(Constants.LOG_NETWORK, t.toString())
-                    listener?.onFail()
+                    listener?.onFail(Secret.NETWORK_UNKNOWN)
                 }
 
                 override fun onResponse(call: Call<GetSubscribedResponse>, response: Response<GetSubscribedResponse>) {
@@ -221,7 +221,7 @@ class NetworkUtil {
                             listener?.onSuccess(response.body() as BaseModel, 0)
                         } else {
                             Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH: fail")
-                            listener?.onFail()
+                            listener?.onFail(Secret.NETWORK_UNKNOWN)
                         }
                     }
                 }
