@@ -162,7 +162,6 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
 
         }
 
-        toast(isGenre.toString())
     }
 
     private fun toggleFollowBtn(b: Boolean) {

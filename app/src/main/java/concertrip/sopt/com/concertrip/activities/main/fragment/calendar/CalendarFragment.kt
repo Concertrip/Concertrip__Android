@@ -81,6 +81,11 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
     override fun onItemClick(root: RecyclerView.Adapter<out RecyclerView.ViewHolder>, position: Int) {
         activity?.progress_bar?.visibility=View.VISIBLE
         if (root is CalendarTabListAdapter) {
+
+            activity?.let {
+            tv_detail?.text="날짜를 선택해주세요"
+
+            }
             clearDetailList()
 
             tabAdapter.setSelect(position)
@@ -124,6 +129,8 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
         if (obj is GetCalendarResponse) {
             when (position) {
                 Constants.TYPE_MONTH -> {
+
+                    tv_detail?.text="날짜를 선택해주세요"
                     clearDetailList()
 
                     val map = obj.toScheduleMap()
@@ -287,9 +294,10 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
 
     private fun emptyResult(){
         recycler_view_calendar_detail.visibility = View.GONE
-        tv_detail.text="아직 아무 일정이 없습니다."
+        tv_detail?.text="아직 아무 일정이 없습니다."
     }
     private fun clearDetailList(){
+
         calendarAdapter.selected=-1
         calendarAdapter.notifyDataSetChanged()
 
