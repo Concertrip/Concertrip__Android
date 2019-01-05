@@ -55,13 +55,13 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
         R.drawable.m_10, R.drawable.m_11, R.drawable.m_12
     )
 
-    var dataListTag = ArrayList<CalendarTab>()
+    private var dataListTag = ArrayList<CalendarTab>()
 
     private lateinit var dayList: ArrayList<String>
     private var scheduleMap: HashMap<Int, ArrayList<Schedule>> by Delegates.notNull()
     private var tabColorMap: HashMap<String?, Int> by Delegates.notNull()
 
-    var dataListDetail = arrayListOf<ListData>()
+    private var dataListDetail = arrayListOf<ListData>()
 
     private lateinit var tabAdapter: CalendarTabListAdapter
     private lateinit var calendarAdapter: CalendarListAdapter
@@ -99,7 +99,6 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
                 recycler_view_calendar_detail.visibility = View.GONE
                 tv_detail.text="날짜를 선택해주세요"
             } else {
-                recycler_view_calendar_detail.visibility = View.VISIBLE
                 NetworkUtil.getCalendarList(
                     networkService,
                     this,
@@ -272,6 +271,7 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
             emptyResult()
             return
         }
+        recycler_view_calendar_detail.visibility = View.VISIBLE
         dataListDetail.clear()
         dataListDetail.addAll(list)
         detailAdapter.notifyDataSetChanged()
