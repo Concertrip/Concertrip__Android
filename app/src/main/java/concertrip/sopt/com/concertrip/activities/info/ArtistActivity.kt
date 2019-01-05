@@ -195,7 +195,7 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
 
     private fun updateArtistData(artist: Artist) {
         // TODO 좋아요 버튼 설정
-        btn_follow.setImageDrawable(if (artist.subscribe) getDrawable(R.drawable.ic_like) else getDrawable(R.drawable.ic_unlike))
+        btn_follow.setImageDrawable(if (artist.subscribe) getDrawable(R.drawable.ic_header_likes_selected) else getDrawable(R.drawable.ic_header_likes_unselected))
 
         if (URLUtil.isValidUrl(artist.backImg))
             Glide.with(this).load(artist.backImg).into(iv_back)

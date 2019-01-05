@@ -13,14 +13,13 @@
         <ImageView
                 android:id="@+id/iv_back"
                 android:layout_width="match_parent"
-                android:layout_height="175dp"
-                android:scaleType="centerCrop"
+                android:layout_height="157dp"
                 android:background="#f2f2f2"/>
         <ImageView
                 android:id="@+id/iv_profile"
                 android:layout_width="110dp"
                 android:layout_height="110dp"
-                android:layout_marginTop="121.4dp"
+                android:layout_marginTop="102dp"
                 android:layout_marginStart="16.1dp"
                 android:src="@drawable/ic_account_circle"
         />
@@ -30,17 +29,13 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true">
 
-            <ImageButton
+            <ImageView
                     android:id="@+id/btn_follow"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_marginTop="121.6dp"
-                    android:layout_marginEnd="18.8dp"
-                    android:src="@drawable/ic_like"
-                    android:scaleType="fitXY"
-                    android:background="@android:color/transparent"
-            />
-
+                    android:layout_marginTop="97dp"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/ic_header_likes_selected"/>
         </LinearLayout>
 
         <LinearLayout
