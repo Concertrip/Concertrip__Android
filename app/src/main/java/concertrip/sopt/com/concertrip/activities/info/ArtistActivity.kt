@@ -75,7 +75,7 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         return findViewById<View>(R.id.youtude) as YouTubePlayerView
     }
 
-    private var isGenre: Boolean = true
+    private var isGenre: Boolean = false
     private var artistId: String = "5c298b2a3eea39d2b00ca7d4"
 
 //    private var isGenre: Boolean = false
@@ -88,6 +88,7 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
 
     var dataListMember = arrayListOf<Artist>()
     lateinit var memberListAdapter: BasicListAdapter
+
 
     private val networkService: NetworkService by lazy {
         ApplicationController.instance.networkService
@@ -157,6 +158,9 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
 
     private fun updateArtistData(artist : Artist) {
         // TODO 좋아요 버튼 설정
+        if(artist.subscribe) btn_follow.setImageResource(R.drawable.ic_header_likes_selected)
+        else btn_follow.setImageResource(R.drawable.ic_header_likes_unselected)
+
         if (URLUtil.isValidUrl(artist.backImg))
             Glide.with(this).load(artist.backImg).into(iv_back)
 //        else
