@@ -15,9 +15,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="175dp"
                 android:background="#f2f2f2"/>
-
         <ImageView
-
                 android:id="@+id/iv_profile"
                 android:layout_width="110dp"
                 android:layout_height="110dp"
@@ -45,6 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:id="@+id/ly_group"
                 android:layout_below="@id/iv_back"
                 android:layout_marginTop="11.6dp"
                 android:layout_marginStart="143.9dp">
@@ -55,7 +54,7 @@
                     android:textSize="20sp"
                     android:textColor="@color/white"
                     android:textStyle="bold"
-                    tools:text="더 몬스터 페스티벌"
+                    tools:text="더 몬스터 페스티벌fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
                     android:text="더 몬스터 페스티벌"/>
 
             <LinearLayout
@@ -83,10 +82,10 @@
 
         <!--have to fix it-->
         <com.google.android.youtube.player.YouTubePlayerView
-                android:id="@+id/youtude"
+                android:id="@+id/youtube"
                 android:layout_width="326.7dp"
                 android:layout_height="184.7dp"
-                android:layout_below="@+id/iv_back"
+                android:layout_below="@+id/ly_group"
                 android:layout_marginTop="73.5dp"
                 android:layout_centerHorizontal="true"
                 android:background="#e6e6e6"

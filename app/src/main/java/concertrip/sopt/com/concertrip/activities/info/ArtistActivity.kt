@@ -72,7 +72,7 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
     }
 
     private fun getYouTubePlayerProvider(): YouTubePlayer.Provider {
-        return findViewById<View>(R.id.youtude) as YouTubePlayerView
+        return findViewById<View>(R.id.youtube) as YouTubePlayerView
     }
 
     private var isGenre: Boolean = true

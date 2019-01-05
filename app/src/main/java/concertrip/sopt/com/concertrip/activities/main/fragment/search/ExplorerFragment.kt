@@ -139,8 +139,14 @@ class ExplorerFragment : Fragment(), OnItemClick ,OnResponse{
     }
 
 
+    private fun clearListData(){
+        dataList.clear()
+        dataAdapter.notifyDataSetChanged()
+
+    }
 
     private fun connectRequestData(tag: String) {
+        clearListData()
         NetworkUtil.search(networkService,this,tag)
     }
 
