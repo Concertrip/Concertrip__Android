@@ -40,27 +40,5 @@ class TicketListAdapter(val mContext : Context, var dataList : ArrayList<Ticket>
         }
     }
 
-//    val dayNum : List<String> = listOf("일", "월", "화", "수", "목", "금", "토")
-//
-//    private fun convertDate(input: String?) : String?{
-//        var convertedDate = StringBuilder()
-//
-//            if(input != null){
-//                val dateInfoList = input.split("T")
-//                val dateFormat = SimpleDateFormat("yyyy-MM-dd").parse(input.split("T")[0])
-//                val instance : Calendar = Calendar.getInstance()
-//                instance.setTime(dateFormat)
-//                val dayNumIdx = instance.get(Calendar.DAY_OF_WEEK)
-//
-//                val splitedList = dateInfoList[0].split("-")
-//
-//                convertedDate.append(splitedList[0]+"."+splitedList[1]+"."+splitedList[2]+"("+dayNum[dayNumIdx-1]+")")
-//
-//                return convertedDate.toString()
-//            }
-//            else{
-//                return convertedDate.toString()
-//            }
-//    }
 
 }

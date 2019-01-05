@@ -15,19 +15,10 @@ import org.jetbrains.anko.textColor
 import kotlin.properties.Delegates
 
 class CalendarViewHolder(itemView : View)  : RecyclerView.ViewHolder(itemView){
-     var lySchedule : LinearLayout? = itemView.findViewById(R.id.ly_schedule)
+     var  lySchedule : LinearLayout? = itemView.findViewById(R.id.ly_schedule)
      var  tvCalendar : TextView = itemView.findViewById(R.id.tv_calendar)
      var  ivSelected : ImageView? = itemView.findViewById(R.id.iv_calendar)
 
-     fun setToday(mContext: Context, b : Boolean){
-//          if(b){
-//               tvCalendar.textColor=mContext.getColor(R.color.mainColorP)
-//          }else{
-//               tvCalendar.textColor=mContext.getColor(R.color.white)
-//
-//          }
-
-     }
      fun setSelected(mContext: Context, b : Boolean){
           if(b){
                ivSelected?.visibility=View.VISIBLE

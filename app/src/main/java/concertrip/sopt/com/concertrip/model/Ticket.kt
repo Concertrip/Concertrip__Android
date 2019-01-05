@@ -9,9 +9,9 @@ data class Ticket(var _id : Int, var name : String, var location: String,
 
     override fun getType(): Int = Constants.TYPE_TICKET
 
-    override fun getId(): String=0.toString()
+    override fun getId(): String=_id.toString()
 
-    override fun getMainTitle(): String = ""
+    override fun getMainTitle(): String = name
 
     override fun getSubTitle(): String =""
 

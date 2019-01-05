@@ -26,20 +26,10 @@ import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TAB_SEARCH
 
 
 class MainActivity : AppCompatActivity() , OnFragmentInteractionListener {
-    override fun changeFragment(what: Int, bundle: Bundle?) {
-        fragmentAdapter.setFragment(what,bundle)
-    }
-
     override fun changeFragment(what: Int) {
-        changeFragment(what,null)
-
+        fragmentAdapter.setFragment(what)
     }
 
-    override fun onFragmentInteraction(uri: Uri) {
-
-        //Fragment에서 발생한 이벤트를 MainActivity에서 처리해야 할 일이 있을때!
-
-    }
 
     var fragmentAdapter : MainFragmentAdapter by Delegates.notNull()
 
@@ -57,12 +47,9 @@ class MainActivity : AppCompatActivity() , OnFragmentInteractionListener {
 
         fragmentAdapter = MainFragmentAdapter(supportFragmentManager, main_tab)
         main_tab.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener {
-            override fun onTabReselected(tab: TabLayout.Tab?) {
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
 
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-            }
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when(tab?.position) {
@@ -111,21 +98,5 @@ class MainActivity : AppCompatActivity() , OnFragmentInteractionListener {
 
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
 }
 

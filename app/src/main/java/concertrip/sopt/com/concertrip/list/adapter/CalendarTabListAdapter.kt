@@ -13,21 +13,13 @@ import concertrip.sopt.com.concertrip.list.viewholder.HorizontalViewHolder
 import concertrip.sopt.com.concertrip.model.CalendarTab
 
 
-class CalendarTagListAdapter(
+class CalendarTabListAdapter(
     private val mContext: Context,
     var dataList: ArrayList<CalendarTab>,
     var listener: OnItemClick?,
     var isUnderline: Boolean
 ) : RecyclerView.Adapter<HorizontalViewHolder>() {
     var selected: Int = 0
-
-    constructor(mContext: Context, dataList: ArrayList<CalendarTab>) : this(mContext, dataList, null, true)
-    constructor(mContext: Context, dataList: ArrayList<CalendarTab>, listener: OnItemClick?) : this(
-        mContext,
-        dataList,
-        listener,
-        true
-    )
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HorizontalViewHolder {
         val view: View = LayoutInflater.from(mContext).inflate(R.layout.li_tag, parent, false)
@@ -47,7 +39,6 @@ class CalendarTagListAdapter(
             holder.tvtext.typeface = Typeface.DEFAULT
             holder.tvtext.setTextColor(ContextCompat.getColor(mContext, R.color.grayDark))
         }
-
 
         holder.tvtext.text = dataList[position].name
 

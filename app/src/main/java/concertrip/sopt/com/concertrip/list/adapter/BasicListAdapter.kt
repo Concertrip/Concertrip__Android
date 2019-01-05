@@ -35,7 +35,7 @@ import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_TICKET
 import concertrip.sopt.com.concertrip.utillity.NetworkUtil
 
 class BasicListAdapter(
-    var mContext: Context,
+    private var mContext: Context,
     var dataList: ArrayList<out ListData>,
     var mode: Int,
     var listener: OnItemClick?
@@ -47,10 +47,6 @@ class BasicListAdapter(
 
                     val artist = dataList[position] as Artist
                     artist.subscribe = !artist.subscribe
-//                    if (artist.subscribe)
-//                        Toast.makeText(mContext, "내 아티스트에 추가되었습니다!", Toast.LENGTH_LONG).show()
-//                    else
-//                        Toast.makeText(mContext, "내 아티스트에서 쫒겨났습니다!", Toast.LENGTH_LONG).show()
 
                     Toast.makeText(mContext, obj.message, Toast.LENGTH_LONG).show()
 
@@ -61,12 +57,6 @@ class BasicListAdapter(
                     val concert = dataList[position] as Concert
                     concert.subscribe = concert.subscribe
 
-//                    concert.subscribe?.let {
-//                        if (concert.subscribe!!)
-//                            Toast.makeText(mContext, "내 공연에 추가되었습니다!", Toast.LENGTH_LONG).show()
-//                        else
-//                            Toast.makeText(mContext, "내 공연에서 쫒겨났습니다!", Toast.LENGTH_LONG).show()
-//                    }
 
                     Toast.makeText(mContext, obj.message, Toast.LENGTH_LONG).show()
 
@@ -75,10 +65,6 @@ class BasicListAdapter(
                 TYPE_GENRE -> {
                     val genre = dataList[position] as Genre
                     genre.subscribe = !genre.subscribe
-//                    if (genre.subscribe)
-//                        Toast.makeText(mContext, "내 장르에서 쫒겨났습니다!", Toast.LENGTH_LONG).show()
-//                    else
-//                        Toast.makeText(mContext, "내 장르에 추가되었습니다!", Toast.LENGTH_LONG).show()
 
                     Toast.makeText(mContext, obj.message, Toast.LENGTH_LONG).show()
                     notifyDataSetChanged()
@@ -206,16 +192,13 @@ class BasicListAdapter(
             when (getItemViewType(position)) {
                 TYPE_ARTIST -> {
                     NetworkUtil.subscribeArtist(networkService, this, dataList[position].getId(), position)
-//                    listener?.onItemClick(this,position)
                 }
 
                 TYPE_CONCERT -> {
                     NetworkUtil.subscribeConcert(networkService, this, dataList[position].getId(), position)
-//                    listener?.onItemClick(this,position)
                 }
                 TYPE_GENRE -> {
                     NetworkUtil.subscribeGenre(networkService, this, dataList[position].getId(), position)
-//                    listener?.onItemClick(this,position)
                 }
             }
         }
