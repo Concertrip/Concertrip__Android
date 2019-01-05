@@ -6,7 +6,7 @@ import kotlin.properties.Delegates
 
 data class Schedule(var _id : String,  var tabId : String, var name : String,var  profileImg : String,var  date: Int,var tag : String, var subscribe: Boolean) : ListData{
 
-    constructor(date : Int, name : String) :this("","",name,"",date,"",false)
+    constructor(date : Int, name : String, tagId : String?) :this("",tagId?:"",name,"",date,"",false)
 
 
     override fun getType(): Int = Constants.TYPE_SCHEDULE

@@ -34,6 +34,7 @@ import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
 import concertrip.sopt.com.concertrip.network.response.GetCalendarTabResponse
 import concertrip.sopt.com.concertrip.network.response.TabData
 import concertrip.sopt.com.concertrip.utillity.Constants
+import concertrip.sopt.com.concertrip.utillity.Constants.Companion.USER_TOKEN
 import concertrip.sopt.com.concertrip.utillity.NetworkUtil
 import concertrip.sopt.com.concertrip.utillity.Secret
 import retrofit2.Call
@@ -178,6 +179,8 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
             tabAdapter = CalendarTabListAdapter(it.applicationContext, dataListTag, this, false)
             recycler_view_filter.adapter = tabAdapter
 
+            connectRequestTabData()
+
             NetworkUtil.getCalendarList(
                 networkService,
                 this,
@@ -189,8 +192,6 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
             )
 
         }
-
-        connectRequestTabData()
 
 
     }
@@ -282,7 +283,7 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
     private var LOG_CALENDAR_TAB = "/api/calendar/tab"
     private fun connectRequestTabData() {
         Log.d(Constants.LOG_NETWORK, "$LOG_CALENDAR_TAB GET")
-        val getCalendarTabResponse: Call<GetCalendarTabResponse> = networkService.getCalendarTabList(1)
+        val getCalendarTabResponse: Call<GetCalendarTabResponse> = networkService.getCalendarTabList(USER_TOKEN)
 
         getCalendarTabResponse.enqueue(object : Callback<GetCalendarTabResponse> {
             override fun onFailure(call: Call<GetCalendarTabResponse>?, t: Throwable?) {
@@ -314,6 +315,7 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
         list.forEach {
             dataListTag.add(it.toCalendarTag())
             tabColorMap.put(it.name, tabColor[idx++%tabColor.size])
+            Log.d("updateTabList~~~", "index : $idx, name : ${it.name}, color : ${tabColor[idx%tabColor.size]}")
         }
         tabAdapter.notifyDataSetChanged()
         calendarAdapter.notifyDataSetChanged()

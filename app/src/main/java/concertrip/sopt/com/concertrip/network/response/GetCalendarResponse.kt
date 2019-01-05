@@ -15,7 +15,7 @@ data class GetCalendarResponse (
         data?.forEach {
             it.date.forEach { dateStr->
                 val d = dateStr.substring(8,10).toInt()
-                val s = Schedule(d,"")
+                val s = Schedule(d,"", it.tabId)
                 if(map.containsKey(d) && map[d] != null){
                     map[d]!!.add(s)
                 }else{

@@ -224,17 +224,17 @@ class NetworkUtil {
             var networkServiceType = TYPE_MONTH
 
             var LOG_TAG : String =""
-            getCalendarResponse = if(day == null){
+            if(day == null){
 
                 LOG_TAG = LOG_CALENDAR_TYPE
                 Log.d(Constants.LOG_NETWORK, "$LOG_TAG, GET ? type = $type , id = $id , year = $year , month = $month")
-                networkService.getCalendarList(USER_TOKEN, type, id, year, month)
+                getCalendarResponse = networkService.getCalendarList(USER_TOKEN, type, id, year, month)
             }
             else{
                 LOG_TAG= LOG_CALENDAR_DAY
                 networkServiceType = TYPE_DAY
                 Log.d(Constants.LOG_NETWORK, "$LOG_TAG, GET ? type = $type , id = $id , year = $year , month = $month, day = $day")
-                networkService.getCalendarDayList(USER_TOKEN, type, id, year, month,day)
+                getCalendarResponse = networkService.getCalendarDayList(USER_TOKEN, type, id, year, month,day)
             }
 
             getCalendarResponse.enqueue(object : Callback<GetCalendarResponse> {
