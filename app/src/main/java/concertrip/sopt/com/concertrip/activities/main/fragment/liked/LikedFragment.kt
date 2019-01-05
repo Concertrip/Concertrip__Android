@@ -115,6 +115,8 @@ class LikedFragment : Fragment(), View.OnClickListener, OnResponse {
         tv_liked_genre.setOnClickListener(this)
 
         activity?.let {
+            updateTextColor(tv_liked_artist, v_artist_underlind)
+
             adapter = BasicListAdapter(it.applicationContext, dataList)
             recycler_view.adapter = adapter
         }
@@ -123,11 +125,16 @@ class LikedFragment : Fragment(), View.OnClickListener, OnResponse {
 
 
     private var curTextView: TextView? = null
-    private fun updateTextColor(view: TextView) {
+    private var curView : View? = null
+    private fun updateTextColor(textView: TextView, view: View) {
         activity?.let {
             curTextView?.setTextColor(ContextCompat.getColor(it.applicationContext, R.color.textTagDefault))
-            curTextView = view
-            view.setTextColor(ContextCompat.getColor(it.applicationContext, R.color.textSelected))
+            curView?.visibility = View.INVISIBLE
+            curTextView = textView
+            curView = view
+
+            view.visibility = View.VISIBLE
+            textView.setTextColor(ContextCompat.getColor(it.applicationContext, R.color.textSelected))
         }
     }
 
@@ -146,15 +153,15 @@ class LikedFragment : Fragment(), View.OnClickListener, OnResponse {
         when (state) {
             TYPE_ARTIST -> {
                 getSubscribedList(networkService, this, "", TYPE_ARTIST)
-                updateTextColor(tv_liked_artist)
+                updateTextColor(tv_liked_artist, v_artist_underlind)
             }
             TYPE_CONCERT -> {
                 getSubscribedList(networkService, this, "", TYPE_CONCERT)
-                updateTextColor(tv_liked_concert)
+                updateTextColor(tv_liked_concert, v_concert_underlind)
             }
             TYPE_GENRE -> {
                 getSubscribedList(networkService, this, "", TYPE_GENRE)
-                updateTextColor(tv_liked_genre)
+                updateTextColor(tv_liked_genre, v_theme_underlind)
             }
             else -> {
             }
