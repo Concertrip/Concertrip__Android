@@ -15,18 +15,20 @@ import com.google.android.youtube.player.YouTubePlayerView
 import concertrip.sopt.com.concertrip.R
 import concertrip.sopt.com.concertrip.dialog.CustomDialog
 import concertrip.sopt.com.concertrip.interfaces.OnItemClick
+import concertrip.sopt.com.concertrip.interfaces.OnResponse
 import concertrip.sopt.com.concertrip.list.adapter.BasicListAdapter
 import concertrip.sopt.com.concertrip.model.Artist
 import concertrip.sopt.com.concertrip.model.Concert
 import concertrip.sopt.com.concertrip.model.Genre
 import concertrip.sopt.com.concertrip.network.ApplicationController
 import concertrip.sopt.com.concertrip.network.NetworkService
-import concertrip.sopt.com.concertrip.network.response.GetArtistResponse
-import concertrip.sopt.com.concertrip.network.response.GetGenreResponse
+import concertrip.sopt.com.concertrip.network.response.*
+import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.INTENT_ARTIST
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.INTENT_TAG_ID
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_ARTIST
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.USER_TOKEN
+import concertrip.sopt.com.concertrip.utillity.NetworkUtil
 import concertrip.sopt.com.concertrip.utillity.Secret
 import concertrip.sopt.com.concertrip.utillity.Secret.Companion.NETWORK_SUCCESS
 import kotlinx.android.synthetic.main.activity_artist.*
@@ -38,7 +40,26 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener, OnItemClick {
+class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener, OnItemClick, OnResponse {
+
+    private var isGenre: Boolean = true
+    private var artistId: String = "5c298b2a3eea39d2b00ca7d4"
+
+//    private var isGenre: Boolean = false
+//    private var artistId: String ="5c287b713eea39d2b0049f3f"
+
+    lateinit var artist: Artist
+    lateinit var genre: Genre
+    var dataList = arrayListOf<Concert>()
+    private lateinit var adapter: BasicListAdapter
+
+    var dataListMember = arrayListOf<Artist>()
+    lateinit var memberListAdapter: BasicListAdapter
+
+    private val networkService: NetworkService by lazy {
+        ApplicationController.instance.networkService
+    }
+
 
     override fun onItemClick(root: RecyclerView.Adapter<out RecyclerView.ViewHolder>, position: Int) {
         Toast.makeText(this, "내 공연에 추가되었습니다!", Toast.LENGTH_LONG).show()
@@ -72,44 +93,40 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
     }
 
     private fun getYouTubePlayerProvider(): YouTubePlayer.Provider {
-        return findViewById<View>(R.id.youtude) as YouTubePlayerView
+        return findViewById<View>(R.id.youtube) as YouTubePlayerView
     }
 
-    private var isGenre: Boolean = true
-    private var artistId: String = "5c298b2a3eea39d2b00ca7d4"
 
-//    private var isGenre: Boolean = false
-//    private var artistId: String ="5c287b713eea39d2b0049f3f"
+    override fun onSuccess(obj: BaseModel, position: Int?) {
+        if(obj is MessageResponse) {
+            toast(obj.message.toString())
+            artist.subscribe = !artist.subscribe
+            toggleFollowBtn(artist.subscribe)
 
-    lateinit var artist: Artist
-    lateinit var genre: Genre
-    var dataList = arrayListOf<Concert>()
-    private lateinit var adapter: BasicListAdapter
+            if (artist.subscribe)
+                showDialog("캘린더에 추가했습니다")
+            else
+                showDialog("구독 취소했습니다")
+        }
 
-    var dataListMember = arrayListOf<Artist>()
-    lateinit var memberListAdapter: BasicListAdapter
-
-    private val networkService: NetworkService by lazy {
-        ApplicationController.instance.networkService
     }
 
-    private fun showDialog() {
-        val dialog = CustomDialog(this)
-        dialog.show()
+    override fun onFail(status: Int) {
+//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_artist)
 
-        if(intent.hasExtra(INTENT_TAG_ID))
+
+
+        isGenre = intent.getIntExtra(INTENT_ARTIST, TYPE_ARTIST) != TYPE_ARTIST
+
+
+        if (intent.hasExtra(INTENT_TAG_ID))
             artistId = intent.getStringExtra(INTENT_TAG_ID)
-
-
-        if(intent.getIntExtra(INTENT_ARTIST, TYPE_ARTIST) == TYPE_ARTIST)
-            isGenre = false
-        else
-            isGenre = true
 
 
 // 장르인지 아티스트인지 intent에서 받아오기
@@ -128,18 +145,37 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         adapter = BasicListAdapter(this, dataList)
         recycler_view.adapter = adapter
 
-//        dataListMember = Artist.getDummyArray()
         memberListAdapter = BasicListAdapter(this, dataListMember, BasicListAdapter.MODE_THUMB)
         recycler_view_member.adapter = memberListAdapter
 
         scroll_view.smoothScrollTo(0, 0)
 
+
         btn_follow.setOnClickListener {
-            showDialog()
+            if (isGenre)
+                NetworkUtil.subscribeGenre(networkService, this, artistId)
+            else
+                NetworkUtil.subscribeArtist(networkService, this, artistId)
+
         }
 
         toast(isGenre.toString())
     }
+
+    private fun toggleFollowBtn(b: Boolean) {
+        if (b) {
+            btn_follow.setImageDrawable(getDrawable(R.drawable.ic_like))
+
+        } else {
+            btn_follow.setImageDrawable(getDrawable(R.drawable.ic_unlike))
+        }
+    }
+
+    private fun showDialog(txt: String) {
+        val dialog = CustomDialog(this, txt)
+        dialog.show()
+    }
+
 
     private fun updateUI() {
         if (dataListMember.size == 0)
@@ -155,8 +191,10 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         adapter.notifyDataSetChanged()
     }
 
-    private fun updateArtistData(artist : Artist) {
+    private fun updateArtistData(artist: Artist) {
         // TODO 좋아요 버튼 설정
+        btn_follow.setImageDrawable(if (artist.subscribe) getDrawable(R.drawable.ic_like) else getDrawable(R.drawable.ic_unlike))
+
         if (URLUtil.isValidUrl(artist.backImg))
             Glide.with(this).load(artist.backImg).into(iv_back)
 //        else

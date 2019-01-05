@@ -225,7 +225,6 @@ class NetworkUtil {
 
             var LOG_TAG : String =""
             if(day == null){
-
                 LOG_TAG = LOG_CALENDAR_TYPE
                 Log.d(Constants.LOG_NETWORK, "$LOG_TAG, GET ? type = $type , id = $id , year = $year , month = $month")
                 getCalendarResponse = networkService.getCalendarList(USER_TOKEN, type, id, year, month)

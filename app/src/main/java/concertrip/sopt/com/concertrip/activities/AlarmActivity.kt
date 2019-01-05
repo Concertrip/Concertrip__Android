@@ -43,6 +43,5 @@ class AlarmActivity : AppCompatActivity(){
     }
 
     private fun connectRequestData() {
-//        updateList(Alarm.getDummyArray())
     }
 }
