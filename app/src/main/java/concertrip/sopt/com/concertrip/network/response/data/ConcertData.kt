@@ -21,7 +21,7 @@ data class ConcertData(
 
     var date : List<String>?,
     var seatName : List<String>?,
-    var seatPrice : List<Int>?,
+    var seatPrice : List<String>?,
 
     @SerializedName("precautionList")
     var precautionList : List<PrecautionData>?,
