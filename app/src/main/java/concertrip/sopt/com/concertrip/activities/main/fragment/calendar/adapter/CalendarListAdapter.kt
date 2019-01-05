@@ -3,12 +3,14 @@ package concertrip.sopt.com.concertrip.activities.main.fragment.calendar.adapter
 import android.content.Context
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import concertrip.sopt.com.concertrip.R
 import concertrip.sopt.com.concertrip.activities.main.fragment.calendar.viewholder.CalendarViewHolder
 import concertrip.sopt.com.concertrip.interfaces.OnItemClick
 import concertrip.sopt.com.concertrip.model.Schedule
+import concertrip.sopt.com.concertrip.utillity.Constants
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.CALENDAR_TYPE_BLANK
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.CALENDAR_TYPE_DATE
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.CALENDAR_TYPE_DAY
@@ -118,6 +120,7 @@ class CalendarListAdapter(
         val scheduleView = inflater.inflate(R.layout.item_schedule, holder.lySchedule, false)
         val cnt = holder.lySchedule?.childCount ?: 0
         scheduleView.iv_schedule.setColorFilter(ContextCompat.getColor(mContext, tabColorMap?.get(schedule.tabId)?:R.color.tab_except))
+        Log.d(Constants.LOG_NETWORK, "LOG_SCHEDULE :${schedule.tabId}")
         holder.lySchedule?.addView(scheduleView)
     }
 
