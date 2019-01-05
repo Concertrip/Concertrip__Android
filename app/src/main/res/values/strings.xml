@@ -31,7 +31,7 @@
     <string name="txt_liked_tag1">아티스트</string>
     <string name="txt_liked_tag2">테마</string>
     <string name="txt_liked_tag3">공연</string>
-    <string name="txt_calendar_select_date">날짜를 선택해주세요</string>
+    <string name="txt_calendar_select_date">날짜를 선택해 주세요</string>
     <string name="txt_content_concert_cast">주요 출연진</string>
     <string name="txt_content_concert_detail_info">세부정보</string>
     <string name="txt_content_concert_date">공연날짜</string>
