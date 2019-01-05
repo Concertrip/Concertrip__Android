@@ -183,16 +183,21 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
     }
 
     private fun connectRequestData(id : String){
+
+        progress_bar.visibility=View.VISIBLE
         val concertResponse : Call<GetConcertResponse> = networkService.getEvent(USER_TOKEN, concertId)
 
         concertResponse.enqueue(object : Callback<GetConcertResponse>
         {
             override fun onFailure(call: Call<GetConcertResponse>?, t: Throwable?) {
+                progress_bar.visibility=View.GONE
                 Log.v("test0101", "getConcertResponse in onFailure" + t.toString())
             }
             override fun onResponse(call: Call<GetConcertResponse>?, response: Response<GetConcertResponse>?) {
+
+                progress_bar.visibility=View.GONE
                 response?.let { res->
-                    if (res.body()?.status == 200) {
+                    if (res.body()?.status == Secret.NETWORK_SUCCESS) {
                         res.body()!!.data?.let {
                             concert = it.toConcert()
                             updateArtistList(ArrayList(concert.artistList))

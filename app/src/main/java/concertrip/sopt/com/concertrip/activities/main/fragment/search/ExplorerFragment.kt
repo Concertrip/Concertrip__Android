@@ -28,11 +28,13 @@ import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
 import concertrip.sopt.com.concertrip.utillity.Constants
 import concertrip.sopt.com.concertrip.utillity.NetworkUtil
 import concertrip.sopt.com.concertrip.utillity.Secret
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_explorer.*
 
 class ExplorerFragment : Fragment(), OnItemClick ,OnResponse{
     override fun onSuccess(obj: BaseModel, position: Int?) {
 
+        activity?.progress_bar?.visibility=View.GONE
         if(obj is GetSearchResponse) {
             val explorerRequestData: GetSearchResponse = obj as GetSearchResponse
 
@@ -48,6 +50,7 @@ class ExplorerFragment : Fragment(), OnItemClick ,OnResponse{
 
 
     override fun onFail(status : Int) {
+        activity?.progress_bar?.visibility=View.GONE
         if(status== Secret.NETWORK_NO_DATA)
             updateDataList(ArrayList<ListData>())
         else
@@ -149,6 +152,9 @@ class ExplorerFragment : Fragment(), OnItemClick ,OnResponse{
     }
 
     private fun connectRequestData(tag: String) {
+
+        activity?.progress_bar?.visibility=View.VISIBLE
+
         clearListData()
         curSearch=tag
         NetworkUtil.search(networkService,this,tag)

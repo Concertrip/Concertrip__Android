@@ -24,6 +24,13 @@
 
     <!--<include layout="@layout/content_main"/>-->
 
+    <ProgressBar android:layout_width="wrap_content" android:layout_height="wrap_content"
+    android:layout_gravity="center" android:indeterminate="true"
+                 android:id="@+id/progress_bar"
+                 android:indeterminateTint="@color/white"
+
+    />
+
 
     <FrameLayout
             android:id="@+id/container"
@@ -38,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/bottom_tab_layout_height"
             android:layout_gravity="bottom"
-            app:tabGravity="center"
+            app:tabGravity="fill"
             android:background="#cccccc"
             app:tabIndicatorColor="#cccccc"
             app:tabSelectedTextColor="#00ffff"

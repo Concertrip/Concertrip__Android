@@ -36,6 +36,7 @@ import concertrip.sopt.com.concertrip.network.response.TabData
 import concertrip.sopt.com.concertrip.utillity.Constants
 import concertrip.sopt.com.concertrip.utillity.NetworkUtil
 import concertrip.sopt.com.concertrip.utillity.Secret
+import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -78,10 +79,12 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
 
 
     override fun onItemClick(root: RecyclerView.Adapter<out RecyclerView.ViewHolder>, position: Int) {
+        activity?.progress_bar?.visibility=View.VISIBLE
         if (root is CalendarTabListAdapter) {
             clearDetailList()
 
             tabAdapter.setSelect(position)
+
 
             NetworkUtil.getCalendarList(
                 networkService,
@@ -99,6 +102,8 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
                 recycler_view_calendar_detail.visibility = View.GONE
                 tv_detail.text="날짜를 선택해주세요"
             } else {
+
+
                 NetworkUtil.getCalendarList(
                     networkService,
                     this,
@@ -115,6 +120,7 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
 
 
     override fun onSuccess(obj: BaseModel, position: Int?) {
+        activity?.progress_bar?.visibility=View.GONE
         if (obj is GetCalendarResponse) {
             when (position) {
                 Constants.TYPE_MONTH -> {
@@ -134,6 +140,7 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
     }
 
     override fun onFail(status: Int) {
+        activity?.progress_bar?.visibility=View.GONE
 //        when(status){
 //            Secret.NETWORK_NO_DATA->{
 //            }
@@ -295,6 +302,10 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
     private var LOG_CALENDAR_TAB = "/api/calendar/tab"
     private fun connectRequestTabData() {
 
+
+
+        activity?.progress_bar?.visibility=View.VISIBLE
+
         Log.d(Constants.LOG_NETWORK, "$LOG_CALENDAR_TAB GET")
         val getCalendarTabResponse: Call<GetCalendarTabResponse> = networkService.getCalendarTabList(1)
 
@@ -322,6 +333,9 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
 
 
     fun updateTabList(list: ArrayList<TabData>) {
+
+        activity?.progress_bar?.visibility=View.GONE
+
         var idx : Int = 0
         dataListTag.clear()
         tabColorMap.clear()
