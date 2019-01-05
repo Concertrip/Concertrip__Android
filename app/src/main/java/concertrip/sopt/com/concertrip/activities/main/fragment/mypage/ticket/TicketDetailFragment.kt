@@ -25,6 +25,10 @@ import java.util.*
 
 class TicketDetailFragment : Fragment() {
 
+    /*TODO
+    * 터치한 티켓의 상세 정보를 보여주도록 해야함
+    * 상세 정보에 뭐가 들어가있는지 확인 및 전달 방법 고려(번들 or 인덱스 or 여러 extraIntent)*/
+
     var dataList = arrayListOf<Ticket>()
     private var ticketId : Int = 1
 
@@ -87,6 +91,7 @@ class TicketDetailFragment : Fragment() {
         })
 
     }
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

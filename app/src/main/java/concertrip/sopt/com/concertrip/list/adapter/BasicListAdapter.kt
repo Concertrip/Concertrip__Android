@@ -37,7 +37,7 @@ import concertrip.sopt.com.concertrip.utillity.NetworkUtil
 class BasicListAdapter(
     private var mContext: Context,
     var dataList: ArrayList<out ListData>,
-    var mode: Int,
+    var mode: Int?,
     var listener: OnItemClick?
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), OnResponse {
     override fun onSuccess(obj: BaseModel, position: Int?) {
@@ -167,7 +167,8 @@ class BasicListAdapter(
 
         holder.itemView.setOnClickListener {
 
-            when (getItemViewType(position)) {
+//            when (getItemViewType(position))
+            when (mode) {
                 TYPE_ARTIST -> {
                     val intent: Intent = Intent(mContext.applicationContext, ArtistActivity::class.java)
                     intent.putExtra(INTENT_TAG_ID, dataList[position].getId())

@@ -52,6 +52,7 @@ class LikedFragment : Fragment(), View.OnClickListener, OnResponse {
 
                 dataList.clear()
                 dataList.addAll(responseBody.toArtistList())
+                adapter.mode = position
                 adapter.notifyDataSetChanged()
 
             }
