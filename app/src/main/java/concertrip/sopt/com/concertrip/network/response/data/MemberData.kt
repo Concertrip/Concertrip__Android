@@ -6,8 +6,9 @@ data class MemberData(
     var _id : String,
     var name : String,
     var profileImg : String,
-//    var filter : List<String>,
-    var subscribe : Boolean
+    var subscribe : Boolean,
+    var tag : String,
+    var group: Boolean
 ){
     fun toArtist(): Artist {
         val artist = Artist(_id)
