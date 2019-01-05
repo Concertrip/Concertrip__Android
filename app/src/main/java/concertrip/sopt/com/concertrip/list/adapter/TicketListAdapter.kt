@@ -23,6 +23,13 @@ class TicketListAdapter(val mContext : Context, var dataList : ArrayList<Ticket>
     override fun getItemCount(): Int = dataList.size
 
     override fun onBindViewHolder(holder: TicketViewHolder, position: Int) {
+        if(position == 0){
+            holder.prevTime.visibility = View.INVISIBLE
+        }
+        else if(position == itemCount-1){
+            holder.nextTime.visibility = View.INVISIBLE
+        }
+
         holder.name.text = dataList[position].name
         //holder.date.text = dataList[position].date
         holder.date.text = dataList[position].date
