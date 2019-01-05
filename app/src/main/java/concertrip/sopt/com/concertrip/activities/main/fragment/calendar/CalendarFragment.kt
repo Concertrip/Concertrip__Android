@@ -94,6 +94,7 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
             if (calendarAdapter.selected == -1) {
 //                clearDetailList()
                 recycler_view_calendar_detail.visibility = View.GONE
+                tv_detail.text="날짜를 선택해주세요"
             } else {
                 recycler_view_calendar_detail.visibility = View.VISIBLE
                 NetworkUtil.getCalendarList(
@@ -131,7 +132,11 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
     }
 
     override fun onFail(status: Int) {
-
+//        when(status){
+//            Secret.NETWORK_NO_DATA->{
+//            }
+//        }
+                emptyResult()
     }
 
 
@@ -258,12 +263,20 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
     }
 
     private fun updateCalendarDetail(list: ArrayList<Concert>) {
+        if(list.isEmpty()){
+            emptyResult()
+            return
+        }
         dataListDetail.clear()
         dataListDetail.addAll(list)
         detailAdapter.notifyDataSetChanged()
 
     }
 
+    private fun emptyResult(){
+        recycler_view_calendar_detail.visibility = View.GONE
+        tv_detail.text="아직 아무 일정이 없습니다."
+    }
     private fun clearDetailList(){
         calendarAdapter.selected=-1
         calendarAdapter.notifyDataSetChanged()
@@ -276,6 +289,7 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
 
     private var LOG_CALENDAR_TAB = "/api/calendar/tab"
     private fun connectRequestTabData() {
+
         Log.d(Constants.LOG_NETWORK, "$LOG_CALENDAR_TAB GET")
         val getCalendarTabResponse: Call<GetCalendarTabResponse> = networkService.getCalendarTabList(1)
 
