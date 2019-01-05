@@ -1,5 +1,7 @@
 package concertrip.sopt.com.concertrip.utillity
 
+import concertrip.sopt.com.concertrip.R
+
 class Constants {
     companion object {
         const  val LOG_NETWORK ="~~~~Network"
@@ -51,7 +53,7 @@ class Constants {
 
 
         //테스용 유저 TOKEN값
-        const val USER_TOKEN=3
+        const val USER_TOKEN=2
 
     }
 }

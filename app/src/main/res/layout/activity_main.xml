@@ -41,7 +41,8 @@
             app:tabGravity="center"
             android:background="#cccccc"
             app:tabIndicatorColor="#cccccc"
-            app:tabSelectedTextColor="#00ffff" />
+            app:tabSelectedTextColor="#00ffff"
+            app:tabTextAppearance="@style/CustomTextStyle"/>
 
 
 </android.support.design.widget.CoordinatorLayout>

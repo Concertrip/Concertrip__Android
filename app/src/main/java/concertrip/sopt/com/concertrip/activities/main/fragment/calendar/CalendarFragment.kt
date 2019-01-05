@@ -59,6 +59,7 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
 
     private lateinit var dayList: ArrayList<String>
     private var scheduleMap: HashMap<Int, ArrayList<Schedule>> by Delegates.notNull()
+    private var tabColorMap: HashMap<String?, Int> by Delegates.notNull()
 
     var dataListDetail = arrayListOf<ListData>()
 
@@ -72,6 +73,8 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
     private val networkService: NetworkService by lazy {
         ApplicationController.instance.networkService
     }
+
+    val tabColor = listOf(R.color.tab_1, R.color.tab_2, R.color.tab_3, R.color.tab_4, R.color.tab_5)
 
 
     override fun onItemClick(root: RecyclerView.Adapter<out RecyclerView.ViewHolder>, position: Int) {
@@ -167,7 +170,9 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
         activity?.let {
 
             scheduleMap =  HashMap<Int, ArrayList<Schedule>>()
-            calendarAdapter = CalendarListAdapter(it.applicationContext, makeDayList(), scheduleMap, this)
+            tabColorMap = HashMap<String?, Int>()
+
+            calendarAdapter = CalendarListAdapter(it.applicationContext, makeDayList(), scheduleMap, this, tabColorMap)
             recycler_view_calendar.layoutManager = GridLayoutManager(it.applicationContext, 7)
             recycler_view_calendar.adapter = calendarAdapter
 
@@ -303,7 +308,7 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
                     if (res.body()?.status == Secret.NETWORK_SUCCESS) {
                         Log.d(Constants.LOG_NETWORK, "$LOG_CALENDAR_TAB :${response.body().toString()}")
                         res.body()!!.data?.let {
-                            updateTagList(ArrayList(res.body()?.data))
+                            updateTabList(ArrayList(res.body()?.data))
                         }
                     } else {
                         Log.d(Constants.LOG_NETWORK, "$LOG_CALENDAR_TAB : fail ${response.body()?.message}")
@@ -316,13 +321,16 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
     }
 
 
-    fun updateTagList(list: ArrayList<TabData>) {
+    fun updateTabList(list: ArrayList<TabData>) {
+        var idx : Int = 0
         dataListTag.clear()
+        tabColorMap.clear()
         list.forEach {
             dataListTag.add(it.toCalendarTag())
+            tabColorMap.put(it.name, tabColor[idx++%tabColor.size])
         }
-
         tabAdapter.notifyDataSetChanged()
+        calendarAdapter.notifyDataSetChanged()
     }
 
     override fun onAttach(context: Context) {
