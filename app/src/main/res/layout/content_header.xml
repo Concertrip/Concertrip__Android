@@ -63,10 +63,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3.4dp">
 
-                <ImageView
-                        android:layout_width="13dp"
-                        android:layout_height="13dp"
-                        app:srcCompat="@drawable/ic_account_circle"/>
+                <ImageView android:layout_width="13dp"
+                           android:layout_height="13dp"
+                           android:id="@+id/iv_like"/>
+                
                 <TextView
                         android:id="@+id/tv_tag"
                         android:layout_width="wrap_content"

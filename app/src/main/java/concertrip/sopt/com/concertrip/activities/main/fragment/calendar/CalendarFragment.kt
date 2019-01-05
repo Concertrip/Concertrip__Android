@@ -378,7 +378,7 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
 //    }
 
 
-    private const val LOG_CALENDAR_TAB = "/api/calendar/tab"
+    private var LOG_CALENDAR_TAB = "/api/calendar/tab"
     private fun connectRequestTabData() {
         Log.d(Constants.LOG_NETWORK, "GET")
         val getCalendarTabResponse: Call<GetCalendarTabResponse> = networkService.getCalendarTabList(1)
