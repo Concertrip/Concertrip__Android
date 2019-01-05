@@ -31,11 +31,11 @@
             </LinearLayout>
 
         <android.support.v4.widget.NestedScrollView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             <LinearLayout
                     android:orientation="vertical"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                 <TextView
@@ -116,7 +116,8 @@
                         android:textSize="17sp"
                         android:textColor="@color/white"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="19dp"/>
                 <GridLayout android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:columnCount="4"
@@ -126,7 +127,8 @@
 
                         <LinearLayout
                                 android:orientation="vertical"
-                                android:paddingHorizontal="10dp"
+                                android:paddingRight="10dp"
+                                android:paddingBottom="23dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
                             <ImageView
@@ -142,12 +144,15 @@
                                     android:layout_height="wrap_content"/>
                         </LinearLayout>
                         <LinearLayout
+                                android:layout_gravity="center_horizontal"
                                 android:orientation="vertical"
                                 android:paddingHorizontal="10dp"
+                                android:paddingBottom="23dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
                             <ImageView
                                     android:src="@drawable/ic_account_circle"
+                                    android:layout_gravity="center_horizontal"
                                     android:layout_width="64dp"
                                     android:layout_height="64dp"/>
                             <TextView
@@ -159,11 +164,14 @@
                                     android:layout_height="wrap_content"/>
                         </LinearLayout>
                         <LinearLayout
+                                android:layout_gravity="center_horizontal"
                                 android:orientation="vertical"
+                                android:paddingBottom="23dp"
                                 android:paddingHorizontal="10dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
                             <ImageView
+                                    android:layout_gravity="center_horizontal"
                                     android:src="@drawable/ic_account_circle"
                                     android:layout_width="64dp"
                                     android:layout_height="64dp"/>
@@ -177,7 +185,8 @@
                         </LinearLayout>
                         <LinearLayout
                                 android:orientation="vertical"
-                                android:paddingHorizontal="10dp"
+                                android:paddingBottom="23dp"
+                                android:paddingLeft="10dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
                             <ImageView
@@ -194,7 +203,7 @@
                         </LinearLayout>
                         <LinearLayout
                                 android:orientation="vertical"
-                                android:paddingHorizontal="10dp"
+                                android:paddingRight="10dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
                             <ImageView
@@ -211,10 +220,12 @@
                         </LinearLayout>
                         <LinearLayout
                                 android:orientation="vertical"
+                                android:layout_gravity="center_horizontal"
                                 android:paddingHorizontal="10dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
                             <ImageView
+                                    android:layout_gravity="center_horizontal"
                                     android:src="@drawable/ic_account_circle"
                                     android:layout_width="64dp"
                                     android:layout_height="64dp"/>
@@ -227,11 +238,13 @@
                                     android:layout_height="wrap_content"/>
                         </LinearLayout>
                         <LinearLayout
+                                android:layout_gravity="center_horizontal"
                                 android:orientation="vertical"
                                 android:paddingHorizontal="10dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
                             <ImageView
+                                    android:layout_gravity="center_horizontal"
                                     android:src="@drawable/ic_account_circle"
                                     android:layout_width="64dp"
                                     android:layout_height="64dp"/>
@@ -245,7 +258,7 @@
                         </LinearLayout>
                         <LinearLayout
                                 android:orientation="vertical"
-                                android:paddingHorizontal="10dp"
+                                android:paddingLeft="10dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
                             <ImageView
