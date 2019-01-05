@@ -24,6 +24,7 @@ import concertrip.sopt.com.concertrip.network.ApplicationController
 import concertrip.sopt.com.concertrip.network.NetworkService
 import concertrip.sopt.com.concertrip.network.response.*
 import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
+import concertrip.sopt.com.concertrip.utillity.Constants
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.INTENT_ARTIST
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.INTENT_TAG_ID
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_ARTIST
@@ -72,9 +73,9 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
 
     override fun onInitializationSuccess(provider: YouTubePlayer.Provider?, youTubePlayer: YouTubePlayer?, b: Boolean) {
         if (!b && ::artist.isInitialized) {
-            val youtubeUrlList = artist.youtubeUrl!!.split("?v=")
-            youTubePlayer?.cueVideo(youtubeUrlList[youtubeUrlList.size - 1])  //http://www.youtube.com/watch?v=IA1hox-v0jQ
-//            youTubePlayer?.cueVideo(artist.youtubeUrl)  //http://www.youtube.com/watch?v=IA1hox-v0jQ
+//            val youtubeUrlList = artist.youtubeUrl!!.split("?v=")
+//            youTubePlayer?.cueVideo(youtubeUrlList[youtubeUrlList.size - 1])  //http://www.youtube.com/watch?v=IA1hox-v0jQ
+            youTubePlayer?.cueVideo(artist.youtubeUrl)  //http://www.youtube.com/watch?v=IA1hox-v0jQ
         }
     }
 
@@ -218,22 +219,27 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         memberListAdapter.notifyDataSetChanged()
     }
 
+
+    private var LOG_TAG = ""
+
     private fun connectRequestData(id: String) {
 
         progress_bar.visibility=View.GONE
 
         // 서버에서 넘어오는 데이터 구조가 달라서 따로 구현할 수 밖에 없음ㅠ
         if (isGenre) {
+            LOG_TAG = "/api/genre/detail"
             val getGenreResponse: Call<GetGenreResponse> = networkService.getGenre(USER_TOKEN, artistId)
             getGenreResponse.enqueue(object : Callback<GetGenreResponse> {
                 override fun onFailure(call: Call<GetGenreResponse>?, t: Throwable?) {
-                    Log.v("test0101", "getArtistResponse in onFailure" + t.toString())
+                    Log.e(Constants.LOG_NETWORK, "$LOG_TAG $t")
                 }
 
                 override fun onResponse(call: Call<GetGenreResponse>?, response: Response<GetGenreResponse>?) {
                     response?.let { res ->
                         if (res.body()?.status == NETWORK_SUCCESS) {
                             res.body()!!.data?.let {
+                                Log.d(Constants.LOG_NETWORK, "$LOG_TAG :${response.body().toString()}")
                                 genre = it.toGenre()
 
                                 updateConcertList(ArrayList(genre.concertList))
@@ -242,23 +248,26 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
                             }
 
                         } else {
-                            Log.v("test0102", "getGenreResponse in " + response.body()?.status.toString())
+                            Log.d(Constants.LOG_NETWORK, "$LOG_TAG: fail ${response.body()?.message}")
                         }
                     }
 
                 }
             })
         } else {
+            LOG_TAG = "/api/artist/detail"
+
             val getArtistResponse: Call<GetArtistResponse> = networkService.getArtist(USER_TOKEN, artistId)
             getArtistResponse.enqueue(object : Callback<GetArtistResponse> {
                 override fun onFailure(call: Call<GetArtistResponse>?, t: Throwable?) {
-                    Log.v("test0101", "getArtistResponse in onFailure" + t.toString())
+                    Log.e(Constants.LOG_NETWORK, "$LOG_TAG $t")
                 }
 
                 override fun onResponse(call: Call<GetArtistResponse>?, response: Response<GetArtistResponse>?) {
                     response?.let { res ->
 
-                        if (response.body()?.status == 200) {
+                        if (response.body()?.status == NETWORK_SUCCESS) {
+                            Log.d(Constants.LOG_NETWORK, "$LOG_TAG :${response.body().toString()}")
                             res.body()!!.data?.let {
                                 artist = it.toArtist()
                                 updateConcertList(ArrayList(artist.concertList)) // 굳이 param으로 안넘겨줘도됨!
@@ -267,7 +276,7 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
                                 updateUI()
                             }
                         } else {
-                            Log.v("test0101", "getArtistResponse in " + response.body()?.status.toString())
+                            Log.d(Constants.LOG_NETWORK, "$LOG_TAG: fail ${response.body()?.message}")
                         }
 
                     }

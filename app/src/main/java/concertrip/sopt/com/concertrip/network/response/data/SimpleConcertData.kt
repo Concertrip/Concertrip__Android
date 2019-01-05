@@ -9,7 +9,9 @@ data class SimpleConcertData(
     var profileImg : String,
 //    var date : String, // list아닌가?
 //    var location : String
-    var subscribe: Boolean
+    var subscribe: Boolean,
+    var tag : String,
+    var group : Boolean
 ){
     fun toConcert() : Concert {
         val c =  Concert(_id = _id)

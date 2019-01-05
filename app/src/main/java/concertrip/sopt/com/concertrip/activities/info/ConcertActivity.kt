@@ -52,9 +52,9 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
 
     override fun onInitializationSuccess(provider: YouTubePlayer.Provider?, youTubePlayer: YouTubePlayer?, b: Boolean) {
         if (!b && ::concert.isInitialized) {
-            val youtubeUrlList = concert.youtubeUrl!!.split("?v=")
-            youTubePlayer?.cueVideo(youtubeUrlList[youtubeUrlList.size-1])
-            //youTubePlayer?.cueVideo(concert.youtubeUrl)
+//            val youtubeUrlList = concert.youtubeUrl!!.split("?v=")
+//            youTubePlayer?.cueVideo(youtubeUrlList[youtubeUrlList.size-1])
+            youTubePlayer?.cueVideo(concert.youtubeUrl)
         }
     }
 

@@ -11,7 +11,7 @@ data class ArtistData(
     var subscribeNum : Int?,
     var youtubeUrl : String?,
     var memberList : List<MemberData>?,
-    var eventList : List<SimpleConcertData>?,
+    var eventsList : List<SimpleConcertData>?,
     var subscribe : Boolean?
 ){
     fun toArtist() : Artist {
@@ -30,7 +30,7 @@ data class ArtistData(
         a.memberList = aList
 
         val cList = ArrayList<Concert>()
-        eventList?.forEach{
+        eventsList?.forEach{
             cList.add(it.toConcert())
         }
         a.concertList = cList
@@ -50,7 +50,7 @@ data class ArtistData(
         "subscribeNum : $subscribeNum\n" +
         "youtubeUrl : $youtubeUrl\n" +
         "memberList : $memberList\n" +//member는 forEach 돌면서 보내져야함
-        "eventList : $eventList\n" +
+        "eventList : $eventsList\n" +
         "subscribe : $subscribe" +
             "}"
 
