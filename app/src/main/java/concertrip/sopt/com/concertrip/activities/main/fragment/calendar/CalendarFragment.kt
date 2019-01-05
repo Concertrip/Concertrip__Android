@@ -14,7 +14,6 @@ import concertrip.sopt.com.concertrip.activities.main.fragment.calendar.adapter.
 import concertrip.sopt.com.concertrip.interfaces.OnFragmentInteractionListener
 import concertrip.sopt.com.concertrip.interfaces.OnItemClick
 import concertrip.sopt.com.concertrip.list.adapter.BasicListAdapter
-import concertrip.sopt.com.concertrip.model.Artist
 import concertrip.sopt.com.concertrip.model.Concert
 import concertrip.sopt.com.concertrip.model.Schedule
 import kotlin.properties.Delegates
@@ -36,6 +35,7 @@ import concertrip.sopt.com.concertrip.network.response.GetCalendarTabResponse
 import concertrip.sopt.com.concertrip.network.response.TabData
 import concertrip.sopt.com.concertrip.utillity.Constants
 import concertrip.sopt.com.concertrip.utillity.NetworkUtil
+import concertrip.sopt.com.concertrip.utillity.Secret
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -103,6 +103,8 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
         // 클릭된 아이템의 position 값이 parameter로 전달됨!
 
         if (root is CalendarTagListAdapter) {
+
+            clearDetailList()
             tagAdapter.setSelect(position)
             NetworkUtil.getCalendarList(
                 networkService,
@@ -113,12 +115,13 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
                 month.toString(),
                 null
             )
-//            connectRequestCalendar(dataListTag[position].type, dataListTag[position]._id)
             updateCalendar(position)
         } else if (root is CalendarListAdapter) {
             if (calendarListAdapter.selected == -1) {
 
+                clearDetailList()
                 recycler_view_calendar_detail.visibility = View.GONE
+
             } else {
                 recycler_view_calendar_detail.visibility = View.VISIBLE
                 NetworkUtil.getCalendarList(
@@ -143,7 +146,9 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
                     val map = obj.toScheduleMap()
                     calendarListAdapter.scheduleMap.clear()
                     calendarListAdapter.scheduleMap.putAll(map)
-                    calendarListAdapter.notifyDataSetChanged()
+
+                    clearDetailList()
+
                 }
                 Constants.TYPE_DAY -> {
                     updateCalendarDetail(obj.toConcertArray())
@@ -190,7 +195,7 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
 
         activity?.let {
 
-            scheduleMap = Schedule.getDummyMap()
+            scheduleMap =  HashMap<Int, ArrayList<Schedule>>()
             calendarListAdapter = CalendarListAdapter(it.applicationContext, makeDayList(), scheduleMap, this)
             recycler_view_calendar.layoutManager = GridLayoutManager(it.applicationContext, 7)
             recycler_view_calendar.adapter = calendarListAdapter
@@ -213,6 +218,16 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
 //        recycler_view_filter.adapter = tagAdapter
 //
 
+
+            NetworkUtil.getCalendarList(
+                networkService,
+                this,
+                Constants.REQUEST_ALL,
+                "",
+                year.toString(),
+                month.toString(),
+                null
+            )
 
         }
 
@@ -317,6 +332,15 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
         updateUI()
     }
 
+    private fun clearDetailList(){
+        calendarListAdapter.selected=-1
+        calendarListAdapter.notifyDataSetChanged()
+
+        dataListDetail.clear()
+        calendarDetailAdapter.notifyDataSetChanged()
+        updateUI()
+    }
+
 
     //Deprecated This function
 //    private fun updateCalendarDetail(date: Int) {
@@ -388,7 +412,7 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
 
             override fun onResponse(call: Call<GetCalendarTabResponse>?, response: Response<GetCalendarTabResponse>?) {
                 response?.let { res ->
-                    if (res.body()?.status == 200) {
+                    if (res.body()?.status == Secret.NETWORK_SUCCESS) {
                         res.body()!!.data?.let {
                             updateTagList(ArrayList(res.body()?.data))
                         }

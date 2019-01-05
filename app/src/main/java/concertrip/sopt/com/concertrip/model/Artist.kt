@@ -3,7 +3,7 @@ package concertrip.sopt.com.concertrip.model
 import concertrip.sopt.com.concertrip.interfaces.ListData
 import concertrip.sopt.com.concertrip.utillity.Constants
 
-data class Artist(
+open class Artist(
     var _id: String,
     var profileImg: String,
     var backImg: String?,

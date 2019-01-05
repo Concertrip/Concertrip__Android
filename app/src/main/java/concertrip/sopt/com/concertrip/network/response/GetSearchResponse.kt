@@ -33,7 +33,7 @@ data class GetSearchResponse (
     fun toGenreList() : ArrayList<Artist>{
         val list = ArrayList<Artist>()
         data?.genres?.forEach {
-            list.add(it.toArtist())
+            list.add(it.toGenre())
         }
         return list
     }

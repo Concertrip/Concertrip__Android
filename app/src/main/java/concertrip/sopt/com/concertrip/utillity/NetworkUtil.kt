@@ -16,7 +16,8 @@ import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_ARTIST
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_CONCERT
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_DAY
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_MONTH
-import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_THEME
+import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_GENRE
+import concertrip.sopt.com.concertrip.utillity.Constants.Companion.USER_TOKEN
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -38,7 +39,7 @@ class NetworkUtil {
 
             Log.d(Constants.LOG_NETWORK, "$LOG_SUBSCRIBE_ARTIST, POST :$gsonObject")
             val subscribeArtist: Call<MessageResponse> =
-                networkService.postSubScribeArtist(1, gsonObject)
+                networkService.postSubScribeArtist(USER_TOKEN, gsonObject)
             subscribeArtist.enqueue(object : Callback<MessageResponse> {
                 override fun onFailure(call: Call<MessageResponse>, t: Throwable) {
                     Log.e(Constants.LOG_NETWORK, t.toString())
@@ -72,7 +73,7 @@ class NetworkUtil {
             Log.d(Constants.LOG_NETWORK, "$LOG_SUBSCRIBE_GENRE, POST :$gsonObject")
 
             val subscribeGenre: Call<MessageResponse> =
-                networkService.postSubscribeGenre(1, gsonObject)
+                networkService.postSubscribeGenre(USER_TOKEN, gsonObject)
             subscribeGenre.enqueue(object : Callback<MessageResponse> {
 
                 override fun onFailure(call: Call<MessageResponse>, t: Throwable) {
@@ -96,7 +97,7 @@ class NetworkUtil {
         }
 
 
-        private const val LOG_SUBSCRIBE_CONCERT = "/api/subscribe/concert"
+        private const val LOG_SUBSCRIBE_CONCERT = "/api/subscribe/event"
         fun subscribeConcert(networkService: NetworkService, listener: OnResponse?, _id: String) =
             subscribeConcert(networkService, listener, _id, null)
 
@@ -108,7 +109,7 @@ class NetworkUtil {
             Log.d(Constants.LOG_NETWORK, "$LOG_SUBSCRIBE_CONCERT, POST :$gsonObject")
 
             val subscribeConcert: Call<MessageResponse> =
-                networkService.postSubscribeConcert(1, gsonObject)
+                networkService.postSubscribeConcert(USER_TOKEN, gsonObject)
             subscribeConcert.enqueue(object : Callback<MessageResponse> {
 
                 override fun onFailure(call: Call<MessageResponse>, t: Throwable) {
@@ -141,7 +142,7 @@ class NetworkUtil {
             Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH, GET ? tag=$tag")
 
             val search: Call<GetSearchResponse> =
-                networkService.getSearch(1, tag)
+                networkService.getSearch(USER_TOKEN, tag)
             search.enqueue(object : Callback<GetSearchResponse> {
 
                 override fun onFailure(call: Call<GetSearchResponse>, t: Throwable) {
@@ -174,7 +175,7 @@ class NetworkUtil {
         }
 
         fun getTicketList(networkService: NetworkService, listener: OnResponse?, _id: String) {
-            val getTicketListResponse: Call<GetTicketListResponse> = networkService.getTicketList(1) // _id
+            val getTicketListResponse: Call<GetTicketListResponse> = networkService.getTicketList(USER_TOKEN) // _id
 
             getTicketListResponse.enqueue(object : Callback<GetTicketListResponse> {
 
@@ -202,9 +203,9 @@ class NetworkUtil {
             lateinit var getSubscribedResonse : Call<GetSubscribedResponse>
 
             when(type){
-                TYPE_ARTIST->getSubscribedResonse = networkService.getSubscribedArtist(1)
-                TYPE_CONCERT->getSubscribedResonse = networkService.getSubscribedEvent(1)
-                TYPE_THEME->getSubscribedResonse = networkService.getSubscribedGenre(1)
+                TYPE_ARTIST->getSubscribedResonse = networkService.getSubscribedArtist(USER_TOKEN)
+                TYPE_CONCERT->getSubscribedResonse = networkService.getSubscribedEvent(USER_TOKEN)
+                TYPE_GENRE->getSubscribedResonse = networkService.getSubscribedGenre(USER_TOKEN)
             }
 
             getSubscribedResonse.enqueue(object : Callback<GetSubscribedResponse> {
@@ -242,13 +243,13 @@ class NetworkUtil {
 
                 LOG_TAG = LOG_CALENDAR_TYPE
                 Log.d(Constants.LOG_NETWORK, "$LOG_TAG, GET ? type = $type , id = $id , year = $year , month = $month")
-                networkService.getCalendarList(1, "all", null, "2019", "1")
+                networkService.getCalendarList(USER_TOKEN, "all", null, "2019", "1")
             }
             else{
                 LOG_TAG= LOG_CALENDAR_DAY
                 networkServiceType = TYPE_DAY
                 Log.d(Constants.LOG_NETWORK, "$LOG_TAG, GET ? type = $type , id = $id , year = $year , month = $month, day = $day")
-                networkService.getCalendarDayList(1, "all", null, "2019", "1", "1")
+                networkService.getCalendarDayList(USER_TOKEN, "all", null, "2019", "1", "1")
             }
 
             getCalendarResponse.enqueue(object : Callback<GetCalendarResponse> {

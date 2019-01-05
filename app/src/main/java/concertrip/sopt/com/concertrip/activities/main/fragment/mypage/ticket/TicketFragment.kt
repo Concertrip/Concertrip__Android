@@ -18,6 +18,7 @@ import concertrip.sopt.com.concertrip.model.Ticket
 import concertrip.sopt.com.concertrip.network.ApplicationController
 import concertrip.sopt.com.concertrip.network.NetworkService
 import concertrip.sopt.com.concertrip.network.response.GetTicketDetailResponse
+import concertrip.sopt.com.concertrip.utillity.Constants.Companion.USER_TOKEN
 import kotlinx.android.synthetic.main.fragment_ticket.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -95,7 +96,7 @@ class TicketFragment : Fragment() {
     }
 
     private fun ConnectRequestData(){
-        val getTicketDetailResponse : Call<GetTicketDetailResponse> = networkServicce.getTicketDetail(1, ticketId)
+        val getTicketDetailResponse : Call<GetTicketDetailResponse> = networkServicce.getTicketDetail(USER_TOKEN, ticketId)
 
         getTicketDetailResponse.enqueue(object : Callback<GetTicketDetailResponse>{
             override fun onFailure(call: Call<GetTicketDetailResponse>, t: Throwable) {
@@ -119,7 +120,7 @@ class TicketFragment : Fragment() {
     val dayNum : List<String> = listOf("일", "월", "화", "수", "목", "금", "토")
 
     private fun convertDate(input: String?) : String?{
-        var convertedDate = StringBuilder()
+        val convertedDate = StringBuilder()
 
         if(input != null){
             val dateInfoList = input.split("T")

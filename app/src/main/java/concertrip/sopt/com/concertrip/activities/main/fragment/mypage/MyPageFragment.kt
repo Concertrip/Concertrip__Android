@@ -114,7 +114,7 @@ class MyPageFragment : Fragment(), OnItemClick, OnFragmentInteractionListener, O
                     tv_ticket_date.setText(ticketInfo.date)
                 }
                 else{
-                    Log.d("testTicket", "getTicketListResponse in" + responseBody?.status.toString())
+                    Log.d("testTicket", "getTicketListResponse in" + responseBody.status.toString())
                 }
             }
         }

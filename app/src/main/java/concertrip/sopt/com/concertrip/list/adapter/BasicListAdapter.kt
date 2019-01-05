@@ -20,6 +20,7 @@ import concertrip.sopt.com.concertrip.interfaces.OnResponse
 import concertrip.sopt.com.concertrip.list.viewholder.*
 import concertrip.sopt.com.concertrip.model.Artist
 import concertrip.sopt.com.concertrip.model.Concert
+import concertrip.sopt.com.concertrip.model.Genre
 import concertrip.sopt.com.concertrip.network.ApplicationController
 import concertrip.sopt.com.concertrip.network.NetworkService
 import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
@@ -29,7 +30,7 @@ import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_ALARM
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_ARTIST
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_CAUTION
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_CONCERT
-import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_THEME
+import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_GENRE
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_TICKET
 import concertrip.sopt.com.concertrip.utillity.NetworkUtil
 
@@ -46,10 +47,12 @@ class BasicListAdapter(
 
                     val artist = dataList[position] as Artist
                     artist.subscribe = !artist.subscribe
-                    if(artist.subscribe)
-                        Toast.makeText(mContext, "내 아티스트에 추가되었습니다!", Toast.LENGTH_LONG).show()
-                    else
-                        Toast.makeText(mContext, "내 아티스트에서 쫒겨났습니다!", Toast.LENGTH_LONG).show()
+//                    if (artist.subscribe)
+//                        Toast.makeText(mContext, "내 아티스트에 추가되었습니다!", Toast.LENGTH_LONG).show()
+//                    else
+//                        Toast.makeText(mContext, "내 아티스트에서 쫒겨났습니다!", Toast.LENGTH_LONG).show()
+
+                    Toast.makeText(mContext, obj.message, Toast.LENGTH_LONG).show()
 
                     notifyDataSetChanged()
 
@@ -58,24 +61,26 @@ class BasicListAdapter(
                     val concert = dataList[position] as Concert
                     concert.subscribe = concert.subscribe
 
-                    concert.subscribe?.let {
-                        if (concert.subscribe!!)
-                            Toast.makeText(mContext, "내 공연에 추가되었습니다!", Toast.LENGTH_LONG).show()
-                        else
-                            Toast.makeText(mContext, "내 공연에서 쫒겨났습니다!", Toast.LENGTH_LONG).show()
-                    }
+//                    concert.subscribe?.let {
+//                        if (concert.subscribe!!)
+//                            Toast.makeText(mContext, "내 공연에 추가되었습니다!", Toast.LENGTH_LONG).show()
+//                        else
+//                            Toast.makeText(mContext, "내 공연에서 쫒겨났습니다!", Toast.LENGTH_LONG).show()
+//                    }
+
+                    Toast.makeText(mContext, obj.message, Toast.LENGTH_LONG).show()
 
                     notifyDataSetChanged()
                 }
-                TYPE_THEME -> {
+                TYPE_GENRE -> {
+                    val genre = dataList[position] as Genre
+                    genre.subscribe = !genre.subscribe
+//                    if (genre.subscribe)
+//                        Toast.makeText(mContext, "내 장르에서 쫒겨났습니다!", Toast.LENGTH_LONG).show()
+//                    else
+//                        Toast.makeText(mContext, "내 장르에 추가되었습니다!", Toast.LENGTH_LONG).show()
 
-                    val artist = dataList[position] as Artist
-
-                    if(artist.subscribe)
-                        Toast.makeText(mContext, "내 장르에 추가되었습니다!", Toast.LENGTH_LONG).show()
-                    else
-                        Toast.makeText(mContext, "내 장르에서 쫒겨났습니다!", Toast.LENGTH_LONG).show()
-                    artist.subscribe = !artist.subscribe
+                    Toast.makeText(mContext, obj.message, Toast.LENGTH_LONG).show()
                     notifyDataSetChanged()
                 }
 
@@ -83,8 +88,8 @@ class BasicListAdapter(
         }
     }
 
-    override fun onFail(status : Int) {
-        Toast.makeText(mContext,"인터넷을 다시 확인해주세요.",Toast.LENGTH_SHORT).show()
+    override fun onFail(status: Int) {
+        Toast.makeText(mContext, "인터넷을 다시 확인해주세요.", Toast.LENGTH_SHORT).show()
     }
 
     private val networkService: NetworkService by lazy {
@@ -117,25 +122,26 @@ class BasicListAdapter(
             TYPE_ARTIST -> {
                 return when (mode) {
                     MODE_BASIC -> {
-                    val view = LayoutInflater.from(mContext).inflate(R.layout.li_artist, parent, false)
-                    ArtistViewHolder(view)
+                        val view = LayoutInflater.from(mContext).inflate(R.layout.li_artist, parent, false)
+                        ArtistViewHolder(view)
+                    }
+                    MODE_THUMB -> {
+                        val view = LayoutInflater.from(mContext).inflate(R.layout.li_artist_thumb, parent, false)
+                        ArtistThumbViewHolder(view)
+                    }
+                    else -> {
+                        throw RuntimeException(mContext.toString() + " mode is strange number $mode")
+                    }
                 }
-                MODE_THUMB -> {
-                    val view = LayoutInflater.from(mContext).inflate(R.layout.li_artist_thumb, parent, false)
-                    ArtistThumbViewHolder(view)
-                }
-                else -> {
-                    throw RuntimeException(mContext.toString() + " mode is strange number $mode")
-                }
-            }
             }
             TYPE_CONCERT -> {
                 val view = LayoutInflater.from(mContext).inflate(R.layout.li_concert, parent, false)
                 return ConcertViewHolder(view)
             }
-//            TYPE_THEME ->{
-//
-//            }
+            TYPE_GENRE -> {
+                val view = LayoutInflater.from(mContext).inflate(R.layout.li_artist, parent, false)
+                return ArtistViewHolder(view)
+            }
 
             TYPE_TICKET -> {
                 val view = LayoutInflater.from(mContext).inflate(R.layout.li_ticket, parent, false)
@@ -167,10 +173,10 @@ class BasicListAdapter(
         if (URLUtil.isValidUrl(dataList[position].getImageUrl())) {
             Glide.with(mContext).load(dataList[position].getImageUrl()).apply(RequestOptions.circleCropTransform())
                 .into(holder.getIvIcon())
-        }else{
-            holder.getIvIcon().setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.ic_account_circle))
+        } else {
+            holder.getIvIcon().setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_account_circle))
         }
-        basicHolder.setButton(mContext,dataList[position].isSubscribe())
+        basicHolder.setButton(mContext, dataList[position].isSubscribe())
 
 
         holder.itemView.setOnClickListener {
@@ -182,10 +188,10 @@ class BasicListAdapter(
                     intent.putExtra(INTENT_ARTIST, TYPE_ARTIST)
                     mContext.startActivity(intent)
                 }
-                TYPE_THEME -> {
+                TYPE_GENRE -> {
                     val intent: Intent = Intent(mContext.applicationContext, ArtistActivity::class.java)
                     intent.putExtra(INTENT_TAG_ID, dataList[position].getId())
-                    intent.putExtra(INTENT_ARTIST, TYPE_THEME)
+                    intent.putExtra(INTENT_ARTIST, TYPE_GENRE)
                     mContext.startActivity(intent)
                 }
                 TYPE_CONCERT -> {
@@ -199,16 +205,16 @@ class BasicListAdapter(
         basicHolder.getBtn()?.setOnClickListener {
             when (getItemViewType(position)) {
                 TYPE_ARTIST -> {
-                    NetworkUtil.subscribeArtist(networkService, this, dataList[position].getId(),position)
+                    NetworkUtil.subscribeArtist(networkService, this, dataList[position].getId(), position)
 //                    listener?.onItemClick(this,position)
                 }
 
                 TYPE_CONCERT -> {
-                    NetworkUtil.subscribeConcert(networkService, this, dataList[position].getId(),position)
+                    NetworkUtil.subscribeConcert(networkService, this, dataList[position].getId(), position)
 //                    listener?.onItemClick(this,position)
                 }
-                TYPE_THEME -> {
-                    NetworkUtil.subscribeGenre(networkService, this, dataList[position].getId(),position)
+                TYPE_GENRE -> {
+                    NetworkUtil.subscribeGenre(networkService, this, dataList[position].getId(), position)
 //                    listener?.onItemClick(this,position)
                 }
             }

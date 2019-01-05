@@ -6,5 +6,5 @@ import org.json.JSONObject
 data class MessageResponse(
     var data : JSONObject?
 ): BaseModel(){
-    override fun toString(): String =data?.toString()?:"null"
+    override fun toString(): String =data?.toString()?:message?:"null"
 }
