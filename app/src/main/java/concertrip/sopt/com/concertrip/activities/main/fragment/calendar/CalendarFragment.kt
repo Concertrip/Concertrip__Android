@@ -96,7 +96,6 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
                 recycler_view_calendar_detail.visibility = View.GONE
                 tv_detail.text="날짜를 선택해주세요"
             } else {
-                recycler_view_calendar_detail.visibility = View.VISIBLE
                 NetworkUtil.getCalendarList(
                     networkService,
                     this,
@@ -267,6 +266,7 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
             emptyResult()
             return
         }
+        recycler_view_calendar_detail.visibility = View.VISIBLE
         dataListDetail.clear()
         dataListDetail.addAll(list)
         detailAdapter.notifyDataSetChanged()

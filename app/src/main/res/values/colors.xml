@@ -21,7 +21,7 @@
     <color name="textHashTag">@color/gray</color>
     <color name="textTagDefault">@color/gray</color>
     <color name="textSelected">@color/white</color>
-    <color name="textDialog">@color/white</color>
+    <color name="textDialog">@color/purple</color>
     <color name="textTicket">@color/black</color>
 
     <color name="textInfo">#d1d1d1</color>
