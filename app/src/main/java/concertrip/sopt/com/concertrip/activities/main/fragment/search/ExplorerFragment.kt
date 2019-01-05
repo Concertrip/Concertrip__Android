@@ -63,7 +63,7 @@ class ExplorerFragment : Fragment(), OnItemClick ,OnResponse{
 
     var dataList = arrayListOf<ListData>()
     //    var dataListArtist = arrayListOf<Artist>()
-//    var dataListConcert = arrayListOf<Concert>()
+//    var dataListDetail = arrayListOf<Concert>()
     var dataListTag = arrayListOf<String>("모두", "테마", "POP", "CLASSIC", "R&B", "ELECTRONIC")
 
     lateinit var tagAdapter: HorizontalListAdapter
@@ -170,7 +170,7 @@ class ExplorerFragment : Fragment(), OnItemClick ,OnResponse{
 
             /*TODO 이부분 이상함*/
 //            dataListArtist=Artist.getDummyArray()
-            //dataList=Artist.getDummyArray()
+            //dataListDetail=Artist.getDummyArray()
             dataAdapter = BasicListAdapter(it.applicationContext, dataList, this)
             recycler_view.adapter = dataAdapter
 

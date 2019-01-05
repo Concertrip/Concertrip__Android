@@ -1,9 +1,5 @@
 package concertrip.sopt.com.concertrip.network.response.data
 
-import concertrip.sopt.com.concertrip.model.Artist
-import concertrip.sopt.com.concertrip.model.CalendarTag
-import concertrip.sopt.com.concertrip.model.Concert
-
 data class CalendarData(
     var _id : String?,
     var name : String?,

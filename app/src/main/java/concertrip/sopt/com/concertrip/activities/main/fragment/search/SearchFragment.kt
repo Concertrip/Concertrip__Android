@@ -64,10 +64,10 @@ class SearchFragment : Fragment() ,OnResponse{
 
 //        if(searchTxt.length>10) {
 //            dataListArtist.addAll(Artist.getDummyArray())
-//            dataListConcert.addAll(Concert.getDummyArray())
+//            dataListDetail.addAll(Concert.getDummyArray())
 //        }
 //        else if(searchTxt.length>5) {
-//            dataListConcert.addAll(Concert.getDummyArray())
+//            dataListDetail.addAll(Concert.getDummyArray())
 //        }
 
             updateListConcert(ArrayList(concertList))

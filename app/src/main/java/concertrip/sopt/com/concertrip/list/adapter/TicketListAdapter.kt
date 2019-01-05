@@ -24,7 +24,7 @@ class TicketListAdapter(val mContext : Context, var dataList : ArrayList<Ticket>
 
     override fun onBindViewHolder(holder: TicketViewHolder, position: Int) {
         holder.name.text = dataList[position].name
-        //holder.date.text = dataList[position].date
+        //holder.date.text = dataListDetail[position].date
         holder.date.text = dataList[position].date
         holder.location.text = dataList[position].location
 

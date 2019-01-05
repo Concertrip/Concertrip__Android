@@ -113,16 +113,6 @@ interface NetworkService {
     ):Call<GetTicketDetailResponse>
 
 
-    //*캘린더 스케쥴
-    @GET("/api/calendar/type")
-    @Headers("Content-Type:application/json")
-    fun getCalendarType(
-        @Header("Authorization") token: Int,
-        @Query("type") type: String,
-        @Query("id") _id: String?,
-        @Query("year") year: Int,
-        @Query("month") month: Int
-    ):Call<GetCalendarTypeResponse>
 
     //*캘린더 탭 리스트
     @GET("/api/calendar/tab")
@@ -131,16 +121,16 @@ interface NetworkService {
         @Header("Authorization") token: Int
     ):Call<GetCalendarTabResponse>
 
-//    //*캘린더 리스트
-//    @GET("/api/calendar")
-//    @Headers("Content-Type:application/json")
-//    fun getCalendarList(
-//        @Header("Authorization") token: Int,
-//        @Query("type") type: String,
-//        @Query("id") id: String?,
-//        @Query("year") year: String,
-//        @Query("month") month: String
-//    ):Call<GetCalendarResponse>
+    //*캘린더 리스트
+    @GET("/api/calendar/type")
+    @Headers("Content-Type:application/json")
+    fun getCalendarList(
+        @Header("Authorization") token: Int,
+        @Query("type") type: String,
+        @Query("id") id: String?,
+        @Query("year") year: String,
+        @Query("month") month: String
+    ):Call<GetCalendarResponse>
 
     //*캘린더 데이 리스트
     @GET("/api/calendar/day")

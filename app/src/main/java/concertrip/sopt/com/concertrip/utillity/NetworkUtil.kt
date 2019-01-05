@@ -189,7 +189,7 @@ class NetworkUtil {
                             Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH :${response.body().toString()}")
                             listener?.onSuccess(response.body() as BaseModel, 0)
                         } else {
-                            Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH: fail")
+                            Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH: fail ${response.body()?.message}")
                             listener?.onFail(response.body()?.status?: Secret.NETWORK_UNKNOWN)
                         }
                     }
@@ -220,7 +220,7 @@ class NetworkUtil {
                             Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH :${response.body().toString()}")
                             listener?.onSuccess(response.body() as BaseModel, 0)
                         } else {
-                            Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH: fail")
+                            Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH: fail ${response.body()?.message}")
                             listener?.onFail(Secret.NETWORK_UNKNOWN)
                         }
                     }
@@ -229,40 +229,49 @@ class NetworkUtil {
             })
         }
 
-//        fun getCalendarList(networkService: NetworkService, listener: OnResponse?,
-//                            type: String, id:String, year: String, month: String, day: String?=null) {
-//            lateinit var getCalendarResponse: Call<GetCalendarResponse>
-//            var networkServiceType = TYPE_MONTH
-//
-//            if(day == null){
-//                networkService.getCalendarList(1, "all", null, "2019", "1")
-//            }
-//            else{
-//                networkService.getCalendarDayList(1, "all", null, "2019", "1", "1")
-//                networkServiceType = TYPE_DAY
-//            }
-//
-//            getCalendarResponse.enqueue(object : Callback<GetCalendarResponse> {
-//
-//                override fun onFailure(call: Call<GetCalendarResponse>, t: Throwable) {
-//                    Log.e(Constants.LOG_NETWORK, t.toString())
-//                    listener?.onFail(Secret.NETWORK_UNKNOWN)
-//                }
-//
-//                override fun onResponse(call: Call<GetCalendarResponse>, response: Response<GetCalendarResponse>) {
-//                    response.body()?.let {
-//                        if (it.status == Secret.NETWORK_SUCCESS) {
-//                            Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH :${response.body().toString()}")
-//                            listener?.onSuccess(response.body() as BaseModel, networkServiceType)
-//                        } else {
-//                            Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH: fail")
-//                            listener?.onFail(response.body()?.status?: Secret.NETWORK_UNKNOWN)
-//                        }
-//                    }
-//                }
-//
-//            })
-//        }
+
+        private const val LOG_CALENDAR_DAY = "/api/calendar/day"
+        private const val LOG_CALENDAR_TYPE = "/api/calendar/type"
+        fun getCalendarList(networkService: NetworkService, listener: OnResponse?,
+                            type: String, id:String, year: String, month: String, day: String?=null) {
+            val getCalendarResponse: Call<GetCalendarResponse>
+            var networkServiceType = TYPE_MONTH
+
+            var LOG_TAG : String =""
+            getCalendarResponse = if(day == null){
+
+                LOG_TAG = LOG_CALENDAR_TYPE
+                Log.d(Constants.LOG_NETWORK, "$LOG_TAG, GET ? type = $type , id = $id , year = $year , month = $month")
+                networkService.getCalendarList(1, "all", null, "2019", "1")
+            }
+            else{
+                LOG_TAG= LOG_CALENDAR_DAY
+                networkServiceType = TYPE_DAY
+                Log.d(Constants.LOG_NETWORK, "$LOG_TAG, GET ? type = $type , id = $id , year = $year , month = $month, day = $day")
+                networkService.getCalendarDayList(1, "all", null, "2019", "1", "1")
+            }
+
+            getCalendarResponse.enqueue(object : Callback<GetCalendarResponse> {
+
+                override fun onFailure(call: Call<GetCalendarResponse>, t: Throwable) {
+                    Log.e(Constants.LOG_NETWORK, "$LOG_TAG $t")
+                    listener?.onFail(Secret.NETWORK_UNKNOWN)
+                }
+
+                override fun onResponse(call: Call<GetCalendarResponse>, response: Response<GetCalendarResponse>) {
+                    response.body()?.let {
+                        if (it.status == Secret.NETWORK_SUCCESS) {
+                            Log.d(Constants.LOG_NETWORK, "$LOG_TAG :${response.body().toString()}")
+                            listener?.onSuccess(response.body() as BaseModel, networkServiceType)
+                        } else {
+                            Log.d(Constants.LOG_NETWORK, "$LOG_TAG: fail ${response.body()?.message}")
+                            listener?.onFail(response.body()?.status?: Secret.NETWORK_UNKNOWN)
+                        }
+                    }
+                }
+
+            })
+        }
 
     }
 }
