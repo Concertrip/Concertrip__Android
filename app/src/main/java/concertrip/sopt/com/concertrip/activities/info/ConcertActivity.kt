@@ -31,6 +31,7 @@ import concertrip.sopt.com.concertrip.network.ApplicationController
 import concertrip.sopt.com.concertrip.network.NetworkService
 import concertrip.sopt.com.concertrip.network.response.GetConcertResponse
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.INTENT_TAG_ID
+import concertrip.sopt.com.concertrip.utillity.Constants.Companion.USER_TOKEN
 import concertrip.sopt.com.concertrip.utillity.Secret
 import kotlinx.android.synthetic.main.activity_concert.*
 import kotlinx.android.synthetic.main.content_concert.*
@@ -182,7 +183,7 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
     }
 
     private fun connectRequestData(id : String){
-        val concertResponse : Call<GetConcertResponse> = networkService.getEvent(1, concertId)
+        val concertResponse : Call<GetConcertResponse> = networkService.getEvent(USER_TOKEN, concertId)
 
         concertResponse.enqueue(object : Callback<GetConcertResponse>
         {

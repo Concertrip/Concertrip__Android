@@ -31,9 +31,10 @@ import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
 import concertrip.sopt.com.concertrip.utillity.Constants
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_ARTIST
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_CONCERT
-import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_THEME
+import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_GENRE
 import concertrip.sopt.com.concertrip.utillity.NetworkUtil
 import concertrip.sopt.com.concertrip.utillity.NetworkUtil.Companion.getSubscribedList
+import concertrip.sopt.com.concertrip.utillity.Secret.Companion.NETWORK_NO_DATA
 import kotlinx.android.synthetic.main.fragment_liked.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -91,9 +92,9 @@ class LikedFragment : Fragment() ,View.OnClickListener, OnItemClick, OnResponse{
             }
             is GetSubscribedResponse->{
                 // 아티스트, 이벤트, 장르를 리사이클러뷰에 출력
-                var responseBody = obj as GetSubscribedResponse
+                val responseBody = obj as GetSubscribedResponse
 
-                responseBody?.let{
+                responseBody.let{
                     dataList.clear()
                     dataList.addAll(responseBody.toArtistList())
                     adapter.notifyDataSetChanged()
@@ -104,7 +105,17 @@ class LikedFragment : Fragment() ,View.OnClickListener, OnItemClick, OnResponse{
     }
 
     override fun onFail(status : Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        when(status){
+            NETWORK_NO_DATA->{
+                dataList.clear()
+                adapter.notifyDataSetChanged()
+            }
+            else->{
+
+            }
+
+        }
+
     }
 
     private fun changeFragment(to : Int, idx : Int){
@@ -142,8 +153,8 @@ class LikedFragment : Fragment() ,View.OnClickListener, OnItemClick, OnResponse{
             R.id.tv_liked_artist->{
                 connectRequestData(TYPE_ARTIST)
             }
-            R.id.tv_liked_theme->{
-                connectRequestData(TYPE_THEME)
+            R.id.tv_liked_genre->{
+                connectRequestData(TYPE_GENRE)
             }
         }
 
@@ -181,7 +192,7 @@ class LikedFragment : Fragment() ,View.OnClickListener, OnItemClick, OnResponse{
     private fun initialUI(){
         tv_liked_artist.setOnClickListener(this)
         tv_liked_concert.setOnClickListener(this)
-        tv_liked_theme.setOnClickListener(this)
+        tv_liked_genre.setOnClickListener(this)
 
         activity?.let {
             adapter= BasicListAdapter(it.applicationContext, dataList,this)
@@ -215,16 +226,22 @@ class LikedFragment : Fragment() ,View.OnClickListener, OnItemClick, OnResponse{
     private fun connectRequestData(state : Int){
         when(state){
             TYPE_ARTIST->{
+                dataList.clear()
+                adapter.notifyDataSetChanged()
                 connectArtistSubscribe()
                 updateTextColor(tv_liked_artist)
             }
             TYPE_CONCERT->{
+                dataList.clear()
+                adapter.notifyDataSetChanged()
                 connectConcertSubscribe()
                 updateTextColor(tv_liked_concert)
             }
-            TYPE_THEME->{
+            TYPE_GENRE->{
+                dataList.clear()
+                adapter.notifyDataSetChanged()
                 connectGenreSubscribe()
-                updateTextColor(tv_liked_theme)
+                updateTextColor(tv_liked_genre)
             }
             else->{
             }
@@ -243,7 +260,7 @@ class LikedFragment : Fragment() ,View.OnClickListener, OnItemClick, OnResponse{
     }
 
     private fun connectGenreSubscribe(){
-        getSubscribedList(networkService, this, "", TYPE_THEME)
+        getSubscribedList(networkService, this, "", TYPE_GENRE)
     }
 
     override fun onAttach(context: Context) {

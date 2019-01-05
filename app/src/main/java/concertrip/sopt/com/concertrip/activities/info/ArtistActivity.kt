@@ -18,6 +18,7 @@ import concertrip.sopt.com.concertrip.interfaces.OnItemClick
 import concertrip.sopt.com.concertrip.list.adapter.BasicListAdapter
 import concertrip.sopt.com.concertrip.model.Artist
 import concertrip.sopt.com.concertrip.model.Concert
+import concertrip.sopt.com.concertrip.model.Genre
 import concertrip.sopt.com.concertrip.network.ApplicationController
 import concertrip.sopt.com.concertrip.network.NetworkService
 import concertrip.sopt.com.concertrip.network.response.GetArtistResponse
@@ -25,8 +26,9 @@ import concertrip.sopt.com.concertrip.network.response.GetGenreResponse
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.INTENT_ARTIST
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.INTENT_TAG_ID
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_ARTIST
-import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_THEME
+import concertrip.sopt.com.concertrip.utillity.Constants.Companion.USER_TOKEN
 import concertrip.sopt.com.concertrip.utillity.Secret
+import concertrip.sopt.com.concertrip.utillity.Secret.Companion.NETWORK_SUCCESS
 import kotlinx.android.synthetic.main.activity_artist.*
 
 import kotlinx.android.synthetic.main.content_artist.*
@@ -80,6 +82,7 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
 //    private var artistId: String ="5c287b713eea39d2b0049f3f"
 
     lateinit var artist: Artist
+    lateinit var genre: Genre
     var dataList = arrayListOf<Concert>()
     private lateinit var adapter: BasicListAdapter
 
@@ -152,7 +155,7 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         adapter.notifyDataSetChanged()
     }
 
-    private fun updateArtistData() {
+    private fun updateArtistData(artist : Artist) {
         // TODO 좋아요 버튼 설정
         if (URLUtil.isValidUrl(artist.backImg))
             Glide.with(this).load(artist.backImg).into(iv_back)
@@ -180,7 +183,7 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
 
         // 서버에서 넘어오는 데이터 구조가 달라서 따로 구현할 수 밖에 없음ㅠ
         if (isGenre) {
-            val getGenreResponse: Call<GetGenreResponse> = networkService.getGenre(1, artistId)
+            val getGenreResponse: Call<GetGenreResponse> = networkService.getGenre(USER_TOKEN, artistId)
             getGenreResponse.enqueue(object : Callback<GetGenreResponse> {
                 override fun onFailure(call: Call<GetGenreResponse>?, t: Throwable?) {
                     Log.v("test0101", "getArtistResponse in onFailure" + t.toString())
@@ -188,11 +191,12 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
 
                 override fun onResponse(call: Call<GetGenreResponse>?, response: Response<GetGenreResponse>?) {
                     response?.let { res ->
-                        if (res.body()?.status == 200) {
+                        if (res.body()?.status == NETWORK_SUCCESS) {
                             res.body()!!.data?.let {
-                                artist = it.toArtist()
-                                updateConcertList(ArrayList(artist.concertList))
-                                updateArtistData()
+                                genre = it.toGenre()
+
+                                updateConcertList(ArrayList(genre.concertList))
+                                updateArtistData(genre)
                                 updateUI()
                             }
 
@@ -204,7 +208,7 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
                 }
             })
         } else {
-            val getArtistResponse: Call<GetArtistResponse> = networkService.getArtist(1, artistId)
+            val getArtistResponse: Call<GetArtistResponse> = networkService.getArtist(USER_TOKEN, artistId)
             getArtistResponse.enqueue(object : Callback<GetArtistResponse> {
                 override fun onFailure(call: Call<GetArtistResponse>?, t: Throwable?) {
                     Log.v("test0101", "getArtistResponse in onFailure" + t.toString())
@@ -218,7 +222,7 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
                                 artist = it.toArtist()
                                 updateConcertList(ArrayList(artist.concertList)) // 굳이 param으로 안넘겨줘도됨!
                                 updateMemberList(ArrayList(artist.memberList))
-                                updateArtistData()
+                                updateArtistData(artist)
                                 updateUI()
                             }
                         } else {
