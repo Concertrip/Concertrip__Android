@@ -128,7 +128,6 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
 
         isGenre = intent.getIntExtra(INTENT_ARTIST, TYPE_ARTIST) != TYPE_ARTIST
 
-
         if (intent.hasExtra(INTENT_TAG_ID))
             artistId = intent.getStringExtra(INTENT_TAG_ID)
 

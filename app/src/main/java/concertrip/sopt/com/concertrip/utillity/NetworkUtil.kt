@@ -204,7 +204,7 @@ class NetworkUtil {
                     response.body()?.let {
                         if (it.status == Secret.NETWORK_SUCCESS) {
                             Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH :${response.body().toString()}")
-                            listener?.onSuccess(response.body() as BaseModel, 0)
+                            listener?.onSuccess(response.body() as BaseModel, type)
                         } else {
                             Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH: fail ${response.body()?.message}")
                             listener?.onFail(Secret.NETWORK_UNKNOWN)
