@@ -98,6 +98,9 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
 
 
     override fun onSuccess(obj: BaseModel, position: Int?) {
+
+        progress_bar.visibility=View.VISIBLE
+
         if(obj is MessageResponse) {
             toast(obj.message.toString())
             artist.subscribe = !artist.subscribe
@@ -112,6 +115,7 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
     }
 
     override fun onFail(status: Int) {
+        progress_bar.visibility=View.VISIBLE
 //        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
@@ -119,7 +123,6 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_artist)
-
 
 
         isGenre = intent.getIntExtra(INTENT_ARTIST, TYPE_ARTIST) != TYPE_ARTIST
@@ -159,7 +162,6 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
 
         }
 
-        toast(isGenre.toString())
     }
 
     private fun toggleFollowBtn(b: Boolean) {
@@ -218,6 +220,7 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
 
     private fun connectRequestData(id: String) {
 
+        progress_bar.visibility=View.GONE
 
         // 서버에서 넘어오는 데이터 구조가 달라서 따로 구현할 수 밖에 없음ㅠ
         if (isGenre) {

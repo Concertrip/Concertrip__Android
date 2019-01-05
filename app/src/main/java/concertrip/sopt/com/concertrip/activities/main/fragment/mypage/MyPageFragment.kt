@@ -24,6 +24,7 @@ import concertrip.sopt.com.concertrip.network.response.GetTicketListResponse
 import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
 import concertrip.sopt.com.concertrip.utillity.NetworkUtil
 import concertrip.sopt.com.concertrip.utillity.Secret
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_my_page.*
 
 class MyPageFragment : Fragment(), OnItemClick, OnFragmentInteractionListener, OnResponse {
@@ -66,11 +67,15 @@ class MyPageFragment : Fragment(), OnItemClick, OnFragmentInteractionListener, O
         }
 
         activity?.let {
+
+            activity?.progress_bar?.visibility=View.VISIBLE
             NetworkUtil.getTicketList(networkServicce, this, "")
         }
     }
 
     override fun onSuccess(obj: BaseModel, position: Int?) {
+        activity?.progress_bar?.visibility=View.GONE
+
         if (obj is GetTicketListResponse) {
             val responseBody = obj as GetTicketListResponse
 
@@ -88,6 +93,7 @@ class MyPageFragment : Fragment(), OnItemClick, OnFragmentInteractionListener, O
     }
 
     override fun onFail(status: Int) {
+        activity?.progress_bar?.visibility=View.GONE
 //        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         Log.d("testTicket", "getTicketListResponse in onFailure ")
     }

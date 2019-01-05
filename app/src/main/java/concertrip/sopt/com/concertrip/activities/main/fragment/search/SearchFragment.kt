@@ -21,6 +21,7 @@ import concertrip.sopt.com.concertrip.network.response.GetSearchResponse
 import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
 import concertrip.sopt.com.concertrip.utillity.NetworkUtil
 import concertrip.sopt.com.concertrip.utillity.Secret
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_search.*
 import org.jetbrains.anko.toast
 
@@ -45,6 +46,7 @@ class SearchFragment : Fragment() ,OnResponse{
     lateinit var genreListAdapter: BasicListAdapter
 
     override fun onSuccess(obj: BaseModel, position: Int?) {
+        activity?.progress_bar?.visibility=View.GONE
 
         if(obj is GetSearchResponse){
             val searchResponseData = obj as GetSearchResponse
@@ -75,6 +77,8 @@ class SearchFragment : Fragment() ,OnResponse{
     }
 
     override fun onFail(status : Int) {
+        activity?.progress_bar?.visibility=View.GONE
+
         when(status){
             Secret.NETWORK_NO_DATA->{
                 showListView(false)
@@ -169,6 +173,8 @@ class SearchFragment : Fragment() ,OnResponse{
 
 
     private fun connectRequestData() {
+
+        activity?.progress_bar?.visibility=View.VISIBLE
 
         searchTxt = edt_search.text.toString()
         tv_result_no.text = ("'$searchTxt' ${getString(R.string.txt_result_no)}")

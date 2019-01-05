@@ -1,40 +1,29 @@
 package concertrip.sopt.com.concertrip.activities.main.fragment.liked
 
 import android.content.Context
-import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
-import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 
 import concertrip.sopt.com.concertrip.R
-import concertrip.sopt.com.concertrip.R.id.*
 import concertrip.sopt.com.concertrip.interfaces.ListData
 import concertrip.sopt.com.concertrip.interfaces.OnFragmentInteractionListener
 import concertrip.sopt.com.concertrip.list.adapter.BasicListAdapter
-import concertrip.sopt.com.concertrip.model.Artist
-import concertrip.sopt.com.concertrip.model.Concert
 import concertrip.sopt.com.concertrip.network.ApplicationController
 import concertrip.sopt.com.concertrip.network.NetworkService
-import concertrip.sopt.com.concertrip.interfaces.OnItemClick
 import concertrip.sopt.com.concertrip.interfaces.OnResponse
-import concertrip.sopt.com.concertrip.network.response.*
-import concertrip.sopt.com.concertrip.network.response.data.ArtistData
-import concertrip.sopt.com.concertrip.network.response.data.ConcertData
+import concertrip.sopt.com.concertrip.network.response.GetSubscribedResponse
 import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
-import concertrip.sopt.com.concertrip.utillity.Constants
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_ARTIST
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_CONCERT
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_GENRE
-import concertrip.sopt.com.concertrip.utillity.NetworkUtil
 import concertrip.sopt.com.concertrip.utillity.NetworkUtil.Companion.getSubscribedList
 import concertrip.sopt.com.concertrip.utillity.Secret.Companion.NETWORK_NO_DATA
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_liked.*
 
 class LikedFragment : Fragment(), View.OnClickListener, OnResponse {
@@ -53,6 +42,9 @@ class LikedFragment : Fragment(), View.OnClickListener, OnResponse {
 
     override fun onSuccess(obj: BaseModel, position: Int?) {
 
+
+        activity?.progress_bar?.visibility=View.GONE
+
         activity?.let {
             if (obj is GetSubscribedResponse) {
                 // 아티스트, 이벤트, 장르를 리사이클러뷰에 출력
@@ -67,6 +59,8 @@ class LikedFragment : Fragment(), View.OnClickListener, OnResponse {
     }
 
     override fun onFail(status: Int) {
+        activity?.progress_bar?.visibility=View.GONE
+
         when (status) {
             NETWORK_NO_DATA -> {
                 clearDataList()
@@ -143,6 +137,11 @@ class LikedFragment : Fragment(), View.OnClickListener, OnResponse {
     }
     private fun connectRequestData(state: Int) {
         clearDataList()
+
+
+
+        activity?.progress_bar?.visibility=View.VISIBLE
+
         when (state) {
             TYPE_ARTIST -> {
                 getSubscribedList(networkService, this, "", TYPE_ARTIST)
