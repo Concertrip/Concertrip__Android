@@ -55,12 +55,12 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
         R.drawable.m_10, R.drawable.m_11, R.drawable.m_12
     )
 
-    var dataListTag = ArrayList<CalendarTab>()
+    private var dataListTag = ArrayList<CalendarTab>()
 
     private lateinit var dayList: ArrayList<String>
     private var scheduleMap: HashMap<Int, ArrayList<Schedule>> by Delegates.notNull()
 
-    var dataListDetail = arrayListOf<ListData>()
+    private var dataListDetail = arrayListOf<ListData>()
 
     private lateinit var tabAdapter: CalendarTabListAdapter
     private lateinit var calendarAdapter: CalendarListAdapter

@@ -40,7 +40,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener, OnItemClick , OnResponse {
+class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener, OnItemClick, OnResponse {
 
     private var isGenre: Boolean = true
     private var artistId: String = "5c298b2a3eea39d2b00ca7d4"
@@ -59,7 +59,6 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
     private val networkService: NetworkService by lazy {
         ApplicationController.instance.networkService
     }
-
 
 
     override fun onItemClick(root: RecyclerView.Adapter<out RecyclerView.ViewHolder>, position: Int) {
@@ -99,19 +98,22 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
 
 
     override fun onSuccess(obj: BaseModel, position: Int?) {
-        when(obj){
-            is GetArtistSubscribeResponse ->{
-                artist.subscribe=!artist.subscribe
-                toggleFollowBtn(artist.subscribe)
+        if(obj is MessageResponse) {
+            toast(obj.message.toString())
+            artist.subscribe = !artist.subscribe
+            toggleFollowBtn(artist.subscribe)
 
-            }
+            if (artist.subscribe)
+                showDialog("캘린더에 추가했습니다")
+            else
+                showDialog("구독 취소했습니다")
         }
+
     }
 
     override fun onFail(status: Int) {
 //        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -123,8 +125,8 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         isGenre = intent.getIntExtra(INTENT_ARTIST, TYPE_ARTIST) != TYPE_ARTIST
 
 
-        if(intent.hasExtra(INTENT_TAG_ID))
-                artistId = intent.getStringExtra(INTENT_TAG_ID)
+        if (intent.hasExtra(INTENT_TAG_ID))
+            artistId = intent.getStringExtra(INTENT_TAG_ID)
 
 
 // 장르인지 아티스트인지 intent에서 받아오기
@@ -150,28 +152,27 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
 
 
         btn_follow.setOnClickListener {
-            if(isGenre)
-                NetworkUtil.subscribeGenre(networkService,this,artistId)
+            if (isGenre)
+                NetworkUtil.subscribeGenre(networkService, this, artistId)
             else
-                NetworkUtil.subscribeArtist(networkService,this,artistId)
+                NetworkUtil.subscribeArtist(networkService, this, artistId)
 
-            showDialog()
         }
 
         toast(isGenre.toString())
     }
 
-    private fun toggleFollowBtn(b : Boolean){
-        if(b){
+    private fun toggleFollowBtn(b: Boolean) {
+        if (b) {
             btn_follow.setImageDrawable(getDrawable(R.drawable.ic_like))
 
-        }else{
+        } else {
             btn_follow.setImageDrawable(getDrawable(R.drawable.ic_unlike))
         }
     }
 
-    private fun showDialog() {
-        val dialog = CustomDialog(this)
+    private fun showDialog(txt: String) {
+        val dialog = CustomDialog(this, txt)
         dialog.show()
     }
 
@@ -190,8 +191,10 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         adapter.notifyDataSetChanged()
     }
 
-    private fun updateArtistData(artist : Artist) {
+    private fun updateArtistData(artist: Artist) {
         // TODO 좋아요 버튼 설정
+        btn_follow.setImageDrawable(if (artist.subscribe) getDrawable(R.drawable.ic_like) else getDrawable(R.drawable.ic_unlike))
+
         if (URLUtil.isValidUrl(artist.backImg))
             Glide.with(this).load(artist.backImg).into(iv_back)
 //        else

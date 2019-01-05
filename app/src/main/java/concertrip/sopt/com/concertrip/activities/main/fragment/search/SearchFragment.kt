@@ -177,4 +177,9 @@ class SearchFragment : Fragment() ,OnResponse{
         NetworkUtil.search(networkService, this, searchTxt)
 
     }
+
+    override fun onAttachFragment(childFragment: Fragment?) {
+        super.onAttachFragment(childFragment)
+        connectRequestData()
+    }
 }
