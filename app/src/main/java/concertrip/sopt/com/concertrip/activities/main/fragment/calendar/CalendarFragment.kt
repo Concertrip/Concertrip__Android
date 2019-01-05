@@ -34,6 +34,7 @@ import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
 import concertrip.sopt.com.concertrip.network.response.GetCalendarTabResponse
 import concertrip.sopt.com.concertrip.network.response.TabData
 import concertrip.sopt.com.concertrip.utillity.Constants
+import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_CONCERT
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.USER_TOKEN
 import concertrip.sopt.com.concertrip.utillity.NetworkUtil
 import concertrip.sopt.com.concertrip.utillity.Secret
@@ -191,6 +192,7 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
             recycler_view_calendar.adapter = calendarAdapter
 
             detailAdapter = BasicListAdapter(it.applicationContext, dataListDetail, this)
+            detailAdapter.mode = TYPE_CONCERT
             recycler_view_calendar_detail.adapter = detailAdapter
 
 

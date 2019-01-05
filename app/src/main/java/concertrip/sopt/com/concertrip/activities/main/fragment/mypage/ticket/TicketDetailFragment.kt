@@ -25,6 +25,10 @@ import java.util.*
 
 class TicketDetailFragment : Fragment() {
 
+    /*TODO
+    * 터치한 티켓의 상세 정보를 보여주도록 해야함
+    * 상세 정보에 뭐가 들어가있는지 확인 및 전달 방법 고려(번들 or 인덱스 or 여러 extraIntent)*/
+
     var dataList = arrayListOf<Ticket>()
     private var ticketId : Int = 1
 
@@ -61,7 +65,7 @@ class TicketDetailFragment : Fragment() {
 
     private fun updateUI(ticket: Ticket){
         tv_ticket_detail_name.text = ticket.name
-        tv_ticket_detail_date.text = convertDate(ticket.date)
+        tv_ticket_detail_date.text = ticket.date
         tv_ticket_detail_seat.text = ticket.seat
         tv_ticket_detail_location.text = ticket.location
     }
@@ -88,28 +92,6 @@ class TicketDetailFragment : Fragment() {
 
     }
 
-    private val dayNum : List<String> = listOf("일", "월", "화", "수", "목", "금", "토")
-
-    private fun convertDate(input: String?) : String?{
-        val convertedDate = StringBuilder()
-
-        if(input != null){
-            val dateInfoList = input.split("T")
-            val dateFormat = SimpleDateFormat("yyyy-MM-dd").parse(input.split("T")[0])
-            val instance : Calendar = Calendar.getInstance()
-            instance.time = dateFormat
-            val dayNumIdx = instance.get(Calendar.DAY_OF_WEEK)
-
-            val splitedList = dateInfoList[0].split("-")
-
-            convertedDate.append(splitedList[0]+"."+splitedList[1]+"."+splitedList[2]+"("+dayNum[dayNumIdx-1]+")")
-
-            return convertedDate.toString()
-        }
-        else{
-            return convertedDate.toString()
-        }
-    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
