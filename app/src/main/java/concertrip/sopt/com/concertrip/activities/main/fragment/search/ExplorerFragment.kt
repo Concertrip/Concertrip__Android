@@ -29,20 +29,6 @@ import concertrip.sopt.com.concertrip.utillity.NetworkUtil
 import concertrip.sopt.com.concertrip.utillity.Secret
 import kotlinx.android.synthetic.main.fragment_explorer.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [Explorer.OnFragmentInteractionListener] interface
- * to handle interaction events.
- * Use the [Explorer.newInstance] factory method to
- * create an instance of this fragment.
- *
- */
 class ExplorerFragment : Fragment(), OnItemClick ,OnResponse{
     override fun onSuccess(obj: BaseModel, position: Int?) {
 
@@ -56,6 +42,9 @@ class ExplorerFragment : Fragment(), OnItemClick ,OnResponse{
             updateDataList(list)
         }
     }
+
+    private var listener: OnFragmentInteractionListener? = null
+
 
     override fun onFail(status : Int) {
         if(status== Secret.NETWORK_NO_DATA)
@@ -72,22 +61,10 @@ class ExplorerFragment : Fragment(), OnItemClick ,OnResponse{
     lateinit var dataAdapter: BasicListAdapter
 
 
-    private var listener: OnFragmentInteractionListener? = null
-
-
     private val networkService: NetworkService by lazy {
         ApplicationController.instance.networkService
     }
 
-
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-
-    private fun changeFragment() {
-        listener?.changeFragment(Constants.FRAGMENT_SEARCH)
-    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -106,34 +83,22 @@ class ExplorerFragment : Fragment(), OnItemClick ,OnResponse{
     override fun onItemClick(root: RecyclerView.Adapter<out RecyclerView.ViewHolder>, position: Int) {
         tagAdapter.setSelect(position)
 
-        /*TODO 서버 API받고 똑바로 구성한 뒤, 주석풀기*/
-        if(root is HorizontalListAdapter){ // 태그를 클릭했을 때
+        if(root is HorizontalListAdapter){
             when (position) {
-                0 -> {
+                0 -> { //TODO 모두 보기 클릭시
                     //아직 API가...ㅜ
                 }
-                1 -> {  // 테마를 선택하면 이 내부에 저장된 것들을 불러옴
+                1 -> {  //TODO 테마 선택시 클릭시
 
                 }
                 else -> connectRequestData(dataListTag[position])
             }
         }
-//        else{
-//            // getBtn()
-//            /*TODO 하트 or 종 convert + subscribe 전환*/
-//            activity?.let {
-//                Toast.makeText(it.applicationContext, "내 공연에 추가되었습니다!", Toast.LENGTH_LONG).show()
-//            }
-//        }
 
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
@@ -146,13 +111,12 @@ class ExplorerFragment : Fragment(), OnItemClick ,OnResponse{
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initialUI() // search_bar에 setOnClickListner 및 adapter 설정
+        initialUI()
     }
 
     private fun initialUI() {
-        // convert to SearchFragment
         search_bar.setOnClickListener {
-            changeFragment()
+            listener?.changeFragment(Constants.FRAGMENT_SEARCH)
         }
 
         activity?.let {
@@ -160,9 +124,6 @@ class ExplorerFragment : Fragment(), OnItemClick ,OnResponse{
             tagAdapter = HorizontalListAdapter(it.applicationContext, dataListTag, this)
             recycler_view_horizontal.adapter = tagAdapter
 
-            /*TODO 이부분 이상함*/
-//            dataListArtist=Artist.getDummyArray()
-            //dataListDetail=Artist.getDummyArray()
             dataAdapter = BasicListAdapter(it.applicationContext, dataList, this)
             recycler_view.adapter = dataAdapter
 
@@ -183,23 +144,4 @@ class ExplorerFragment : Fragment(), OnItemClick ,OnResponse{
         NetworkUtil.search(networkService,this,tag)
     }
 
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SearchFragment.
-         */
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ExplorerFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
 }

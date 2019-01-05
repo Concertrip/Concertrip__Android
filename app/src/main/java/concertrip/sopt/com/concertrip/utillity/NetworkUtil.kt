@@ -29,10 +29,7 @@ class NetworkUtil {
 
 
         private const val LOG_SUBSCRIBE_ARTIST = "/api/subscribe/artist"
-        fun subscribeArtist(networkService: NetworkService, listener: OnResponse?, _id: String) =
-            subscribeArtist(networkService, listener, _id, null)
-
-        fun subscribeArtist(networkService: NetworkService, listener: OnResponse?, _id: String, position: Int?) {
+        fun subscribeArtist(networkService: NetworkService, listener: OnResponse?, _id: String, position: Int? = null) {
             val jsonObject = JSONObject()
             jsonObject.put(USGS_REQUEST_URL.JSON_ARTIST_ID, _id)
             val gsonObject = JsonParser().parse(jsonObject.toString()) as JsonObject
@@ -46,7 +43,6 @@ class NetworkUtil {
                     listener?.onFail(Secret.NETWORK_UNKNOWN)
                 }
 
-                //통신 성공 시 수행되는 메소드
                 override fun onResponse(call: Call<MessageResponse>, response: Response<MessageResponse>) {
                     Log.d(Constants.LOG_NETWORK, response.errorBody()?.string() ?: response.message())
                     if (response.isSuccessful && response.body()?.status== Secret.NETWORK_SUCCESS) {
@@ -62,10 +58,7 @@ class NetworkUtil {
 
 
         private const val LOG_SUBSCRIBE_GENRE = "/api/subscribe/genre"
-        fun subscribeGenre(networkService: NetworkService, listener: OnResponse?, _id: String) =
-            subscribeGenre(networkService, listener, _id, null)
-
-        fun subscribeGenre(networkService: NetworkService, listener: OnResponse?, _id: String, position: Int?) {
+        fun subscribeGenre(networkService: NetworkService, listener: OnResponse?, _id: String, position: Int?=null) {
             val jsonObject = JSONObject()
             jsonObject.put(USGS_REQUEST_URL.JSON_GENRE_ID, _id)
             val gsonObject = JsonParser().parse(jsonObject.toString()) as JsonObject
@@ -81,7 +74,6 @@ class NetworkUtil {
                     listener?.onFail(Secret.NETWORK_UNKNOWN)
                 }
 
-                //통신 성공 시 수행되는 메소드
                 override fun onResponse(call: Call<MessageResponse>, response: Response<MessageResponse>) {
                     Log.d(Constants.LOG_NETWORK, response.errorBody()?.string() ?: response.message())
 
@@ -98,10 +90,7 @@ class NetworkUtil {
 
 
         private const val LOG_SUBSCRIBE_CONCERT = "/api/subscribe/event"
-        fun subscribeConcert(networkService: NetworkService, listener: OnResponse?, _id: String) =
-            subscribeConcert(networkService, listener, _id, null)
-
-        fun subscribeConcert(networkService: NetworkService, listener: OnResponse?, _id: String, position: Int?) {
+        fun subscribeConcert(networkService: NetworkService, listener: OnResponse?, _id: String, position: Int?=null) {
             val jsonObject = JSONObject()
             jsonObject.put(USGS_REQUEST_URL.JSON_CONCERT_ID, _id)
             val gsonObject = JsonParser().parse(jsonObject.toString()) as JsonObject
@@ -117,7 +106,6 @@ class NetworkUtil {
                     listener?.onFail(Secret.NETWORK_UNKNOWN)
                 }
 
-                //통신 성공 시 수행되는 메소드
                 override fun onResponse(call: Call<MessageResponse>, response: Response<MessageResponse>) {
                     Log.d(Constants.LOG_NETWORK, response.errorBody()?.string() ?: response.message())
 
@@ -134,10 +122,8 @@ class NetworkUtil {
 
 
         private const val LOG_SEARCH = "/api/search"
-        fun search(networkService: NetworkService, listener: OnResponse?, tag: String) =
-            search(networkService, listener, tag, null)
 
-        fun search(networkService: NetworkService, listener: OnResponse?, tag: String, position: Int?) {
+        fun search(networkService: NetworkService, listener: OnResponse?, tag: String, position: Int?=null) {
 
             Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH, GET ? tag=$tag")
 
@@ -150,7 +136,6 @@ class NetworkUtil {
                     listener?.onFail(Secret.NETWORK_UNKNOWN)
                 }
 
-                //통신 성공 시 수행되는 메소드
                 override fun onResponse(call: Call<GetSearchResponse>, response: Response<GetSearchResponse>) {
                     Log.d(Constants.LOG_NETWORK, response.errorBody()?.string() ?: response.message())
 
@@ -217,7 +202,7 @@ class NetworkUtil {
 
                 override fun onResponse(call: Call<GetSubscribedResponse>, response: Response<GetSubscribedResponse>) {
                     response.body()?.let {
-                        if (it.status == 200) {
+                        if (it.status == Secret.NETWORK_SUCCESS) {
                             Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH :${response.body().toString()}")
                             listener?.onSuccess(response.body() as BaseModel, 0)
                         } else {
@@ -243,13 +228,13 @@ class NetworkUtil {
 
                 LOG_TAG = LOG_CALENDAR_TYPE
                 Log.d(Constants.LOG_NETWORK, "$LOG_TAG, GET ? type = $type , id = $id , year = $year , month = $month")
-                networkService.getCalendarList(USER_TOKEN, "all", null, "2019", "1")
+                networkService.getCalendarList(USER_TOKEN, type, id, year, month)
             }
             else{
                 LOG_TAG= LOG_CALENDAR_DAY
                 networkServiceType = TYPE_DAY
                 Log.d(Constants.LOG_NETWORK, "$LOG_TAG, GET ? type = $type , id = $id , year = $year , month = $month, day = $day")
-                networkService.getCalendarDayList(USER_TOKEN, "all", null, "2019", "1", "1")
+                networkService.getCalendarDayList(USER_TOKEN, type, id, year, month,day)
             }
 
             getCalendarResponse.enqueue(object : Callback<GetCalendarResponse> {

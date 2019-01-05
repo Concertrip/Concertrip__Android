@@ -23,7 +23,6 @@ class HorizontalListAdapter(
 ) : RecyclerView.Adapter<HorizontalViewHolder>() {
     var selected: Int = 0
 
-    constructor(mContext: Context, dataList: ArrayList<String>) : this(mContext, dataList, null, true)
     constructor(mContext: Context, dataList: ArrayList<String>, listener: OnItemClick?) : this(
         mContext,
         dataList,
@@ -57,7 +56,6 @@ class HorizontalListAdapter(
     }
 
     fun setSelect(position: Int) {
-        Log.v("1227", position.toString())
         this.selected = position
         notifyDataSetChanged()
     }

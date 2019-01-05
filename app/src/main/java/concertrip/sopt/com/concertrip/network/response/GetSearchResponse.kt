@@ -3,6 +3,7 @@ package concertrip.sopt.com.concertrip.network.response
 import com.google.gson.annotations.SerializedName
 import concertrip.sopt.com.concertrip.model.Artist
 import concertrip.sopt.com.concertrip.model.Concert
+import concertrip.sopt.com.concertrip.model.Genre
 import concertrip.sopt.com.concertrip.network.response.data.SearchData
 import concertrip.sopt.com.concertrip.network.response.data.SimpleArtistData
 import concertrip.sopt.com.concertrip.network.response.data.SimpleConcertData
@@ -30,8 +31,8 @@ data class GetSearchResponse (
         return list
     }
 
-    fun toGenreList() : ArrayList<Artist>{
-        val list = ArrayList<Artist>()
+    fun toGenreList() : ArrayList<Genre>{
+        val list = ArrayList<Genre>()
         data?.genres?.forEach {
             list.add(it.toGenre())
         }

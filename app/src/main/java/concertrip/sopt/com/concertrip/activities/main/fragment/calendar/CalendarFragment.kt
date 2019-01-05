@@ -25,7 +25,7 @@ import concertrip.sopt.com.concertrip.R
 import concertrip.sopt.com.concertrip.interfaces.ListData
 import android.util.Log
 import concertrip.sopt.com.concertrip.interfaces.OnResponse
-import concertrip.sopt.com.concertrip.list.adapter.CalendarTagListAdapter
+import concertrip.sopt.com.concertrip.list.adapter.CalendarTabListAdapter
 import concertrip.sopt.com.concertrip.model.CalendarTab
 import concertrip.sopt.com.concertrip.network.ApplicationController
 import concertrip.sopt.com.concertrip.network.NetworkService
@@ -41,32 +41,13 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [CalendarFragment.OnFragmentInteractionListener] interface
- * to handle interaction events.
- * Use the [CalendarFragment.newInstance] factory method to
- * create an instance of this fragment.
- *
- */
 class CalendarFragment : Fragment(), OnItemClick, OnResponse {
 
     var year: Int  by Delegates.notNull()
     var month: Int by Delegates.notNull()
 
-    var dataListDetail = arrayListOf<ListData>()
-    var dataListTag = CalendarTab.instanceArray()
 
-    private var scheduleMap: HashMap<Int, ArrayList<Schedule>> by Delegates.notNull()
-
-
-    private lateinit var dayList: ArrayList<String>
     private val monthImgList = listOf<Int>(
         R.drawable.m_1, R.drawable.m_2, R.drawable.m_3,
         R.drawable.m_4, R.drawable.m_5, R.drawable.m_6,
@@ -74,20 +55,18 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
         R.drawable.m_10, R.drawable.m_11, R.drawable.m_12
     )
 
-    lateinit var calendarListAdapter: CalendarListAdapter
-    // 날짜 > date객체(스트링으로 넘어옴)
+    var dataListTag = ArrayList<CalendarTab>()
 
-    lateinit var calendarDetailAdapter: BasicListAdapter
-    lateinit var tagAdapter: CalendarTagListAdapter
+    private lateinit var dayList: ArrayList<String>
+    private var scheduleMap: HashMap<Int, ArrayList<Schedule>> by Delegates.notNull()
 
-    /*TODO
-    * have to make interface which contains schedule list
-    * + adapter
-    * + hash map key=day value=interface()*/
+    var dataListDetail = arrayListOf<ListData>()
 
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private lateinit var tabAdapter: CalendarTabListAdapter
+    private lateinit var calendarAdapter: CalendarListAdapter
+    private lateinit var detailAdapter: BasicListAdapter
+
+
     private var listener: OnFragmentInteractionListener? = null
 
     private val networkService: NetworkService by lazy {
@@ -96,16 +75,11 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
 
 
     override fun onItemClick(root: RecyclerView.Adapter<out RecyclerView.ViewHolder>, position: Int) {
-        /*TODO have to implement it*/
-        // 태그 중 하나를 클릭하면 서버에서 그 태그에 알맞는 일정을 받아오기 위한 함수!
-        // 여기서 사용하는 HorixzontalListAdapter에서 사용하며
-        // holder.itemView.setOnClickListener에 달아뒀음!
-        // 클릭된 아이템의 position 값이 parameter로 전달됨!
-
-        if (root is CalendarTagListAdapter) {
-
+        if (root is CalendarTabListAdapter) {
             clearDetailList()
-            tagAdapter.setSelect(position)
+
+            tabAdapter.setSelect(position)
+
             NetworkUtil.getCalendarList(
                 networkService,
                 this,
@@ -115,20 +89,18 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
                 month.toString(),
                 null
             )
-            updateCalendar(position)
+
         } else if (root is CalendarListAdapter) {
-            if (calendarListAdapter.selected == -1) {
-
-                clearDetailList()
+            if (calendarAdapter.selected == -1) {
+//                clearDetailList()
                 recycler_view_calendar_detail.visibility = View.GONE
-
             } else {
                 recycler_view_calendar_detail.visibility = View.VISIBLE
                 NetworkUtil.getCalendarList(
                     networkService,
                     this,
-                    dataListTag[tagAdapter.selected].type,
-                    dataListTag[tagAdapter.selected].name,
+                    dataListTag[tabAdapter.selected].type,
+                    dataListTag[tabAdapter.selected]._id,
                     year.toString(),
                     month.toString(),
                     dayList[position]
@@ -143,12 +115,13 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
         if (obj is GetCalendarResponse) {
             when (position) {
                 Constants.TYPE_MONTH -> {
-                    val map = obj.toScheduleMap()
-                    calendarListAdapter.scheduleMap.clear()
-                    calendarListAdapter.scheduleMap.putAll(map)
-
                     clearDetailList()
 
+                    val map = obj.toScheduleMap()
+                    calendarAdapter.scheduleMap.clear()
+                    calendarAdapter.scheduleMap.putAll(map)
+
+                    calendarAdapter.notifyDataSetChanged()
                 }
                 Constants.TYPE_DAY -> {
                     updateCalendarDetail(obj.toConcertArray())
@@ -164,17 +137,12 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_calendar, container, false)
     }
 
@@ -183,8 +151,6 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
         super.onViewCreated(view, savedInstanceState)
 
         initialUI()
-        updateUI()
-
     }
 
 
@@ -196,33 +162,21 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
         activity?.let {
 
             scheduleMap =  HashMap<Int, ArrayList<Schedule>>()
-            calendarListAdapter = CalendarListAdapter(it.applicationContext, makeDayList(), scheduleMap, this)
+            calendarAdapter = CalendarListAdapter(it.applicationContext, makeDayList(), scheduleMap, this)
             recycler_view_calendar.layoutManager = GridLayoutManager(it.applicationContext, 7)
-            recycler_view_calendar.adapter = calendarListAdapter
+            recycler_view_calendar.adapter = calendarAdapter
 
-            dataListDetail.addAll(Concert.getDummyArray())
-//            dataListOrigin.addAll(Concert.getDummyArray())
-            calendarDetailAdapter = BasicListAdapter(it.applicationContext, dataListDetail, this)
-            recycler_view_calendar_detail.adapter = calendarDetailAdapter
+            detailAdapter = BasicListAdapter(it.applicationContext, dataListDetail, this)
+            recycler_view_calendar_detail.adapter = detailAdapter
 
 
-            tagAdapter = CalendarTagListAdapter(it.applicationContext, dataListTag, this, false)
-            recycler_view_filter.adapter = tagAdapter
-
-//        dataListDetail = Concert.getDummyArray()
-//        dataListOrigin.addAll(Concert.getDummyArray())
-//        calendarDetailAdapter = BasicListAdapter(it.applicationContext, dataListDetail, this)
-//        recycler_view_calendar_detail.adapter = calendarDetailAdapter
-//
-//        tagAdapter = HorizontalListAdapter(it.applicationContext, dataListTag, this, false)
-//        recycler_view_filter.adapter = tagAdapter
-//
-
+            tabAdapter = CalendarTabListAdapter(it.applicationContext, dataListTag, this, false)
+            recycler_view_filter.adapter = tabAdapter
 
             NetworkUtil.getCalendarList(
                 networkService,
                 this,
-                Constants.REQUEST_ALL,
+                "all",
                 "",
                 year.toString(),
                 month.toString(),
@@ -234,23 +188,6 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
         connectRequestTabData()
 
 
-//        val textShader = LinearGradient(
-//            0f, 0f, 0f, 20f,
-//            intArrayOf(R.color.white, R.color.black),
-//            floatArrayOf(1f, 1f), TileMode.CLAMP
-//        )
-//        tv_calendar.paint.shader = textShader
-
-    }
-
-    private fun updateUI() {
-        if (dataListDetail.size == 0) {
-            recycler_view_calendar_detail.visibility = View.GONE
-            rl_select_date_view.visibility = View.VISIBLE
-        } else {
-            recycler_view_calendar_detail.visibility = View.VISIBLE
-            rl_select_date_view.visibility = View.GONE
-        }
     }
 
     private var mCal: Calendar by Delegates.notNull()
@@ -320,107 +257,42 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
         }
     }
 
-    private fun updateCalendar(idx: Int) {
-
-    }
     private fun updateCalendarDetail(list: ArrayList<Concert>) {
         dataListDetail.clear()
-        list.forEach {
-            dataListDetail.add(it)
-        }
-        calendarDetailAdapter.notifyDataSetChanged()
-        updateUI()
+        dataListDetail.addAll(list)
+        detailAdapter.notifyDataSetChanged()
+
     }
 
     private fun clearDetailList(){
-        calendarListAdapter.selected=-1
-        calendarListAdapter.notifyDataSetChanged()
+        calendarAdapter.selected=-1
+        calendarAdapter.notifyDataSetChanged()
 
         dataListDetail.clear()
-        calendarDetailAdapter.notifyDataSetChanged()
-        updateUI()
+        detailAdapter.notifyDataSetChanged()
     }
 
-
-    //Deprecated This function
-//    private fun updateCalendarDetail(date: Int) {
-//
-//        val list = scheduleMap[date]
-//
-//        dataListDetail.clear()
-//        list?.forEach {
-//            dataListDetail.add(it.toConcert())
-//        }
-//        calendarDetailAdapter.notifyDataSetChanged()
-//
-//    }
-
-
-//    private fun connectRequestCalendar(type: String, _id: String?) {
-//
-//        val LOG_CALENDAR_TYPE = "/api/calendar/type"
-//
-//
-//        val id= if(type== Constants.REQUEST_ALL || type== Constants.REQUEST_MVP) null
-//        else _id
-//        Log.d(Constants.LOG_NETWORK, "$LOG_CALENDAR_TYPE, GET ? type=$type, id=$id, year = $year, month = $month")
-//
-//
-//        val search: Call<GetCalendarTypeResponse> =
-//            networkService.getCalendarType(2, type, id, year, month)
-//        search.enqueue(object : Callback<GetCalendarTypeResponse> {
-//
-//            override fun onFailure(call: Call<GetCalendarTypeResponse>, t: Throwable) {
-//                Log.e(Constants.LOG_NETWORK, t.toString())
-//                onFail(Secret.NETWORK_UNKNOWN)
-//            }
-//
-//            //통신 성공 시 수행되는 메소드
-//            override fun onResponse(call: Call<GetCalendarTypeResponse>, response: Response<GetCalendarTypeResponse>) {
-//                Log.d(Constants.LOG_NETWORK, response.errorBody()?.string() ?: response.message())
-//
-//                if (response.isSuccessful) {
-//                    Log.d(Constants.LOG_NETWORK, "$LOG_CALENDAR_TYPE :${response.body()?.status}")
-//                    response.body()?.let {
-//                        if (it.status == Secret.NETWORK_SUCCESS) {
-//                            Log.d(Constants.LOG_NETWORK, "$LOG_CALENDAR_TYPE :${response.body().toString()}")
-//                            onSuccess(response.body() as BaseModel, null)
-//                        } else {
-//                            Log.d(Constants.LOG_NETWORK, "$LOG_CALENDAR_TYPE: fail  ${response.body()?.message}")
-//                            onFail(response.body()?.status ?: Secret.NETWORK_UNKNOWN)
-//                        }
-//                    }
-//
-//                } else {
-//                    onFail(Secret.NETWORK_UNKNOWN)
-//
-//                }
-//            }
-//        })
-//
-//
-//    }
 
 
     private var LOG_CALENDAR_TAB = "/api/calendar/tab"
     private fun connectRequestTabData() {
-        Log.d(Constants.LOG_NETWORK, "GET")
+        Log.d(Constants.LOG_NETWORK, "$LOG_CALENDAR_TAB GET")
         val getCalendarTabResponse: Call<GetCalendarTabResponse> = networkService.getCalendarTabList(1)
 
         getCalendarTabResponse.enqueue(object : Callback<GetCalendarTabResponse> {
             override fun onFailure(call: Call<GetCalendarTabResponse>?, t: Throwable?) {
-                Log.e(Constants.LOG_NETWORK, " $t")
+                Log.e(Constants.LOG_NETWORK, "$LOG_CALENDAR_TAB  $t")
             }
 
             override fun onResponse(call: Call<GetCalendarTabResponse>?, response: Response<GetCalendarTabResponse>?) {
                 response?.let { res ->
                     if (res.body()?.status == Secret.NETWORK_SUCCESS) {
-                        Log.d(Constants.LOG_NETWORK, ":${response.body().toString()}")
+                        Log.d(Constants.LOG_NETWORK, "$LOG_CALENDAR_TAB :${response.body().toString()}")
                         res.body()!!.data?.let {
                             updateTagList(ArrayList(res.body()?.data))
                         }
                     } else {
-                        Log.d(Constants.LOG_NETWORK, ": fail ${response.body()?.message}")
+                        Log.d(Constants.LOG_NETWORK, "$LOG_CALENDAR_TAB : fail ${response.body()?.message}")
 //                        Log.v("test0102", "getGenreResponse in " + response.body()?.status.toString())
                     }
                 }
@@ -432,12 +304,11 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
 
     fun updateTagList(list: ArrayList<TabData>) {
         dataListTag.clear()
-//        dataListTag.addAll(CalendarTag.instanceArray())
         list.forEach {
             dataListTag.add(it.toCalendarTag())
         }
 
-        tagAdapter.notifyDataSetChanged()
+        tabAdapter.notifyDataSetChanged()
     }
 
     override fun onAttach(context: Context) {
@@ -455,23 +326,4 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
     }
 
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment CalendarFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            CalendarFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
 }

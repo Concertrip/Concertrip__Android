@@ -17,8 +17,6 @@ class  CustomDialog(context: Context, var content: String) : Dialog(context){
 
     constructor(context: Context) : this(context,context.getString(R.string.txt_calendar_added))
 
-    private var btnConfirm : Button by Delegates.notNull()
-    private var tvContent : TextView by Delegates.notNull()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,15 +27,8 @@ class  CustomDialog(context: Context, var content: String) : Dialog(context){
 
 
         dialog_tv_content.text=content
-//        btnConfirm=findViewById(R.id.btn_confirm)
-//        btnConfirm.setOnClickListener {
-//            this.dismiss()
-//        }
     }
 
-    fun setOnClickListenerYes(l : View.OnClickListener){
-//        btnConfirm.setOnClickListener(l)
-    }
 
 
 }

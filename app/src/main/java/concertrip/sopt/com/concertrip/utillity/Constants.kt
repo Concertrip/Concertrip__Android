@@ -4,6 +4,7 @@ class Constants {
     companion object {
         const  val LOG_NETWORK ="~~~~Network"
 
+        //Tablayout의 아이템
         const val TAB_CALENDAR = 0
         const val TAB_SEARCH= 1
         const val TAB_LIKED = 2
@@ -11,15 +12,16 @@ class Constants {
 
 
 
+        //CalendarAdapter의 viewType
         const val CALENDAR_TYPE_DAY = 0
-        const val CALENDAT_TYPE_BLANK = 1
+        const val CALENDAR_TYPE_BLANK = 1
         const val CALENDAR_TYPE_DATE = 2
 
 
+        //BasicListAdapter의 viewType
         const val TYPE_ARTIST = 0
         const val TYPE_CONCERT = 1
         const val TYPE_GENRE = 2
-
         const val TYPE_TICKET = 3
         const val TYPE_ALARM = 4
         const val TYPE_CAUTION = 5
@@ -27,15 +29,8 @@ class Constants {
         const val TYPE_SCHEDULE = 7
 
 
-        //TODO 이거 변수명 마음에 안듬
-        const val REQUEST_ALL = "all"
-        const val REQUEST_MVP = "mvp"
-        const val REQUEST_ARTIST = "artist"
-        const val REQUEST_GENRE = "genre"
 
-
-        const val BUNDLE_KEY_INDEX = "INDEX"
-
+        //FragmentAdapter의 배열idx와 맞춰야함
         const val FRAGMENT_CALENDAR = 0
         const val FRAGMENT_EXPLORER= 1
         const val FRAGMENT_LIKED = 2
@@ -45,13 +40,18 @@ class Constants {
         const val FRAGMENT_TICKET = 6
         const val FRAGMENT_SETTING =7
 
+
         const val INTENT_TAG_ID = "id"
 
         const val INTENT_ARTIST = "artist"
+
+        //CalendarFragment에서 networkPath 지정할때
         const val TYPE_MONTH = 0
         const val TYPE_DAY = 1
 
-        const val USER_TOKEN=4
+
+        //테스용 유저 TOKEN값
+        const val USER_TOKEN=3
 
     }
 }

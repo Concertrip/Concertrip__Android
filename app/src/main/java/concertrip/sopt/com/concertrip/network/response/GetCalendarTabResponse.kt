@@ -16,5 +16,5 @@ data class TabData(
     var name : String?
 ){
 
-    fun toCalendarTag() : CalendarTab= CalendarTab(_id?:"",type?: Constants.REQUEST_ALL,name?:"")
+    fun toCalendarTag() : CalendarTab= CalendarTab(_id?:"",type?: "all",name?:"")
 }
