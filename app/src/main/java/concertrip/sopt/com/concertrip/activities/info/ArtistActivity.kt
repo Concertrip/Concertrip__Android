@@ -28,6 +28,7 @@ import concertrip.sopt.com.concertrip.utillity.Constants
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.INTENT_ARTIST
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.INTENT_TAG_ID
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_ARTIST
+import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_CONCERT
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.USER_TOKEN
 import concertrip.sopt.com.concertrip.utillity.NetworkUtil
 import concertrip.sopt.com.concertrip.utillity.Secret
@@ -145,7 +146,7 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
     }
 
     fun initialUI() {
-        adapter = BasicListAdapter(this, dataList)
+        adapter = BasicListAdapter(this, dataList, TYPE_CONCERT)
         recycler_view.adapter = adapter
 
         memberListAdapter = BasicListAdapter(this, dataListMember, BasicListAdapter.MODE_THUMB)
