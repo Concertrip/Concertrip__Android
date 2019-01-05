@@ -55,9 +55,9 @@ class TicketListFragment : Fragment() , OnFragmentInteractionListener, OnRespons
     private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
 
-    var dataList = arrayListOf<Ticket>()
-
-    lateinit var Adapter : BasicListAdapter
+//    var dataList = arrayListOf<Ticket>()
+//
+//    lateinit var Adapter : BasicListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
