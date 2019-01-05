@@ -23,6 +23,7 @@ class Constants {
         const val TYPE_ALARM = 4
         const val TYPE_CAUTION = 5
         const val TYPE_CALENDAR_TAG = 6
+        const val TYPE_SCHEDULE = 7
 
 
         //TODO 이거 변수명 마음에 안듬

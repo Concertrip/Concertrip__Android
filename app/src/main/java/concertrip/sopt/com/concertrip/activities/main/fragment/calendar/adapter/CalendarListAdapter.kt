@@ -110,15 +110,15 @@ class CalendarListAdapter(
                 else position
 
                 //테스트용
-                val s = Schedule.getDummy(date)
-                if(scheduleMap[date].isNullOrEmpty()){
-                    scheduleMap[date]=ArrayList<Schedule>()
-                    scheduleMap[date]?.add(s)
-                }else {
-                    scheduleMap[date]?.add(s)
-                }
-                addCalendarItem(holder, s)
-
+//                val s = Schedule.getDummy(date)
+//                if(scheduleMap[date].isNullOrEmpty()){
+//                    scheduleMap[date]=ArrayList<Schedule>()
+//                    scheduleMap[date]?.add(s)
+//                }else {
+//                    scheduleMap[date]?.add(s)
+//                }
+//                addCalendarItem(holder, s)
+//
                 notifyDataSetChanged()
 
 

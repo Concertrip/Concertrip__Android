@@ -30,12 +30,27 @@ data class Concert(
 
     var tag  : String? = null
 
+
+    constructor(_id : String,name : String, profileImg: String, date : List<String>,subscribe: Boolean?, tag : String) : this( _id, name, genre = "", youtubeUrl = "",backImg = "", eventInfoImg = "",
+        profileImg = profileImg,cast = "", date = date,artistList = ArrayList<Artist>(),location = "",station = "",
+        seatList = ArrayList<Seat>(), precaution=ArrayList<Caution>(), subscribeNum = 0, subscribe = subscribe) {
+        this.tag=tag
+    }
+
     constructor(_id : String) : this(_id = _id, title = "", genre = "", youtubeUrl = "",backImg = "", eventInfoImg = "",
         profileImg = "",cast = "", date = ArrayList<String>(),artistList = ArrayList<Artist>(),location = "",station = "",
         seatList = ArrayList<Seat>(), precaution=ArrayList<Caution>(), subscribeNum = 0, subscribe = false)
 
 
-    private fun makeTag() : String ="#$genre #$genre"
+
+    private fun makeTag() : String{
+      var result ="#$genre"
+        date?.forEach {
+            result = result.plus(" #$it")
+        }
+        return result
+
+    }
     override fun getType(): Int = Constants.TYPE_CONCERT
 
     override fun getId(): String = _id

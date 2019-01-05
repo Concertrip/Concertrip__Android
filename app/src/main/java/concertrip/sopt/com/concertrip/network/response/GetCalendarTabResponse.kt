@@ -1,8 +1,7 @@
 package concertrip.sopt.com.concertrip.network.response
 
-import android.app.DownloadManager
 import com.google.gson.annotations.SerializedName
-import concertrip.sopt.com.concertrip.model.CalendarTag
+import concertrip.sopt.com.concertrip.model.CalendarTab
 import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
 import concertrip.sopt.com.concertrip.utillity.Constants
 
@@ -17,5 +16,5 @@ data class TabData(
     var name : String?
 ){
 
-    fun toCalendarTag() : CalendarTag= CalendarTag(_id?:"",type?: Constants.REQUEST_ALL,name?:"")
+    fun toCalendarTag() : CalendarTab= CalendarTab(_id?:"",type?: Constants.REQUEST_ALL,name?:"")
 }

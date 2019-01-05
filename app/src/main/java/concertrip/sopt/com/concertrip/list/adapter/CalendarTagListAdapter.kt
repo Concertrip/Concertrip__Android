@@ -1,31 +1,28 @@
 package concertrip.sopt.com.concertrip.list.adapter
 
 import android.content.Context
-import android.graphics.Color
 import android.graphics.Typeface
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
 import concertrip.sopt.com.concertrip.R
 import concertrip.sopt.com.concertrip.interfaces.OnItemClick
 import concertrip.sopt.com.concertrip.list.viewholder.HorizontalViewHolder
-import concertrip.sopt.com.concertrip.model.CalendarTag
+import concertrip.sopt.com.concertrip.model.CalendarTab
 
 
 class CalendarTagListAdapter(
     private val mContext: Context,
-    var dataList: ArrayList<CalendarTag>,
+    var dataList: ArrayList<CalendarTab>,
     var listener: OnItemClick?,
     var isUnderline: Boolean
 ) : RecyclerView.Adapter<HorizontalViewHolder>() {
     var selected: Int = 0
 
-    constructor(mContext: Context, dataList: ArrayList<CalendarTag>) : this(mContext, dataList, null, true)
-    constructor(mContext: Context, dataList: ArrayList<CalendarTag>, listener: OnItemClick?) : this(
+    constructor(mContext: Context, dataList: ArrayList<CalendarTab>) : this(mContext, dataList, null, true)
+    constructor(mContext: Context, dataList: ArrayList<CalendarTab>, listener: OnItemClick?) : this(
         mContext,
         dataList,
         listener,
@@ -41,9 +38,7 @@ class CalendarTagListAdapter(
 
     override fun onBindViewHolder(holder: HorizontalViewHolder, position: Int) {
 
-
         holder.vUnderline.visibility = if (isUnderline && position == selected) View.VISIBLE else View.GONE
-
 
         if(position == selected){
             holder.tvtext.typeface = Typeface.DEFAULT_BOLD

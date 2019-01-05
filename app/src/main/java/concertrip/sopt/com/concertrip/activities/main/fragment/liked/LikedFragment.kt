@@ -120,13 +120,13 @@ class LikedFragment : Fragment() ,View.OnClickListener, OnItemClick, OnResponse{
 
 //        when(curTextView?.id ?: R.id.btn_liked_artist){
 //            R.id.btn_liked_artist->{
-//                NetworkUtil.subscribeArtist(networkService,this,dataList[position].getId())
+//                NetworkUtil.subscribeArtist(networkService,this,dataListDetail[position].getId())
 //            }
 //            R.id.btn_liked_concert->{
-//                NetworkUtil.subscribeConcert(networkService,this,dataList[position].getId())
+//                NetworkUtil.subscribeConcert(networkService,this,dataListDetail[position].getId())
 //            }
 //            R.id.btn_liked_theme->{
-//                NetworkUtil.subscribeGenre(networkService,this,dataList[position].getId())
+//                NetworkUtil.subscribeGenre(networkService,this,dataListDetail[position].getId())
 //            }
 //        }
 
