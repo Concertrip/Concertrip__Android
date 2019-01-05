@@ -378,22 +378,26 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
 //    }
 
 
+    private const val LOG_CALENDAR_TAB = "/api/calendar/tab"
     private fun connectRequestTabData() {
+        Log.d(Constants.LOG_NETWORK, "GET")
         val getCalendarTabResponse: Call<GetCalendarTabResponse> = networkService.getCalendarTabList(1)
 
         getCalendarTabResponse.enqueue(object : Callback<GetCalendarTabResponse> {
             override fun onFailure(call: Call<GetCalendarTabResponse>?, t: Throwable?) {
-                Log.v("test0101", "getArtistResponse in onFailure" + t.toString())
+                Log.e(Constants.LOG_NETWORK, " $t")
             }
 
             override fun onResponse(call: Call<GetCalendarTabResponse>?, response: Response<GetCalendarTabResponse>?) {
                 response?.let { res ->
                     if (res.body()?.status == 200) {
+                        Log.d(Constants.LOG_NETWORK, ":${response.body().toString()}")
                         res.body()!!.data?.let {
                             updateTagList(ArrayList(res.body()?.data))
                         }
                     } else {
-                        Log.v("test0102", "getGenreResponse in " + response.body()?.status.toString())
+                        Log.d(Constants.LOG_NETWORK, ": fail ${response.body()?.message}")
+//                        Log.v("test0102", "getGenreResponse in " + response.body()?.status.toString())
                     }
                 }
 
