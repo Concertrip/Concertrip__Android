@@ -73,7 +73,7 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
     }
 
     private fun getYouTubePlayerProvider(): YouTubePlayer.Provider {
-        return findViewById<View>(R.id.youtude) as YouTubePlayerView
+        return findViewById<View>(R.id.youtube) as YouTubePlayerView
     }
 
 //    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {

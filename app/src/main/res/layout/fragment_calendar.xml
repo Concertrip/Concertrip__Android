@@ -74,6 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         <TextView
+                android:id="@+id/tv_detail"
                 android:layout_centerInParent="true"
                 android:textColor="#2e2e2e"
                 android:textSize="17sp"

@@ -36,10 +36,10 @@ data class GetCalendarResponse (
 
     }
     override fun toString(): String {
-        var result = ""
+        var result = "{"
         data?.forEach {
             result = result.plus(it)+","
         }
-        return result
+        return "$result}"
     }
 }

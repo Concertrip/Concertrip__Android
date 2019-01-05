@@ -1,5 +1,6 @@
 package concertrip.sopt.com.concertrip.activities.main.fragment.search
 
+import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -56,6 +57,8 @@ class ExplorerFragment : Fragment(), OnItemClick ,OnResponse{
     var dataList = arrayListOf<ListData>()
     var dataListTag = arrayListOf<String>("모두" , "테마", "보이그룹", "걸그룹","힙합","발라드","R&B","댄스","POP","EDM","인디","재즈","록","댄스");
 
+
+    var curSearch = ""
 
     lateinit var tagAdapter: HorizontalListAdapter
     lateinit var dataAdapter: BasicListAdapter
@@ -139,9 +142,20 @@ class ExplorerFragment : Fragment(), OnItemClick ,OnResponse{
     }
 
 
+    private fun clearListData(){
+        dataList.clear()
+        dataAdapter.notifyDataSetChanged()
+
+    }
 
     private fun connectRequestData(tag: String) {
+        clearListData()
+        curSearch=tag
         NetworkUtil.search(networkService,this,tag)
     }
 
+    override fun onAttachFragment(childFragment: Fragment?) {
+        super.onAttachFragment(childFragment)
+        connectRequestData(curSearch)
+    }
 }

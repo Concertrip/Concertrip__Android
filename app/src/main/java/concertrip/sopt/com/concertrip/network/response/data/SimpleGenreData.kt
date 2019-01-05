@@ -21,14 +21,5 @@ data class SimpleGenreData(
 
     override fun toString(): String ="SimpleGenreData{_id : $_id, name = $name, profileImg = $profileImg, subscribe = $subscribe}"
 
-    companion object {
-        fun getDummy() : SimpleGenreData = SimpleGenreData("", "지코", "힙합",false)
 
-
-        fun getDummyList() : List<SimpleGenreData> {
-            val list = listOf(SimpleGenreData("", "지코", "힙합",false), SimpleGenreData("", "태민", "보이그룹",false),
-                SimpleGenreData("", "휘성", "발라드",false))
-            return list
-        }
-    }
 }
