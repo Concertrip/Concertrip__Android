@@ -14,6 +14,8 @@ import org.jetbrains.anko.startActivity
 
 class TutorialActivity : AppCompatActivity() {
 
+    var clickTest = arrayOf(0,0,0,0,0,0,0,0,0)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tutorial)
@@ -28,6 +30,21 @@ class TutorialActivity : AppCompatActivity() {
         btn_skip.setOnClickListener {
             startActivity<MainActivity>()
         }
+
+        btn_tutorial_1.setOnClickListener{
+            clickTest[0] = 1-clickTest[0]
+
+            if(clickTest[0] == 1)
+            {iv_tutorial_click_1.visibility = View.VISIBLE
+            iv_tutorial_noclick_1.visibility = View.GONE}
+            else
+            {iv_tutorial_click_1.visibility = View.GONE
+                iv_tutorial_noclick_1.visibility =View.VISIBLE}
+
+        }
+
+
+
     }
 
 }

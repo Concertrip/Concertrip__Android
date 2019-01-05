@@ -34,11 +34,20 @@
                android:layout_width="wrap_content"
                android:layout_height="wrap_content">
            <LinearLayout
+                   android:id="@+id/btn_tutorial_1"
                    android:orientation="vertical"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content">
                <ImageView
-                       android:id="@+id/iv_tutorial_1"
+                       android:id="@+id/iv_tutorial_click_1"
+                       android:visibility="gone"
+                       android:src="@drawable/ic_account_circle"
+                       android:background="@drawable/shape_background_gradation"
+                       android:layout_width="72dp"
+                       android:layout_height="72dp"/>
+               <ImageView
+                       android:id="@+id/iv_tutorial_noclick_1"
+                       android:visibility="visible"
                        android:src="@drawable/ic_account_circle"
                        android:layout_width="72dp"
                        android:layout_height="72dp"/>
@@ -52,7 +61,6 @@
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content">
                <ImageView
-                       android:id="@+id/iv_tutorial_2"
                        android:src="@drawable/ic_account_circle"
                        android:layout_width="72dp"
                        android:layout_height="72dp"/>
