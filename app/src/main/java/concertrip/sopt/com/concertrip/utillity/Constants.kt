@@ -18,7 +18,8 @@ class Constants {
 
         const val TYPE_ARTIST = 0
         const val TYPE_CONCERT = 1
-        const val TYPE_THEME = 2
+        const val TYPE_GENRE = 2
+
         const val TYPE_TICKET = 3
         const val TYPE_ALARM = 4
         const val TYPE_CAUTION = 5
@@ -49,6 +50,8 @@ class Constants {
         const val INTENT_ARTIST = "artist"
         const val TYPE_MONTH = 0
         const val TYPE_DAY = 1
+
+        const val USER_TOKEN=4
 
     }
 }

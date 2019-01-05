@@ -2,6 +2,7 @@ package concertrip.sopt.com.concertrip.network.response.data
 
 import concertrip.sopt.com.concertrip.model.Artist
 import concertrip.sopt.com.concertrip.model.Concert
+import concertrip.sopt.com.concertrip.model.Genre
 
 data class GenreData(
     var _id : String?,
@@ -13,8 +14,8 @@ data class GenreData(
     var youtubeUrl : String?,
     var eventList : List<SimpleConcertData>?
 ){
-    fun toArtist() : Artist {
-        val a =  Artist(_id = _id?:"0")
+    fun toGenre() : Genre {
+        val a =  Genre(_id = _id?:"0")
 
         a.profileImg =  profileImg?:""
         a.backImg = backImg?:""

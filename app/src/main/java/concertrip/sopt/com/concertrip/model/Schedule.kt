@@ -71,11 +71,11 @@ data class Schedule(var _id : String,  var name : String,var  profileImg : Strin
         }
         fun toMap(list : ArrayList<Schedule>) : HashMap<Int, ArrayList<Schedule>>{
             val  map  = HashMap<Int, ArrayList<Schedule>>()
-            list.forEach {
-                if(!map.containsKey(it.date))
-                    map[it.date]= ArrayList<Schedule>()
-                map[it.date]?.add(it)
-            }
+//            list.forEach {
+//                if(!map.containsKey(it.date))
+//                    map[it.date]= ArrayList<Schedule>()
+//                map[it.date]?.add(it)
+//            }
             return map
         }
     }
