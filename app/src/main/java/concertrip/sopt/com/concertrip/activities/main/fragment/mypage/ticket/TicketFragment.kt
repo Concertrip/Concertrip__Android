@@ -18,7 +18,6 @@ import concertrip.sopt.com.concertrip.model.Ticket
 import concertrip.sopt.com.concertrip.network.ApplicationController
 import concertrip.sopt.com.concertrip.network.NetworkService
 import concertrip.sopt.com.concertrip.network.response.GetTicketDetailResponse
-import concertrip.sopt.com.concertrip.utillity.Constants.Companion.USER_TOKEN
 import kotlinx.android.synthetic.main.fragment_ticket.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -96,7 +95,7 @@ class TicketFragment : Fragment() {
     }
 
     private fun ConnectRequestData(){
-        val getTicketDetailResponse : Call<GetTicketDetailResponse> = networkServicce.getTicketDetail(USER_TOKEN, ticketId)
+        val getTicketDetailResponse : Call<GetTicketDetailResponse> = networkServicce.getTicketDetail(1, ticketId)
 
         getTicketDetailResponse.enqueue(object : Callback<GetTicketDetailResponse>{
             override fun onFailure(call: Call<GetTicketDetailResponse>, t: Throwable) {
