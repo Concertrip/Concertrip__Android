@@ -16,16 +16,19 @@ import kotlinx.android.synthetic.main.item_ellipsis.view.*
 import kotlinx.android.synthetic.main.item_schedule.view.*
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.HashMap
 import kotlin.properties.Delegates
 
 class CalendarListAdapter(
     private var mContext: Context,
     var dataList: ArrayList<String>,
     var scheduleMap :  HashMap<Int, ArrayList<Schedule>>,
-    var listener : OnItemClick
+    var listener : OnItemClick,
+
+    var tabColorMap : HashMap<String?, Int>?
 ) : RecyclerView.Adapter<CalendarViewHolder>(){
 
-    private val colorArray = arrayListOf(R.color.blue, R.color.purple, R.color.gray, R.color.black)
+    //private val colorArray = arrayListOf(R.color.blue, R.color.purple, R.color.gray, R.color.black)
 
     var selected = -1
 
@@ -114,7 +117,7 @@ class CalendarListAdapter(
     private fun addSchedule(holder: CalendarViewHolder, schedule: Schedule) {
         val scheduleView = inflater.inflate(R.layout.item_schedule, holder.lySchedule, false)
         val cnt = holder.lySchedule?.childCount ?: 0
-        scheduleView.iv_schedule.setColorFilter(ContextCompat.getColor(mContext, colorArray[cnt]))
+        scheduleView.iv_schedule.setColorFilter(ContextCompat.getColor(mContext, tabColorMap?.get(schedule.tabId)?:R.color.tab_except))
         holder.lySchedule?.addView(scheduleView)
     }
 

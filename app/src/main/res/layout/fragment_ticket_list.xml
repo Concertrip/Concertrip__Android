@@ -18,8 +18,8 @@
         <Button
                 android:id="@+id/btn_ticket_list_back"
                 android:background="@drawable/back_arrow"
-                android:layout_width="21dp"
-                android:layout_height="21dp"/>
+                android:layout_width="30dp"
+                android:layout_height="30dp"/>
 
         <TextView
                 android:text="@string/txt_ticket"
