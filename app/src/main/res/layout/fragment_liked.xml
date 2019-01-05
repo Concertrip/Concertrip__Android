@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent" android:layout_height="match_parent"
               android:padding="16dp"
               tools:context=".activities.main.fragment.liked.LikedFragment"
               android:orientation="vertical">
@@ -28,29 +28,63 @@
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-        <TextView
-                android:id="@+id/tv_liked_artist"
-                android:text="@string/txt_liked_tag1"
-                android:textSize="20sp"
-                android:textColor="@color/textTagDefault"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        <TextView
-                android:id="@+id/tv_liked_genre"
-                android:text="@string/txt_liked_tag2"
-                android:textSize="20sp"
-                android:layout_marginStart="20dp"
-                android:textColor="@color/textTagDefault"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        <TextView
-                android:id="@+id/tv_liked_concert"
-                android:text="@string/txt_liked_tag3"
-                android:textSize="20sp"
-                android:layout_marginStart="20dp"
-                android:textColor="@color/textTagDefault"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+        <LinearLayout android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:orientation="vertical">
+            <TextView
+                    android:id="@+id/tv_liked_artist"
+                    android:text="@string/txt_liked_tag1"
+                    android:textSize="20sp"
+                    android:textColor="@color/textTagDefault"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <View android:id="@+id/v_artist_underlind"
+                  android:layout_width="match_parent"
+                  android:layout_height="2dp"
+                  android:background="@color/textInfo"
+                  android:layout_marginTop="0.5dp"
+                  android:visibility="invisible"/>
+        </LinearLayout>
+        <LinearLayout android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:orientation="vertical"
+                      android:layout_marginStart="20dp">
+            <TextView
+                    android:id="@+id/tv_liked_genre"
+                    android:text="@string/txt_liked_tag2"
+                    android:textSize="20sp"
+                    android:textColor="@color/textTagDefault"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <View android:id="@+id/v_theme_underlind"
+                  android:layout_width="match_parent"
+                  android:layout_height="2dp"
+                  android:background="@color/textInfo"
+                  android:layout_marginTop="0.5dp"
+                  android:visibility="invisible"/>
+        </LinearLayout>
+
+
+        <LinearLayout android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:orientation="vertical"
+                      android:layout_marginStart="20dp">
+            <TextView
+                    android:id="@+id/tv_liked_concert"
+                    android:text="@string/txt_liked_tag3"
+                    android:textSize="20sp"
+                    android:textColor="@color/textTagDefault"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            <View android:id="@+id/v_concert_underlind"
+                  android:layout_width="match_parent"
+                  android:layout_height="2dp"
+                  android:background="@color/textInfo"
+                  android:layout_marginTop="0.5dp"
+                  android:visibility="invisible"/>
+        </LinearLayout>
     </LinearLayout>
 
 

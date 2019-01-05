@@ -58,6 +58,7 @@ class SearchFragment : Fragment() ,OnResponse{
             showListView((concertList.size+ artistList.size + genreList.size )>0)
 
 
+
             dataListConcert.clear()
             dataListConcert.addAll(concertList)
 
@@ -150,6 +151,12 @@ class SearchFragment : Fragment() ,OnResponse{
 
     private fun showListView(b : Boolean){
             search_result.visibility=if (b) View.VISIBLE else View.GONE
+    }
+
+    private fun showTextView(b: Boolean){
+        tv_artist.visibility = if(b) View.VISIBLE else View.INVISIBLE
+        tv_concert.visibility = if(b) View.VISIBLE else View.INVISIBLE
+        tv_theme.visibility = if(b) View.VISIBLE else View.INVISIBLE
     }
 
 
