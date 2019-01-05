@@ -6,16 +6,22 @@
                 xmlns:tools="http://schemas.android.com/tools">
     <LinearLayout android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:orientation="vertical">
+                  android:orientation="vertical"
+                  android:gravity="center_horizontal">
         <ImageView android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:id="@+id/iv_time_prev"/>
+                   android:id="@+id/iv_time_prev"
+                   android:src="@drawable/line"/>
+
         <ImageView android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                    android:id="@+id/iv_time_cur"/>
+                   android:id="@+id/iv_time_cur"
+                   android:src="@drawable/circle"/>
+
         <ImageView android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:id="@+id/iv_time_next"/>
+                   android:id="@+id/iv_time_next"
+                   android:src="@drawable/line"/>
     </LinearLayout>
     <LinearLayout
             android:orientation="horizontal"
