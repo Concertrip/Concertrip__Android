@@ -119,7 +119,7 @@ class TicketFragment : Fragment() {
     val dayNum : List<String> = listOf("일", "월", "화", "수", "목", "금", "토")
 
     private fun convertDate(input: String?) : String?{
-        val convertedDate = StringBuilder()
+        var convertedDate = StringBuilder()
 
         if(input != null){
             val dateInfoList = input.split("T")
