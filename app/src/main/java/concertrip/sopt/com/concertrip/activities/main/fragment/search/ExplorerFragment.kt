@@ -26,6 +26,7 @@ import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
 
 import concertrip.sopt.com.concertrip.utillity.Constants
 import concertrip.sopt.com.concertrip.utillity.NetworkUtil
+import concertrip.sopt.com.concertrip.utillity.Secret
 import kotlinx.android.synthetic.main.fragment_explorer.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -51,20 +52,21 @@ class ExplorerFragment : Fragment(), OnItemClick ,OnResponse{
             val list = arrayListOf<ListData>()
             list.addAll(explorerRequestData.toArtistList())
             list.addAll(explorerRequestData.toConcertList())
+            list.addAll(explorerRequestData.toGenreList())
             updateDataList(list)
-
         }
-
     }
 
     override fun onFail(status : Int) {
-        Toast.makeText(activity!!.applicationContext,"실패",Toast.LENGTH_SHORT).show()
+        if(status== Secret.NETWORK_NO_DATA)
+            updateDataList(ArrayList<ListData>())
+        else
+            Toast.makeText(activity!!.applicationContext,"실패",Toast.LENGTH_SHORT).show()
     }
 
     var dataList = arrayListOf<ListData>()
-    //    var dataListArtist = arrayListOf<Artist>()
-//    var dataListDetail = arrayListOf<Concert>()
-    var dataListTag = arrayListOf<String>("모두", "테마", "POP", "CLASSIC", "R&B", "ELECTRONIC")
+    var dataListTag = arrayListOf<String>("모두" , "테마", "보이그룹", "걸그룹","힙합","발라드","R&B","댄스","POP","EDM","인디","재즈","록","댄스");
+
 
     lateinit var tagAdapter: HorizontalListAdapter
     lateinit var dataAdapter: BasicListAdapter
@@ -106,14 +108,14 @@ class ExplorerFragment : Fragment(), OnItemClick ,OnResponse{
 
         /*TODO 서버 API받고 똑바로 구성한 뒤, 주석풀기*/
         if(root is HorizontalListAdapter){ // 태그를 클릭했을 때
-            if(position==0){
-                //아직 API가...ㅜ
-            }
-            else if(position == 1){  // 테마를 선택하면 이 내부에 저장된 것들을 불러옴
+            when (position) {
+                0 -> {
+                    //아직 API가...ㅜ
+                }
+                1 -> {  // 테마를 선택하면 이 내부에 저장된 것들을 불러옴
 
-            }
-            else{
-                connectRequestData(dataListTag[position])
+                }
+                else -> connectRequestData(dataListTag[position])
             }
         }
 //        else{
@@ -124,15 +126,6 @@ class ExplorerFragment : Fragment(), OnItemClick ,OnResponse{
 //            }
 //        }
 
-        //-------------- 밑으로 테스트용------------------
-
-//        when (position) {
-//            1 -> // 테마를 선택한 경우 안드 내부에 저장되어있는 것을 출력
-//                // 해당 데이터가 저장된 어레이를 이용해 updateDataList 함수 호출
-//                updateDataList(Artist.getDummyArray())
-//            0 -> updateDataList(Artist.getDummyArray())
-//            else -> connectRequestData(dataListTag[position])
-//        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -154,7 +147,6 @@ class ExplorerFragment : Fragment(), OnItemClick ,OnResponse{
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initialUI() // search_bar에 setOnClickListner 및 adapter 설정
-//        connectRequestTag() // 태그를 받아옴 // 이 태그는 다른 태그를 선택한다고 바뀌는게 아니니까 처음에만 서버에서 받아옴
     }
 
     private fun initialUI() {
@@ -185,34 +177,6 @@ class ExplorerFragment : Fragment(), OnItemClick ,OnResponse{
         dataAdapter.notifyDataSetChanged()
     }
 
-
-    private fun connectRequestTag() {
-        /*TODO
-        * dataListTag 초기화
-        * 따라서, 나중에 클릭리스너로 리사이클러뷰의 포지션 값을 받으면 이 포지션값을 인덱스로해 connectRequestData 호출*/
-
-        //TODO Retrofit2
-        //OnFaill -> Toast ,  OnSuccess-> connectRequest(),updateTagList()
-//        val loungePostingResponse: Call<LoungePostingResponse> = networkService!!.postLoungePosting(SharedPreferencesService.instance!!.getPrefStringData("token", "")!!, content, isPublic, body)
-//        loungePostingResponse.enqueue(object : Callback<LoungePostingResponse> {
-//            override fun onFailure(call: Call<LoungePostingResponse>?, t: Throwable?) {
-//                Toast.makeText(this@ExplorerFragment, "connectRequestTag failed", Toast.LENGTH_SHORT).show()
-//            }
-//
-//            override fun onResponse(call: Call<LoungePostingResponse>?, response: Response<LoungePostingResponse>?) {
-//                if (response!!.body().status.equals(LoungeFragment.NETWORK_SUCCESS)) {
-        // dataListTag 초기화
-        //connectRequestData("모두") // connnectRequestTag 함수는 처음에만 호출되는거라 여기서는 고정적으로 "모두"에 해당하는 데이터를 받아오면 됨
-        // parameter 설정해 받아옴
-        // val mAdapter = HorizontalListAdapter(context!!, )
-        //recycler_view_horizontal.adapter = mAdapter
-        // 리사이클러뷰 리스너 > 클릭시 item position을 dataListTag의 인덱스로 사용해 connectRequestData호출
-//                }
-//            }
-//
-//        })
-
-    }
 
 
     private fun connectRequestData(tag: String) {

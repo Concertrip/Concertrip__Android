@@ -1,6 +1,7 @@
 package concertrip.sopt.com.concertrip.network.response.data
 
 import concertrip.sopt.com.concertrip.model.Concert
+import concertrip.sopt.com.concertrip.model.Genre
 
 data class SimpleConcertData(
     var _id : String,

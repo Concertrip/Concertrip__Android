@@ -30,7 +30,7 @@ interface NetworkService {
     //---------------------------------------
     //*종(알림받기)*
     //콘서트 일정 알림받기/취소
-    @POST("/api/subscribe/concert")
+    @POST("/api/subscribe/event")
     @Headers("Content-Type:application/json")
     fun postSubscribeConcert(
         @Header("Authorization") token: Int,

@@ -1,6 +1,7 @@
 package concertrip.sopt.com.concertrip.network.response.data
 
 import concertrip.sopt.com.concertrip.model.Artist
+import concertrip.sopt.com.concertrip.model.Genre
 
 data class SimpleGenreData(
     var _id : String,
@@ -9,8 +10,8 @@ data class SimpleGenreData(
     var subscribe : Boolean
 ){
 
-    fun toArtist() : Artist {
-        val a = Artist(_id = _id)
+    fun toGenre() : Genre {
+        val a = Genre( _id)
         a.name = name
         a.profileImg=profileImg
         a.subscribe=subscribe
