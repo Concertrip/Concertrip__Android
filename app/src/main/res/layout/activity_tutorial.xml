@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activities.TutorialActivity">
+
+   <LinearLayout
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:orientation="vertical"
+           android:layout_centerHorizontal="true"
+           android:layout_centerVertical="true"
+   >
+       <ImageView
+               android:layout_width="50dp"
+               android:layout_height="50dp"
+               android:src="@drawable/ic_like"
+               android:layout_gravity="center"
+       />
+       <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="좋아하는 테마를 골라주세요"
+               android:layout_gravity="center"
+               android:layout_marginBottom="36dp"
+       />
+
+       <LinearLayout
+               android:layout_marginBottom="35dp"
+               android:orientation="horizontal"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content">
+           <LinearLayout
+                   android:orientation="vertical"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content">
+               <ImageView
+                       android:id="@+id/iv_tutorial_1"
+                       android:src="@drawable/ic_account_circle"
+                       android:layout_width="72dp"
+                       android:layout_height="72dp"/>
+               <TextView
+                       android:text="뮤직 페스티벌"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"/>
+           </LinearLayout>
+           <LinearLayout
+                   android:orientation="vertical"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content">
+               <ImageView
+                       android:id="@+id/iv_tutorial_2"
+                       android:src="@drawable/ic_account_circle"
+                       android:layout_width="72dp"
+                       android:layout_height="72dp"/>
+               <TextView
+                       android:text="아이돌 공연"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"/>
+           </LinearLayout>
+           <LinearLayout
+                   android:orientation="vertical"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content">
+               <ImageView
+                       android:id="@+id/iv_tutorial_3"
+                       android:src="@drawable/ic_account_circle"
+                       android:layout_width="72dp"
+                       android:layout_height="72dp"/>
+               <TextView
+                       android:text="힙합 공연"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"/>
+           </LinearLayout>
+       </LinearLayout>
+
+       <LinearLayout
+               android:layout_marginBottom="35dp"
+               android:orientation="horizontal"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content">
+           <LinearLayout
+                   android:orientation="vertical"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content">
+               <ImageView
+                       android:id="@+id/iv_tutorial_4"
+                       android:src="@drawable/ic_account_circle"
+                       android:layout_width="72dp"
+                       android:layout_height="72dp"/>
+               <TextView
+                       android:text="발라드/R&amp;B"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"/>
+           </LinearLayout>
+           <LinearLayout
+                   android:orientation="vertical"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content">
+               <ImageView
+                       android:id="@+id/iv_tutorial_5"
+                       android:src="@drawable/ic_account_circle"
+                       android:layout_width="72dp"
+                       android:layout_height="72dp"/>
+               <TextView
+                       android:text="내한 공연"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"/>
+           </LinearLayout>
+           <LinearLayout
+                   android:orientation="vertical"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content">
+               <ImageView
+                       android:id="@+id/iv_tutorial_6"
+                       android:src="@drawable/ic_account_circle"
+                       android:layout_width="72dp"
+                       android:layout_height="72dp"/>
+               <TextView
+                       android:text="EDM 페스티벌"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"/>
+           </LinearLayout>
+       </LinearLayout>
+
+       <LinearLayout
+               android:layout_marginBottom="35dp"
+               android:orientation="horizontal"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content">
+           <LinearLayout
+                   android:orientation="vertical"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content">
+               <ImageView
+                       android:id="@+id/iv_tutorial_7"
+                       android:src="@drawable/ic_account_circle"
+                       android:layout_width="72dp"
+                       android:layout_height="72dp"/>
+               <TextView
+                       android:text="인디 공연"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"/>
+           </LinearLayout>
+           <LinearLayout
+                   android:orientation="vertical"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content">
+               <ImageView
+                       android:id="@+id/iv_tutorial_8"
+                       android:src="@drawable/ic_account_circle"
+                       android:layout_width="72dp"
+                       android:layout_height="72dp"/>
+               <TextView
+                       android:text="재즈 공연"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"/>
+           </LinearLayout>
+           <LinearLayout
+                   android:orientation="vertical"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content">
+               <ImageView
+                       android:id="@+id/iv_tutorial_9"
+                       android:src="@drawable/ic_account_circle"
+                       android:layout_width="72dp"
+                       android:layout_height="72dp"/>
+               <TextView
+                       android:text="락 페스티벌"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"/>
+           </LinearLayout>
+       </LinearLayout>
+
+       <Button
+               android:id="@+id/btn_skip"
+               android:layout_gravity="center"
+               android:text="건너뛰기"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"/>
+   </LinearLayout>
+
+
+</RelativeLayout>
