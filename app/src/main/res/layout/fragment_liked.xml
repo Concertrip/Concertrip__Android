@@ -15,7 +15,6 @@
             android:textColor="@color/white"
             android:layout_marginTop="8dp"
             android:lineSpacingExtra="12sp"
-
             android:text="@string/txt_liked"/>
 
     <LinearLayout

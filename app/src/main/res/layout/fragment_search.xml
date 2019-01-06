@@ -25,6 +25,7 @@
                 android:background="@drawable/shape_searchbar"
                 android:paddingRight = "16dp"
                 android:paddingLeft = "16dp"
+                android:layout_marginLeft="16dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -69,7 +70,7 @@
                 <TextView
                         android:id="@+id/tv_artist"
                         android:text="아티스트"
-                        android:textColor="@color/textTagDefault"
+                        android:textColor="@color/white"
                         android:textSize="20sp"
                         android:lineSpacingExtra="9sp"
                         android:layout_width="wrap_content"
@@ -94,7 +95,7 @@
                         android:id="@+id/tv_theme"
                         android:layout_marginTop="20dp"
                         android:text="테마"
-                        android:textColor="@color/textTagDefault"
+                        android:textColor="@color/white"
                         android:textSize="20sp"
                         android:lineSpacingExtra="9sp"
                         android:layout_width="wrap_content"
@@ -118,7 +119,7 @@
                         android:id="@+id/tv_concert"
                         android:layout_marginTop="20dp"
                         android:text="콘서트"
-                        android:textColor="@color/textTagDefault"
+                        android:textColor="@color/white"
                         android:textSize="20sp"
                         android:lineSpacingExtra="9sp"
                         android:layout_width="wrap_content"
