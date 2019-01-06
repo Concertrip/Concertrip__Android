@@ -53,6 +53,10 @@ class MainFragmentAdapter(val fragmentManager: FragmentManager, val mainTab: Tab
         mainTab.getTabAt(curTabId)?.customView?.findViewById<ImageView>(R.id.iv_tab)?.setImageResource(setIcons[curTabId])
 //        mainTab.getTabAt(curTabId)?.setIcon(setIcons[curTabId])
 
+
+        mainTab.getTabAt(curTabId)?.customView?.findViewById<ImageView>(R.id.iv_tab)?.setImageResource(setIcons[curTabId])
+//        mainTab.getTabAt(curTabId)?.setIcon(setIcons[curTabId])
+
     }
 
 
