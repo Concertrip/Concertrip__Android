@@ -25,7 +25,7 @@ import concertrip.sopt.com.concertrip.R
 import concertrip.sopt.com.concertrip.interfaces.ListData
 import android.util.Log
 import concertrip.sopt.com.concertrip.interfaces.OnResponse
-import concertrip.sopt.com.concertrip.list.adapter.CalendarTabListAdapter
+import concertrip.sopt.com.concertrip.activities.main.fragment.calendar.adapter.CalendarTabListAdapter
 import concertrip.sopt.com.concertrip.model.CalendarTab
 import concertrip.sopt.com.concertrip.network.ApplicationController
 import concertrip.sopt.com.concertrip.network.NetworkService
@@ -77,7 +77,7 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
         ApplicationController.instance.networkService
     }
 
-    val tabColor = listOf(R.color.tab_1, R.color.tab_2, R.color.tab_3, R.color.tab_4, R.color.tab_5)
+    private val tabColor = listOf(R.color.tab_1, R.color.tab_2, R.color.tab_3, R.color.tab_4, R.color.tab_5,R.color.tab_6, R.color.tab_7, R.color.tab_8, R.color.tab_9, R.color.tab_10)
 
 
     override fun onItemClick(root: RecyclerView.Adapter<out RecyclerView.ViewHolder>, position: Int) {
@@ -196,7 +196,14 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
             recycler_view_calendar_detail.adapter = detailAdapter
 
 
-            tabAdapter = CalendarTabListAdapter(it.applicationContext, dataListTag, this, false)
+            tabAdapter =
+                    CalendarTabListAdapter(
+                        it.applicationContext,
+                        dataListTag,
+                        this,
+                        false,
+                        tabColorMap
+                    )
             recycler_view_filter.adapter = tabAdapter
 
             connectRequestTabData()
@@ -352,7 +359,7 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
         tabColorMap.clear()
         list.forEach {
             dataListTag.add(it.toCalendarTag())
-            tabColorMap.put(it.name, tabColor[idx++%tabColor.size])
+            tabColorMap[it.name] = tabColor[idx++%tabColor.size]
             Log.d("updateTabList~~~", "index : $idx, name : ${it.name}, color : ${tabColor[idx%tabColor.size]}")
         }
         tabAdapter.notifyDataSetChanged()

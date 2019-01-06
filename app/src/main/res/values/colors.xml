@@ -15,6 +15,8 @@
     <color name="white">#ffffff</color>
     <color name="white_0_9">#14ffffff</color>
 
+    <color name="black_0_9">#9431384e</color>
+
 
 
 
@@ -46,6 +48,11 @@
     <color name="tab_3">#ff98ac</color>
     <color name="tab_4">#fff7d8</color>
     <color name="tab_5">#c6deff</color>
+    <color name="tab_6">#f00</color>
+    <color name="tab_7">#0f0</color>
+    <color name="tab_8">#00f</color>
+    <color name="tab_9">#ff0</color>
+    <color name="tab_10">#0ff</color>
 
     <color name="tab_except">#000000</color>
 </resources>

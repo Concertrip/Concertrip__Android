@@ -5,7 +5,7 @@
     <dimen name="action_bar_size">56dp</dimen>
 
 
-    <dimen name="bottom_tab_layout_height">56dp</dimen>
+    <dimen name="bottom_tab_layout_height">62dp</dimen>
     <dimen name="top_tab_layout_height">48dp</dimen>
 
 

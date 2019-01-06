@@ -44,12 +44,13 @@
             android:id="@+id/main_tab"
             android:layout_width="match_parent"
             android:layout_height="@dimen/bottom_tab_layout_height"
+            app:tabIndicatorHeight="0dp"
             android:layout_gravity="bottom"
-            app:tabGravity="fill"
-            android:background="#cccccc"
+            android:foregroundGravity="center"
+            app:tabMode="fixed"
+            android:background="@color/black_0_9"
             app:tabIndicatorColor="#cccccc"
-            app:tabSelectedTextColor="#00ffff"
-            app:tabTextAppearance="@style/CustomTextStyle"/>
+            app:tabSelectedTextColor="#00ffff"/>
 
 
 </android.support.design.widget.CoordinatorLayout>

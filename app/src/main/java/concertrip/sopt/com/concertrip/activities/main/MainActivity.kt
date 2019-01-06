@@ -1,12 +1,9 @@
 package concertrip.sopt.com.concertrip.activities.main
 
-import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.FragmentManager
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu
-import android.view.MenuItem
 import concertrip.sopt.com.concertrip.interfaces.OnFragmentInteractionListener
 import concertrip.sopt.com.concertrip.utillity.Constants
 
@@ -18,7 +15,6 @@ import concertrip.sopt.com.concertrip.utillity.Constants.Companion.FRAGMENT_CALE
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.FRAGMENT_EXPLORER
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.FRAGMENT_LIKED
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.FRAGMENT_MY_PAGE
-import concertrip.sopt.com.concertrip.utillity.Constants.Companion.FRAGMENT_SEARCH
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TAB_CALENDAR
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TAB_LIKED
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TAB_MY_PAGE
@@ -38,10 +34,13 @@ class MainActivity : AppCompatActivity() , OnFragmentInteractionListener {
         setContentView(R.layout.activity_main)
 //      setSupportActionBar(toolbar)
 
-        main_tab.addTab(main_tab.newTab().setIcon(R.drawable.ic_calendar).setText("캘린더"))
-        main_tab.addTab(main_tab.newTab().setIcon(R.drawable.ic_explorer).setText("탐색"))
-        main_tab.addTab(main_tab.newTab().setIcon(R.drawable.ic_liked).setText("찜목록"))
-        main_tab.addTab(main_tab.newTab().setIcon(R.drawable.ic_mypage).setText("마이페이지"))
+        main_tab.addTab(main_tab.newTab().setCustomView(R.layout.tab_calendar))
+        main_tab.addTab(main_tab.newTab().setCustomView(R.layout.tab_explorer))
+        main_tab.addTab(main_tab.newTab().setCustomView(R.layout.tab_liked))
+        main_tab.addTab(main_tab.newTab().setCustomView(R.layout.tab_my_page))
+//        main_tab.addTab(main_tab.newTab().setIcon(R.drawable.ic_explorer).setText("탐색"))
+//        main_tab.addTab(main_tab.newTab().setIcon(R.drawable.ic_liked).setText("찜목록"))
+//        main_tab.addTab(main_tab.newTab().setIcon(R.drawable.ic_mypage).setText("마이페이지"))
 
         main_tab.getTabAt(0)?.select()
 

@@ -61,6 +61,7 @@ class MainFragmentAdapter(val fragmentManager: FragmentManager, val mainTab: Tab
         curTabId = what
         mainTab.getTabAt(curTabId)?.setIcon(setIcons[curTabId])
         mainTab.getTabAt(curTabId)?.select()
+
     }
 
     //프레그먼트 바꾸기

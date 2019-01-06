@@ -20,6 +20,11 @@ class Constants {
         const val CALENDAR_TYPE_DATE = 2
 
 
+        const  val TAB_ARTIST =0
+        const  val TAB_GENRE =1
+        const  val TAB_CONCERT =2
+
+
         //BasicListAdapter의 viewType
         const val TYPE_ARTIST = 0
         const val TYPE_CONCERT = 1
