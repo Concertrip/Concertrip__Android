@@ -204,7 +204,8 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
     }
 
     private fun updateArtistData(artist: Artist) {
-        // TODO 좋아요 버튼 설정
+
+
         btn_follow.setImageDrawable(if (artist.subscribe) getDrawable(R.drawable.ic_header_likes_selected) else getDrawable(R.drawable.ic_header_likes_unselected))
 
         if (URLUtil.isValidUrl(artist.backImg))
@@ -284,6 +285,8 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
                 }
 
                 override fun onResponse(call: Call<GetArtistResponse>?, response: Response<GetArtistResponse>?) {
+
+
                     progress_bar.visibility=View.GONE
 
                     response?.let { res ->

@@ -58,7 +58,7 @@ class Constants {
 
 
         //테스용 유저 TOKEN값
-        const val USER_TOKEN=1
+        const val USER_TOKEN=3
 
     }
 }

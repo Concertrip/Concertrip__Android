@@ -58,7 +58,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:nestedScrollingEnabled="false">
+                android:paddingBottom="@dimen/bottom_tab_layout_height"
+                android:nestedScrollingEnabled="false"
+        >
             <LinearLayout
                     android:layout_marginTop="20dp"
                     android:layout_width="match_parent"
