@@ -55,7 +55,6 @@ class MyPageFragment : Fragment(), OnItemClick, OnFragmentInteractionListener, O
     }
 
 
-
     override fun changeFragment(what: Int) {
         listener?.changeFragment(what)
     }
@@ -68,23 +67,31 @@ class MyPageFragment : Fragment(), OnItemClick, OnFragmentInteractionListener, O
 
         activity?.let {
 
-            activity?.progress_bar?.visibility=View.VISIBLE
+            activity?.progress_bar?.visibility = View.VISIBLE
             NetworkUtil.getTicketList(networkServicce, this, "")
         }
     }
 
     override fun onSuccess(obj: BaseModel, position: Int?) {
-        activity?.progress_bar?.visibility=View.GONE
+        activity?.progress_bar?.visibility = View.GONE
 
         if (obj is GetTicketListResponse) {
             val responseBody = obj as GetTicketListResponse
 
             responseBody.let {
                 if (it.status == Secret.NETWORK_SUCCESS) {
-                    val ticketInfo = it.toTicketList()[0]
-                    tv_ticket_title.text = ticketInfo.name
-                    tv_ticket_place.text = ticketInfo.location
-                    tv_ticket_date.setText(ticketInfo.date)
+                    val tickList = it.toTicketList()
+
+                    if (tickList.isNotEmpty()) {
+                        val ticketInfo = tickList[0]
+                        tv_ticket_title.text = ticketInfo.name
+                        tv_ticket_place.text = ticketInfo.location
+                        tv_ticket_date.setText(ticketInfo.date)
+
+                    }else{
+
+                    }
+
                 } else {
                     Log.d("testTicket", "getTicketListResponse in" + responseBody.status.toString())
                 }
@@ -93,7 +100,7 @@ class MyPageFragment : Fragment(), OnItemClick, OnFragmentInteractionListener, O
     }
 
     override fun onFail(status: Int) {
-        activity?.progress_bar?.visibility=View.GONE
+        activity?.progress_bar?.visibility = View.GONE
 //        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         Log.d("testTicket", "getTicketListResponse in onFailure ")
     }
