@@ -7,6 +7,7 @@ import android.view.View
 import android.webkit.URLUtil
 import android.widget.Toast
 import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestManager
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.youtube.player.YouTubeBaseActivity
 import com.google.android.youtube.player.YouTubeInitializationResult
@@ -62,6 +63,8 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         ApplicationController.instance.networkService
     }
 
+    public var mGlideRequestManager : RequestManager? = null
+
 
     override fun onItemClick(root: RecyclerView.Adapter<out RecyclerView.ViewHolder>, position: Int) {
         Toast.makeText(this, "내 공연에 추가되었습니다!", Toast.LENGTH_LONG).show()
@@ -76,7 +79,8 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         if (!b && ::artist.isInitialized) {
 //            val youtubeUrlList = artist.youtubeUrl!!.split("?v=")
 //            youTubePlayer?.cueVideo(youtubeUrlList[youtubeUrlList.size - 1])  //http://www.youtube.com/watch?v=IA1hox-v0jQ
-            youTubePlayer?.cueVideo(artist.youtubeUrl)  //http://www.youtube.com/watch?v=IA1hox-v0jQ
+
+            youTubePlayer?.cueVideo(artist.youtubeUrl)
         }
     }
 
@@ -135,6 +139,7 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         if (intent.hasExtra(INTENT_TAG_ID))
             artistId = intent.getStringExtra(INTENT_TAG_ID)
 
+        mGlideRequestManager = Glide.with(this)
 
 // 장르인지 아티스트인지 intent에서 받아오기
 
@@ -202,11 +207,11 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         btn_follow.setImageDrawable(if (artist.subscribe) getDrawable(R.drawable.ic_header_likes_selected) else getDrawable(R.drawable.ic_header_likes_unselected))
 
         if (URLUtil.isValidUrl(artist.backImg))
-            Glide.with(this).load(artist.backImg).into(iv_back)
+            mGlideRequestManager?.load(artist.backImg)?.into(iv_back)
 //        else
 //            // 기본이미지로 설정
         if (URLUtil.isValidUrl(artist.profileImg))
-            Glide.with(this).load(artist.profileImg).apply(RequestOptions.circleCropTransform()).into(iv_profile)
+            mGlideRequestManager?.load(artist.profileImg)?.apply(RequestOptions.circleCropTransform())?.into(iv_profile)
 //        else
 //            // 기본이미지로 설정
 

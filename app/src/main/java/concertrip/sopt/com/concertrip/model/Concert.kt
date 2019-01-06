@@ -22,7 +22,7 @@ data class Concert(
     var youtubeUrl : String?,
     var subscribeNum : Int?,
     var artistList : List<Artist>?,
-    var subscribe: Boolean?
+    var subscribe: Boolean
 
 ) : ListData {
 
@@ -31,7 +31,7 @@ data class Concert(
 
     constructor(_id : String,name : String, profileImg: String, date : List<String>,subscribe: Boolean?, tag : String) : this( _id, name, genre = "", youtubeUrl = "",backImg = "", eventInfoImg = "",
         profileImg = profileImg,cast = "", date = date,artistList = ArrayList<Artist>(),location = "",station = "",
-        seatList = ArrayList<Seat>(), precaution=ArrayList<Caution>(), subscribeNum = 0, subscribe = subscribe) {
+        seatList = ArrayList<Seat>(), precaution=ArrayList<Caution>(), subscribeNum = 0, subscribe = subscribe?:false) {
         this.tag=tag
     }
 

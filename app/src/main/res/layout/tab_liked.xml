@@ -13,11 +13,4 @@
             android:layout_centerHorizontal="true"
             app:srcCompat="@drawable/ic_likes"/>
 
-    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-              android:layout_below="@id/iv_tab"
-              android:textColor="@color/white"
-              android:layout_centerHorizontal="true"
-              android:text="관심목록"
-              android:textSize="10sp"
-    />
 </RelativeLayout>

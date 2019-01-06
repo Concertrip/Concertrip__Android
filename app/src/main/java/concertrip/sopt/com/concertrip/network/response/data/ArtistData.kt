@@ -25,7 +25,7 @@ data class ArtistData(
 
         val aList = ArrayList<Artist>()
         memberList?.forEach {
-            aList.add(it.toArtist())
+            aList.add(it?.toArtist())
         }
         a.memberList = aList
 
