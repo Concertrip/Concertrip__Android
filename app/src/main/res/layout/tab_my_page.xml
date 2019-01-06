@@ -13,11 +13,4 @@
             android:layout_centerHorizontal="true"
             app:srcCompat="@drawable/ic_mypage"/>
 
-    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-              android:layout_below="@id/iv_tab"
-              android:textColor="@color/white"
-              android:layout_centerHorizontal="true"
-              android:text="마이페이지"
-              android:textSize="10sp"
-    />
 </RelativeLayout>
