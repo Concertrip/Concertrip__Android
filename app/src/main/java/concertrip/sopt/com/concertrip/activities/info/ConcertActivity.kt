@@ -13,6 +13,7 @@ import android.view.View.VISIBLE
 import android.webkit.URLUtil
 import android.widget.Toast
 import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestManager
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.youtube.player.YouTubeBaseActivity
 import com.google.android.youtube.player.YouTubeInitializationResult
@@ -54,6 +55,7 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
         if (!b && ::concert.isInitialized) {
 //            val youtubeUrlList = concert.youtubeUrl!!.split("?v=")
 //            youTubePlayer?.cueVideo(youtubeUrlList[youtubeUrlList.size-1])
+            Log.d("~~~YOUTUBE URL : ", concert.youtubeUrl)
             youTubePlayer?.cueVideo(concert.youtubeUrl)
         }
     }
@@ -104,11 +106,15 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
         ApplicationController.instance.networkService
     }
 
+    public var mGlideRequestManager : RequestManager? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_concert)
 
         concertId = intent.getStringExtra(INTENT_TAG_ID)
+
+        mGlideRequestManager = Glide.with(this)
 
         initialUI()
         connectRequestData(concertId)
@@ -158,11 +164,11 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
 
         // TODO 구독하기(종) 버튼 설정
         if(URLUtil.isValidUrl(concert.backImg))
-            Glide.with(this).load(concert.backImg).into(iv_back)
+            mGlideRequestManager?.load(concert.backImg)?.into(iv_back)
         if(URLUtil.isValidUrl(concert.profileImg))
-            Glide.with(this).load(concert.profileImg).apply(RequestOptions.circleCropTransform()).into(iv_profile)
+            mGlideRequestManager?.load(concert.profileImg)?.apply(RequestOptions.circleCropTransform())?.into(iv_profile)
         if(URLUtil.isValidUrl(concert.eventInfoImg))
-            Glide.with(this).load(concert.eventInfoImg).into(iv_concert_info)
+            mGlideRequestManager?.load(concert.eventInfoImg)?.into(iv_concert_info)
 
         tv_title.text = concert.title
         tv_tag.text  = concert.subscribeNum.toString()
