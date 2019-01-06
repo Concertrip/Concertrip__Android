@@ -87,6 +87,8 @@ class ExplorerFragment : Fragment(), OnItemClick ,OnResponse{
     }
 
     override fun onItemClick(root: RecyclerView.Adapter<out RecyclerView.ViewHolder>, position: Int) {
+        if(activity?.progress_bar?.visibility==View.VISIBLE) return
+
         tagAdapter.setSelect(position)
 
         if(root is HorizontalListAdapter){
