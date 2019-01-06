@@ -164,8 +164,7 @@ class BasicListAdapter(
 
         holder.itemView.setOnClickListener {
 
-//            when (getItemViewType(position))
-            when (mode) {
+            when (getItemViewType(position)){
                 TYPE_ARTIST -> {
                     val intent: Intent = Intent(mContext.applicationContext, ArtistActivity::class.java)
                     intent.putExtra(INTENT_TAG_ID, dataList[position].getId())
