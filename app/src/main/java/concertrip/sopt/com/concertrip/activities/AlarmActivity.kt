@@ -1,13 +1,16 @@
 package concertrip.sopt.com.concertrip.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import concertrip.sopt.com.concertrip.R
+import concertrip.sopt.com.concertrip.activities.main.MainActivity
 import concertrip.sopt.com.concertrip.interfaces.ListData
 import concertrip.sopt.com.concertrip.list.adapter.BasicListAdapter
 import concertrip.sopt.com.concertrip.model.Alarm
 import kotlinx.android.synthetic.main.activity_alram.*
+import kotlinx.android.synthetic.main.fragment_calendar.*
 
 class AlarmActivity : AppCompatActivity(){
 
@@ -33,6 +36,10 @@ class AlarmActivity : AppCompatActivity(){
     }
 
     private fun initialUI(){
+        btn_alarm_back.setOnClickListener {
+            startActivity(Intent(this, MainActivity::class.java))
+        }
+
         if(dataList.size == 0){
             tv_alarm.visibility = View.VISIBLE
             recycler_view_alarm.visibility = View.GONE
