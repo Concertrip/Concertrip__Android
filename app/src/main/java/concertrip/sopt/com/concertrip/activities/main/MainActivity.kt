@@ -38,9 +38,6 @@ class MainActivity : AppCompatActivity() , OnFragmentInteractionListener {
         main_tab.addTab(main_tab.newTab().setCustomView(R.layout.tab_explorer))
         main_tab.addTab(main_tab.newTab().setCustomView(R.layout.tab_liked))
         main_tab.addTab(main_tab.newTab().setCustomView(R.layout.tab_my_page))
-//        main_tab.addTab(main_tab.newTab().setIcon(R.drawable.ic_explorer).setText("탐색"))
-//        main_tab.addTab(main_tab.newTab().setIcon(R.drawable.ic_liked).setText("찜목록"))
-//        main_tab.addTab(main_tab.newTab().setIcon(R.drawable.ic_mypage).setText("마이페이지"))
 
         main_tab.getTabAt(0)?.select()
 

@@ -37,7 +37,7 @@ import concertrip.sopt.com.concertrip.utillity.NetworkUtil
 class BasicListAdapter(
     private var mContext: Context,
     var dataList: ArrayList<out ListData>,
-    var mode: Int?,
+    var mode: Int?= MODE_BASIC,
     var listener: OnItemClick?
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), OnResponse {
     override fun onSuccess(obj: BaseModel, position: Int?) {
@@ -111,7 +111,6 @@ class BasicListAdapter(
                         val view = LayoutInflater.from(mContext).inflate(R.layout.li_artist_thumb, parent, false)
                         ArtistThumbViewHolder(view)
                     }
-
                     else->{//MODE_BASIC -> {
                         val view = LayoutInflater.from(mContext).inflate(R.layout.li_artist, parent, false)
                         ArtistViewHolder(view)

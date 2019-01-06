@@ -56,7 +56,6 @@ class LikedFragment : Fragment(), View.OnClickListener, OnResponse {
 
                 dataList.clear()
                 dataList.addAll(responseBody.toArtistList())
-                adapter.mode = position
                 adapter.notifyDataSetChanged()
 
             }
@@ -115,27 +114,27 @@ class LikedFragment : Fragment(), View.OnClickListener, OnResponse {
 
     private fun initialUI() {
 
-        liked_tab.addTab(liked_tab.newTab().setText("아티스트"))
-        liked_tab.addTab(liked_tab.newTab().setText("테마"))
-        liked_tab.addTab(liked_tab.newTab().setText("공연"))
-
-        liked_tab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabReselected(tab: TabLayout.Tab?) {}
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {}
-
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                when (tab?.position) {
-                    TAB_ARTIST ->
-                        connectRequestData(TYPE_ARTIST)
-                    TAB_GENRE ->
-                        connectRequestData(TYPE_GENRE)
-                    TAB_CONCERT ->
-                        connectRequestData(TYPE_CONCERT)
-                }
-            }
-
-        })
+//        liked_tab.addTab(liked_tab.newTab().setText("아티스트"))
+//        liked_tab.addTab(liked_tab.newTab().setText("테마"))
+//        liked_tab.addTab(liked_tab.newTab().setText("공연"))
+//
+//        liked_tab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+//            override fun onTabReselected(tab: TabLayout.Tab?) {}
+//
+//            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+//
+//            override fun onTabSelected(tab: TabLayout.Tab?) {
+//                when (tab?.position) {
+//                    TAB_ARTIST ->
+//                        connectRequestData(TYPE_ARTIST)
+//                    TAB_GENRE ->
+//                        connectRequestData(TYPE_GENRE)
+//                    TAB_CONCERT ->
+//                        connectRequestData(TYPE_CONCERT)
+//                }
+//            }
+//
+//        })
 
 
         tv_liked_artist.setOnClickListener(this)
