@@ -37,7 +37,7 @@ class AlarmActivity : AppCompatActivity(){
 
     private fun initialUI(){
         btn_alarm_back.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
+            finish()
         }
 
         if(dataList.size == 0){
