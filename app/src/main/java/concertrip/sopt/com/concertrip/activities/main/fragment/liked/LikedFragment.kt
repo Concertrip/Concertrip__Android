@@ -2,6 +2,7 @@ package concertrip.sopt.com.concertrip.activities.main.fragment.liked
 
 import android.content.Context
 import android.os.Bundle
+import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
@@ -18,6 +19,9 @@ import concertrip.sopt.com.concertrip.network.NetworkService
 import concertrip.sopt.com.concertrip.interfaces.OnResponse
 import concertrip.sopt.com.concertrip.network.response.GetSubscribedResponse
 import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
+import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TAB_ARTIST
+import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TAB_CONCERT
+import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TAB_GENRE
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_ARTIST
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_CONCERT
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_GENRE
@@ -43,7 +47,7 @@ class LikedFragment : Fragment(), View.OnClickListener, OnResponse {
     override fun onSuccess(obj: BaseModel, position: Int?) {
 
 
-        activity?.progress_bar?.visibility=View.GONE
+        activity?.progress_bar?.visibility = View.GONE
 
         activity?.let {
             if (obj is GetSubscribedResponse) {
@@ -60,7 +64,7 @@ class LikedFragment : Fragment(), View.OnClickListener, OnResponse {
     }
 
     override fun onFail(status: Int) {
-        activity?.progress_bar?.visibility=View.GONE
+        activity?.progress_bar?.visibility = View.GONE
 
         when (status) {
             NETWORK_NO_DATA -> {
@@ -110,6 +114,30 @@ class LikedFragment : Fragment(), View.OnClickListener, OnResponse {
 
 
     private fun initialUI() {
+
+        liked_tab.addTab(liked_tab.newTab().setText("아티스트"))
+        liked_tab.addTab(liked_tab.newTab().setText("테마"))
+        liked_tab.addTab(liked_tab.newTab().setText("공연"))
+
+        liked_tab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                when (tab?.position) {
+                    TAB_ARTIST ->
+                        connectRequestData(TYPE_ARTIST)
+                    TAB_GENRE ->
+                        connectRequestData(TYPE_GENRE)
+                    TAB_CONCERT ->
+                        connectRequestData(TYPE_CONCERT)
+                }
+            }
+
+        })
+
+
         tv_liked_artist.setOnClickListener(this)
         tv_liked_concert.setOnClickListener(this)
         tv_liked_genre.setOnClickListener(this)
@@ -125,7 +153,7 @@ class LikedFragment : Fragment(), View.OnClickListener, OnResponse {
 
 
     private var curTextView: TextView? = null
-    private var curView : View? = null
+    private var curView: View? = null
     private fun updateTextColor(textView: TextView, view: View) {
         activity?.let {
             curTextView?.setTextColor(ContextCompat.getColor(it.applicationContext, R.color.textTagDefault))
@@ -139,16 +167,17 @@ class LikedFragment : Fragment(), View.OnClickListener, OnResponse {
     }
 
 
-    private fun clearDataList(){
+    private fun clearDataList() {
         dataList.clear()
         adapter.notifyDataSetChanged()
     }
+
     private fun connectRequestData(state: Int) {
         clearDataList()
 
 
 
-        activity?.progress_bar?.visibility=View.VISIBLE
+        activity?.progress_bar?.visibility = View.VISIBLE
 
         when (state) {
             TYPE_ARTIST -> {

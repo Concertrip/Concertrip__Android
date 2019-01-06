@@ -34,6 +34,7 @@
             <TextView
                     android:id="@+id/tv_liked_artist"
                     android:text="@string/txt_liked_tag1"
+                    android:fontFamily="sans-serif"
                     android:textSize="20sp"
                     android:textColor="@color/textTagDefault"
                     android:layout_width="wrap_content"
@@ -87,6 +88,13 @@
         </LinearLayout>
     </LinearLayout>
 
+    <android.support.design.widget.TabLayout
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+                 android:id="@+id/liked_tab"
+            app:tabTextColor="@color/white"
+            app:tabIndicatorColor="@color/white"
+            app:tabGravity="fill"
+    />
 
     <android.support.v7.widget.RecyclerView
             android:layout_marginTop="5dp"

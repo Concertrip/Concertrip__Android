@@ -101,11 +101,14 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
 
     override fun onSuccess(obj: BaseModel, position: Int?) {
 
-        progress_bar.visibility=View.VISIBLE
+        progress_bar.visibility=View.GONE
 
         if(obj is MessageResponse) {
             toast(obj.message.toString())
-            artist.subscribe = !artist.subscribe
+
+            if ( ::artist.isInitialized) {
+                artist.subscribe = !artist.subscribe
+            }
             toggleFollowBtn(artist.subscribe)
 
             if (artist.subscribe)
@@ -117,7 +120,7 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
     }
 
     override fun onFail(status: Int) {
-        progress_bar.visibility=View.VISIBLE
+        progress_bar.visibility=View.GONE
 //        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
@@ -224,18 +227,27 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
 
     private fun connectRequestData(id: String) {
 
-        progress_bar.visibility=View.GONE
+        progress_bar.visibility=View.VISIBLE
 
         // 서버에서 넘어오는 데이터 구조가 달라서 따로 구현할 수 밖에 없음ㅠ
         if (isGenre) {
             LOG_TAG = "/api/genre/detail"
             val getGenreResponse: Call<GetGenreResponse> = networkService.getGenre(USER_TOKEN, artistId)
             getGenreResponse.enqueue(object : Callback<GetGenreResponse> {
+
                 override fun onFailure(call: Call<GetGenreResponse>?, t: Throwable?) {
+
+                    progress_bar.visibility=View.GONE
+
+
                     Log.e(Constants.LOG_NETWORK, "$LOG_TAG $t")
                 }
 
                 override fun onResponse(call: Call<GetGenreResponse>?, response: Response<GetGenreResponse>?) {
+
+                    progress_bar.visibility=View.GONE
+
+
                     response?.let { res ->
                         if (res.body()?.status == NETWORK_SUCCESS) {
                             res.body()!!.data?.let {
@@ -260,10 +272,14 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
             val getArtistResponse: Call<GetArtistResponse> = networkService.getArtist(USER_TOKEN, artistId)
             getArtistResponse.enqueue(object : Callback<GetArtistResponse> {
                 override fun onFailure(call: Call<GetArtistResponse>?, t: Throwable?) {
+                    progress_bar.visibility=View.GONE
+
                     Log.e(Constants.LOG_NETWORK, "$LOG_TAG $t")
                 }
 
                 override fun onResponse(call: Call<GetArtistResponse>?, response: Response<GetArtistResponse>?) {
+                    progress_bar.visibility=View.GONE
+
                     response?.let { res ->
 
                         if (response.body()?.status == NETWORK_SUCCESS) {

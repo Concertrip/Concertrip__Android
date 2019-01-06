@@ -5,12 +5,15 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/shape_background_gradation"
         tools:context=".activities.TutorialActivity">
 
+    <ScrollView android:layout_width="match_parent" android:layout_height="match_parent">
    <LinearLayout
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:orientation="vertical"
+           android:layout_gravity="center_horizontal"
            android:layout_centerHorizontal="true"
            android:layout_centerVertical="true"
    >
@@ -25,6 +28,7 @@
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:text="좋아하는 테마를 골라주세요"
+               android:textColor="@color/white"
                android:layout_gravity="center"
                android:layout_marginBottom="36dp"
        />
@@ -64,6 +68,7 @@
                         android:text="뮤직 페스티벌"
                         android:paddingTop="12dp"
                         android:layout_gravity="center_horizontal"
+                        android:textColor="@color/white"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
             </LinearLayout>
@@ -96,6 +101,7 @@
                         android:text="아이돌 공연"
                         android:paddingTop="12dp"
                         android:layout_gravity="center_horizontal"
+                        android:textColor="@color/white"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
             </LinearLayout>
@@ -128,6 +134,7 @@
                         android:paddingTop="12dp"
                         android:layout_gravity="center_horizontal"
                         android:layout_width="wrap_content"
+                        android:textColor="@color/white"
                         android:layout_height="wrap_content"/>
             </LinearLayout>
 
@@ -158,6 +165,7 @@
                         android:text="발라드/R&amp;B"
                         android:paddingTop="12dp"
                         android:layout_gravity="center_horizontal"
+                        android:textColor="@color/white"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
             </LinearLayout>
@@ -190,6 +198,7 @@
                         android:text="내한 공연"
                         android:paddingTop="12dp"
                         android:layout_gravity="center_horizontal"
+                        android:textColor="@color/white"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
             </LinearLayout>
@@ -221,6 +230,7 @@
                         android:text="EDM 페스티벌"
                         android:paddingTop="12dp"
                         android:layout_gravity="center_horizontal"
+                        android:textColor="@color/white"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
             </LinearLayout>
@@ -252,6 +262,7 @@
                         android:text="인디 공연"
                         android:paddingTop="12dp"
                         android:layout_gravity="center_horizontal"
+                        android:textColor="@color/white"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
             </LinearLayout>
@@ -284,6 +295,7 @@
                         android:text="재즈 공연"
                         android:paddingTop="12dp"
                         android:layout_gravity="center_horizontal"
+                        android:textColor="@color/white"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
             </LinearLayout>
@@ -315,6 +327,7 @@
                         android:text="락 페스티벌"
                         android:paddingTop="12dp"
                         android:layout_gravity="center_horizontal"
+                        android:textColor="@color/white"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
             </LinearLayout>
@@ -327,9 +340,10 @@
                android:id="@+id/btn_skip"
                android:layout_gravity="center"
                android:text="건너뛰기"
+               android:textColor="@color/white"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"/>
    </LinearLayout>
 
-
+    </ScrollView>
 </RelativeLayout>

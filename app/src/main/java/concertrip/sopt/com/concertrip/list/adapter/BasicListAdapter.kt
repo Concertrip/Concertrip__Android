@@ -107,16 +107,14 @@ class BasicListAdapter(
         when (viewType) {
             TYPE_ARTIST -> {
                 return when (mode) {
-                    MODE_BASIC -> {
-                        val view = LayoutInflater.from(mContext).inflate(R.layout.li_artist, parent, false)
-                        ArtistViewHolder(view)
-                    }
                     MODE_THUMB -> {
                         val view = LayoutInflater.from(mContext).inflate(R.layout.li_artist_thumb, parent, false)
                         ArtistThumbViewHolder(view)
                     }
-                    else -> {
-                        throw RuntimeException(mContext.toString() + " mode is strange number $mode")
+
+                    else->{//MODE_BASIC -> {
+                        val view = LayoutInflater.from(mContext).inflate(R.layout.li_artist, parent, false)
+                        ArtistViewHolder(view)
                     }
                 }
             }
