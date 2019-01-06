@@ -22,8 +22,8 @@ class ConcertViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView)  ,B
 
 
     override fun setButton(context : Context, b: Boolean?) {
-        ivLike.setImageDrawable(if(b==true) ContextCompat.getDrawable(context,R.drawable.ic_like)
-        else ContextCompat.getDrawable(context,R.drawable.ic_unlike))
+        ivLike.setImageDrawable(if(b==true) ContextCompat.getDrawable(context,R.drawable.ic_bell_selected)
+        else ContextCompat.getDrawable(context,R.drawable.ic_bell_unselected))
     }
 
 
