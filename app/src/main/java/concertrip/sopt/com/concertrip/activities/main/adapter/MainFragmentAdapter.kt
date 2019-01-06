@@ -50,9 +50,13 @@ class MainFragmentAdapter(val fragmentManager: FragmentManager, val mainTab: Tab
         fragmentTransaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_down)
         fragmentTransaction.add(R.id.container ,fragment)
         fragmentTransaction.commit()
+        mainTab.getTabAt(curTabId)?.customView?.findViewById<ImageView>(R.id.iv_tab)?.setImageResource(setIcons[curTabId])
+//        mainTab.getTabAt(curTabId)?.setIcon(setIcons[curTabId])
+
 
         mainTab.getTabAt(curTabId)?.customView?.findViewById<ImageView>(R.id.iv_tab)?.setImageResource(setIcons[curTabId])
 //        mainTab.getTabAt(curTabId)?.setIcon(setIcons[curTabId])
+
     }
 
 
@@ -60,15 +64,12 @@ class MainFragmentAdapter(val fragmentManager: FragmentManager, val mainTab: Tab
     fun setTab(what : Int){
         if(what==-1) return
         //TODO 여기서 더 손못대겠음!
-        mainTab.getTabAt(curTabId)?.setCustomView(unsetIcons[curTabId])
-
-
+       // mainTab.getTabAt(curTabId)?.setCustomView(unsetIcons[curTabId])
         mainTab.getTabAt(curTabId)?.customView?.findViewById<ImageView>(R.id.iv_tab)?.setImageResource(unsetIcons[curTabId])
 //        mainTab.getTabAt(curTabId)?.setIcon(unsetIcons[curTabId])
         curTabId = what
         mainTab.getTabAt(curTabId)?.customView?.findViewById<ImageView>(R.id.iv_tab)?.setImageResource(setIcons[curTabId])
 //        mainTab.getTabAt(curTabId)?.setIcon(setIcons[curTabId])
-
         mainTab.getTabAt(curTabId)?.select()
 
     }
