@@ -9,12 +9,14 @@
     <color name="mainColorB">@color/blue</color>
     <color name="mainColorP">@color/purple</color>
 
-
+    <color name="mainTabColor">#000329</color>
 
 
     <color name="white">#ffffff</color>
     <color name="white_0_9">#09ffffff</color>
     <color name="dark_gray_09">#09000107</color>
+
+
 
 
 
