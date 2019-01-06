@@ -37,7 +37,7 @@ import concertrip.sopt.com.concertrip.utillity.NetworkUtil
 class BasicListAdapter(
     private var mContext: Context,
     var dataList: ArrayList<out ListData>,
-    var mode: Int?,
+    var mode: Int?= MODE_BASIC,
     var listener: OnItemClick?
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), OnResponse {
     override fun onSuccess(obj: BaseModel, position: Int?) {
@@ -55,7 +55,7 @@ class BasicListAdapter(
                 }
                 TYPE_CONCERT -> {
                     val concert = dataList[position] as Concert
-                    concert.subscribe = concert.subscribe
+                    concert.subscribe = !concert.subscribe
 
 
                     Toast.makeText(mContext, obj.message, Toast.LENGTH_LONG).show()
@@ -111,7 +111,6 @@ class BasicListAdapter(
                         val view = LayoutInflater.from(mContext).inflate(R.layout.li_artist_thumb, parent, false)
                         ArtistThumbViewHolder(view)
                     }
-
                     else->{//MODE_BASIC -> {
                         val view = LayoutInflater.from(mContext).inflate(R.layout.li_artist, parent, false)
                         ArtistViewHolder(view)
@@ -155,6 +154,7 @@ class BasicListAdapter(
         basicHolder.getMainTitle().text = dataList[position].getMainTitle()
         basicHolder.getSubTitle()?.text = dataList[position].getSubTitle()
         if (URLUtil.isValidUrl(dataList[position].getImageUrl())) {
+            /*TODO 터지면 GlideRequestManager 달기*/
             Glide.with(mContext).load(dataList[position].getImageUrl()).apply(RequestOptions.circleCropTransform())
                 .into(holder.getIvIcon())
         } else {
@@ -165,8 +165,7 @@ class BasicListAdapter(
 
         holder.itemView.setOnClickListener {
 
-//            when (getItemViewType(position))
-            when (mode) {
+            when (getItemViewType(position)){
                 TYPE_ARTIST -> {
                     val intent: Intent = Intent(mContext.applicationContext, ArtistActivity::class.java)
                     intent.putExtra(INTENT_TAG_ID, dataList[position].getId())

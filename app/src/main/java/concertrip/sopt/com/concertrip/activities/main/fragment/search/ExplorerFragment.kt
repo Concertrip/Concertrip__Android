@@ -58,7 +58,7 @@ class ExplorerFragment : Fragment(), OnItemClick ,OnResponse{
     }
 
     var dataList = arrayListOf<ListData>()
-    var dataListTag = arrayListOf<String>("모두" , "테마", "보이그룹", "걸그룹","힙합","발라드","R&B","댄스","POP","EDM","인디","재즈","록","댄스");
+    var dataListTag = arrayListOf<String>("테마", "보이그룹", "걸그룹","힙합","발라드","R&B","댄스","POP","EDM","인디","재즈","록","댄스");
 
 
     var curSearch = ""
@@ -87,14 +87,13 @@ class ExplorerFragment : Fragment(), OnItemClick ,OnResponse{
     }
 
     override fun onItemClick(root: RecyclerView.Adapter<out RecyclerView.ViewHolder>, position: Int) {
+        if(activity?.progress_bar?.visibility==View.VISIBLE) return
+
         tagAdapter.setSelect(position)
 
         if(root is HorizontalListAdapter){
             when (position) {
-                0 -> { //TODO 모두 보기 클릭시
-                    //아직 API가...ㅜ
-                }
-                1 -> {  //TODO 테마 선택시 클릭시
+                0 -> {  //TODO 테마 선택시 클릭시
 
                 }
                 else -> connectRequestData(dataListTag[position])

@@ -3,6 +3,8 @@ package concertrip.sopt.com.concertrip.network.response
 import android.support.design.bottomappbar.BottomAppBarTopEdgeTreatment
 import com.google.gson.annotations.SerializedName
 import concertrip.sopt.com.concertrip.model.Artist
+import concertrip.sopt.com.concertrip.model.Concert
+import concertrip.sopt.com.concertrip.model.Genre
 import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
 
 data class GetSubscribedResponse(
@@ -18,6 +20,24 @@ data class GetSubscribedResponse(
 
         return list
     }
+    fun toConcertList() : ArrayList<Concert>{
+        val list = ArrayList<Concert>()
+
+        data.forEach {
+            list.add(it.toConcert())
+        }
+
+        return list
+    }
+    fun toGenreList() : ArrayList<Genre>{
+        val list = ArrayList<Genre>()
+
+        data.forEach {
+            list.add(it.toGenre())
+        }
+
+        return list
+    }
 }
 
 data class SubscribedData(
@@ -28,6 +48,24 @@ data class SubscribedData(
 ){
     fun toArtist() : Artist {
         val a = Artist(_id)
+
+        a.name = name
+        a.profileImg = profileImg
+        a.subscribe = subscribe
+
+        return a
+    }
+    fun toConcert() : Concert {
+        val a = Concert(_id)
+
+        a.title = name
+        a.profileImg = profileImg
+        a.subscribe = subscribe
+
+        return a
+    }
+    fun toGenre() : Genre{
+        val a = Genre(_id)
 
         a.name = name
         a.profileImg = profileImg

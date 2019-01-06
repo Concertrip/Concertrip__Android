@@ -55,8 +55,15 @@ class LikedFragment : Fragment(), View.OnClickListener, OnResponse {
                 val responseBody = obj as GetSubscribedResponse
 
                 dataList.clear()
-                dataList.addAll(responseBody.toArtistList())
-                adapter.mode = position
+                when (position) {
+                    TYPE_ARTIST ->
+                        dataList.addAll(responseBody.toArtistList())
+                    TYPE_GENRE ->
+                        dataList.addAll(responseBody.toGenreList())
+                    TYPE_CONCERT ->
+                        dataList.addAll(responseBody.toConcertList())
+                }
+
                 adapter.notifyDataSetChanged()
 
             }
@@ -79,6 +86,7 @@ class LikedFragment : Fragment(), View.OnClickListener, OnResponse {
 
 
     override fun onClick(view: View) {
+        if (activity?.progress_bar?.visibility == View.VISIBLE) return
         when (view.id) {
             R.id.tv_liked_concert -> {
                 connectRequestData(TYPE_CONCERT)
@@ -114,28 +122,6 @@ class LikedFragment : Fragment(), View.OnClickListener, OnResponse {
 
 
     private fun initialUI() {
-
-        liked_tab.addTab(liked_tab.newTab().setText("아티스트"))
-        liked_tab.addTab(liked_tab.newTab().setText("테마"))
-        liked_tab.addTab(liked_tab.newTab().setText("공연"))
-
-        liked_tab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabReselected(tab: TabLayout.Tab?) {}
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {}
-
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                when (tab?.position) {
-                    TAB_ARTIST ->
-                        connectRequestData(TYPE_ARTIST)
-                    TAB_GENRE ->
-                        connectRequestData(TYPE_GENRE)
-                    TAB_CONCERT ->
-                        connectRequestData(TYPE_CONCERT)
-                }
-            }
-
-        })
 
 
         tv_liked_artist.setOnClickListener(this)

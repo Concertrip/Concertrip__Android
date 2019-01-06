@@ -2,6 +2,7 @@ package concertrip.sopt.com.concertrip.activities
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import concertrip.sopt.com.concertrip.R
 import concertrip.sopt.com.concertrip.interfaces.ListData
 import concertrip.sopt.com.concertrip.list.adapter.BasicListAdapter
@@ -32,8 +33,13 @@ class AlarmActivity : AppCompatActivity(){
     }
 
     private fun initialUI(){
-        adapter = BasicListAdapter(this, dataList)
-        recycler_view.adapter=adapter
+        if(dataList.size == 0){
+            tv_alarm.visibility = View.VISIBLE
+            recycler_view_alarm.visibility = View.GONE
+        }else{
+            adapter = BasicListAdapter(this, dataList)
+            recycler_view_alarm.adapter=adapter
+        }
     }
 
     private fun updateList(list : ArrayList<out ListData>) {

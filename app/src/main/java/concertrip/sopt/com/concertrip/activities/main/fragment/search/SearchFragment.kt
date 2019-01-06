@@ -56,7 +56,7 @@ class SearchFragment : Fragment() ,OnResponse{
             val genreList = searchResponseData.toGenreList()
 
             showListView((concertList.size+ artistList.size + genreList.size )>0)
-
+            showTextView((concertList.size+ artistList.size + genreList.size )>0)
 
 
             dataListConcert.clear()

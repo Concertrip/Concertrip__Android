@@ -28,7 +28,6 @@
     android:layout_gravity="center" android:indeterminate="true"
                  android:id="@+id/progress_bar"
                  android:indeterminateTint="@color/white"
-
     />
 
 
@@ -36,8 +35,7 @@
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
-            android:layout_marginBottom="@dimen/bottom_tab_layout_height"/>
+/>
 
 
     <android.support.design.widget.TabLayout
@@ -48,9 +46,7 @@
             android:layout_gravity="bottom"
             android:foregroundGravity="center"
             app:tabMode="fixed"
-            android:background="@color/black_0_9"
-            app:tabIndicatorColor="#cccccc"
-            app:tabSelectedTextColor="#00ffff"/>
-
+            android:background="@color/white_0_9"
+/>
 
 </android.support.design.widget.CoordinatorLayout>

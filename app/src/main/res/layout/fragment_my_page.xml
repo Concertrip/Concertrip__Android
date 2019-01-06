@@ -36,7 +36,9 @@
             <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/bottom_tab_layout_height"
+            >
 
                 <TextView
                         android:text="@string/txt_my_page_myticket"

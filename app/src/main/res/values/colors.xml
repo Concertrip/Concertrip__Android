@@ -13,9 +13,10 @@
 
 
     <color name="white">#ffffff</color>
-    <color name="white_0_9">#14ffffff</color>
+    <color name="white_0_9">#09ffffff</color>
+    <color name="dark_gray_09">#09000107</color>
 
-    <color name="black_0_9">#9431384e</color>
+
 
 
 
