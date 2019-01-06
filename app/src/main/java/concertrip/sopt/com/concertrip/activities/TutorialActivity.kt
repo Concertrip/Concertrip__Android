@@ -32,8 +32,12 @@ class TutorialActivity : AppCompatActivity() {
 
         if(clickTest.sum() > 0){
             btn_skip.text = "구독하기"
+            iv_tutorial_heart_empty.visibility = View.GONE
+            iv_tutorial_heart_activated.visibility = View.VISIBLE
         }else{
             btn_skip.text = "건너뛰기"
+            iv_tutorial_heart_activated.visibility = View.GONE
+            iv_tutorial_heart_empty.visibility = View.VISIBLE
         }
     }
 
