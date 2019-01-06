@@ -23,7 +23,6 @@ class HorizontalListAdapter(
 ) : RecyclerView.Adapter<HorizontalViewHolder>() {
     var selected: Int = 0
 
-    constructor(mContext: Context, dataList: ArrayList<String>) : this(mContext, dataList, null, true)
     constructor(mContext: Context, dataList: ArrayList<String>, listener: OnItemClick?) : this(
         mContext,
         dataList,
@@ -39,10 +38,7 @@ class HorizontalListAdapter(
     override fun getItemCount(): Int = dataList.size
 
     override fun onBindViewHolder(holder: HorizontalViewHolder, position: Int) {
-
-
-                holder.vUnderline.visibility = if (isUnderline && position == selected) View.VISIBLE else View.GONE
-
+        holder.vUnderline.visibility = if (isUnderline && position == selected) View.VISIBLE else View.GONE
 
         if(position == selected){
             holder.tvtext.typeface = Typeface.DEFAULT_BOLD
@@ -52,7 +48,6 @@ class HorizontalListAdapter(
             holder.tvtext.setTextColor(ContextCompat.getColor(mContext, R.color.grayDark))
         }
 
-
         holder.tvtext.text = dataList[position]
 
         holder.itemView.setOnClickListener {
@@ -61,7 +56,6 @@ class HorizontalListAdapter(
     }
 
     fun setSelect(position: Int) {
-        Log.v("1227", position.toString())
         this.selected = position
         notifyDataSetChanged()
     }

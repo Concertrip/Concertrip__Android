@@ -14,18 +14,12 @@ class AlarmActivity : AppCompatActivity(){
     lateinit  var adapter : BasicListAdapter
 
 
-    private var param1: String? = null
-    private var param2: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_alram)
 
-//        arguments?.let {
-//            param1 = it.getString(ARG_PARAM1)
-//            param2 = it.getString(ARG_PARAM2)
-//        }
 
         initialUI()
         connectRequestData()
@@ -42,13 +36,12 @@ class AlarmActivity : AppCompatActivity(){
         recycler_view.adapter=adapter
     }
 
-    fun updateList(list : ArrayList<out ListData>) {
+    private fun updateList(list : ArrayList<out ListData>) {
         dataList.clear()
         dataList.addAll(list)
         adapter.notifyDataSetChanged()
     }
 
     private fun connectRequestData() {
-        updateList(Alarm.getDummyArray())
     }
 }

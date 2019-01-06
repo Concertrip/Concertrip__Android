@@ -13,16 +13,16 @@
         <ImageView
                 android:id="@+id/iv_back"
                 android:layout_width="match_parent"
-                android:layout_height="175dp"
+                android:layout_height="157dp"
+                android:scaleType="centerCrop"
                 android:background="#f2f2f2"/>
-
         <ImageView
-
                 android:id="@+id/iv_profile"
                 android:layout_width="110dp"
                 android:layout_height="110dp"
-                android:layout_marginTop="121.4dp"
+                android:layout_marginTop="102dp"
                 android:layout_marginStart="16.1dp"
+
                 android:src="@drawable/ic_account_circle"
         />
         
@@ -31,20 +31,20 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true">
 
-            <Button
+            <ImageView
                     android:id="@+id/btn_follow"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="121.6dp"
-                    android:layout_marginEnd="18.8dp"
-            />
-
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="97dp"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/ic_header_likes_selected"/>
         </LinearLayout>
 
         <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:id="@+id/ly_group"
                 android:layout_below="@id/iv_back"
                 android:layout_marginTop="11.6dp"
                 android:layout_marginStart="143.9dp">
@@ -53,9 +53,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
-                    android:textColor="#000000"
+                    android:textColor="@color/white"
                     android:textStyle="bold"
-                    tools:text="더 몬스터 페스티벌"
+                    tools:text="더 몬스터 페스티벌fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
                     android:text="더 몬스터 페스티벌"/>
 
             <LinearLayout
@@ -63,17 +63,17 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3.4dp">
 
-                <ImageView
-                        android:layout_width="13dp"
-                        android:layout_height="13dp"
-                        app:srcCompat="@drawable/ic_account_circle"/>
+                <ImageView android:layout_width="13dp"
+                           android:layout_height="13dp"
+                           android:id="@+id/iv_like"/>
+                
                 <TextView
                         android:id="@+id/tv_tag"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="1.4dp"
                         android:textSize="10sp"
-                        android:textColor="#000000"
+                        android:textColor="@color/white"
                         tools:text="914"
                         android:text="914"/>
 
@@ -83,10 +83,10 @@
 
         <!--have to fix it-->
         <com.google.android.youtube.player.YouTubePlayerView
-                android:id="@+id/youtude"
+                android:id="@+id/youtube"
                 android:layout_width="326.7dp"
                 android:layout_height="184.7dp"
-                android:layout_below="@+id/iv_back"
+                android:layout_below="@+id/ly_group"
                 android:layout_marginTop="73.5dp"
                 android:layout_centerHorizontal="true"
                 android:background="#e6e6e6"

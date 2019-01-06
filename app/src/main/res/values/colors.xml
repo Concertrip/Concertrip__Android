@@ -15,7 +15,18 @@
     <color name="white">#ffffff</color>
     <color name="white_0_9">#14ffffff</color>
 
+    <color name="black_0_9">#9431384e</color>
 
+
+
+
+    <color name="textHashTag">@color/gray</color>
+    <color name="textTagDefault">@color/gray</color>
+    <color name="textSelected">@color/white</color>
+    <color name="textDialog">@color/purple</color>
+    <color name="textTicket">@color/black</color>
+
+    <color name="textInfo">#d1d1d1</color>
 
 
     
@@ -31,4 +42,17 @@
 
     <color name="seat_1">#ff3e3e</color>
     <color name="seat_2">#1bbbff</color>
+
+    <color name="tab_1">#f513f5</color>
+    <color name="tab_2">#0065f0</color>
+    <color name="tab_3">#ff98ac</color>
+    <color name="tab_4">#fff7d8</color>
+    <color name="tab_5">#c6deff</color>
+    <color name="tab_6">#f00</color>
+    <color name="tab_7">#0f0</color>
+    <color name="tab_8">#00f</color>
+    <color name="tab_9">#ff0</color>
+    <color name="tab_10">#0ff</color>
+
+    <color name="tab_except">#000000</color>
 </resources>

@@ -20,6 +20,6 @@
             android:layout_centerHorizontal="true"
             android:id="@+id/btn_ticket"
             android:paddingBottom="20dp"
-            android:paddingHorizontal="20dp"/>
-
+            android:paddingHorizontal="20dp"
+            android:visibility="gone"/>
 </RelativeLayout>

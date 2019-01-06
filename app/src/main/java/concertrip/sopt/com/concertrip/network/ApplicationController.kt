@@ -22,7 +22,7 @@ class ApplicationController : Application(){
     }
 
 
-    fun buildNetWork(){
+    private fun buildNetWork(){
         val retrofit: Retrofit = Retrofit.Builder().baseUrl(baseURL)
             .addConverterFactory(GsonConverterFactory.create()).build()
 

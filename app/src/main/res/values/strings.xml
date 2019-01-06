@@ -13,7 +13,7 @@
     <string name="txt_result_add">아티스트/콘서트 추가요청하기</string>
     <string name="txt_calendar_added">캘린더에 추가 되었습니다.</string>
 
-    <string name="txt_ticket">티켓</string>
+    <string name="txt_ticket">내 티켓</string>
     <string name="txt_li_ticket_date">날짜:</string>
     <string name="txt_li_ticket_place">장소:</string>
     <string name="txt_setting">설정</string>
@@ -31,8 +31,8 @@
     <string name="txt_liked_tag1">아티스트</string>
     <string name="txt_liked_tag2">테마</string>
     <string name="txt_liked_tag3">공연</string>
-    <string name="txt_calendar_select_date">날짜를 선택해주세요</string>
-    <string name="txt_content_concert_cast">출연진</string>
+    <string name="txt_calendar_select_date">날짜를 선택해 주세요</string>
+    <string name="txt_content_concert_cast">주요 출연진</string>
     <string name="txt_content_concert_detail_info">세부정보</string>
     <string name="txt_content_concert_date">공연날짜</string>
     <string name="txt_content_concert_price">티켓가격</string>
@@ -42,4 +42,5 @@
     <string name="txt_content_concert_caution">주의사항</string>
     <string name="txt_content_artist_comingsoon">다가오는 콘서트</string>
     <string name="txt_content_artist_member">멤버</string>
+    <string name="title_activity_tutorial">TutorialActivity</string>
 </resources>

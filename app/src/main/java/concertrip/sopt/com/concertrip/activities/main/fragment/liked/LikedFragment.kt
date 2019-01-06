@@ -1,156 +1,101 @@
 package concertrip.sopt.com.concertrip.activities.main.fragment.liked
 
 import android.content.Context
-import android.graphics.Color
 import android.os.Bundle
+import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
-import android.support.v7.widget.RecyclerView
-import android.util.Log
+import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 
 import concertrip.sopt.com.concertrip.R
 import concertrip.sopt.com.concertrip.interfaces.ListData
 import concertrip.sopt.com.concertrip.interfaces.OnFragmentInteractionListener
 import concertrip.sopt.com.concertrip.list.adapter.BasicListAdapter
-import concertrip.sopt.com.concertrip.model.Artist
-import concertrip.sopt.com.concertrip.model.Concert
 import concertrip.sopt.com.concertrip.network.ApplicationController
 import concertrip.sopt.com.concertrip.network.NetworkService
-import concertrip.sopt.com.concertrip.interfaces.OnItemClick
 import concertrip.sopt.com.concertrip.interfaces.OnResponse
-import concertrip.sopt.com.concertrip.network.response.GetArtistSubscribeResponse
-import concertrip.sopt.com.concertrip.network.response.GetConcertSubscribeResponse
-import concertrip.sopt.com.concertrip.network.response.GetGenreSubscribeResponse
-import concertrip.sopt.com.concertrip.network.response.data.ArtistData
-import concertrip.sopt.com.concertrip.network.response.data.ConcertData
+import concertrip.sopt.com.concertrip.network.response.GetSubscribedResponse
 import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
-import concertrip.sopt.com.concertrip.utillity.Constants
-import concertrip.sopt.com.concertrip.utillity.NetworkUtil
+import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TAB_ARTIST
+import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TAB_CONCERT
+import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TAB_GENRE
+import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_ARTIST
+import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_CONCERT
+import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_GENRE
+import concertrip.sopt.com.concertrip.utillity.NetworkUtil.Companion.getSubscribedList
+import concertrip.sopt.com.concertrip.utillity.Secret.Companion.NETWORK_NO_DATA
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_liked.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [LikedFragment.OnFragmentInteractionListener] interface
- * to handle interaction events.
- * Use the [LikedFragment.newInstance] factory method to
- * create an instance of this fragment.
- *
- */
-class LikedFragment : Fragment() ,View.OnClickListener, OnItemClick,OnResponse{
+class LikedFragment : Fragment(), View.OnClickListener, OnResponse {
 
     var LOG_TAG = this::class.java.simpleName
 
     var dataList = ArrayList<ListData>()
+    lateinit var adapter: BasicListAdapter
 
-    lateinit  var adapter :BasicListAdapter
-
-
-
-    val STATE_ARTIST = 0
-    val STATE_THEME = 1
-    val STATE_CONCERT = 2
-
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private val networkService: NetworkService by lazy {
+        ApplicationController.instance.networkService
+    }
 
     private var listener: OnFragmentInteractionListener? = null
 
 
-    override fun onSuccess(obj: BaseModel,position: Int?) {
+    override fun onSuccess(obj: BaseModel, position: Int?) {
 
-        when(obj){
-            is GetArtistSubscribeResponse->{
-                activity?.let {
-                    Toast.makeText(it.applicationContext, "내 아티스트에 추가되었습니다!", Toast.LENGTH_LONG).show()
-                }
-            }
-            is GetConcertSubscribeResponse->{
 
-                activity?.let {
-                    Toast.makeText(it.applicationContext, "내 공연에 추가되었습니다!", Toast.LENGTH_LONG).show()
-                }
-            }
-            is GetGenreSubscribeResponse->{
+        activity?.progress_bar?.visibility = View.GONE
 
-                activity?.let {
-                    Toast.makeText(it.applicationContext, "내 장르에 추가되었습니다!", Toast.LENGTH_LONG).show()
-                }
+        activity?.let {
+            if (obj is GetSubscribedResponse) {
+                // 아티스트, 이벤트, 장르를 리사이클러뷰에 출력
+                val responseBody = obj as GetSubscribedResponse
+
+                dataList.clear()
+                dataList.addAll(responseBody.toArtistList())
+                adapter.mode = position
+                adapter.notifyDataSetChanged()
 
             }
-
         }
     }
 
-    override fun onFail() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun onFail(status: Int) {
+        activity?.progress_bar?.visibility = View.GONE
 
-    private fun changeFragment(to : Int, idx : Int){
-        val bundle = Bundle()
-        bundle.putInt(Constants.BUNDLE_KEY_INDEX,idx)
+        when (status) {
+            NETWORK_NO_DATA -> {
+                clearDataList()
+            }
+            else -> {
+            }
 
-        //TODO
-        listener?.changeFragment(to,bundle)
-    }
-
-
-    override fun onItemClick(root: RecyclerView.Adapter<out RecyclerView.ViewHolder>, position: Int) {
-
-//        when(curTextView?.id ?: R.id.btn_liked_artist){
-//            R.id.btn_liked_artist->{
-//                NetworkUtil.subscribeArtist(networkService,this,dataList[position].getId())
-//            }
-//            R.id.btn_liked_concert->{
-//                NetworkUtil.subscribeConcert(networkService,this,dataList[position].getId())
-//            }
-//            R.id.btn_liked_theme->{
-//                NetworkUtil.subscribeGenre(networkService,this,dataList[position].getId())
-//            }
-//        }
+        }
 
     }
-
 
 
     override fun onClick(view: View) {
-        when(view.id){
-            R.id.btn_liked_concert->{
-                updateTextColor(view as TextView)
-                connectRequestData(STATE_CONCERT)
+        when (view.id) {
+            R.id.tv_liked_concert -> {
+                connectRequestData(TYPE_CONCERT)
             }
-            R.id.btn_liked_artist->{
-                updateTextColor(view as TextView)
-                connectRequestData(STATE_ARTIST)
+            R.id.tv_liked_artist -> {
+                connectRequestData(TYPE_ARTIST)
             }
-            R.id.btn_liked_theme->{
-                updateTextColor(view as TextView)
-                connectRequestData(STATE_THEME)
+            R.id.tv_liked_genre -> {
+                connectRequestData(TYPE_GENRE)
             }
         }
 
     }
-
-
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
@@ -164,85 +109,94 @@ class LikedFragment : Fragment() ,View.OnClickListener, OnItemClick,OnResponse{
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initialUI()
-        connectRequestData(STATE_ARTIST)
+        connectRequestData(TYPE_ARTIST)
     }
 
 
+    private fun initialUI() {
+
+        liked_tab.addTab(liked_tab.newTab().setText("아티스트"))
+        liked_tab.addTab(liked_tab.newTab().setText("테마"))
+        liked_tab.addTab(liked_tab.newTab().setText("공연"))
+
+        liked_tab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                when (tab?.position) {
+                    TAB_ARTIST ->
+                        connectRequestData(TYPE_ARTIST)
+                    TAB_GENRE ->
+                        connectRequestData(TYPE_GENRE)
+                    TAB_CONCERT ->
+                        connectRequestData(TYPE_CONCERT)
+                }
+            }
+
+        })
 
 
-    private fun initialUI(){
-        btn_liked_artist.setOnClickListener(this)
-        btn_liked_concert.setOnClickListener(this)
-        btn_liked_theme.setOnClickListener(this)
+        tv_liked_artist.setOnClickListener(this)
+        tv_liked_concert.setOnClickListener(this)
+        tv_liked_genre.setOnClickListener(this)
 
         activity?.let {
-            adapter= BasicListAdapter(it.applicationContext, dataList,this)
+            updateTextColor(tv_liked_artist, v_artist_underlind)
 
-            recycler_view.adapter=adapter
+            adapter = BasicListAdapter(it.applicationContext, dataList)
+            recycler_view.adapter = adapter
         }
 
-        updateTextColor(btn_liked_artist)
     }
 
 
-    private var curTextView : TextView?=null
-    private fun updateTextColor(view : TextView){
-        curTextView?.setTextColor(Color.BLACK)
-        curTextView=view
-        view.setTextColor(Color.BLUE)
+    private var curTextView: TextView? = null
+    private var curView: View? = null
+    private fun updateTextColor(textView: TextView, view: View) {
+        activity?.let {
+            curTextView?.setTextColor(ContextCompat.getColor(it.applicationContext, R.color.textTagDefault))
+            curView?.visibility = View.INVISIBLE
+            curTextView = textView
+            curView = view
+
+            view.visibility = View.VISIBLE
+            textView.setTextColor(ContextCompat.getColor(it.applicationContext, R.color.textSelected))
+        }
     }
 
 
-
-    private fun updateDataList(list : ArrayList<out ListData>){
-        this.dataList.clear()
-        this.dataList.addAll(list)
+    private fun clearDataList() {
+        dataList.clear()
         adapter.notifyDataSetChanged()
-
     }
 
+    private fun connectRequestData(state: Int) {
+        clearDataList()
 
 
 
+        activity?.progress_bar?.visibility = View.VISIBLE
 
-    private fun connectRequestData(state : Int){
-        when(state){
-            STATE_ARTIST->{
-                connectArtistSubscribe()
-                updateTextColor(btn_liked_artist)
+        when (state) {
+            TYPE_ARTIST -> {
+                getSubscribedList(networkService, this, "", TYPE_ARTIST)
+                updateTextColor(tv_liked_artist, v_artist_underlind)
             }
-            STATE_CONCERT->{
-                connectConcertSubscribe()
-                updateTextColor(btn_liked_concert)
+            TYPE_CONCERT -> {
+                getSubscribedList(networkService, this, "", TYPE_CONCERT)
+                updateTextColor(tv_liked_concert, v_concert_underlind)
             }
-            STATE_THEME->{
-                connectGenreSubscribe()
-                updateTextColor(btn_liked_theme)
+            TYPE_GENRE -> {
+                getSubscribedList(networkService, this, "", TYPE_GENRE)
+                updateTextColor(tv_liked_genre, v_theme_underlind)
             }
-            else->{
+            else -> {
             }
         }
     }
-    private fun connectArtistSubscribe(){
-        val artistSubscribeResponse = GetArtistSubscribeResponse(ArtistData.getDummyArray())
-        updateDataList(artistSubscribeResponse.getArtistList())
-    }
 
-    private fun connectConcertSubscribe(){
-        val concertSubscribeResponse = GetConcertSubscribeResponse(ConcertData.getDummyArray())
-        updateDataList(concertSubscribeResponse.getConcertList())
-    }
-
-    private fun connectGenreSubscribe(){
-
-
-        val genreSubscribeResponse = GetGenreSubscribeResponse(ArtistData.getDummyArray())
-
-        val list = ArrayList<ListData>()
-        list.addAll(genreSubscribeResponse.getArtistList())
-        updateDataList(list)
-
-    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -257,28 +211,5 @@ class LikedFragment : Fragment() ,View.OnClickListener, OnItemClick,OnResponse{
         super.onDetach()
         listener = null
     }
-
-
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment LikedFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            LikedFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
-
 
 }

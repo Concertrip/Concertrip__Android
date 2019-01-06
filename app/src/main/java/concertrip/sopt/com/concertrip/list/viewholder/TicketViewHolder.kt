@@ -9,9 +9,10 @@ import concertrip.sopt.com.concertrip.interfaces.BasicListViewHolder
 import kotlinx.android.synthetic.main.li_ticket.view.*
 
 class TicketViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    val prevTime : ImageView = itemView.findViewById(R.id.iv_time_prev)
+    val nextTime : ImageView = itemView.findViewById(R.id.iv_time_next)
 
-
-    val title : TextView = itemView.findViewById(R.id.item_ticket_title)
-    val place : TextView = itemView.findViewById(R.id.item_ticket_place)
+    val name : TextView = itemView.findViewById(R.id.item_ticket_title)
+    val location : TextView = itemView.findViewById(R.id.item_ticket_place)
     val date : TextView = itemView.findViewById(R.id.item_ticket_date)
 }

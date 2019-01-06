@@ -20,7 +20,7 @@ class SeatListAdapter (val mContext : Context, var dataList: ArrayList<Seat>) : 
     override fun onBindViewHolder(holder: SeatViewHolder, position: Int) {
         holder.vBox.setBackgroundResource(seatColor[position%seatColor.size])
         holder.tvGrade.setText(dataList[position].seatGrade)
-        holder.tvPrice.setText(dataList[position].seatPrice)
+        holder.tvPrice.setText(dataList[position].seatPrice.toString())
     }
 
 }

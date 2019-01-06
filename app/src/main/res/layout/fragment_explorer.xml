@@ -10,9 +10,11 @@
     <Button
             android:id="@+id/search_bar"
             android:layout_marginTop="8dp"
-            android:background="#b4b4b5"
+            android:background="@drawable/shape_searchbar"
             android:layout_width="match_parent"
-            android:layout_height="35dp"/>
+            android:drawableRight="@drawable/ic_search"
+            android:paddingRight="10dp"
+            android:layout_height="36dp"/>
 
     <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view_horizontal"
@@ -42,17 +44,6 @@
                     app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             >
             </android.support.v7.widget.RecyclerView>
-            <TextView
-                    android:id="@+id/btn_more_station"
-                    android:text="전체보기"
-                    android:textSize="12sp"
-                    android:textColor="#666666"
-                    android:layout_marginTop="6.8dp"
-                    android:layout_marginLeft="304.8dp"
-                    android:lineSpacingExtra="6sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

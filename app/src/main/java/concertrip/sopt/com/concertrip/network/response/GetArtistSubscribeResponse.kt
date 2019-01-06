@@ -8,14 +8,22 @@ import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
 
 data class GetArtistSubscribeResponse (
     @SerializedName("data")
-    var data : List<ArtistData>
+    var data : List<ArtistData>?
 ): BaseModel(){
     fun getArtistList() : ArrayList<Artist>{
         val list = ArrayList<Artist>()
-        data.forEach {
+        data?.forEach {
             list.add(it.toArtist())
         }
         return list
+    }
+
+    override fun toString(): String {
+        var result =""
+        data?.forEach {
+            result=result.plus(it.toString())+","
+        }
+        return result
     }
 }
 

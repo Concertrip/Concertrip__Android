@@ -1,6 +1,5 @@
 package concertrip.sopt.com.concertrip.activities.info
 
-import android.content.Intent
 import android.os.Bundle
 
 import android.support.v7.widget.GridLayoutManager
@@ -9,6 +8,8 @@ import android.support.v7.widget.RecyclerView
 import android.util.Log
 
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.webkit.URLUtil
 import android.widget.Toast
 import com.bumptech.glide.Glide
@@ -26,16 +27,19 @@ import concertrip.sopt.com.concertrip.model.Artist
 import concertrip.sopt.com.concertrip.model.Caution
 import concertrip.sopt.com.concertrip.model.Concert
 import concertrip.sopt.com.concertrip.model.Seat
+import concertrip.sopt.com.concertrip.network.ApplicationController
+import concertrip.sopt.com.concertrip.network.NetworkService
 import concertrip.sopt.com.concertrip.network.response.GetConcertResponse
-import concertrip.sopt.com.concertrip.network.response.data.ConcertData
-import concertrip.sopt.com.concertrip.network.response.data.MemberData
-import concertrip.sopt.com.concertrip.network.response.data.PrecautionData
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.INTENT_TAG_ID
+import concertrip.sopt.com.concertrip.utillity.Constants.Companion.USER_TOKEN
 import concertrip.sopt.com.concertrip.utillity.Secret
 import kotlinx.android.synthetic.main.activity_concert.*
-
 import kotlinx.android.synthetic.main.content_concert.*
 import kotlinx.android.synthetic.main.content_header.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+
 
 class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener, OnItemClick {
 
@@ -48,8 +52,9 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
 
     override fun onInitializationSuccess(provider: YouTubePlayer.Provider?, youTubePlayer: YouTubePlayer?, b: Boolean) {
         if (!b && ::concert.isInitialized) {
-            val youtubeUrlList = concert.youtubeUrl!!.split("?v=")
-            youTubePlayer?.cueVideo(youtubeUrlList[youtubeUrlList.size-1])
+//            val youtubeUrlList = concert.youtubeUrl!!.split("?v=")
+//            youTubePlayer?.cueVideo(youtubeUrlList[youtubeUrlList.size-1])
+            youTubePlayer?.cueVideo(concert.youtubeUrl)
         }
     }
 
@@ -68,7 +73,7 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
     }
 
     private fun getYouTubePlayerProvider(): YouTubePlayer.Provider {
-        return findViewById<View>(R.id.youtude) as YouTubePlayerView
+        return findViewById<View>(R.id.youtube) as YouTubePlayerView
     }
 
 //    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
@@ -83,12 +88,11 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
         connectRequestData(concertId)
     }
 
-    private var concertId: Int=0
-
+    private var concertId: String= "5c28663f3eea39d2b003f94b"
     lateinit  var concert : Concert
-    var dataList = arrayListOf<Artist>()
 
-    private lateinit var adapter : BasicListAdapter
+    var dataListMember = arrayListOf<Artist>()
+    private lateinit var memberAdapter : BasicListAdapter
 
     var dataListCaution = arrayListOf<Caution>()
     private lateinit var cautionAdapter : BasicListAdapter
@@ -96,29 +100,48 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
     var dataListSeat = arrayListOf<Seat>()
     private lateinit var seatAdapter : SeatListAdapter
 
+    private val networkService: NetworkService by lazy {
+        ApplicationController.instance.networkService
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_concert)
-//        setSupportActionBar(toolbar)
-        concertId = intent.getIntExtra(INTENT_TAG_ID, 0)
+
+        concertId = intent.getStringExtra(INTENT_TAG_ID)
 
         initialUI()
         connectRequestData(concertId)
     }
 
     private fun initialUI(){
-        adapter = BasicListAdapter(this, Artist.getDummyArray())
-        recycler_view.adapter = adapter
+        memberAdapter = BasicListAdapter(this, dataListMember, BasicListAdapter.MODE_THUMB)
+        recycler_view.adapter = memberAdapter
 
-        /*TODO have to fix second param*/
-        cautionAdapter = BasicListAdapter(this, Caution.getDummyArray())
+        cautionAdapter = BasicListAdapter(this, dataListCaution)
         recycler_view_caution.layoutManager = GridLayoutManager(applicationContext,3)
         recycler_view_caution.adapter = cautionAdapter
+
+        /*TODO have to implement memberList*/
 
         seatAdapter = SeatListAdapter(this, dataListSeat)
         recycler_view_seat.adapter = seatAdapter
 
         scroll_view.smoothScrollTo(0,0)
+        scroll_view.viewTreeObserver.addOnScrollChangedListener {
+            val scrollY = scroll_view.getScrollY() // For ScrollView
+            // DO SOMETHING WITH THE SCROLL COORDINATES
+            if(scrollY > 10 && btn_ticket.visibility == GONE){
+                btn_ticket.visibility = VISIBLE
+            }
+            else if(scrollY <= 10 && btn_ticket.visibility == VISIBLE){
+                btn_ticket.visibility = GONE
+            }
+        };
+
+        btn_ticket.setOnClickListener{
+            showDialog()
+        }
 
         btn_follow.setOnClickListener {
             showDialog()
@@ -126,9 +149,9 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
     }
 
     private fun updateArtistList(list : ArrayList<Artist>){
-        dataList.clear()
-        dataList.addAll(list)
-        adapter.notifyDataSetChanged()
+        dataListMember.clear()
+        dataListMember.addAll(list)
+        memberAdapter.notifyDataSetChanged()
     }
 
     private fun updateConcertData(){
@@ -159,14 +182,37 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
         seatAdapter.notifyDataSetChanged()
     }
 
-    private fun connectRequestData(id : Int){
-        val concertResponseData : GetConcertResponse = GetConcertResponse(ConcertData.getDummy())
-        concert= concertResponseData.data.toConcert()
+    private fun connectRequestData(id : String){
 
-        updateArtistList(ArrayList(concert.artistList))
-        updateConcertData()
-        updateCautionData(ArrayList(concert.precaution))
-        updateSeatData(ArrayList(concert.seatList))
+        progress_bar.visibility=View.VISIBLE
+        val concertResponse : Call<GetConcertResponse> = networkService.getEvent(USER_TOKEN, concertId)
+
+        concertResponse.enqueue(object : Callback<GetConcertResponse>
+        {
+            override fun onFailure(call: Call<GetConcertResponse>?, t: Throwable?) {
+                progress_bar.visibility=View.GONE
+                Log.v("test0101", "getConcertResponse in onFailure" + t.toString())
+            }
+            override fun onResponse(call: Call<GetConcertResponse>?, response: Response<GetConcertResponse>?) {
+
+                progress_bar.visibility=View.GONE
+                response?.let { res->
+                    if (res.body()?.status == Secret.NETWORK_SUCCESS) {
+                        res.body()!!.data?.let {
+                            concert = it.toConcert()
+                            updateArtistList(ArrayList(concert.artistList))
+                            updateConcertData()
+                            updateCautionData(ArrayList(concert.precaution))
+                            updateSeatData(ArrayList(concert.seatList))
+                        }
+
+                    } else {
+                        Log.v("test0101", "getConcertResponse in "+ response.body()?.status.toString())
+                    }
+                }
+
+            }
+        })
     }
 
      private fun showDialog(){
