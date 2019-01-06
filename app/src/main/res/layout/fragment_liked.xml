@@ -9,22 +9,23 @@
 
     <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="36dp"
             android:textSize="24sp"
             android:textColor="@color/white"
-            android:layout_marginTop="8dp"
-            android:lineSpacingExtra="12sp"
-
-            android:paddingTop="16dp"
-            android:paddingHorizontal="16dp"
+            android:layout_marginTop="25.6dp"
+            android:includeFontPadding="false"
+            android:gravity="bottom"
+            android:layout_marginStart="16.9dp"
             android:text="@string/txt_liked"/>
 
     <LinearLayout
-            android:layout_marginTop="15dp"
-            android:paddingHorizontal="16dp"
+            android:layout_marginTop="15.4dp"
+            android:paddingHorizontal="16.3dp"
             android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:gravity="bottom"
+            android:paddingBottom="3.5dp"
+            android:layout_height="33dp">
         <LinearLayout android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:orientation="vertical">
@@ -41,7 +42,7 @@
                   android:layout_width="match_parent"
                   android:layout_height="2dp"
                   android:background="@color/textInfo"
-                  android:layout_marginTop="0.5dp"/>
+                  android:layout_marginTop="1.5dp"/>
         </LinearLayout>
         <LinearLayout android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
@@ -60,7 +61,7 @@
                   android:layout_width="match_parent"
                   android:layout_height="2dp"
                   android:background="@color/textInfo"
-                  android:layout_marginTop="0.5dp"
+                  android:layout_marginTop="1.5dp"
                   android:visibility="invisible"/>
         </LinearLayout>
 
@@ -81,14 +82,13 @@
                   android:layout_width="match_parent"
                   android:layout_height="2dp"
                   android:background="@color/textInfo"
-                  android:layout_marginTop="0.5dp"
+                  android:layout_marginTop="1.5dp"
                   android:visibility="invisible"/>
         </LinearLayout>
     </LinearLayout>
 
 
     <android.support.v7.widget.RecyclerView
-            android:layout_marginTop="5dp"
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

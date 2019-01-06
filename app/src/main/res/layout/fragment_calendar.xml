@@ -9,51 +9,53 @@
               android:orientation="vertical">
 
     <LinearLayout android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:orientation="vertical"
-                  android:elevation="6dp">
+                  android:layout_height="110dp"
+                  android:orientation="vertical">
 
         <RelativeLayout android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="16dp"
-                        android:paddingEnd="16dp"
-                        android:layout_marginTop="24dp"
-                        android:layout_marginBottom="30dp">
+                        android:layout_height="40dp"
+                        android:paddingStart="15.9dp"
+                        android:paddingEnd="17.8dp"
+                        android:layout_marginTop="22.4dp"
+                        android:layout_marginBottom="12dp">
 
 
             <!--<ImageView-->
-                    <!--android:id="@+id/iv_month"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="25dp"-->
-                    <!--android:src="@drawable/m_1"-->
-                    <!--android:layout_centerVertical="true"-->
+            <!--android:id="@+id/iv_month"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="25dp"-->
+            <!--android:src="@drawable/m_1"-->
+            <!--android:layout_centerVertical="true"-->
             <!--/>-->
             <TextView
                     android:id="@+id/tv_month"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="27sp"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="13sp"
                     android:textColor="@color/white"
                     android:layout_centerVertical="true"
             />
 
-            <ImageButton android:layout_width="42dp"
-                    android:layout_height="42dp"
-                    android:id="@+id/btn_notification"
-                    android:layout_alignParentEnd="true"
-                    android:background="@drawable/ic_bell_unselected"
-                    android:layout_centerVertical="true"
-                    android:scaleType="fitXY"
+            <ImageButton android:layout_width="37dp"
+                         android:layout_height="37dp"
+                         android:id="@+id/btn_notification"
+                         android:layout_alignParentEnd="true"
+                         android:background="@drawable/ic_bell_unselected"
+                         android:layout_centerVertical="true"
+                         android:scaleType="fitXY"
             />
         </RelativeLayout>
 
 
         <android.support.v7.widget.RecyclerView
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:layout_width="match_parent"
                 android:paddingBottom="11.9dp"
-                android:paddingStart="16dp"
+                android:paddingTop="9.1dp"
                 android:background="@color/category"
+                android:paddingStart="24dp"
                 android:paddingEnd="16dp"
                 android:id="@+id/recycler_view_filter"
                 android:orientation="horizontal"
