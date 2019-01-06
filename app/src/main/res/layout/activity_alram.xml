@@ -18,10 +18,26 @@
             android:layout_marginVertical="30dp"
     />
 
+    <RelativeLayout
+            android:id="@+id/tv_alarm"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <TextView
+                android:text="아직 도착한 알림이 없습니다"
+                android:layout_centerInParent="true"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+
     <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view"
+            android:id="@+id/recycler_view_alarm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
     >
 
