@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.FragmentManager
 import android.util.Log
+import android.view.View
 import android.widget.ImageView
 import concertrip.sopt.com.concertrip.R
 import concertrip.sopt.com.concertrip.activities.main.fragment.calendar.CalendarFragment
@@ -58,6 +59,8 @@ class MainFragmentAdapter(val fragmentManager: FragmentManager, val mainTab: Tab
     //선택된 Tab의 색상과 아이콘을 바꾸어줌
     fun setTab(what : Int){
         if(what==-1) return
+        //TODO 여기서 더 손못대겠음!
+        mainTab.getTabAt(curTabId)?.setCustomView(unsetIcons[curTabId])
 
 
         mainTab.getTabAt(curTabId)?.customView?.findViewById<ImageView>(R.id.iv_tab)?.setImageResource(unsetIcons[curTabId])
@@ -65,6 +68,7 @@ class MainFragmentAdapter(val fragmentManager: FragmentManager, val mainTab: Tab
         curTabId = what
         mainTab.getTabAt(curTabId)?.customView?.findViewById<ImageView>(R.id.iv_tab)?.setImageResource(setIcons[curTabId])
 //        mainTab.getTabAt(curTabId)?.setIcon(setIcons[curTabId])
+
         mainTab.getTabAt(curTabId)?.select()
 
     }
