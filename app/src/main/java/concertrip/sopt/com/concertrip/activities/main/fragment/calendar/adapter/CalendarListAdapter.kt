@@ -25,9 +25,9 @@ class CalendarListAdapter(
     private var mContext: Context,
     var dataList: ArrayList<String>,
     var scheduleMap :  HashMap<Int, ArrayList<Schedule>>,
-    var listener : OnItemClick,
+    var listener : OnItemClick//,
 
-    var tabColorMap : HashMap<String?, Int>?
+//    var tabColorMap : HashMap<String?, Int>?
 ) : RecyclerView.Adapter<CalendarViewHolder>(){
 
     //private val colorArray = arrayListOf(R.color.blue, R.color.purple, R.color.gray, R.color.black)
@@ -119,7 +119,9 @@ class CalendarListAdapter(
     private fun addSchedule(holder: CalendarViewHolder, schedule: Schedule) {
         val scheduleView = inflater.inflate(R.layout.item_schedule, holder.lySchedule, false)
         val cnt = holder.lySchedule?.childCount ?: 0
-        scheduleView.iv_schedule.setColorFilter(ContextCompat.getColor(mContext, tabColorMap?.get(schedule.tabId)?:R.color.tab_except))
+//        scheduleView.iv_schedule.setColorFilter(ContextCompat.getColor(mContext, tabColorMap?.get(schedule.tabId)?:R.color.tab_except))
+        scheduleView.iv_schedule.setColorFilter(ContextCompat.getColor(mContext, if(schedule.tabId == "내 공연") R.color.tab_1
+                                                                                else R.color.tab_3))
         Log.d(Constants.LOG_NETWORK, "LOG_SCHEDULE :${schedule.tabId}")
         holder.lySchedule?.addView(scheduleView)
     }

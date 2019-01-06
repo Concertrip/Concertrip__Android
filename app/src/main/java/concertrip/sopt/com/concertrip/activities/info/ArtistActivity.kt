@@ -176,10 +176,12 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
 
     private fun toggleFollowBtn(b: Boolean) {
         if (b) {
-            btn_follow.setImageDrawable(getDrawable(R.drawable.ic_like))
+            btn_follow.setImageDrawable(getDrawable(R.drawable.ic_header_likes_selected))
+            //iv_small_follow.setImageDrawable(getDrawable(R.drawable.ic_header_likes_selected))
 
         } else {
-            btn_follow.setImageDrawable(getDrawable(R.drawable.ic_unlike))
+            btn_follow.setImageDrawable(getDrawable(R.drawable.ic_header_likes_unselected))
+            //iv_small_follow.setImageDrawable(getDrawable(R.drawable.ic_header_likes_selected)) // 다른 이미지로
         }
     }
 
@@ -207,6 +209,8 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
 
 
         btn_follow.setImageDrawable(if (artist.subscribe) getDrawable(R.drawable.ic_header_likes_selected) else getDrawable(R.drawable.ic_header_likes_unselected))
+        //iv_small_follow.setImageDrawable(if (artist.subscribe) getDrawable(R.drawable.ic_header_likes_selected) else getDrawable(R.drawable.ic_header_likes_unselected))
+
 
         if (URLUtil.isValidUrl(artist.backImg))
             mGlideRequestManager?.load(artist.backImg)?.into(iv_back)
