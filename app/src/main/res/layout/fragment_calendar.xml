@@ -5,6 +5,7 @@
               tools:context=".activities.main.fragment.calendar.CalendarFragment"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:paddingBottom="@dimen/bottom_tab_layout_height"
               android:orientation="vertical">
 
     <LinearLayout android:layout_width="match_parent"
@@ -70,7 +71,7 @@
 
     <RelativeLayout
             android:id="@+id/rl_select_date_view"
-            android:background="@color/white_0_9"
+            android:background="@color/dark_gray_09"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         <TextView

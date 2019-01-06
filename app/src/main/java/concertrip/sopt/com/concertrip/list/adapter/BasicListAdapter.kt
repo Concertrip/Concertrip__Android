@@ -55,7 +55,7 @@ class BasicListAdapter(
                 }
                 TYPE_CONCERT -> {
                     val concert = dataList[position] as Concert
-                    concert.subscribe = concert.subscribe
+                    concert.subscribe = !concert.subscribe
 
 
                     Toast.makeText(mContext, obj.message, Toast.LENGTH_LONG).show()

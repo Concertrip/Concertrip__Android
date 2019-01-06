@@ -10,8 +10,8 @@ data class ArtistData(
     var name : String?,
     var subscribeNum : Int?,
     var youtubeUrl : String?,
-    var memberList : List<MemberData>?,
-    var eventsList : List<SimpleConcertData>?,
+    var memberList : List<MemberData?>?,
+    var eventsList : List<SimpleConcertData?>?,
     var subscribe : Boolean?
 ){
     fun toArtist() : Artist {
@@ -25,13 +25,15 @@ data class ArtistData(
 
         val aList = ArrayList<Artist>()
         memberList?.forEach {
-            aList.add(it.toArtist())
+            if(it!=null)
+                aList.add(it.toArtist())
         }
         a.memberList = aList
 
         val cList = ArrayList<Concert>()
         eventsList?.forEach{
-            cList.add(it.toConcert())
+            if(it!=null)
+                cList.add(it.toConcert())
         }
         a.concertList = cList
 
