@@ -39,6 +39,8 @@ import concertrip.sopt.com.concertrip.utillity.Constants.Companion.USER_TOKEN
 import concertrip.sopt.com.concertrip.utillity.NetworkUtil
 import concertrip.sopt.com.concertrip.utillity.Secret
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.support.v4.toast
+import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -104,6 +106,10 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
             )
 
         } else if (root is CalendarListAdapter) {
+            if(dataListTag.size==0){
+                activity?.toast("정보를 받아오는 중입니다.")
+                return
+            }
             if (calendarAdapter.selected == -1) {
 //                clearDetailList()
                 recycler_view_calendar_detail.visibility = View.GONE
@@ -286,7 +292,7 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
     private fun setCalendarDate(dayList: ArrayList<String>, month: Int) {
         mCal.set(Calendar.MONTH, month - 1);
         for (i in 0 until mCal.getActualMaximum(Calendar.DAY_OF_MONTH)) {
-            dayList.add("" + (i + 1));
+            dayList.add("" + (i + 1))
         }
     }
 
@@ -321,10 +327,9 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
     private fun connectRequestTabData() {
 
 
-
         activity?.progress_bar?.visibility=View.VISIBLE
 
-        Log.d(Constants.LOG_NETWORK, "$LOG_CALENDAR_TAB GET")
+        Log.d(Constants.LOG_NETWORK, "$LOG_CALENDAR_TAB GET, token : ${USER_TOKEN}")
         val getCalendarTabResponse: Call<GetCalendarTabResponse> = networkService.getCalendarTabList(USER_TOKEN)
 
         getCalendarTabResponse.enqueue(object : Callback<GetCalendarTabResponse> {

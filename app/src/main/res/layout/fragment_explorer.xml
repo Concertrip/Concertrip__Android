@@ -4,7 +4,6 @@
               android:layout_width="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
               android:layout_height="match_parent"
-              android:paddingHorizontal="16dp"
               tools:context=".activities.main.fragment.search.ExplorerFragment">
 
     <Button
@@ -14,6 +13,7 @@
             android:layout_width="match_parent"
             android:drawableRight="@drawable/ic_search"
             android:paddingRight="10dp"
+            android:paddingHorizontal="16dp"
             android:layout_height="36dp"/>
 
     <android.support.v7.widget.RecyclerView
@@ -21,6 +21,7 @@
             android:layout_marginTop="25dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp"
             android:orientation="horizontal"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager">
 
@@ -28,6 +29,8 @@
     <android.support.v4.widget.NestedScrollView
             android:layout_marginTop="5dp"
             android:layout_width="match_parent"
+            android:background="@drawable/ic_back_explorer"
+            android:paddingHorizontal="16dp"
             android:layout_height="match_parent">
         <LinearLayout
 
