@@ -51,12 +51,12 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
     var month: Int by Delegates.notNull()
 
 
-    private val monthImgList = listOf<Int>(
-        R.drawable.m_1, R.drawable.m_2, R.drawable.m_3,
-        R.drawable.m_4, R.drawable.m_5, R.drawable.m_6,
-        R.drawable.m_7, R.drawable.m_8, R.drawable.m_9,
-        R.drawable.m_10, R.drawable.m_11, R.drawable.m_12
-    )
+//    private val monthImgList = listOf<Int>(
+//        R.drawable.m_1, R.drawable.m_2, R.drawable.m_3,
+//        R.drawable.m_4, R.drawable.m_5, R.drawable.m_6,
+//        R.drawable.m_7, R.drawable.m_8, R.drawable.m_9,
+//        R.drawable.m_10, R.drawable.m_11, R.drawable.m_12
+//    )
 
     private var dataListTag = ArrayList<CalendarTab>()
 
@@ -226,7 +226,9 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
     private var mCal: Calendar by Delegates.notNull()
 
     private fun setCalendarUI(year: String, month: String) {
-        iv_month.setImageResource(monthImgList[month.toInt() - 1])
+        //iv_month.setImageResource(monthImgList[month.toInt() - 1])
+
+        tv_month.setText(month.toString()+"월")
     }
 
     private fun makeDayList(): ArrayList<String> {
