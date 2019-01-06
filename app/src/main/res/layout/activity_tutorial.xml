@@ -8,342 +8,384 @@
         android:background="@drawable/shape_background_gradation"
         tools:context=".activities.TutorialActivity">
 
-    <ScrollView android:layout_width="match_parent" android:layout_height="match_parent">
-   <LinearLayout
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:orientation="vertical"
-           android:layout_gravity="center_horizontal"
-           android:layout_centerHorizontal="true"
-           android:layout_centerVertical="true"
-   >
-       <ImageView
-               android:layout_width="50dp"
-               android:layout_height="50dp"
-               android:src="@drawable/ic_like"
-               android:layout_gravity="center"
-       />
-       <TextView
-               android:layout_marginTop="13dp"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:text="좋아하는 테마를 골라주세요"
-               android:textColor="@color/white"
-               android:layout_gravity="center"
-               android:layout_marginBottom="36dp"
-       />
-
-        <GridLayout
-                android:columnCount="3"
-                android:rowCount="3"
-                android:orientation="horizontal"
-                android:layout_gravity="center_horizontal"
+    <ScrollView android:layout_width="match_parent" android:layout_height="match_parent"
+                android:layout_alignParentStart="true" android:layout_alignParentTop="true">
+        <LinearLayout
+                android:paddingTop="30dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center_horizontal"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+        >
+            <ImageView
+                    android:id="@+id/iv_tutorial_heart_activated"
+                    android:visibility="gone"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_theme_heart_activated"
+                    android:layout_gravity="center"
+            />
+            <ImageView
+                    android:id="@+id/iv_tutorial_heart_empty"
+                    android:visibility="visible"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_theme_heart_empty"
+                    android:layout_gravity="center"
+            />
 
             <LinearLayout
-                    android:id="@+id/btn_tutorial_1"
-                    android:orientation="vertical"
-                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="13dp"
+                    android:layout_marginBottom="24dp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="35dp"
-            >
-                <ImageView
-                        android:id="@+id/iv_tutorial_click_1"
-                        android:visibility="gone"
-                        android:src="@drawable/ic_account_circle"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@drawable/shape_background_gradation"
-                        android:layout_width="72dp"
-                        android:layout_height="72dp"/>
-                <ImageView
-                        android:id="@+id/iv_tutorial_noclick_1"
-                        android:visibility="visible"
-                        android:layout_gravity="center_horizontal"
-                        android:src="@drawable/ic_account_circle"
-                        android:layout_width="72dp"
-                        android:layout_height="74dp"/>
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content">
+
                 <TextView
-                        android:text="뮤직 페스티벌"
-                        android:paddingTop="12dp"
-                        android:layout_gravity="center_horizontal"
-                        android:textColor="@color/white"
+                        android:layout_marginTop="13dp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:text="좋아하는 "
+                        android:textSize="20sp"
+                        android:includeFontPadding="false"
+                        android:textColor="@color/white"
+                />
+
+                <ImageView
+                        android:layout_marginTop="13.5dp"
+                        android:layout_marginHorizontal="1dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/theme_gradation"
+                />
+
+                <TextView
+                        android:layout_marginTop="13dp"
+                        android:layout_width="wrap_content"
+                        android:includeFontPadding="false"
+                        android:layout_height="wrap_content"
+                        android:text="를 골라주세요"
+                        android:textSize="20sp"
+                        android:textColor="@color/white"
+                />
             </LinearLayout>
 
-            <LinearLayout
-                    android:id="@+id/btn_tutorial_2"
-                    android:orientation="vertical"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="36dp"
-                    android:paddingBottom="35dp"
-            >
-                <ImageView
-                        android:id="@+id/iv_tutorial_click_2"
-                        android:visibility="gone"
-                        android:src="@drawable/ic_account_circle"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@drawable/shape_background_gradation"
-                        android:layout_width="72dp"
-                        android:layout_height="72dp"/>
-                <ImageView
-                        android:id="@+id/iv_tutorial_noclick_2"
-                        android:visibility="visible"
-                        android:layout_gravity="center_horizontal"
-                        android:src="@drawable/ic_account_circle"
-                        android:layout_width="72dp"
-                        android:layout_height="74dp"/>
-                <TextView
-                        android:text="아이돌 공연"
-                        android:paddingTop="12dp"
-                        android:layout_gravity="center_horizontal"
-                        android:textColor="@color/white"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-            </LinearLayout>
 
-            <LinearLayout
-                    android:id="@+id/btn_tutorial_3"
-                    android:orientation="vertical"
+            <GridLayout
+                    android:columnCount="3"
+                    android:rowCount="3"
+                    android:orientation="horizontal"
                     android:layout_gravity="center_horizontal"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="35dp"
-            >
-                <ImageView
-                        android:id="@+id/iv_tutorial_click_3"
-                        android:visibility="gone"
-                        android:src="@drawable/ic_account_circle"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@drawable/shape_background_gradation"
-                        android:layout_width="72dp"
-                        android:layout_height="72dp"/>
-                <ImageView
-                        android:id="@+id/iv_tutorial_noclick_3"
-                        android:visibility="visible"
-                        android:layout_gravity="center_horizontal"
-                        android:src="@drawable/ic_account_circle"
-                        android:layout_width="72dp"
-                        android:layout_height="74dp"/>
-                <TextView
-                        android:text="아이돌 공연"
-                        android:paddingTop="12dp"
+                    android:layout_height="wrap_content">
+
+                <LinearLayout
+                        android:id="@+id/btn_tutorial_1"
+                        android:orientation="vertical"
                         android:layout_gravity="center_horizontal"
                         android:layout_width="wrap_content"
-                        android:textColor="@color/white"
-                        android:layout_height="wrap_content"/>
-            </LinearLayout>
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="30dp"
+                >
+                    <ImageView
+                            android:id="@+id/iv_tutorial_click_1"
+                            android:visibility="gone"
+                            android:src="@drawable/ic_account_circle"
+                            android:layout_gravity="center_horizontal"
+                            android:background="@drawable/activate_circle"
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"/>
+                    <ImageView
+                            android:id="@+id/iv_tutorial_noclick_1"
+                            android:visibility="visible"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/ic_account_circle"
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"/>
+                    <TextView
+                            android:text="뮤직 페스티벌"
+                            android:paddingTop="12dp"
+                            android:layout_gravity="center_horizontal"
+                            android:textColor="@color/white"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                </LinearLayout>
 
-            <LinearLayout
-                    android:id="@+id/btn_tutorial_4"
-                    android:orientation="vertical"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="35dp"
-            >
-                <ImageView
-                        android:id="@+id/iv_tutorial_click_4"
-                        android:visibility="gone"
-                        android:src="@drawable/ic_account_circle"
+                <LinearLayout
+                        android:id="@+id/btn_tutorial_2"
+                        android:orientation="vertical"
                         android:layout_gravity="center_horizontal"
-                        android:background="@drawable/shape_background_gradation"
-                        android:layout_width="72dp"
-                        android:layout_height="72dp"/>
-                <ImageView
-                        android:id="@+id/iv_tutorial_noclick_4"
-                        android:visibility="visible"
-                        android:layout_gravity="center_horizontal"
-                        android:src="@drawable/ic_account_circle"
-                        android:layout_width="72dp"
-                        android:layout_height="74dp"/>
-                <TextView
-                        android:text="발라드/R&amp;B"
-                        android:paddingTop="12dp"
-                        android:layout_gravity="center_horizontal"
-                        android:textColor="@color/white"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-            </LinearLayout>
-
-            <LinearLayout
-                    android:id="@+id/btn_tutorial_5"
-                    android:orientation="vertical"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="36dp"
-                    android:paddingBottom="35dp"
-            >
-                <ImageView
-                        android:id="@+id/iv_tutorial_click_5"
-                        android:visibility="gone"
-                        android:src="@drawable/ic_account_circle"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@drawable/shape_background_gradation"
-                        android:layout_width="72dp"
-                        android:layout_height="72dp"/>
-                <ImageView
-                        android:id="@+id/iv_tutorial_noclick_5"
-                        android:visibility="visible"
-                        android:layout_gravity="center_horizontal"
-                        android:src="@drawable/ic_account_circle"
-                        android:layout_width="72dp"
-                        android:layout_height="74dp"/>
-                <TextView
-                        android:text="내한 공연"
-                        android:paddingTop="12dp"
-                        android:layout_gravity="center_horizontal"
-                        android:textColor="@color/white"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-            </LinearLayout>
-
-            <LinearLayout
-                    android:id="@+id/btn_tutorial_6"
-                    android:orientation="vertical"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="35dp"
-            >
-                <ImageView
-                        android:id="@+id/iv_tutorial_click_6"
-                        android:visibility="gone"
-                        android:src="@drawable/ic_account_circle"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@drawable/shape_background_gradation"
-                        android:layout_width="72dp"
-                        android:layout_height="72dp"/>
-                <ImageView
-                        android:id="@+id/iv_tutorial_noclick_6"
-                        android:visibility="visible"
-                        android:layout_gravity="center_horizontal"
-                        android:src="@drawable/ic_account_circle"
-                        android:layout_width="72dp"
-                        android:layout_height="74dp"/>
-                <TextView
-                        android:text="EDM 페스티벌"
-                        android:paddingTop="12dp"
-                        android:layout_gravity="center_horizontal"
-                        android:textColor="@color/white"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-            </LinearLayout>
-
-            <LinearLayout
-                    android:id="@+id/btn_tutorial_7"
-                    android:orientation="vertical"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-            >
-                <ImageView
-                        android:id="@+id/iv_tutorial_click_7"
-                        android:visibility="gone"
-                        android:src="@drawable/ic_account_circle"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@drawable/shape_background_gradation"
-                        android:layout_width="72dp"
-                        android:layout_height="72dp"/>
-                <ImageView
-                        android:id="@+id/iv_tutorial_noclick_7"
-                        android:visibility="visible"
-                        android:layout_gravity="center_horizontal"
-                        android:src="@drawable/ic_account_circle"
-                        android:layout_width="72dp"
-                        android:layout_height="74dp"/>
-                <TextView
-                        android:text="인디 공연"
-                        android:paddingTop="12dp"
-                        android:layout_gravity="center_horizontal"
-                        android:textColor="@color/white"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-            </LinearLayout>
-
-            <LinearLayout
-                    android:id="@+id/btn_tutorial_8"
-                    android:orientation="vertical"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-            >
-                <ImageView
-                        android:id="@+id/iv_tutorial_click_8"
-                        android:visibility="gone"
-                        android:src="@drawable/ic_account_circle"
-                        android:layout_gravity="center_horizontal"
+                        android:layout_height="wrap_content"
                         android:paddingHorizontal="36dp"
-                        android:background="@drawable/shape_background_gradation"
-                        android:layout_width="72dp"
-                        android:layout_height="72dp"/>
-                <ImageView
-                        android:id="@+id/iv_tutorial_noclick_8"
-                        android:visibility="visible"
+                        android:paddingBottom="30dp"
+                >
+                    <ImageView
+                            android:id="@+id/iv_tutorial_click_2"
+                            android:visibility="gone"
+                            android:src="@drawable/ic_account_circle"
+                            android:layout_gravity="center_horizontal"
+                            android:background="@drawable/activate_circle"
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"/>
+                    <ImageView
+                            android:id="@+id/iv_tutorial_noclick_2"
+                            android:visibility="visible"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/ic_account_circle"
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"/>
+                    <TextView
+                            android:text="아이돌 공연"
+                            android:paddingTop="12dp"
+                            android:layout_gravity="center_horizontal"
+                            android:textColor="@color/white"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <LinearLayout
+                        android:id="@+id/btn_tutorial_3"
+                        android:orientation="vertical"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/ic_account_circle"
-                        android:layout_width="72dp"
-                        android:layout_height="74dp"/>
-                <TextView
-                        android:text="재즈 공연"
-                        android:paddingTop="12dp"
-                        android:layout_gravity="center_horizontal"
-                        android:textColor="@color/white"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-            </LinearLayout>
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="30dp"
+                >
+                    <ImageView
+                            android:id="@+id/iv_tutorial_click_3"
+                            android:visibility="gone"
+                            android:src="@drawable/ic_account_circle"
+                            android:layout_gravity="center_horizontal"
+                            android:background="@drawable/activate_circle"
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"/>
+                    <ImageView
+                            android:id="@+id/iv_tutorial_noclick_3"
+                            android:visibility="visible"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/ic_account_circle"
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"/>
+                    <TextView
+                            android:text="아이돌 공연"
+                            android:paddingTop="12dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_width="wrap_content"
+                            android:textColor="@color/white"
+                            android:layout_height="wrap_content"/>
+                </LinearLayout>
 
-            <LinearLayout
-                    android:id="@+id/btn_tutorial_9"
-                    android:orientation="vertical"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-            >
-                <ImageView
-                        android:id="@+id/iv_tutorial_click_9"
-                        android:visibility="gone"
-                        android:src="@drawable/ic_account_circle"
+                <LinearLayout
+                        android:id="@+id/btn_tutorial_4"
+                        android:orientation="vertical"
                         android:layout_gravity="center_horizontal"
-                        android:background="@drawable/shape_background_gradation"
-                        android:layout_width="72dp"
-                        android:layout_height="72dp"/>
-                <ImageView
-                        android:id="@+id/iv_tutorial_noclick_9"
-                        android:visibility="visible"
-                        android:layout_gravity="center_horizontal"
-                        android:src="@drawable/ic_account_circle"
-                        android:layout_width="72dp"
-                        android:layout_height="74dp"/>
-                <TextView
-                        android:text="락 페스티벌"
-                        android:paddingTop="12dp"
-                        android:layout_gravity="center_horizontal"
-                        android:textColor="@color/white"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-            </LinearLayout>
-        </GridLayout>
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="30dp"
+                >
+                    <ImageView
+                            android:id="@+id/iv_tutorial_click_4"
+                            android:visibility="gone"
+                            android:src="@drawable/ic_account_circle"
+                            android:layout_gravity="center_horizontal"
+                            android:background="@drawable/activate_circle"
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"/>
+                    <ImageView
+                            android:id="@+id/iv_tutorial_noclick_4"
+                            android:visibility="visible"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/ic_account_circle"
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"/>
+                    <TextView
+                            android:text="발라드/R&amp;B"
+                            android:paddingTop="12dp"
+                            android:layout_gravity="center_horizontal"
+                            android:textColor="@color/white"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <LinearLayout
+                        android:id="@+id/btn_tutorial_5"
+                        android:orientation="vertical"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="36dp"
+                        android:paddingBottom="30dp"
+                >
+                    <ImageView
+                            android:id="@+id/iv_tutorial_click_5"
+                            android:visibility="gone"
+                            android:src="@drawable/ic_account_circle"
+                            android:layout_gravity="center_horizontal"
+                            android:background="@drawable/activate_circle"
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"/>
+                    <ImageView
+                            android:id="@+id/iv_tutorial_noclick_5"
+                            android:visibility="visible"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/ic_account_circle"
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"/>
+                    <TextView
+                            android:text="내한 공연"
+                            android:paddingTop="12dp"
+                            android:layout_gravity="center_horizontal"
+                            android:textColor="@color/white"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <LinearLayout
+                        android:id="@+id/btn_tutorial_6"
+                        android:orientation="vertical"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="30dp"
+                >
+                    <ImageView
+                            android:id="@+id/iv_tutorial_click_6"
+                            android:visibility="gone"
+                            android:src="@drawable/ic_account_circle"
+                            android:layout_gravity="center_horizontal"
+                            android:background="@drawable/activate_circle"
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"/>
+                    <ImageView
+                            android:id="@+id/iv_tutorial_noclick_6"
+                            android:visibility="visible"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/ic_account_circle"
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"/>
+                    <TextView
+                            android:text="EDM 페스티벌"
+                            android:paddingTop="12dp"
+                            android:layout_gravity="center_horizontal"
+                            android:textColor="@color/white"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <LinearLayout
+                        android:id="@+id/btn_tutorial_7"
+                        android:orientation="vertical"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                >
+                    <ImageView
+                            android:id="@+id/iv_tutorial_click_7"
+                            android:visibility="gone"
+                            android:src="@drawable/ic_account_circle"
+                            android:layout_gravity="center_horizontal"
+                            android:background="@drawable/activate_circle"
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"/>
+                    <ImageView
+                            android:id="@+id/iv_tutorial_noclick_7"
+                            android:visibility="visible"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/ic_account_circle"
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"/>
+                    <TextView
+                            android:text="인디 공연"
+                            android:paddingTop="12dp"
+                            android:layout_gravity="center_horizontal"
+                            android:textColor="@color/white"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <LinearLayout
+                        android:id="@+id/btn_tutorial_8"
+                        android:orientation="vertical"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                >
+                    <ImageView
+                            android:id="@+id/iv_tutorial_click_8"
+                            android:visibility="gone"
+                            android:src="@drawable/ic_account_circle"
+                            android:layout_gravity="center_horizontal"
+                            android:background="@drawable/activate_circle"
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"/>
+                    <ImageView
+                            android:id="@+id/iv_tutorial_noclick_8"
+                            android:visibility="visible"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/ic_account_circle"
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"/>
+                    <TextView
+                            android:text="재즈 공연"
+                            android:paddingTop="12dp"
+                            android:layout_gravity="center_horizontal"
+                            android:textColor="@color/white"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <LinearLayout
+                        android:id="@+id/btn_tutorial_9"
+                        android:orientation="vertical"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                >
+                    <ImageView
+                            android:id="@+id/iv_tutorial_click_9"
+                            android:visibility="gone"
+                            android:src="@drawable/ic_account_circle"
+                            android:layout_gravity="center_horizontal"
+                            android:background="@drawable/activate_circle"
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"/>
+                    <ImageView
+                            android:id="@+id/iv_tutorial_noclick_9"
+                            android:visibility="visible"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/ic_account_circle"
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"/>
+                    <TextView
+                            android:text="락 페스티벌"
+                            android:paddingTop="12dp"
+                            android:layout_gravity="center_horizontal"
+                            android:textColor="@color/white"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                </LinearLayout>
+            </GridLayout>
 
 
-
-       <Button
-               android:layout_marginTop="36dp"
-               android:id="@+id/btn_skip"
-               android:layout_gravity="center"
-               android:text="건너뛰기"
-               android:textColor="@color/white"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"/>
-   </LinearLayout>
+            <Button
+                    android:layout_marginVertical="30dp"
+                    android:id="@+id/btn_skip"
+                    android:layout_gravity="center"
+                    android:background="@drawable/shape_skip"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:text="건너뛰기"
+                    android:textColor="@color/white"
+                    android:layout_width="96dp"
+                    android:layout_height="33dp"/>
+        </LinearLayout>
 
     </ScrollView>
 </RelativeLayout>

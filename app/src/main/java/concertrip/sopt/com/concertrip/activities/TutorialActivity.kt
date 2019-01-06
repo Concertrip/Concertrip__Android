@@ -16,6 +16,8 @@ class TutorialActivity : AppCompatActivity() {
 
     var clickTest = arrayOf(0,0,0,0,0,0,0,0,0)
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tutorial)
@@ -26,10 +28,21 @@ class TutorialActivity : AppCompatActivity() {
         return super.onCreateView(name, context, attrs)
     }
 
+    private fun updateUI(){
+
+        if(clickTest.sum() > 0){
+            btn_skip.text = "구독하기"
+        }else{
+            btn_skip.text = "건너뛰기"
+        }
+    }
+
     private fun InitialUI(){
         btn_skip.setOnClickListener {
             startActivity<MainActivity>()
+            finish()
         }
+
 
         btn_tutorial_1.setOnClickListener{
             clickTest[0] = 1-clickTest[0]
@@ -41,6 +54,7 @@ class TutorialActivity : AppCompatActivity() {
             {iv_tutorial_click_1.visibility = View.GONE
                 iv_tutorial_noclick_1.visibility =View.VISIBLE}
 
+            updateUI()
         }
 
         btn_tutorial_2.setOnClickListener{
@@ -53,6 +67,7 @@ class TutorialActivity : AppCompatActivity() {
             {iv_tutorial_click_2.visibility = View.GONE
                 iv_tutorial_noclick_2.visibility =View.VISIBLE}
 
+            updateUI()
         }
 
 
@@ -66,6 +81,7 @@ class TutorialActivity : AppCompatActivity() {
             {iv_tutorial_click_3.visibility = View.GONE
                 iv_tutorial_noclick_3.visibility =View.VISIBLE}
 
+            updateUI()
         }
 
         btn_tutorial_4.setOnClickListener{
@@ -78,6 +94,7 @@ class TutorialActivity : AppCompatActivity() {
             {iv_tutorial_click_4.visibility = View.GONE
                 iv_tutorial_noclick_4.visibility =View.VISIBLE}
 
+            updateUI()
         }
 
 
@@ -91,6 +108,7 @@ class TutorialActivity : AppCompatActivity() {
             {iv_tutorial_click_5.visibility = View.GONE
                 iv_tutorial_noclick_5.visibility =View.VISIBLE}
 
+            updateUI()
         }
 
 
@@ -104,6 +122,7 @@ class TutorialActivity : AppCompatActivity() {
             {iv_tutorial_click_6.visibility = View.GONE
                 iv_tutorial_noclick_6.visibility =View.VISIBLE}
 
+            updateUI()
         }
 
 
@@ -130,6 +149,7 @@ class TutorialActivity : AppCompatActivity() {
             {iv_tutorial_click_8.visibility = View.GONE
                 iv_tutorial_noclick_8.visibility =View.VISIBLE}
 
+            updateUI()
         }
 
 
@@ -143,6 +163,7 @@ class TutorialActivity : AppCompatActivity() {
             {iv_tutorial_click_9.visibility = View.GONE
                 iv_tutorial_noclick_9.visibility =View.VISIBLE}
 
+            updateUI()
         }
 
     }
