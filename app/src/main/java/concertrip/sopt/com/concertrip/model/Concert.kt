@@ -22,7 +22,7 @@ data class Concert(
     var youtubeUrl : String?,
     var subscribeNum : Int?,
     var artistList : List<Artist>?,
-    var subscribe: Boolean?
+    var subscribe: Boolean
 
 ) : ListData {
 

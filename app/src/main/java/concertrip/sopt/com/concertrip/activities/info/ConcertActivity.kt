@@ -161,6 +161,8 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
     }
 
     private fun updateConcertData(){
+        btn_follow.setImageDrawable(if (concert.subscribe)getDrawable(R.drawable.ic_header_likes_selected)
+                                    else getDrawable(R.drawable.ic_header_likes_unselected))
 
         // TODO 구독하기(종) 버튼 설정
         if(URLUtil.isValidUrl(concert.backImg))
