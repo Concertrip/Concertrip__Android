@@ -16,6 +16,7 @@
                 android:lineSpacingExtra="2sp"
                 android:id="@+id/tv_text"
                 android:textColor="@color/textTagDefault"
+                android:includeFontPadding="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingVertical="1dp"

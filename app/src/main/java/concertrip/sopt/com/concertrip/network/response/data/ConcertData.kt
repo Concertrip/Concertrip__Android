@@ -62,6 +62,7 @@ data class ConcertData(
         c.eventInfoImg = eventInfoImg?:""
         c.subscribe = subscribe?:false
 
+
         return c
     }
 //    @SerializedName("memberList")

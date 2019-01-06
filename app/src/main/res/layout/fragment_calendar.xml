@@ -51,8 +51,9 @@
         <android.support.v7.widget.RecyclerView
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:layout_marginBottom="21dp"
+                android:paddingBottom="11.9dp"
                 android:paddingStart="16dp"
+                android:background="@color/category"
                 android:paddingEnd="16dp"
                 android:id="@+id/recycler_view_filter"
                 android:orientation="horizontal"
@@ -61,44 +62,45 @@
 
     </LinearLayout>
 
-    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
-    android:orientation="vertical"
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:orientation="vertical"
                   android:background="@drawable/ic_back_calendar"
     >
 
-    <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_marginTop="13dp"
-            android:layout_height="wrap_content"
-            android:overScrollMode="never"
-            android:id="@+id/recycler_view_calendar">
+        <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_marginTop="13dp"
+                android:layout_height="wrap_content"
+                android:overScrollMode="never"
+                android:id="@+id/recycler_view_calendar">
 
-    </android.support.v7.widget.RecyclerView>
+        </android.support.v7.widget.RecyclerView>
 
-    <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view_calendar_detail"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@color/white_0_9"
-            android:visibility="gone"
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
-
-    <RelativeLayout
-            android:id="@+id/rl_select_date_view"
-            android:background="@color/dark_gray_09"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        <TextView
-                android:id="@+id/tv_detail"
-                android:layout_centerInParent="true"
-                android:textColor="@color/textInfo"
-                android:textSize="15sp"
-                android:text= "@string/txt_calendar_select_date"
-
-
+        <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view_calendar_detail"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-    </RelativeLayout>
+                android:layout_height="match_parent"
+                android:background="@color/white_0_9"
+                android:visibility="gone"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
+
+        <RelativeLayout
+                android:id="@+id/rl_select_date_view"
+                android:background="@color/dark_gray_09"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <TextView
+                    android:id="@+id/tv_detail"
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/textInfo"
+                    android:textSize="15sp"
+                    android:text="@string/txt_calendar_select_date"
+
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+        </RelativeLayout>
 
     </LinearLayout>
 </LinearLayout>
