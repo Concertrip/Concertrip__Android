@@ -22,6 +22,7 @@ import com.google.android.youtube.player.YouTubePlayerView
 import concertrip.sopt.com.concertrip.R
 import concertrip.sopt.com.concertrip.interfaces.OnItemClick
 import concertrip.sopt.com.concertrip.dialog.CustomDialog
+import concertrip.sopt.com.concertrip.interfaces.OnResponse
 import concertrip.sopt.com.concertrip.list.adapter.BasicListAdapter
 import concertrip.sopt.com.concertrip.list.adapter.SeatListAdapter
 import concertrip.sopt.com.concertrip.model.Artist
@@ -31,8 +32,11 @@ import concertrip.sopt.com.concertrip.model.Seat
 import concertrip.sopt.com.concertrip.network.ApplicationController
 import concertrip.sopt.com.concertrip.network.NetworkService
 import concertrip.sopt.com.concertrip.network.response.GetConcertResponse
+import concertrip.sopt.com.concertrip.network.response.MessageResponse
+import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.INTENT_TAG_ID
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.USER_TOKEN
+import concertrip.sopt.com.concertrip.utillity.NetworkUtil
 import concertrip.sopt.com.concertrip.utillity.Secret
 import kotlinx.android.synthetic.main.activity_concert.*
 import kotlinx.android.synthetic.main.content_concert.*
@@ -42,8 +46,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener, OnItemClick {
-
+class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener, OnItemClick, OnResponse {
     override fun onItemClick(root: RecyclerView.Adapter<out RecyclerView.ViewHolder>, position: Int) {
         Toast.makeText(this, "내 공연에 추가되었습니다!", Toast.LENGTH_LONG).show()
         /*TODO 하트 or 종 convert + Toast 바꾸기*/
@@ -150,7 +153,7 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
         }
 
         btn_follow.setOnClickListener {
-            showDialog()
+            NetworkUtil.subscribeConcert(networkService, this, concertId)
         }
     }
 
@@ -221,6 +224,29 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
 
             }
         })
+    }
+
+    override fun onSuccess(obj: BaseModel, position: Int?) {
+        if(obj is MessageResponse){
+            concert.subscribe = !concert.subscribe
+
+            btn_follow.setImageDrawable(if (concert.subscribe)getDrawable(R.drawable.ic_header_likes_selected)
+                                        else getDrawable(R.drawable.ic_header_likes_unselected))
+
+            if (concert.subscribe)
+                showDialog("캘린더에 추가했습니다")
+            else
+                showDialog("구독 취소했습니다")
+        }
+    }
+
+    private fun showDialog(txt: String) {
+        val dialog = CustomDialog(this, txt)
+        dialog.show()
+    }
+
+    override fun onFail(status: Int) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
      private fun showDialog(){
