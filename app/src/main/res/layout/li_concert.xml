@@ -33,7 +33,7 @@
                     android:textColor="@color/white"
                     android:ellipsize="end"
                     android:layout_width="match_parent"
-                    android:layout_height="22dp"/>
+                    android:layout_height="wrap_content"/>
             <TextView
                     android:id="@+id/tv_concert_tag"
                     android:textSize="12sp"
@@ -42,7 +42,7 @@
                     tools:text="#12월 23일 #대전"
                     android:ellipsize="end"
                     android:layout_width="match_parent"
-                    android:layout_height="18dp"/>
+                    android:layout_height="wrap_content"/>
         </LinearLayout>
 
         <ImageButton
