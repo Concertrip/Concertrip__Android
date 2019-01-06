@@ -10,8 +10,8 @@
             android:id="@+id/iv_tab"
             android:layout_width="28dp"
             android:layout_height="wrap_content"
+            android:scaleType="fitXY"
             android:layout_centerHorizontal="true"
-            android:tint="@color/gray"
-            app:srcCompat="@drawable/ic_likes"/>
+            app:srcCompat="@drawable/ic_explore"/>
 
 </RelativeLayout>
