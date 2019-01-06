@@ -52,8 +52,7 @@
         <android.support.v7.widget.RecyclerView
                 android:layout_height="35dp"
                 android:layout_width="match_parent"
-                android:paddingBottom="11.9dp"
-                android:paddingTop="9.1dp"
+                android:layout_gravity="center_vertical"
                 android:background="@color/category"
                 android:paddingStart="24dp"
                 android:paddingEnd="16dp"
