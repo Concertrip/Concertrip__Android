@@ -166,6 +166,7 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
     private fun updateConcertData(){
         btn_follow.setImageDrawable(if (concert.subscribe)getDrawable(R.drawable.ic_header_likes_selected)
                                     else getDrawable(R.drawable.ic_header_likes_unselected))
+        //iv_small_follow.setImageDrawable(if (artist.subscribe) getDrawable(R.drawable.ic_header_likes_selected) else getDrawable(R.drawable.ic_header_likes_unselected))
 
         // TODO 구독하기(종) 버튼 설정
         if(URLUtil.isValidUrl(concert.backImg))
@@ -232,6 +233,7 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
 
             btn_follow.setImageDrawable(if (concert.subscribe)getDrawable(R.drawable.ic_header_likes_selected)
                                         else getDrawable(R.drawable.ic_header_likes_unselected))
+            //iv_small_follow.setImageDrawable(if (artist.subscribe) getDrawable(R.drawable.ic_header_likes_selected) else getDrawable(R.drawable.ic_header_likes_unselected))
 
             if (concert.subscribe)
                 showDialog("캘린더에 추가했습니다")

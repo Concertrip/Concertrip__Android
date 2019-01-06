@@ -53,12 +53,12 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
     var month: Int by Delegates.notNull()
 
 
-    private val monthImgList = listOf<Int>(
-        R.drawable.m_1, R.drawable.m_2, R.drawable.m_3,
-        R.drawable.m_4, R.drawable.m_5, R.drawable.m_6,
-        R.drawable.m_7, R.drawable.m_8, R.drawable.m_9,
-        R.drawable.m_10, R.drawable.m_11, R.drawable.m_12
-    )
+//    private val monthImgList = listOf<Int>(
+//        R.drawable.m_1, R.drawable.m_2, R.drawable.m_3,
+//        R.drawable.m_4, R.drawable.m_5, R.drawable.m_6,
+//        R.drawable.m_7, R.drawable.m_8, R.drawable.m_9,
+//        R.drawable.m_10, R.drawable.m_11, R.drawable.m_12
+//    )
 
     private var dataListTag = ArrayList<CalendarTab>()
 
@@ -79,7 +79,7 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
         ApplicationController.instance.networkService
     }
 
-    private val tabColor = listOf(R.color.tab_1, R.color.tab_2, R.color.tab_3, R.color.tab_4, R.color.tab_5,R.color.tab_6, R.color.tab_7, R.color.tab_8, R.color.tab_9, R.color.tab_10)
+    //private val tabColor = listOf(R.color.tab_1, R.color.tab_2, R.color.tab_3, R.color.tab_4, R.color.tab_5,R.color.tab_6, R.color.tab_7, R.color.tab_8, R.color.tab_9, R.color.tab_10)
 
 
     override fun onItemClick(root: RecyclerView.Adapter<out RecyclerView.ViewHolder>, position: Int) {
@@ -193,7 +193,7 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
             scheduleMap =  HashMap<Int, ArrayList<Schedule>>()
             tabColorMap = HashMap<String?, Int>()
 
-            calendarAdapter = CalendarListAdapter(it.applicationContext, makeDayList(), scheduleMap, this, tabColorMap)
+            calendarAdapter = CalendarListAdapter(it.applicationContext, makeDayList(), scheduleMap, this/*, tabColorMap*/)
             recycler_view_calendar.layoutManager = GridLayoutManager(it.applicationContext, 7)
             recycler_view_calendar.adapter = calendarAdapter
 
@@ -232,7 +232,9 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
     private var mCal: Calendar by Delegates.notNull()
 
     private fun setCalendarUI(year: String, month: String) {
-        iv_month.setImageResource(monthImgList[month.toInt() - 1])
+        //iv_month.setImageResource(monthImgList[month.toInt() - 1])
+
+        tv_month.setText(month.toString()+"월")
     }
 
     private fun makeDayList(): ArrayList<String> {
@@ -361,14 +363,14 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
 
         var idx : Int = 0
         dataListTag.clear()
-        tabColorMap.clear()
+        //tabColorMap.clear()
         list.forEach {
             dataListTag.add(it.toCalendarTag())
-            tabColorMap[it.name] = tabColor[idx++%tabColor.size]
-            Log.d("updateTabList~~~", "index : $idx, name : ${it.name}, color : ${tabColor[idx%tabColor.size]}")
+//            tabColorMap[it.name] = tabColor[idx++%tabColor.size]
+//            Log.d("updateTabList~~~", "index : $idx, name : ${it.name}, color : ${tabColor[idx%tabColor.size]}")
         }
         tabAdapter.notifyDataSetChanged()
-        calendarAdapter.notifyDataSetChanged()
+        //calendarAdapter.notifyDataSetChanged()
     }
 
     override fun onAttach(context: Context) {
