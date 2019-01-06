@@ -154,6 +154,7 @@ class BasicListAdapter(
         basicHolder.getMainTitle().text = dataList[position].getMainTitle()
         basicHolder.getSubTitle()?.text = dataList[position].getSubTitle()
         if (URLUtil.isValidUrl(dataList[position].getImageUrl())) {
+            /*TODO 터지면 GlideRequestManager 달기*/
             Glide.with(mContext).load(dataList[position].getImageUrl()).apply(RequestOptions.circleCropTransform())
                 .into(holder.getIvIcon())
         } else {
