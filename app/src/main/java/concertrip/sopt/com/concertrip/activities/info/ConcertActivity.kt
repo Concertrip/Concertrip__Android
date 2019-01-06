@@ -138,8 +138,7 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
 
         scroll_view.smoothScrollTo(0,0)
         scroll_view.viewTreeObserver.addOnScrollChangedListener {
-            val scrollY = scroll_view.getScrollY() // For ScrollView
-            // DO SOMETHING WITH THE SCROLL COORDINATES
+            val scrollY = scroll_view.getScrollY()
             if(scrollY > 10 && btn_ticket.visibility == GONE){
                 btn_ticket.visibility = VISIBLE
             }

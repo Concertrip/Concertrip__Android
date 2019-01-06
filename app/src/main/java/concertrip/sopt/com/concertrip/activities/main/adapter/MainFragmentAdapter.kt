@@ -5,6 +5,7 @@ import android.support.design.widget.TabLayout
 import android.support.v4.app.FragmentManager
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import concertrip.sopt.com.concertrip.R
 import concertrip.sopt.com.concertrip.activities.main.fragment.calendar.CalendarFragment
 import concertrip.sopt.com.concertrip.activities.main.fragment.mypage.MyPageFragment
@@ -26,12 +27,12 @@ class MainFragmentAdapter(val fragmentManager: FragmentManager, val mainTab: Tab
     var curTabId : Int by Delegates.notNull()
 
     private val setIcons = arrayOf(
-            R.layout.tab_calendar_slected, R.layout.tab_explorer_selected,
-            R.layout.tab_liked_selected, R.layout.tab_my_page_selected
+            R.drawable.ic_calendar_selected, R.drawable.ic_explore_selected,
+            R.drawable.ic_liked_selected, R.drawable.ic_mypage_selected
     )
     private val unsetIcons = arrayOf(
-        R.layout.tab_calendar, R.layout.tab_explorer,
-        R.layout.tab_liked, R.layout.tab_my_page
+        R.drawable.ic_calendar, R.drawable.ic_explore,
+        R.drawable.ic_liked, R.drawable.ic_mypage
     )
 
     private val fragments = arrayOf(
@@ -49,8 +50,9 @@ class MainFragmentAdapter(val fragmentManager: FragmentManager, val mainTab: Tab
         fragmentTransaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_down)
         fragmentTransaction.add(R.id.container ,fragment)
         fragmentTransaction.commit()
+        mainTab.getTabAt(curTabId)?.customView?.findViewById<ImageView>(R.id.iv_tab)?.setImageResource(setIcons[curTabId])
+//        mainTab.getTabAt(curTabId)?.setIcon(setIcons[curTabId])
 
-        mainTab.getTabAt(curTabId)?.setCustomView(setIcons[curTabId])
     }
 
 
@@ -58,10 +60,12 @@ class MainFragmentAdapter(val fragmentManager: FragmentManager, val mainTab: Tab
     fun setTab(what : Int){
         if(what==-1) return
         //TODO 여기서 더 손못대겠음!
-        mainTab.getTabAt(curTabId)?.setCustomView(unsetIcons[curTabId])
-
+       // mainTab.getTabAt(curTabId)?.setCustomView(unsetIcons[curTabId])
+        mainTab.getTabAt(curTabId)?.customView?.findViewById<ImageView>(R.id.iv_tab)?.setImageResource(unsetIcons[curTabId])
+//        mainTab.getTabAt(curTabId)?.setIcon(unsetIcons[curTabId])
         curTabId = what
-        mainTab.getTabAt(curTabId)?.setCustomView(setIcons[curTabId])
+        mainTab.getTabAt(curTabId)?.customView?.findViewById<ImageView>(R.id.iv_tab)?.setImageResource(setIcons[curTabId])
+//        mainTab.getTabAt(curTabId)?.setIcon(setIcons[curTabId])
         mainTab.getTabAt(curTabId)?.select()
 
     }

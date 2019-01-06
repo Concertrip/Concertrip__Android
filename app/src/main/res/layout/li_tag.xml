@@ -13,7 +13,6 @@
                 android:text="모두"
                 tools:text="모두"
                 android:textSize="15sp"
-                android:lineSpacingExtra="2sp"
                 android:id="@+id/tv_text"
                 android:textColor="@color/textTagDefault"
                 android:includeFontPadding="false"
