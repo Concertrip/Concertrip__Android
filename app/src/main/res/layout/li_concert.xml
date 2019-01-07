@@ -48,7 +48,6 @@
 
         <ImageButton
                 android:id="@+id/btn_like"
-                android:src="@drawable/ic_like"
                 android:background="@android:color/transparent"
                 android:layout_width="50dp"
                 android:layout_height="50dp"

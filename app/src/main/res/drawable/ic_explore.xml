@@ -6,15 +6,15 @@
   <path
       android:pathData="M0,0h28v28h-28z"
       android:strokeAlpha="0.002"
-      android:fillColor="#fff"
+      android:fillColor="@color/gray"
       android:fillAlpha="0.002"/>
   <path
       android:pathData="M11.681,2.862A8.823,8.823 0,1 1,2.855 11.689,8.834 8.834,0 0,1 11.681,2.862M11.681,0.889A10.8,10.8 0,1 0,22.481 11.689,10.8 10.8,0 0,0 11.681,0.889Z"
-      android:fillColor="#fff"/>
+      android:fillColor="@color/gray"/>
   <path
       android:pathData="M18.503,19.5l0.7913,-0.7913l2.0393,2.0393l-0.7913,0.7913z"
-      android:fillColor="#fff"/>
+      android:fillColor="@color/gray"/>
   <path
       android:pathData="M26.653,25.932l-0.965,0.964a0.755,0.755 0,0 1,-1.053 0l-4.847,-4.855a0.754,0.754 0,0 1,0 -1.052l0.965,-0.964a0.755,0.755 0,0 1,1.053 0l4.847,4.866A0.721,0.721 0,0 1,26.653 25.932Z"
-      android:fillColor="#fff"/>
+      android:fillColor="@color/gray"/>
 </vector>
