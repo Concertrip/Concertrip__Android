@@ -178,7 +178,7 @@
                                 android:layout_height="wrap_content">
                             <ImageView
                                     android:layout_gravity="center_horizontal"
-                                    android:src="@drawable/ic_reseravation_check"
+                                    android:src="@drawable/ic_reservation_check"
                                     android:layout_width="64dp"
                                     android:layout_height="64dp"/>
                             <TextView
@@ -232,7 +232,7 @@
                                 android:layout_height="wrap_content">
                             <ImageView
                                     android:layout_gravity="center_horizontal"
-                                    android:src="@drawable/ic_order"
+                                    android:src="@drawable/ic_delivery"
                                     android:layout_width="64dp"
                                     android:layout_height="64dp"/>
                             <TextView
