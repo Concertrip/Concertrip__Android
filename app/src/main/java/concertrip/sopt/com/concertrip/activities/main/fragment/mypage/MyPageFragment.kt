@@ -81,6 +81,8 @@ class MyPageFragment : Fragment(), OnItemClick, OnFragmentInteractionListener, O
 
             responseBody.let {
                 if (it.status == Secret.NETWORK_SUCCESS) {
+                    /*TODO 티켓이 없는 경우에 대한 처리 필요*/
+                    if(it.toTicketList().size == 0) return
                     val ticketInfo = it.toTicketList()[0]
                     tv_ticket_title.text = ticketInfo.name
                     tv_ticket_place.text = ticketInfo.location
