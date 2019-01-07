@@ -11,7 +11,8 @@
 >
     <ImageView android:layout_width="72dp"
                android:layout_height="72dp"
-               app:srcCompat="@drawable/ic_tab"
+               app:srcCompat="@drawable/ic_calendar"
+               android:tint="@color/purple"
     />
 
 
