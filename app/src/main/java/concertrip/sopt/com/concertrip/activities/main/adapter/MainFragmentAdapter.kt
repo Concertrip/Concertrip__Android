@@ -128,7 +128,7 @@ class MainFragmentAdapter(val fragmentManager: FragmentManager, val mainTab: Tab
 
         //fragmentTransaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_down)
         fragmentTransaction.replace(R.id.container ,fragment)
-        fragmentTransaction.addToBackStack(null)
+        //fragmentTransaction.addToBackStack(null)
         fragmentTransaction.setBreadCrumbShortTitle(curFragmentId)
         fragmentTransaction.commit()
     }
