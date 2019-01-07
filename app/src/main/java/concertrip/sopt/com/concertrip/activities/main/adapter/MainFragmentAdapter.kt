@@ -2,6 +2,7 @@ package concertrip.sopt.com.concertrip.activities.main.adapter
 
 import android.os.Bundle
 import android.support.design.widget.TabLayout
+import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.util.Log
 import android.view.View
@@ -45,17 +46,19 @@ class MainFragmentAdapter(val fragmentManager: FragmentManager, val mainTab: Tab
         curFragmentId = FRAGMENT_CALENDAR
         curTabId= TAB_CALENDAR
 
-        val fragment = fragments[curFragmentId]
+        //val fragment = fragments[curFragmentId]
         val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_down)
-        fragmentTransaction.add(R.id.container ,fragment)
+        //fragmentTransaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_down)
+        //fragmentTransaction.add(R.id.container ,fragment)
+        //fragmentTransaction.commit()
+        mainTab.getTabAt(curTabId)?.customView?.findViewById<ImageView>(R.id.iv_tab)?.setImageResource(setIcons[curTabId])
+
+        // 내가 바꾼부분 *최서정
+        fragments.forEach {
+            fragmentTransaction.add(R.id.container, it).hide(it)
+        }
+        fragmentTransaction.show(fragments.get(0))
         fragmentTransaction.commit()
-        mainTab.getTabAt(curTabId)?.customView?.findViewById<ImageView>(R.id.iv_tab)?.setImageResource(setIcons[curTabId])
-//        mainTab.getTabAt(curTabId)?.setIcon(setIcons[curTabId])
-
-
-        mainTab.getTabAt(curTabId)?.customView?.findViewById<ImageView>(R.id.iv_tab)?.setImageResource(setIcons[curTabId])
-//        mainTab.getTabAt(curTabId)?.setIcon(setIcons[curTabId])
 
     }
 
@@ -92,12 +95,10 @@ class MainFragmentAdapter(val fragmentManager: FragmentManager, val mainTab: Tab
         }
 
         setTab(curTab)
-
-        curFragmentId=what
 //        Log.d("$LOG_TAG : curFragmentId", curFragmentId.toString())
 
         val fragmentTransaction = fragmentManager.beginTransaction()
-        val fragment = fragments[curFragmentId]
+        //val fragment = fragments[curFragmentId]
 
 
         //bundle이 있을경우에는 fragment를 새로 만들어 준다,
@@ -126,8 +127,14 @@ class MainFragmentAdapter(val fragmentManager: FragmentManager, val mainTab: Tab
 //            }
 //        }
 
+
+        // 내가 바꾼부분 *최서정
+        fragmentTransaction.hide(fragments.get(curFragmentId))
+        curFragmentId=what
+        fragmentTransaction.show(fragments.get(curFragmentId))
+
         //fragmentTransaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_down)
-        fragmentTransaction.replace(R.id.container ,fragment)
+        //fragmentTransaction.replace(R.id.container ,fragment)
         //fragmentTransaction.addToBackStack(null)
         fragmentTransaction.setBreadCrumbShortTitle(curFragmentId)
         fragmentTransaction.commit()
