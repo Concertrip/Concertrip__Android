@@ -115,17 +115,21 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
                 recycler_view_calendar_detail.visibility = View.GONE
                 tv_detail.text="날짜를 선택해주세요"
             } else {
-
-
-                NetworkUtil.getCalendarList(
-                    networkService,
-                    this,
-                    dataListTag[tabAdapter.selected].type,
-                    dataListTag[tabAdapter.selected]._id,
-                    year.toString(),
-                    month.toString(),
-                    dayList[position]
-                )
+                if(calendarAdapter.scheduleMap[dayList[position].toInt()] == null){
+                    activity?.progress_bar?.visibility=View.GONE
+                    emptyResult()
+                }
+                else{
+                    NetworkUtil.getCalendarList(
+                        networkService,
+                        this,
+                        dataListTag[tabAdapter.selected].type,
+                        dataListTag[tabAdapter.selected]._id,
+                        year.toString(),
+                        month.toString(),
+                        dayList[position]
+                    )
+                }
             }
 
         }
