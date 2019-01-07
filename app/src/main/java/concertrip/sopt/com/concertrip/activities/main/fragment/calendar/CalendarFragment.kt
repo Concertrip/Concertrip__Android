@@ -223,6 +223,8 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
                 month.toString(),
                 null
             )
+            //TODO CALENDAR 스와이프
+//            recycler_view_calendar.
 
         }
 
@@ -307,6 +309,7 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
         dataListDetail.clear()
         dataListDetail.addAll(list)
         detailAdapter.notifyDataSetChanged()
+
 
     }
 
