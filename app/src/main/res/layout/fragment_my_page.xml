@@ -19,11 +19,13 @@
                 <TextView
                         android:text="@string/txt_my_page"
                         android:textSize="24sp"
+                        android:includeFontPadding="false"
                         android:textColor="@color/white"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                 <ImageView
                         android:id="@+id/btn_setting"
+
                         android:layout_marginStart="170dp"
                         android:src="@drawable/ic_setting"
                         android:layout_width="46dp"
@@ -126,11 +128,12 @@
                             android:columnCount="4"
                             android:rowCount="2"
                             android:orientation="horizontal"
+                            android:layout_marginBottom="20dp"
                 android:layout_gravity="center_horizontal">
 
                         <LinearLayout
                                 android:orientation="vertical"
-                                android:paddingRight="10dp"
+                                android:paddingRight="8dp"
                                 android:paddingBottom="23dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
@@ -206,7 +209,7 @@
                         </LinearLayout>
                         <LinearLayout
                                 android:orientation="vertical"
-                                android:paddingRight="10dp"
+                                android:paddingRight="8dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
                             <ImageView
