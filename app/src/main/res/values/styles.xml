@@ -39,14 +39,18 @@
     <!-- Custom font style 일괄적용 -->
     <style name="TextViewStyle" parent="@android:style/Widget.DeviceDefault.TextView">
         <item name="android:fontFamily">@font/source_han_sans_kr_regular</item>
+        <item name="android:includeFontPadding">false</item>
     </style>
+
 
     <style name="ButtonStyle" parent="@android:style/Widget.DeviceDefault.Button.Borderless">
         <item name="android:fontFamily">@font/source_han_sans_kr_regular</item>
+        <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="EditTextStyle" parent="@android:style/Widget.DeviceDefault.EditText">
         <item name="android:fontFamily">@font/source_han_sans_kr_regular</item>
+        <item name="android:includeFontPadding">false</item>
     </style>
 
 
