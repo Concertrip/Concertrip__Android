@@ -104,7 +104,7 @@ class CalendarListAdapter(
     }
 
 
-    private var LIMIT_SCHEDULE_IN_ONE_BLOCK: Int = 3 // item 몇개 추가할지
+    private var LIMIT_SCHEDULE_IN_ONE_BLOCK: Int = 2 // item 몇개 추가할지
 
     private fun addCalendarItem(holder: CalendarViewHolder, schedule: Schedule) {
 
