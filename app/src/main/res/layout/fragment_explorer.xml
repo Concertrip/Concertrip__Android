@@ -10,10 +10,11 @@
             android:id="@+id/search_bar"
             android:layout_marginTop="20dp"
             android:background="@drawable/shape_searchbar"
-            android:layout_width="match_parent"
+            android:layout_width="328dp"
             android:drawableEnd="@drawable/ic_search"
             android:paddingEnd="10dp"
             android:paddingHorizontal="16dp"
+            android:layout_gravity="center_horizontal"
             android:layout_height="35dp"/>
 
     <android.support.v7.widget.RecyclerView
