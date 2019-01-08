@@ -53,6 +53,10 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
     var month: Int by Delegates.notNull()
 
 
+    /*TODO 알람 수 서버에서 받아와서 표시해야함*/
+    // if numOfAlarm == 0 rl_notification > GONE
+    // else tv_notification.setText(numOfAlarm)
+
 //    private val monthImgList = listOf<Int>(
 //        R.drawable.m_1, R.drawable.m_2, R.drawable.m_3,
 //        R.drawable.m_4, R.drawable.m_5, R.drawable.m_6,
