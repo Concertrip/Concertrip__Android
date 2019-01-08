@@ -232,8 +232,9 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
                 null
             )
             //TODO CALENDAR 스와이프
-            recycler_view_calendar.setOnTouchListener(OnSwipeTouchListener(it.applicationContext))
+            //recycler_view_calendar.setOnTouchListener(OnSwipeTouchListener(it.applicationContext))
             //tv_month.setOnTouchListener(OnSwipeTouchListener(it.applicationContext))
+            stub.setOnTouchListener(OnSwipeTouchListener(it.applicationContext))
         }
 
 
