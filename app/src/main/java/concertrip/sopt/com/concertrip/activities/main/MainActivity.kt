@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() , OnFragmentInteractionListener {
                 }
             }
         })
-        ColorToast(applicationContext,"????")
+
 //        fragmentAdapter.fragmentManager.addOnBackStackChangedListener {
 //
 //            val i : Int = supportFragmentManager.backStackEntryCount;
@@ -114,7 +114,7 @@ class MainActivity : AppCompatActivity() , OnFragmentInteractionListener {
             }
 
             this.doubleBackToExitPressedOnce = true
-            Toast.makeText(this, getString(R.string.message_double_back_exit), Toast.LENGTH_SHORT).show()
+            ColorToast(this,getString(R.string.message_double_back_exit))
 
             Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
         }
