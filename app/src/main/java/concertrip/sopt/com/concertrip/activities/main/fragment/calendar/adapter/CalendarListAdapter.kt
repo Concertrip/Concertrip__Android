@@ -120,8 +120,8 @@ class CalendarListAdapter(
         val scheduleView = inflater.inflate(R.layout.item_schedule, holder.lySchedule, false)
         val cnt = holder.lySchedule?.childCount ?: 0
 //        scheduleView.iv_schedule.setColorFilter(ContextCompat.getColor(mContext, tabColorMap?.get(schedule.tabId)?:R.color.tab_except))
-        scheduleView.iv_schedule.setColorFilter(ContextCompat.getColor(mContext, if(schedule.tabId == "내 공연") R.color.tab_1
-                                                                                else R.color.tab_3))
+        scheduleView.iv_schedule.setColorFilter(ContextCompat.getColor(mContext, if(schedule.tabId == "내 공연") R.color.tab_mvp
+                                                                                else R.color.tab_liked))
         Log.d(Constants.LOG_NETWORK, "LOG_SCHEDULE :${schedule.tabId}")
         holder.lySchedule?.addView(scheduleView)
     }
