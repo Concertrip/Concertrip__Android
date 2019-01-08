@@ -74,6 +74,14 @@ interface NetworkService {
         @Query("tag") tag: String
     ):Call<GetSearchResponse>
 
+    // 테마 검색
+    @GET("/api/search/tab")
+    @Headers("Content-Type:application/json")
+    fun getGenreSearch(
+        @Header("Authorization") token : Int,
+        @Query("name") name: String
+    ):Call<GetGenreSearchResponse>
+
     //------------------------------------------
     //*내 티켓 리스트
     @GET("/api/ticket")

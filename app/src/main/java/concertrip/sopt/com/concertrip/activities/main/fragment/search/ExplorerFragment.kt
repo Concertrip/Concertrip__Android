@@ -21,6 +21,7 @@ import concertrip.sopt.com.concertrip.model.Artist
 import concertrip.sopt.com.concertrip.model.Concert
 import concertrip.sopt.com.concertrip.network.ApplicationController
 import concertrip.sopt.com.concertrip.network.NetworkService
+import concertrip.sopt.com.concertrip.network.response.GetGenreSearchResponse
 import concertrip.sopt.com.concertrip.network.response.GetSearchResponse
 import concertrip.sopt.com.concertrip.network.response.data.*
 import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
@@ -32,6 +33,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_explorer.*
 
 class ExplorerFragment : Fragment(), OnItemClick ,OnResponse{
+
     override fun onSuccess(obj: BaseModel, position: Int?) {
 
         activity?.progress_bar?.visibility=View.GONE
@@ -41,6 +43,13 @@ class ExplorerFragment : Fragment(), OnItemClick ,OnResponse{
             val list = arrayListOf<ListData>()
             list.addAll(explorerRequestData.toArtistList())
             list.addAll(explorerRequestData.toConcertList())
+            list.addAll(explorerRequestData.toGenreList())
+            updateDataList(list)
+        }
+        else if(obj is GetGenreSearchResponse) {
+            val explorerRequestData: GetGenreSearchResponse = obj as GetGenreSearchResponse
+
+            val list = arrayListOf<ListData>()
             list.addAll(explorerRequestData.toGenreList())
             updateDataList(list)
         }
@@ -92,12 +101,13 @@ class ExplorerFragment : Fragment(), OnItemClick ,OnResponse{
         tagAdapter.setSelect(position)
 
         if(root is HorizontalListAdapter){
-            when (position) {
-                0 -> {  //TODO 테마 선택시 클릭시
-
-                }
-                else -> connectRequestData(dataListTag[position])
-            }
+//            when (position) {
+//                0 -> {  //TODO 테마 선택시 클릭시
+//
+//                }
+//                else -> connectRequestData(dataListTag[position])
+//            }
+            connectRequestData(dataListTag[position])
         }
 
     }
@@ -132,7 +142,7 @@ class ExplorerFragment : Fragment(), OnItemClick ,OnResponse{
             dataAdapter = BasicListAdapter(it.applicationContext, dataList, this)
             recycler_view.adapter = dataAdapter
 
-
+            connectRequestData(dataListTag[0])
         }
 
     }
@@ -160,7 +170,7 @@ class ExplorerFragment : Fragment(), OnItemClick ,OnResponse{
 
     override fun onResume() {
         super.onResume()
-        clearListData()
+        //clearListData()
     }
 
     override fun onAttachFragment(childFragment: Fragment?) {
