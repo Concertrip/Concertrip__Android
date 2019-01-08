@@ -163,8 +163,8 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
     }
 
     private fun updateConcertData(){
-        btn_follow.setImageDrawable(if (concert.subscribe)getDrawable(R.drawable.ic_header_likes_selected)
-                                    else getDrawable(R.drawable.ic_header_likes_unselected))
+        btn_follow.setImageDrawable(if (concert.subscribe)getDrawable(R.drawable.ic_header_heart_bell_selected)
+                                    else getDrawable(R.drawable.ic_header_heart_bell_unselected))
         //iv_small_follow.setImageDrawable(if (artist.subscribe) getDrawable(R.drawable.ic_header_likes_selected) else getDrawable(R.drawable.ic_header_likes_unselected))
 
         // TODO 구독하기(종) 버튼 설정
@@ -230,8 +230,8 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
         if(obj is MessageResponse){
             concert.subscribe = !concert.subscribe
 
-            btn_follow.setImageDrawable(if (concert.subscribe)getDrawable(R.drawable.ic_header_likes_selected)
-                                        else getDrawable(R.drawable.ic_header_likes_unselected))
+            btn_follow.setImageDrawable(if (concert.subscribe)getDrawable(R.drawable.ic_header_heart_bell_selected)
+                                        else getDrawable(R.drawable.ic_header_heart_bell_unselected))
             //iv_small_follow.setImageDrawable(if (artist.subscribe) getDrawable(R.drawable.ic_header_likes_selected) else getDrawable(R.drawable.ic_header_likes_unselected))
 
             if (concert.subscribe)
