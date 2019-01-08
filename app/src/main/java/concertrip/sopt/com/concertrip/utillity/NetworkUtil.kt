@@ -127,37 +127,72 @@ class NetworkUtil {
 
             Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH, GET ? tag=$tag")
 
-            val search: Call<GetSearchResponse> =
-                networkService.getSearch(USER_TOKEN, tag)
-            search.enqueue(object : Callback<GetSearchResponse> {
+            if(tag == "테마"){
+                val search: Call<GetGenreSearchResponse> = networkService.getGenreSearch(USER_TOKEN, tag)
+                search.enqueue(object : Callback<GetGenreSearchResponse> {
 
-                override fun onFailure(call: Call<GetSearchResponse>, t: Throwable) {
-                    Log.e(Constants.LOG_NETWORK, t.toString())
-                    listener?.onFail(Secret.NETWORK_UNKNOWN)
-                }
-
-                override fun onResponse(call: Call<GetSearchResponse>, response: Response<GetSearchResponse>) {
-                    Log.d(Constants.LOG_NETWORK, response.errorBody()?.string() ?: response.message())
-
-                    if (response.isSuccessful) {
-                        Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH :${response.body()?.status}")
-                        response.body()?.let {
-                            if (it.status == Secret.NETWORK_SUCCESS) {
-                                Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH :${response.body().toString()}")
-                                listener?.onSuccess(response.body() as BaseModel, position)
-                            } else{
-                                Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH: fail  ${response.body()?.message}")
-                                listener?.onFail(response.body()?.status ?: Secret.NETWORK_UNKNOWN)
-                            }
-                        }
-
-                    } else {
+                    override fun onFailure(call: Call<GetGenreSearchResponse>, t: Throwable) {
+                        Log.e(Constants.LOG_NETWORK, t.toString())
                         listener?.onFail(Secret.NETWORK_UNKNOWN)
-
                     }
-                }
-            })
+
+                    override fun onResponse(call: Call<GetGenreSearchResponse>, response: Response<GetGenreSearchResponse>) {
+                        Log.d(Constants.LOG_NETWORK, response.errorBody()?.string() ?: response.message())
+
+                        if (response.isSuccessful) {
+                            Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH :${response.body()?.status}")
+                            response.body()?.let {
+                                if (it.status == Secret.NETWORK_SUCCESS) {
+                                    Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH :${response.body().toString()}")
+                                    listener?.onSuccess(response.body() as BaseModel, position)
+                                } else{
+                                    Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH: fail  ${response.body()?.message}")
+                                    listener?.onFail(response.body()?.status ?: Secret.NETWORK_UNKNOWN)
+                                }
+                            }
+
+                        } else {
+                            listener?.onFail(Secret.NETWORK_UNKNOWN)
+
+                        }
+                    }
+                })
+            }
+            else{
+                val search: Call<GetSearchResponse> =
+                    networkService.getSearch(USER_TOKEN, tag)
+                search.enqueue(object : Callback<GetSearchResponse> {
+
+                    override fun onFailure(call: Call<GetSearchResponse>, t: Throwable) {
+                        Log.e(Constants.LOG_NETWORK, t.toString())
+                        listener?.onFail(Secret.NETWORK_UNKNOWN)
+                    }
+
+                    override fun onResponse(call: Call<GetSearchResponse>, response: Response<GetSearchResponse>) {
+                        Log.d(Constants.LOG_NETWORK, response.errorBody()?.string() ?: response.message())
+
+                        if (response.isSuccessful) {
+                            Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH :${response.body()?.status}")
+                            response.body()?.let {
+                                if (it.status == Secret.NETWORK_SUCCESS) {
+                                    Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH :${response.body().toString()}")
+                                    listener?.onSuccess(response.body() as BaseModel, position)
+                                } else{
+                                    Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH: fail  ${response.body()?.message}")
+                                    listener?.onFail(response.body()?.status ?: Secret.NETWORK_UNKNOWN)
+                                }
+                            }
+
+                        } else {
+                            listener?.onFail(Secret.NETWORK_UNKNOWN)
+
+                        }
+                    }
+                })
+            }
         }
+
+
 
         fun getTicketList(networkService: NetworkService, listener: OnResponse?, _id: String) {
             val getTicketListResponse: Call<GetTicketListResponse> = networkService.getTicketList(USER_TOKEN) // _id

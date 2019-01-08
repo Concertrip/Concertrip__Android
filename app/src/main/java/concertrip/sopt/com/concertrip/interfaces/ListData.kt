@@ -9,5 +9,4 @@ interface ListData {
     fun getImageUrl(): String
 
     fun isSubscribe(): Boolean?
-
 }
