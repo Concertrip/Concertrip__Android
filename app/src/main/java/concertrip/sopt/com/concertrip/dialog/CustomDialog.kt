@@ -17,14 +17,13 @@ class  CustomDialog(context: Context, var content: String) : Dialog(context){
 
     constructor(context: Context) : this(context,context.getString(R.string.txt_calendar_added))
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
-        window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
-        setContentView(R.layout.dialog_message);
+        window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-
+        this.setCancelable(false)
+        setContentView(R.layout.dialog_message)
 
         dialog_tv_content.text=content
     }
