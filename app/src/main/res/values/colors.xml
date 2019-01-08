@@ -56,4 +56,6 @@
 
     <color name="tab_mvp">#ff0075</color>
     <color name="tab_liked">#7cfffa</color>
+
+    <color name="calendarNoti">#0f111c</color>
 </resources>
