@@ -20,6 +20,7 @@ import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayerView
 import concertrip.sopt.com.concertrip.R
+import concertrip.sopt.com.concertrip.dialog.ColorToast
 import concertrip.sopt.com.concertrip.interfaces.OnItemClick
 import concertrip.sopt.com.concertrip.dialog.CustomDialog
 import concertrip.sopt.com.concertrip.interfaces.OnResponse
@@ -48,7 +49,8 @@ import retrofit2.Response
 
 class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener, OnItemClick, OnResponse {
     override fun onItemClick(root: RecyclerView.Adapter<out RecyclerView.ViewHolder>, position: Int) {
-        Toast.makeText(this, "내 공연에 추가되었습니다!", Toast.LENGTH_LONG).show()
+        //Toast.makeText(this, "내 공연에 추가되었습니다!", Toast.LENGTH_LONG).show()
+        ColorToast(this.applicationContext, "내 공연에 추가되었습니다!")
         /*TODO 하트 or 종 convert + Toast 바꾸기*/
     }
 
