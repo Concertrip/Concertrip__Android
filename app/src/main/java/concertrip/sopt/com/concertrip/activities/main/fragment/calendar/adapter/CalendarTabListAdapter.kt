@@ -11,6 +11,7 @@ import concertrip.sopt.com.concertrip.R
 import concertrip.sopt.com.concertrip.interfaces.OnItemClick
 import concertrip.sopt.com.concertrip.list.viewholder.HorizontalViewHolder
 import concertrip.sopt.com.concertrip.model.CalendarTab
+import kotlinx.android.synthetic.main.item_schedule.view.*
 import org.jetbrains.anko.textColor
 
 
@@ -37,15 +38,16 @@ class CalendarTabListAdapter(
         if(position == selected){
             holder.tvtext.typeface = Typeface.DEFAULT_BOLD
             holder.tvtext.setTextColor(ContextCompat.getColor(mContext,R.color.white))
-            if(position>0)
-                holder.tvtext.textColor=ContextCompat.getColor(mContext, tabColorMap?.get(dataList[position].name)?:R.color.black)
-            else
+//            if(position>0) {
+//                holder.tvtext.textColor=ContextCompat.getColor(mContext, R.color.textInfo)
+//            }
+//            else
                 holder.tvtext.textColor=ContextCompat.getColor(mContext, R.color.white)
 
         }else{
             holder.tvtext.typeface = Typeface.DEFAULT
-            holder.tvtext.setTextColor(ContextCompat.getColor(mContext, R.color.grayDark))
-            holder.tvtext.textColor=ContextCompat.getColor(mContext, R.color.white)
+            holder.tvtext.setTextColor(ContextCompat.getColor(mContext, R.color.textInfo))
+            holder.tvtext.textColor=ContextCompat.getColor(mContext, R.color.textInfo)
         }
 
         holder.tvtext.text = dataList[position].name

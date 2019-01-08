@@ -147,7 +147,6 @@ class ExplorerFragment : Fragment(), OnItemClick ,OnResponse{
     private fun clearListData(){
         dataList.clear()
         dataAdapter.notifyDataSetChanged()
-
     }
 
     private fun connectRequestData(tag: String) {
@@ -157,6 +156,11 @@ class ExplorerFragment : Fragment(), OnItemClick ,OnResponse{
         clearListData()
         curSearch=tag
         NetworkUtil.search(networkService,this,tag)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        clearListData()
     }
 
     override fun onAttachFragment(childFragment: Fragment?) {
