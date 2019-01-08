@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.properties.Delegates
 import concertrip.sopt.com.concertrip.R
 import concertrip.sopt.com.concertrip.activities.main.adapter.MainFragmentAdapter
+import concertrip.sopt.com.concertrip.dialog.ColorToast
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.FRAGMENT_CALENDAR
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.FRAGMENT_EXPLORER
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.FRAGMENT_LIKED
@@ -70,6 +71,7 @@ class MainActivity : AppCompatActivity() , OnFragmentInteractionListener {
                 }
             }
         })
+        ColorToast(applicationContext,"????")
 //        fragmentAdapter.fragmentManager.addOnBackStackChangedListener {
 //
 //            val i : Int = supportFragmentManager.backStackEntryCount;

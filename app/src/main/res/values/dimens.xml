@@ -10,4 +10,10 @@
 
 
     <dimen name="listview_divide_line_height">1dp</dimen>
+
+
+    <dimen name="toast_left_padding">18dp</dimen>
+    <dimen name="toast_right_padding">18dp</dimen>
+    <dimen name="toast_top_padding">6dp</dimen>
+    <dimen name="toast_bottom_padding">6dp</dimen>
 </resources>
