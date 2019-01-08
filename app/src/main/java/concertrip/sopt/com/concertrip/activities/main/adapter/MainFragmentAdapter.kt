@@ -2,6 +2,7 @@ package concertrip.sopt.com.concertrip.activities.main.adapter
 
 import android.os.Bundle
 import android.support.design.widget.TabLayout
+import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.util.Log
 import android.view.View
@@ -50,6 +51,12 @@ class MainFragmentAdapter(val fragmentManager: FragmentManager, val mainTab: Tab
         fragmentTransaction.add(R.id.container ,fragment)
         fragmentTransaction.commit()
         mainTab.getTabAt(curTabId)?.customView?.findViewById<ImageView>(R.id.iv_tab)?.setImageResource(setIcons[curTabId])
+
+//        fragments.forEach {
+//            fragmentTransaction.add(R.id.container, it).hide(it)
+//        }
+//        fragmentTransaction.show(fragments.get(0))
+//        fragmentTransaction.commit()
 
     }
 

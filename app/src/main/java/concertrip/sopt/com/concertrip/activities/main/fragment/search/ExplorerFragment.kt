@@ -161,6 +161,6 @@ class ExplorerFragment : Fragment(), OnItemClick ,OnResponse{
 
     override fun onAttachFragment(childFragment: Fragment?) {
         super.onAttachFragment(childFragment)
-        connectRequestData(curSearch)
+        //connectRequestData(curSearch) // 작동안됨
     }
 }
