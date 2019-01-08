@@ -11,10 +11,10 @@
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_marginStart="19dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginBottom="48dp"
+            android:layout_marginTop="25.6dp"
+            android:layout_marginBottom="48.4dp"
             android:gravity="center_vertical"
-            android:layout_height="wrap_content">
+            android:layout_height="36dp">
 
         <ImageButton
                 android:id="@+id/btn_alarm_back"
@@ -31,7 +31,8 @@
                 android:layout_height="wrap_content"
                 android:textSize="24sp"
                 android:textColor="@color/white"
-                android:lineSpacingExtra="12sp"
+                android:includeFontPadding="false"
+                android:gravity="center"
                 android:text="@string/txt_notification"
                 android:textStyle="bold"
         />

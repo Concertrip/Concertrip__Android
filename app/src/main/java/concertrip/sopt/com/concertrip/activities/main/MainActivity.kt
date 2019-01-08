@@ -1,9 +1,14 @@
 package concertrip.sopt.com.concertrip.activities.main
 
 import android.os.Bundle
+import android.os.Handler
 import android.support.design.widget.TabLayout
+import android.support.v4.app.ActivityCompat
 import android.support.v4.app.FragmentManager
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log
+import android.widget.TextView
+import android.widget.Toast
 import concertrip.sopt.com.concertrip.interfaces.OnFragmentInteractionListener
 import concertrip.sopt.com.concertrip.utillity.Constants
 
@@ -65,34 +70,52 @@ class MainActivity : AppCompatActivity() , OnFragmentInteractionListener {
                 }
             }
         })
-        fragmentAdapter.fragmentManager.addOnBackStackChangedListener {
-
-            val i : Int = supportFragmentManager.backStackEntryCount;
-
-            if(i==0)  fragmentAdapter.setTab(TAB_CALENDAR)
-            else if (i >0) {
-                val tt: FragmentManager.BackStackEntry = supportFragmentManager.getBackStackEntryAt(i -1)
-
-                when (tt.breadCrumbShortTitleRes) {
-                    Constants.FRAGMENT_CALENDAR-> {
-                        fragmentAdapter.setTab(TAB_CALENDAR)
-                    }
-                    Constants.FRAGMENT_EXPLORER, Constants.FRAGMENT_SEARCH -> {
-                        fragmentAdapter.setTab(TAB_SEARCH)
-                    }
-                    Constants.TAB_LIKED -> {
-                        fragmentAdapter.setTab(TAB_LIKED)
-                    }
-                    else -> {
-                        fragmentAdapter.setTab(TAB_MY_PAGE)
-                    }
-
-                }
-            }
-        }
+//        fragmentAdapter.fragmentManager.addOnBackStackChangedListener {
+//
+//            val i : Int = supportFragmentManager.backStackEntryCount;
+//
+//
+//            if(i==0)  fragmentAdapter.setTab(TAB_CALENDAR)
+//            else if (i >0) {
+//                val tt: FragmentManager.BackStackEntry = supportFragmentManager.getBackStackEntryAt(i -1)
+//
+//                when (tt.breadCrumbShortTitleRes) {
+//                    Constants.FRAGMENT_CALENDAR-> {
+//                        fragmentAdapter.setTab(TAB_CALENDAR)
+//                    }
+//                    Constants.FRAGMENT_EXPLORER, Constants.FRAGMENT_SEARCH -> {
+//                        fragmentAdapter.setTab(TAB_SEARCH)
+//                    }
+//                    Constants.TAB_LIKED -> {
+//                        fragmentAdapter.setTab(TAB_LIKED)
+//                    }
+//                    else -> {
+//                        fragmentAdapter.setTab(TAB_MY_PAGE)
+//                    }
+//
+//                }
+//            }
+//        }
 
 
     }
 
+    private var doubleBackToExitPressedOnce = false
+    override fun onBackPressed() {
+        Log.d(" : curFragment Count", fragmentAdapter.fragmentManager.backStackEntryCount.toString())
+        if(fragmentAdapter.fragmentManager.backStackEntryCount>0)
+            super.onBackPressed()
+        else {
+            if (doubleBackToExitPressedOnce) {
+                ActivityCompat.finishAffinity(this)
+                return
+            }
+
+            this.doubleBackToExitPressedOnce = true
+            Toast.makeText(this, getString(R.string.message_double_back_exit), Toast.LENGTH_SHORT).show()
+
+            Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
+        }
+    }
 }
 

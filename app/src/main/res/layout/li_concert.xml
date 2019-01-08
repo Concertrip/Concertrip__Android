@@ -49,6 +49,7 @@
         <ImageButton
                 android:id="@+id/btn_like"
                 android:background="@android:color/transparent"
+                android:src="@drawable/ic_heart_bell_button"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
         />

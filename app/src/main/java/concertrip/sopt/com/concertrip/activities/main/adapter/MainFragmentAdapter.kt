@@ -41,7 +41,6 @@ class MainFragmentAdapter(val fragmentManager: FragmentManager, val mainTab: Tab
         SearchFragment(),TicketDetailFragment(),SettingFragment()
     )
 
-
     init {
         curFragmentId = FRAGMENT_CALENDAR
         curTabId= TAB_CALENDAR
@@ -65,13 +64,9 @@ class MainFragmentAdapter(val fragmentManager: FragmentManager, val mainTab: Tab
     //선택된 Tab의 색상과 아이콘을 바꾸어줌
     fun setTab(what : Int){
         if(what==-1) return
-        //TODO 여기서 더 손못대겠음!
-       // mainTab.getTabAt(curTabId)?.setCustomView(unsetIcons[curTabId])
         mainTab.getTabAt(curTabId)?.customView?.findViewById<ImageView>(R.id.iv_tab)?.setImageResource(unsetIcons[curTabId])
-//        mainTab.getTabAt(curTabId)?.setIcon(unsetIcons[curTabId])
         curTabId = what
         mainTab.getTabAt(curTabId)?.customView?.findViewById<ImageView>(R.id.iv_tab)?.setImageResource(setIcons[curTabId])
-//        mainTab.getTabAt(curTabId)?.setIcon(setIcons[curTabId])
         mainTab.getTabAt(curTabId)?.select()
 
     }
@@ -94,47 +89,22 @@ class MainFragmentAdapter(val fragmentManager: FragmentManager, val mainTab: Tab
         }
 
         setTab(curTab)
-//        Log.d("$LOG_TAG : curFragmentId", curFragmentId.toString())
+
+        curFragmentId=what
+        Log.d("$LOG_TAG : curFragmentId", curFragmentId.toString())
+
 
         val fragmentTransaction = fragmentManager.beginTransaction()
         val fragment = fragments[curFragmentId]
 
 
-        //bundle이 있을경우에는 fragment를 새로 만들어 준다,
-//        bundle?.let {
-//            when(what){
-//                Constants.FRAGMENT_SEARCH->{
-//                    fragment= SearchFragment.newInstance("아직","구현안함")
-//                    fragments[curFragmentId]=fragment
-//                }
-//
-//                Constants.FRAGMENT_EXPLORER->{
-//                    fragment= ExplorerFragment.newInstance("아직","구현안함")
-//                    fragments[curFragmentId]=fragment
-//                }
-//
-//                Constants.FRAGMENT_TICKET->{
-//                    fragment= TicketFragment.newInstance("아직","구현안함")
-//                    fragments[curFragmentId]=fragment
-//                }
-//
-//                Constants.FRAGMENT_TICKET_LIST->{
-//                    fragment= TicketListFragment.newInstance("아직","구현안함")
-//                    fragments[curFragmentId]=fragment
-//                }
-//
-//            }
-//        }
-
-
-//        fragmentTransaction.hide(fragments.get(curFragmentId))
-//        curFragmentId=what
-//        fragmentTransaction.show(fragments.get(curFragmentId))
 
         fragmentTransaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_down)
         fragmentTransaction.replace(R.id.container ,fragment)
-        //fragmentTransaction.addToBackStack(null)
-        fragmentTransaction.setBreadCrumbShortTitle(curFragmentId)
+        if(curFragmentId>3) {
+            fragmentTransaction.addToBackStack(null)
+            fragmentTransaction.setBreadCrumbShortTitle(curFragmentId)
+        }
         fragmentTransaction.commit()
     }
 
