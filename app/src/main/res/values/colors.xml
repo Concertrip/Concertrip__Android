@@ -43,6 +43,8 @@
     <color name="grayDark">#b3b3b3</color>
     <color name="grayLight">#f2f2f2</color>
 
+    <color name="dialogBack">#D9f2f2f2</color>
+
 
     <color name="black">#1e1e1e</color>
     <color name="gray">#777777</color>
