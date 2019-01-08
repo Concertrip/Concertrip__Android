@@ -40,7 +40,6 @@
                 <TextView
                         android:text="@string/txt_my_page"
                         android:textSize="24sp"
-                        android:includeFontPadding="false"
                         android:textColor="@color/white"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -50,8 +49,8 @@
                         android:id="@+id/btn_setting"
                         android:layout_alignParentRight="true"
                         android:src="@drawable/ic_setting"
-                        android:layout_width="46dp"
-                        android:layout_height="46dp"/>
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"/>
 
         </RelativeLayout>
 
@@ -65,12 +64,14 @@
                 android:paddingBottom="@dimen/bottom_tab_layout_height"
         >
 
-            <TextView
-                    android:text="@string/txt_my_page_myticket"
-                    android:textSize="17sp"
-                    android:textColor="@color/white"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                <TextView
+                        android:text="@string/txt_my_page_myticket"
+                        android:textSize="17sp"
+                        android:textColor="@color/white"
+                        android:layout_width="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:layout_height="wrap_content"/>
+
 
             <LinearLayout
                     android:orientation="horizontal"
@@ -170,139 +171,162 @@
                                 android:layout_gravity="center_horizontal"
                                 android:textSize="12sp"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-                    </LinearLayout>
-                    <LinearLayout
-                            android:layout_gravity="center_horizontal"
-                            android:orientation="vertical"
-                            android:paddingHorizontal="10dp"
-                            android:paddingBottom="23dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-                        <ImageView
-                                android:src="@drawable/ic_coupon"
-                                android:layout_gravity="center_horizontal"
-                                android:layout_width="64dp"
-                                android:layout_height="64dp"/>
-                        <TextView
-                                android:text="쿠폰"
-                                android:textColor="@color/white"
-                                android:layout_gravity="center_horizontal"
-                                android:textSize="12sp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-                    </LinearLayout>
-                    <LinearLayout
-                            android:layout_gravity="center_horizontal"
-                            android:orientation="vertical"
-                            android:paddingBottom="23dp"
-                            android:paddingHorizontal="10dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-                        <ImageView
-                                android:layout_gravity="center_horizontal"
-                                android:src="@drawable/ic_reservation_check"
-                                android:layout_width="64dp"
-                                android:layout_height="64dp"/>
-                        <TextView
-                                android:text="예매확인/취소"
-                                android:textColor="@color/white"
+
+                                android:layout_height="wrap_content">
+                            <ImageView
+                                    android:src="@drawable/ic_coin_pig"
+                                    android:layout_width="64dp"
+                                    android:layout_height="64dp"/>
+                            <TextView
+                                    android:text="적립금"
+                                    android:paddingTop="8dp"
+                                    android:textColor="@color/white"
+                                    android:layout_gravity="center_horizontal"
+                                    android:textSize="12sp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                        <LinearLayout
+
                                 android:layout_gravity="center_horizontal"
                                 android:textSize="12sp"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-                    </LinearLayout>
-                    <LinearLayout
-                            android:orientation="vertical"
-                            android:paddingBottom="23dp"
-                            android:paddingLeft="10dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-                        <ImageView
-                                android:src="@drawable/ic_review"
-                                android:layout_width="64dp"
-                                android:layout_height="64dp"/>
-                        <TextView
-                                android:text="리뷰"
-                                android:textColor="@color/white"
+
+                                android:layout_height="wrap_content">
+                            <ImageView
+                                    android:src="@drawable/ic_coupon"
+                                    android:layout_gravity="center_horizontal"
+                                    android:layout_width="64dp"
+                                    android:layout_height="64dp"/>
+                            <TextView
+                                    android:text="쿠폰"
+                                    android:paddingTop="8dp"
+                                    android:textColor="@color/white"
+                                    android:layout_gravity="center_horizontal"
+                                    android:textSize="12sp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                        <LinearLayout
+
                                 android:layout_gravity="center_horizontal"
                                 android:textSize="12sp"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-                    </LinearLayout>
-                    <LinearLayout
-                            android:orientation="vertical"
-                            android:paddingRight="8dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-                        <ImageView
-                                android:src="@drawable/ic_home"
-                                android:layout_width="64dp"
-                                android:layout_height="64dp"/>
-                        <TextView
-                                android:text="배송지 관리"
-                                android:textColor="@color/white"
+
+                                android:layout_height="wrap_content">
+                            <ImageView
+                                    android:layout_gravity="center_horizontal"
+                                    android:src="@drawable/ic_reservation_check"
+                                    android:layout_width="64dp"
+                                    android:layout_height="64dp"/>
+                            <TextView
+                                    android:text="예매확인/취소"
+                                    android:textColor="@color/white"
+                                    android:paddingTop="8dp"
+                                    android:layout_gravity="center_horizontal"
+                                    android:textSize="12sp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                        <LinearLayout
+                                android:orientation="vertical"
+                                android:paddingBottom="23dp"
+                                android:paddingLeft="10dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+                            <ImageView
+                                    android:src="@drawable/ic_review"
+                                    android:layout_width="64dp"
+                                    android:layout_height="64dp"/>
+                            <TextView
+                                    android:text="리뷰"
+                                    android:paddingTop="8dp"
+                                    android:textColor="@color/white"
+                                    android:layout_gravity="center_horizontal"
+                                    android:textSize="12sp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                        <LinearLayout
+                                android:orientation="vertical"
+                                android:paddingRight="8dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+                            <ImageView
+                                    android:src="@drawable/ic_home"
+                                    android:layout_width="64dp"
+                                    android:layout_height="64dp"/>
+                            <TextView
+                                    android:text="배송지 관리"
+                                    android:paddingTop="8dp"
+                                    android:textColor="@color/white"
+                                    android:layout_gravity="center_horizontal"
+                                    android:textSize="12sp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                        <LinearLayout
+                                android:orientation="vertical"
+
                                 android:layout_gravity="center_horizontal"
                                 android:textSize="12sp"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-                    </LinearLayout>
-                    <LinearLayout
-                            android:orientation="vertical"
-                            android:layout_gravity="center_horizontal"
-                            android:paddingHorizontal="10dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-                        <ImageView
-                                android:layout_gravity="center_horizontal"
-                                android:src="@drawable/ic_delivery"
-                                android:layout_width="64dp"
-                                android:layout_height="64dp"/>
-                        <TextView
-                                android:text="주문/배송조회"
-                                android:textColor="@color/white"
-                                android:layout_gravity="center_horizontal"
-                                android:textSize="12sp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-                    </LinearLayout>
-                    <LinearLayout
-                            android:layout_gravity="center_horizontal"
-                            android:orientation="vertical"
-                            android:paddingHorizontal="10dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-                        <ImageView
-                                android:layout_gravity="center_horizontal"
-                                android:src="@drawable/ic_pay"
-                                android:layout_width="64dp"
-                                android:layout_height="64dp"/>
-                        <TextView
-                                android:text="결제수단"
-                                android:textColor="@color/white"
+
+                                android:layout_height="wrap_content">
+                            <ImageView
+                                    android:layout_gravity="center_horizontal"
+                                    android:src="@drawable/ic_delivery"
+                                    android:layout_width="64dp"
+                                    android:layout_height="64dp"/>
+                            <TextView
+                                    android:text="주문/배송조회"
+                                    android:paddingTop="8dp"
+                                    android:textColor="@color/white"
+                                    android:layout_gravity="center_horizontal"
+                                    android:textSize="12sp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                        <LinearLayout
+
                                 android:layout_gravity="center_horizontal"
                                 android:textSize="12sp"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-                    </LinearLayout>
-                    <LinearLayout
-                            android:orientation="vertical"
-                            android:paddingLeft="10dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-                        <ImageView
-                                android:src="@drawable/ic_customer"
-                                android:layout_width="64dp"
-                                android:layout_height="64dp"/>
-                        <TextView
-                                android:text="고객센터"
-                                android:textColor="@color/white"
-                                android:layout_gravity="center_horizontal"
-                                android:textSize="12sp"
+
+                                android:layout_height="wrap_content">
+                            <ImageView
+                                    android:layout_gravity="center_horizontal"
+                                    android:src="@drawable/ic_pay"
+                                    android:layout_width="64dp"
+                                    android:layout_height="64dp"/>
+                            <TextView
+                                    android:text="결제수단"
+                                    android:paddingTop="8dp"
+                                    android:textColor="@color/white"
+                                    android:layout_gravity="center_horizontal"
+                                    android:textSize="12sp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                        <LinearLayout
+                                android:orientation="vertical"
+                                android:paddingLeft="10dp"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-                    </LinearLayout>
-            </GridLayout>
+                                android:layout_height="wrap_content">
+                            <ImageView
+                                    android:src="@drawable/ic_customer"
+                                    android:layout_width="64dp"
+                                    android:layout_height="64dp"/>
+                            <TextView
+                                    android:text="고객센터"
+                                    android:paddingTop="8dp"
+                                    android:textColor="@color/white"
+                                    android:layout_gravity="center_horizontal"
+                                    android:textSize="12sp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                </GridLayout>
 
         </LinearLayout>
 
