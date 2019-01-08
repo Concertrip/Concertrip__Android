@@ -86,16 +86,39 @@
                   android:background="@drawable/ic_back_calendar"
     >
 
-        <android.support.v7.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_marginTop="13dp"
-                android:layout_height="wrap_content"
-                android:overScrollMode="never"
-                android:id="@+id/recycler_view_calendar"
-                android:isScrollContainer="false"
-        >
+        <FrameLayout android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
 
-        </android.support.v7.widget.RecyclerView>
+                     android:focusable="false"
+                     android:focusableInTouchMode="false"
+        >
+            <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="13dp"
+                    android:layout_height="wrap_content"
+                    android:overScrollMode="never"
+                    android:id="@+id/recycler_view_calendar"
+                    android:isScrollContainer="false"
+            >
+
+            </android.support.v7.widget.RecyclerView>
+
+            <FrameLayout
+                    android:id="@+id/stub"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+        </FrameLayout>
+
+        <!--<android.support.v7.widget.RecyclerView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_marginTop="13dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:overScrollMode="never"-->
+                <!--android:id="@+id/recycler_view_calendar"-->
+                <!--android:isScrollContainer="false"-->
+        <!--&gt;-->
+
+        <!--</android.support.v7.widget.RecyclerView>-->
 
         <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view_calendar_detail"
