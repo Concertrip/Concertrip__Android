@@ -11,284 +11,307 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-            <LinearLayout
+            <!--<LinearLayout-->
+                    <!--android:layout_marginTop="25dp"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content">-->
+                <!--<TextView-->
+                        <!--android:text="@string/txt_my_page"-->
+                        <!--android:textSize="24sp"-->
+                        <!--android:includeFontPadding="false"-->
+                        <!--android:textColor="@color/white"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"/>-->
+                <!--<ImageView-->
+                        <!--android:id="@+id/btn_setting"-->
+
+                        <!--android:layout_marginStart="170dp"-->
+                        <!--android:src="@drawable/ic_setting"-->
+                        <!--android:layout_width="46dp"-->
+                        <!--android:layout_height="46dp"/>-->
+            <!--</LinearLayout>-->
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="25dp"
-                    android:orientation="horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+            >
                 <TextView
                         android:text="@string/txt_my_page"
                         android:textSize="24sp"
                         android:includeFontPadding="false"
                         android:textColor="@color/white"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"/>
+
                 <ImageView
                         android:id="@+id/btn_setting"
-
-                        android:layout_marginStart="170dp"
+                        android:layout_alignParentRight="true"
                         android:src="@drawable/ic_setting"
                         android:layout_width="46dp"
                         android:layout_height="46dp"/>
-            </LinearLayout>
 
-        <android.support.v4.widget.NestedScrollView
+        </RelativeLayout>
+
+    <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/bottom_tab_layout_height"
+        >
+
+            <TextView
+                    android:text="@string/txt_my_page_myticket"
+                    android:textSize="17sp"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
             <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="@dimen/bottom_tab_layout_height"
-            >
-
-                <TextView
-                        android:text="@string/txt_my_page_myticket"
-                        android:textSize="17sp"
-                        android:textColor="@color/white"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
+                    android:orientation="horizontal"
+                    android:weightSum="10"
+                    android:paddingHorizontal="28dp"
+                    android:background="@drawable/ic_ticket"
+                    android:paddingVertical="28dp"
+                    android:layout_width="328dp"
+                    android:layout_height="151dp">
                 <LinearLayout
-                        android:orientation="horizontal"
-                        android:weightSum="10"
-                        android:paddingHorizontal="28dp"
-                        android:background="@drawable/ic_ticket"
-                        android:paddingVertical="28dp"
-                        android:layout_width="328dp"
-                        android:layout_height="151dp">
+                        android:layout_weight="7"
+                        android:orientation="vertical"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                    <TextView
+                            android:id="@+id/tv_ticket_title"
+                            android:text="더 몬스터 페스티벌"
+                            tools:text="더 몬스터 페스티벌"
+                            android:textColor="@color/textTicket"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
                     <LinearLayout
-                            android:layout_weight="7"
-                            android:orientation="vertical"
-                            android:layout_gravity="center_vertical"
+                            android:paddingTop="18dp"
+                            android:orientation="horizontal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
                         <TextView
-                                android:id="@+id/tv_ticket_title"
-                                android:text="더 몬스터 페스티벌"
-                                tools:text="더 몬스터 페스티벌"
+                                android:text="@string/txt_li_ticket_place"
                                 android:textColor="@color/textTicket"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
-                        <LinearLayout
-                                android:paddingTop="18dp"
-                                android:orientation="horizontal"
+                        <TextView
+                                android:id="@+id/tv_ticket_place"
+                                android:text="성남아트센터"
+                                tools:text="성남아트센터"
+                                android:textColor="@color/textTicket"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
-                            <TextView
-                                    android:text="@string/txt_li_ticket_place"
-                                    android:textColor="@color/textTicket"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"/>
-                            <TextView
-                                    android:id="@+id/tv_ticket_place"
-                                    android:text="성남아트센터"
-                                    tools:text="성남아트센터"
-                                    android:textColor="@color/textTicket"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"/>
-                        </LinearLayout>
-                        <LinearLayout
-                                android:orientation="horizontal"
-                                android:paddingTop="0.3dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
-                            <TextView
-                                    android:text="@string/txt_li_ticket_date"
-                                    android:textColor="@color/textTicket"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"/>
-                            <TextView
-                                    android:id="@+id/tv_ticket_date"
-                                    android:text="2018.12.23(월)"
-                                    tools:text="2018.12.23(월)"
-                                    android:textColor="@color/textTicket"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"/>
-                        </LinearLayout>
-
+                                android:layout_height="wrap_content"/>
                     </LinearLayout>
-                    <ImageView
-                            android:layout_weight="3"
-                            android:src="@drawable/ic_account_circle"
-                            android:layout_width="60dp"
-                            android:layout_height="wrap_content"/>
-                </LinearLayout>
-
-                <TextView
-                        android:layout_marginTop="55.7dp"
-                        android:text="@string/txt_my_page_payment"
-                        android:textSize="17sp"
-                        android:textColor="@color/white"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="19dp"/>
-                <GridLayout android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:columnCount="4"
-                            android:rowCount="2"
+                    <LinearLayout
                             android:orientation="horizontal"
-                            android:layout_marginBottom="20dp"
-                android:layout_gravity="center_horizontal">
+                            android:paddingTop="0.3dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                        <TextView
+                                android:text="@string/txt_li_ticket_date"
+                                android:textColor="@color/textTicket"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        <TextView
+                                android:id="@+id/tv_ticket_date"
+                                android:text="2018.12.23(월)"
+                                tools:text="2018.12.23(월)"
+                                android:textColor="@color/textTicket"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                    </LinearLayout>
 
-                        <LinearLayout
-                                android:orientation="vertical"
-                                android:paddingRight="8dp"
-                                android:paddingBottom="23dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
-                            <ImageView
-                                    android:src="@drawable/ic_coin_pig"
-                                    android:layout_width="64dp"
-                                    android:layout_height="64dp"/>
-                            <TextView
-                                    android:text="적립금"
-                                    android:textColor="@color/white"
-                                    android:layout_gravity="center_horizontal"
-                                    android:textSize="12sp"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"/>
-                        </LinearLayout>
-                        <LinearLayout
-                                android:layout_gravity="center_horizontal"
-                                android:orientation="vertical"
-                                android:paddingHorizontal="10dp"
-                                android:paddingBottom="23dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
-                            <ImageView
-                                    android:src="@drawable/ic_coupon"
-                                    android:layout_gravity="center_horizontal"
-                                    android:layout_width="64dp"
-                                    android:layout_height="64dp"/>
-                            <TextView
-                                    android:text="쿠폰"
-                                    android:textColor="@color/white"
-                                    android:layout_gravity="center_horizontal"
-                                    android:textSize="12sp"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"/>
-                        </LinearLayout>
-                        <LinearLayout
-                                android:layout_gravity="center_horizontal"
-                                android:orientation="vertical"
-                                android:paddingBottom="23dp"
-                                android:paddingHorizontal="10dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
-                            <ImageView
-                                    android:layout_gravity="center_horizontal"
-                                    android:src="@drawable/ic_reservation_check"
-                                    android:layout_width="64dp"
-                                    android:layout_height="64dp"/>
-                            <TextView
-                                    android:text="예매확인/취소"
-                                    android:textColor="@color/white"
-                                    android:layout_gravity="center_horizontal"
-                                    android:textSize="12sp"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"/>
-                        </LinearLayout>
-                        <LinearLayout
-                                android:orientation="vertical"
-                                android:paddingBottom="23dp"
-                                android:paddingLeft="10dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
-                            <ImageView
-                                    android:src="@drawable/ic_review"
-                                    android:layout_width="64dp"
-                                    android:layout_height="64dp"/>
-                            <TextView
-                                    android:text="리뷰"
-                                    android:textColor="@color/white"
-                                    android:layout_gravity="center_horizontal"
-                                    android:textSize="12sp"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"/>
-                        </LinearLayout>
-                        <LinearLayout
-                                android:orientation="vertical"
-                                android:paddingRight="8dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
-                            <ImageView
-                                    android:src="@drawable/ic_home"
-                                    android:layout_width="64dp"
-                                    android:layout_height="64dp"/>
-                            <TextView
-                                    android:text="배송지 관리"
-                                    android:textColor="@color/white"
-                                    android:layout_gravity="center_horizontal"
-                                    android:textSize="12sp"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"/>
-                        </LinearLayout>
-                        <LinearLayout
-                                android:orientation="vertical"
-                                android:layout_gravity="center_horizontal"
-                                android:paddingHorizontal="10dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
-                            <ImageView
-                                    android:layout_gravity="center_horizontal"
-                                    android:src="@drawable/ic_delivery"
-                                    android:layout_width="64dp"
-                                    android:layout_height="64dp"/>
-                            <TextView
-                                    android:text="주문/배송조회"
-                                    android:textColor="@color/white"
-                                    android:layout_gravity="center_horizontal"
-                                    android:textSize="12sp"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"/>
-                        </LinearLayout>
-                        <LinearLayout
-                                android:layout_gravity="center_horizontal"
-                                android:orientation="vertical"
-                                android:paddingHorizontal="10dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
-                            <ImageView
-                                    android:layout_gravity="center_horizontal"
-                                    android:src="@drawable/ic_pay"
-                                    android:layout_width="64dp"
-                                    android:layout_height="64dp"/>
-                            <TextView
-                                    android:text="결제수단"
-                                    android:textColor="@color/white"
-                                    android:layout_gravity="center_horizontal"
-                                    android:textSize="12sp"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"/>
-                        </LinearLayout>
-                        <LinearLayout
-                                android:orientation="vertical"
-                                android:paddingLeft="10dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
-                            <ImageView
-                                    android:src="@drawable/ic_customer"
-                                    android:layout_width="64dp"
-                                    android:layout_height="64dp"/>
-                            <TextView
-                                    android:text="고객센터"
-                                    android:textColor="@color/white"
-                                    android:layout_gravity="center_horizontal"
-                                    android:textSize="12sp"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"/>
-                        </LinearLayout>
-                </GridLayout>
-
+                </LinearLayout>
+                <ImageView
+                        android:layout_weight="3"
+                        android:src="@drawable/ic_account_circle"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"/>
             </LinearLayout>
 
+            <TextView
+                    android:layout_marginTop="55.7dp"
+                    android:text="@string/txt_my_page_payment"
+                    android:textSize="17sp"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="19dp"/>
+            <GridLayout android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:columnCount="4"
+                        android:rowCount="2"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="20dp"
+            android:layout_gravity="center_horizontal">
 
-
-        </android.support.v4.widget.NestedScrollView>
-
-
-
+                    <LinearLayout
+                            android:orientation="vertical"
+                            android:paddingRight="8dp"
+                            android:paddingBottom="23dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                        <ImageView
+                                android:src="@drawable/ic_coin_pig"
+                                android:layout_width="64dp"
+                                android:layout_height="64dp"/>
+                        <TextView
+                                android:text="적립금"
+                                android:textColor="@color/white"
+                                android:layout_gravity="center_horizontal"
+                                android:textSize="12sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                    <LinearLayout
+                            android:layout_gravity="center_horizontal"
+                            android:orientation="vertical"
+                            android:paddingHorizontal="10dp"
+                            android:paddingBottom="23dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                        <ImageView
+                                android:src="@drawable/ic_coupon"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_width="64dp"
+                                android:layout_height="64dp"/>
+                        <TextView
+                                android:text="쿠폰"
+                                android:textColor="@color/white"
+                                android:layout_gravity="center_horizontal"
+                                android:textSize="12sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                    <LinearLayout
+                            android:layout_gravity="center_horizontal"
+                            android:orientation="vertical"
+                            android:paddingBottom="23dp"
+                            android:paddingHorizontal="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                        <ImageView
+                                android:layout_gravity="center_horizontal"
+                                android:src="@drawable/ic_reservation_check"
+                                android:layout_width="64dp"
+                                android:layout_height="64dp"/>
+                        <TextView
+                                android:text="예매확인/취소"
+                                android:textColor="@color/white"
+                                android:layout_gravity="center_horizontal"
+                                android:textSize="12sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                    <LinearLayout
+                            android:orientation="vertical"
+                            android:paddingBottom="23dp"
+                            android:paddingLeft="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                        <ImageView
+                                android:src="@drawable/ic_review"
+                                android:layout_width="64dp"
+                                android:layout_height="64dp"/>
+                        <TextView
+                                android:text="리뷰"
+                                android:textColor="@color/white"
+                                android:layout_gravity="center_horizontal"
+                                android:textSize="12sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                    <LinearLayout
+                            android:orientation="vertical"
+                            android:paddingRight="8dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                        <ImageView
+                                android:src="@drawable/ic_home"
+                                android:layout_width="64dp"
+                                android:layout_height="64dp"/>
+                        <TextView
+                                android:text="배송지 관리"
+                                android:textColor="@color/white"
+                                android:layout_gravity="center_horizontal"
+                                android:textSize="12sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                    <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_gravity="center_horizontal"
+                            android:paddingHorizontal="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                        <ImageView
+                                android:layout_gravity="center_horizontal"
+                                android:src="@drawable/ic_delivery"
+                                android:layout_width="64dp"
+                                android:layout_height="64dp"/>
+                        <TextView
+                                android:text="주문/배송조회"
+                                android:textColor="@color/white"
+                                android:layout_gravity="center_horizontal"
+                                android:textSize="12sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                    <LinearLayout
+                            android:layout_gravity="center_horizontal"
+                            android:orientation="vertical"
+                            android:paddingHorizontal="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                        <ImageView
+                                android:layout_gravity="center_horizontal"
+                                android:src="@drawable/ic_pay"
+                                android:layout_width="64dp"
+                                android:layout_height="64dp"/>
+                        <TextView
+                                android:text="결제수단"
+                                android:textColor="@color/white"
+                                android:layout_gravity="center_horizontal"
+                                android:textSize="12sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                    <LinearLayout
+                            android:orientation="vertical"
+                            android:paddingLeft="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                        <ImageView
+                                android:src="@drawable/ic_customer"
+                                android:layout_width="64dp"
+                                android:layout_height="64dp"/>
+                        <TextView
+                                android:text="고객센터"
+                                android:textColor="@color/white"
+                                android:layout_gravity="center_horizontal"
+                                android:textSize="12sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                    </LinearLayout>
+            </GridLayout>
 
         </LinearLayout>
+
+
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+
+
+    </LinearLayout>
 </RelativeLayout>
