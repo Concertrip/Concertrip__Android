@@ -49,8 +49,7 @@ class BasicListAdapter(
                     val artist = dataList[position] as Artist
                     artist.subscribe = !artist.subscribe
 
-                    Toast.makeText(mContext, obj.message, Toast.LENGTH_LONG).show()
-
+                    ColorToast(mContext,obj.message?:"")
                     notifyDataSetChanged()
 
                 }
@@ -59,7 +58,7 @@ class BasicListAdapter(
                     concert.subscribe = !concert.subscribe
 
 
-                    Toast.makeText(mContext, obj.message, Toast.LENGTH_LONG).show()
+                    ColorToast(mContext,obj.message?:"")
 
                     notifyDataSetChanged()
                 }
@@ -67,7 +66,7 @@ class BasicListAdapter(
                     val genre = dataList[position] as Genre
                     genre.subscribe = !genre.subscribe
 
-                    Toast.makeText(mContext, obj.message, Toast.LENGTH_LONG).show()
+                    ColorToast(mContext,obj.message?:"")
                     notifyDataSetChanged()
                 }
 
@@ -76,7 +75,6 @@ class BasicListAdapter(
     }
 
     override fun onFail(status: Int) {
-        //Toast.makeText(mContext, "인터넷을 다시 확인해주세요.", Toast.LENGTH_SHORT).show()
         ColorToast(mContext.applicationContext, "인터넷을 다시 확인해주세요.")
     }
 

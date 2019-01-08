@@ -49,7 +49,6 @@ import retrofit2.Response
 
 class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener, OnItemClick, OnResponse {
     override fun onItemClick(root: RecyclerView.Adapter<out RecyclerView.ViewHolder>, position: Int) {
-        //Toast.makeText(this, "내 공연에 추가되었습니다!", Toast.LENGTH_LONG).show()
         ColorToast(this.applicationContext, "내 공연에 추가되었습니다!")
         /*TODO 하트 or 종 convert + Toast 바꾸기*/
     }
@@ -75,7 +74,7 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
             val errorMessage = String.format(
                 "There was an error initializing the YouTubePlayer (%1\$s)", youTubeInitializationResult.toString()
             )
-            Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
+            ColorToast(this,errorMessage)
         }
     }
 
