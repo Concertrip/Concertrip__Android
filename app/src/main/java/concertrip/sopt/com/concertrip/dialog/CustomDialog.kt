@@ -28,6 +28,4 @@ class  CustomDialog(context: Context, var content: String) : Dialog(context){
         dialog_tv_content.text=content
     }
 
-
-
 }
