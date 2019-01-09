@@ -47,6 +47,9 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse, OnFling {
     override fun onSwipeRight() {
         month = (month+11)%12
         // from 1 to 12
+
+        if(month == 11) year = year -1
+
         Log.d("!!!!!", "swipe right")
         updateCalendarMonth()
     }
@@ -54,6 +57,9 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse, OnFling {
     override fun onSwipeLeft() {
         // from 1 to 2
         month = (month+1)%12
+
+        if(month == 0) year = year +1
+
         Log.d("!!!!!", "swipe left")
         updateCalendarMonth()
     }
@@ -69,6 +75,10 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse, OnFling {
             null
         )
 
+        calendarAdapter.dataList.clear()
+        calendarAdapter.dataList.addAll(makeDayList())
+        calendarAdapter.notifyDataSetChanged()
+
         tv_month.setText((month+1).toString()+"월")
         activity?.let {
             tv_detail?.text="날짜를 선택해주세요"
@@ -80,8 +90,8 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse, OnFling {
         tabAdapter.notifyDataSetChanged()
     }
 
-    var year: Int  by Delegates.notNull()
-    var month: Int by Delegates.notNull()
+    var year: Int  =-1
+    var month: Int =-1
 
 
     /*TODO 알람 수 서버에서 받아와서 표시해야함*/
@@ -287,25 +297,27 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse, OnFling {
         tv_month.setText((month+1).toString()+"월")
     }
 
+    //private fun makeDayList(month: Int?,year:Int?): ArrayList<String> =makeDayList(null,null)
     private fun makeDayList(): ArrayList<String> {
 
         //        this.inflater = mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
-        val now = System.currentTimeMillis()
+        if(month==-1 && year == -1){
+            val now = System.currentTimeMillis()
 
-        val date = Date(now)
+            val date = Date(now)
 
-        //연,월,일을 따로 저장
+            val curYearFormat = SimpleDateFormat("yyyy", Locale.KOREA)
 
-        val curYearFormat = SimpleDateFormat("yyyy", Locale.KOREA)
+            val curMonthFormat = SimpleDateFormat("MM", Locale.KOREA)
 
-        val curMonthFormat = SimpleDateFormat("MM", Locale.KOREA)
+            val curDayFormat = SimpleDateFormat("dd", Locale.KOREA)
 
-        val curDayFormat = SimpleDateFormat("dd", Locale.KOREA)
+            year = curYearFormat.format(date).toInt()
 
-        year = curYearFormat.format(date).toInt()
+            month = curMonthFormat.format(date).toInt()-1
+        }
 
-        month = curMonthFormat.format(date).toInt()-1
         setCalendarUI(year.toString(), month.toString())
 
         //gridview 요일 표시
@@ -324,7 +336,7 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse, OnFling {
 
         //이번달 1일 무슨요일인지 판단 mCal.set(Year,Month,Day)
 
-        mCal.set(Integer.parseInt(curYearFormat.format(date)), Integer.parseInt(curMonthFormat.format(date)) - 1, 1)
+        mCal.set(year, month-1, 1)
 
         val dayNum = mCal.get(Calendar.DAY_OF_WEEK)
 
