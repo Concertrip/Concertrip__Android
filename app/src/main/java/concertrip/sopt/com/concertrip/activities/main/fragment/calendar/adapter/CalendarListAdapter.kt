@@ -83,6 +83,8 @@ class CalendarListAdapter(
 
             holder.lySchedule?.removeAllViews()
             if (scheduleMap.containsKey(date)) {
+
+
                 scheduleMap[date]?.forEach() {
                     addCalendarItem(holder, it)
                 }

@@ -3,8 +3,6 @@ package concertrip.sopt.com.concertrip.network
 import com.google.gson.JsonObject
 import concertrip.sopt.com.concertrip.network.response.GetArtistResponse
 import concertrip.sopt.com.concertrip.network.response.*
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -151,4 +149,10 @@ interface NetworkService {
         @Query("month") month: String,
         @Query("day") day: String
     ):Call<GetCalendarResponse>
+
+    @POST("/api/fcm/list")
+    @Headers("Content-Type:application/json")
+    fun postAlarmList(
+        @Header("Authorization") token: Int
+    ):Call<GetAlarmListResponse>
 }

@@ -147,6 +147,7 @@
                 </LinearLayout>
                 <TextView
                         android:layout_marginTop="10dp"
+                        android:id="@+id/tv_more_info"
                         android:text="전체보기"
                         android:textSize="10sp"
                         android:textColor="@color/white"
@@ -160,8 +161,10 @@
                     android:id="@+id/ry_ticket_empty"
                     android:visibility="visible"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal">
                 <ImageView
+                        android:id="@+id/iv_empty_ticket"
                         android:background="@drawable/ic_ticket_empty"
                         android:layout_width="328dp"
                         android:layout_height="151dp"/>
