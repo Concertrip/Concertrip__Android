@@ -47,7 +47,7 @@ class MainFragmentAdapter(val fragmentManager: FragmentManager, val mainTab: Tab
 
         val fragment = fragments[curFragmentId]
         val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_down)
+//        fragmentTransaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_down)
         fragmentTransaction.add(R.id.container ,fragment)
         fragmentTransaction.commit()
         mainTab.getTabAt(curTabId)?.customView?.findViewById<ImageView>(R.id.iv_tab)?.setImageResource(setIcons[curTabId])
@@ -99,7 +99,7 @@ class MainFragmentAdapter(val fragmentManager: FragmentManager, val mainTab: Tab
 
 
 
-        fragmentTransaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_down)
+//        fragmentTransaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_down)
         fragmentTransaction.replace(R.id.container ,fragment)
         if(curFragmentId>3) {
             fragmentTransaction.addToBackStack(null)

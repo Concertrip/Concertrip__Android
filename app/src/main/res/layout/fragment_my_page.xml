@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+              android:orientation="vertical"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 tools:context=".activities.main.fragment.mypage.MyPageFragment">
 
-        <LinearLayout
-                android:paddingHorizontal="16dp"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
             <!--<LinearLayout-->
                     <!--android:layout_marginTop="25dp"-->
                     <!--android:orientation="horizontal"-->
@@ -33,9 +29,10 @@
             <!--</LinearLayout>-->
 
             <RelativeLayout
+                    android:paddingHorizontal="16dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
+                    android:layout_height="61.5dp"
+                    android:gravity="bottom"
             >
                 <TextView
                         android:text="@string/txt_my_page"
@@ -47,7 +44,7 @@
 
                 <ImageView
                         android:id="@+id/btn_setting"
-                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
                         android:src="@drawable/ic_setting"
                         android:layout_width="40dp"
                         android:layout_height="40dp"/>
@@ -56,7 +53,9 @@
 
     <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+
+    >
         <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
@@ -65,16 +64,22 @@
         >
 
                 <TextView
+                        android:paddingHorizontal="16dp"
                         android:text="@string/txt_my_page_myticket"
-                        android:layout_marginTop="20dp"
                         android:textSize="17sp"
                         android:textColor="@color/white"
                         android:layout_width="wrap_content"
-                        android:layout_marginBottom="20dp"
-                        android:layout_height="wrap_content"/>
+                        android:layout_marginBottom="4dp"
+                        android:gravity="bottom"
+                        android:layout_height="44.5dp"/>
 
-
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                          android:background="@drawable/ic_back_mypage"
+                          android:orientation="vertical"
+            >
             <LinearLayout
+
+                    android:paddingHorizontal="16dp"
                     android:id="@+id/ly_ticket_ac"
                     android:orientation="vertical"
                     android:visibility="gone"
@@ -158,6 +163,8 @@
             </LinearLayout>
 
             <RelativeLayout
+
+                    android:paddingHorizontal="16dp"
                     android:id="@+id/ry_ticket_empty"
                     android:visibility="visible"
                     android:layout_width="wrap_content"
@@ -352,8 +359,9 @@
                             android:layout_height="wrap_content"/>
                 </LinearLayout>
             </GridLayout>
-
+            </LinearLayout>
         </LinearLayout>
+
 
 
 
@@ -362,5 +370,4 @@
 
 
 
-    </LinearLayout>
-</RelativeLayout>
+</LinearLayout>
