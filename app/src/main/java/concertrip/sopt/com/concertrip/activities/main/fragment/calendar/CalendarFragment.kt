@@ -6,13 +6,8 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import concertrip.sopt.com.concertrip.activities.AlarmActivity
 import concertrip.sopt.com.concertrip.activities.main.fragment.calendar.adapter.CalendarListAdapter
-import concertrip.sopt.com.concertrip.interfaces.OnFragmentInteractionListener
-import concertrip.sopt.com.concertrip.interfaces.OnItemClick
 import concertrip.sopt.com.concertrip.list.adapter.BasicListAdapter
 import concertrip.sopt.com.concertrip.model.Concert
 import concertrip.sopt.com.concertrip.model.Schedule
@@ -22,10 +17,10 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 import concertrip.sopt.com.concertrip.R
-import concertrip.sopt.com.concertrip.interfaces.ListData
 import android.util.Log
-import concertrip.sopt.com.concertrip.interfaces.OnResponse
+import android.view.*
 import concertrip.sopt.com.concertrip.activities.main.fragment.calendar.adapter.CalendarTabListAdapter
+import concertrip.sopt.com.concertrip.interfaces.*
 import concertrip.sopt.com.concertrip.dialog.ColorToast
 import concertrip.sopt.com.concertrip.model.CalendarTab
 import concertrip.sopt.com.concertrip.network.ApplicationController
@@ -48,7 +43,42 @@ import retrofit2.Response
 
 
 
-class CalendarFragment : Fragment(), OnItemClick, OnResponse {
+class CalendarFragment : Fragment(), OnItemClick, OnResponse, OnFling {
+    override fun onSwipeRight() {
+        month = (month+11)%12
+        // from 1 to 12
+        Log.d("!!!!!", "swipe right")
+        updateCalendarMonth()
+    }
+
+    override fun onSwipeLeft() {
+        // from 1 to 2
+        month = (month+1)%12
+        Log.d("!!!!!", "swipe left")
+        updateCalendarMonth()
+    }
+
+    fun updateCalendarMonth(){
+        NetworkUtil.getCalendarList(
+            networkService,
+            this,
+            "all",
+            "",
+            year.toString(),
+            (month+1).toString(),
+            null
+        )
+
+        tv_month.setText((month+1).toString()+"월")
+        activity?.let {
+            tv_detail?.text="날짜를 선택해주세요"
+        }
+
+        recycler_view_calendar_detail.visibility = View.GONE
+
+        tabAdapter.selected = 0
+        tabAdapter.notifyDataSetChanged()
+    }
 
     var year: Int  by Delegates.notNull()
     var month: Int by Delegates.notNull()
@@ -77,8 +107,10 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
     private lateinit var calendarAdapter: CalendarListAdapter
     private lateinit var detailAdapter: BasicListAdapter
 
+    //private lateinit var swipeListener: OnSwipeTouchListener
 
     private var listener: OnFragmentInteractionListener? = null
+
 
     private val networkService: NetworkService by lazy {
         ApplicationController.instance.networkService
@@ -93,7 +125,6 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
 
             activity?.let {
             tv_detail?.text="날짜를 선택해주세요"
-
             }
             clearDetailList()
 
@@ -106,7 +137,7 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
                 dataListTag[position].type,
                 dataListTag[position]._id,
                 year.toString(),
-                month.toString(),
+                (month+1).toString(),
                 null
             )
 
@@ -134,7 +165,7 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
                         dataListTag[tabAdapter.selected].type,
                         dataListTag[tabAdapter.selected]._id,
                         year.toString(),
-                        month.toString(),
+                        (month+1).toString(),
                         dayList[position]
                     )
                 }
@@ -232,13 +263,17 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
                 "all",
                 "",
                 year.toString(),
-                month.toString(),
+                (month+1).toString(),
                 null
             )
             //TODO CALENDAR 스와이프
-            //recycler_view_calendar.setOnTouchListener(OnSwipeTouchListener(it.applicationContext))
+            recycler_view_calendar.setOnTouchListener(OnSwipeTouchListener(it.applicationContext, this)) // >> e1이 null, onDown이 호출되지 않음
+//            recycler_view_calendar.dispatchTouchEvent()
             //tv_month.setOnTouchListener(OnSwipeTouchListener(it.applicationContext))
-            stub.setOnTouchListener(OnSwipeTouchListener(it.applicationContext))
+            //stub.setOnTouchListener(OnSwipeTouchListener(it.applicationContext))
+            //swipeListener = OnSwipeTouchListener(it.applicationContext)
+
+            //stub.setOnTouchListener(swipeListener)
         }
 
 
@@ -249,7 +284,7 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
     private fun setCalendarUI(year: String, month: String) {
         //iv_month.setImageResource(monthImgList[month.toInt() - 1])
 
-        tv_month.setText(month.toString()+"월")
+        tv_month.setText((month+1).toString()+"월")
     }
 
     private fun makeDayList(): ArrayList<String> {
@@ -270,7 +305,7 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
 
         year = curYearFormat.format(date).toInt()
 
-        month = curMonthFormat.format(date).toInt()
+        month = curMonthFormat.format(date).toInt()-1
         setCalendarUI(year.toString(), month.toString())
 
         //gridview 요일 표시
@@ -307,7 +342,7 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
     }
 
     private fun setCalendarDate(dayList: ArrayList<String>, month: Int) {
-        mCal.set(Calendar.MONTH, month - 1);
+        mCal.set(Calendar.MONTH, month /*- 1*/);
         for (i in 0 until mCal.getActualMaximum(Calendar.DAY_OF_MONTH)) {
             dayList.add("" + (i + 1))
         }
@@ -322,8 +357,6 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
         dataListDetail.clear()
         dataListDetail.addAll(list)
         detailAdapter.notifyDataSetChanged()
-
-
     }
 
     private fun emptyResult(){
@@ -402,6 +435,5 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
         super.onDetach()
         listener = null
     }
-
 
 }
