@@ -75,70 +75,106 @@
 
 
             <LinearLayout
-                    android:orientation="horizontal"
-                    android:weightSum="10"
-                    android:paddingHorizontal="28dp"
-                    android:background="@drawable/ic_ticket"
-                    android:paddingVertical="28dp"
-                    android:layout_width="328dp"
-                    android:layout_height="151dp">
+                    android:id="@+id/ly_ticket_ac"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
                 <LinearLayout
-                        android:layout_weight="7"
-                        android:orientation="vertical"
-                        android:layout_gravity="center_vertical"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-                    <TextView
-                            android:id="@+id/tv_ticket_title"
-                            android:text="더 몬스터 페스티벌"
-                            tools:text="더 몬스터 페스티벌"
-                            android:textColor="@color/textTicket"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                        android:orientation="horizontal"
+                        android:weightSum="10"
+                        android:paddingHorizontal="28dp"
+                        android:background="@drawable/ic_ticket"
+                        android:paddingVertical="28dp"
+                        android:layout_width="328dp"
+                        android:layout_height="151dp">
                     <LinearLayout
-                            android:paddingTop="18dp"
-                            android:orientation="horizontal"
+                            android:layout_weight="7"
+                            android:orientation="vertical"
+                            android:layout_gravity="center_vertical"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
                         <TextView
-                                android:text="@string/txt_li_ticket_place"
+                                android:id="@+id/tv_ticket_title"
+                                android:text="더 몬스터 페스티벌"
+                                tools:text="더 몬스터 페스티벌"
                                 android:textColor="@color/textTicket"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
-                        <TextView
-                                android:id="@+id/tv_ticket_place"
-                                android:text="성남아트센터"
-                                tools:text="성남아트센터"
-                                android:textColor="@color/textTicket"
+                        <LinearLayout
+                                android:paddingTop="18dp"
+                                android:orientation="horizontal"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-                    </LinearLayout>
-                    <LinearLayout
-                            android:orientation="horizontal"
-                            android:paddingTop="0.3dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-                        <TextView
-                                android:text="@string/txt_li_ticket_date"
-                                android:textColor="@color/textTicket"
+                                android:layout_height="wrap_content">
+                            <TextView
+                                    android:text="@string/txt_li_ticket_place"
+                                    android:textColor="@color/textTicket"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                            <TextView
+                                    android:id="@+id/tv_ticket_place"
+                                    android:text="성남아트센터"
+                                    tools:text="성남아트센터"
+                                    android:textColor="@color/textTicket"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                        <LinearLayout
+                                android:orientation="horizontal"
+                                android:paddingTop="0.3dp"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-                        <TextView
-                                android:id="@+id/tv_ticket_date"
-                                android:text="2018.12.23(월)"
-                                tools:text="2018.12.23(월)"
-                                android:textColor="@color/textTicket"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-                    </LinearLayout>
+                                android:layout_height="wrap_content">
+                            <TextView
+                                    android:text="@string/txt_li_ticket_date"
+                                    android:textColor="@color/textTicket"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                            <TextView
+                                    android:id="@+id/tv_ticket_date"
+                                    android:text="2018.12.23(월)"
+                                    tools:text="2018.12.23(월)"
+                                    android:textColor="@color/textTicket"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                        </LinearLayout>
 
+                    </LinearLayout>
+                    <ImageView
+                            android:layout_weight="3"
+                            android:src="@drawable/ic_account_circle"
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"/>
                 </LinearLayout>
-                <ImageView
-                        android:layout_weight="3"
-                        android:src="@drawable/ic_account_circle"
-                        android:layout_width="60dp"
+                <TextView
+                        android:layout_marginTop="10dp"
+                        android:text="전체보기"
+                        android:textSize="10sp"
+                        android:textColor="@color/white"
+                        android:lineSpacingExtra="5sp"
+                        android:layout_gravity="right"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
             </LinearLayout>
+
+            <RelativeLayout
+                    android:id="@+id/ry_ticket_empty"
+                    android:visibility="visible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                <ImageView
+                        android:background="@drawable/ic_ticket_empty"
+                        android:layout_width="328dp"
+                        android:layout_height="151dp"/>
+                <TextView
+                        android:text="아직 구매한 티켓이 없습니다"
+                        android:textSize="15sp"
+                        android:textColor="@color/white"
+                        android:layout_centerInParent="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+            </RelativeLayout>
+
+
 
             <TextView
                     android:layout_marginTop="55.7dp"

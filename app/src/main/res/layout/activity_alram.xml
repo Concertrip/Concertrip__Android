@@ -23,7 +23,7 @@
                 android:scaleType="fitXY"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginEnd="21dp"
+                android:layout_marginEnd="7.9dp"
         />
 
         <TextView
@@ -32,7 +32,7 @@
                 android:textSize="24sp"
                 android:textColor="@color/white"
                 android:includeFontPadding="false"
-                android:gravity="center"
+
                 android:text="@string/txt_notification"
                 android:textStyle="bold"
         />

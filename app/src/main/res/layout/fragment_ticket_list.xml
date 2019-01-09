@@ -13,18 +13,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-
         <Button
                 android:id="@+id/btn_ticket_list_back"
                 android:background="@drawable/back_arrow"
+                android:layout_gravity="center_vertical"
                 android:layout_width="30dp"
                 android:layout_height="30dp"/>
 
         <TextView
                 android:text="@string/txt_ticket"
                 android:textSize="24sp"
+                android:layout_gravity="center"
                 android:textColor="@color/white"
-                android:layout_marginLeft="17dp"
+                android:layout_marginLeft="19.9dp"
                 android:textStyle="bold"
                 android:paddingVertical="25dp"
                 android:layout_width="wrap_content"

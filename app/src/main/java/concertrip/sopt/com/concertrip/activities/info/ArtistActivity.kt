@@ -173,6 +173,10 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
 
         }
 
+        btn_back.setOnClickListener {
+            finish()
+        }
+
     }
 
     private fun toggleFollowBtn(b: Boolean) {

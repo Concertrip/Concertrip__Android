@@ -17,16 +17,18 @@
         <Button
                 android:id="@+id/btn_ticket_list_back"
                 android:background="@drawable/back_arrow"
-                android:layout_width="21dp"
-                android:layout_height="21dp"/>
+                android:layout_gravity="center"
+                android:layout_width="30dp"
+                android:layout_height="30dp"/>
 
         <TextView
                 android:text="설정"
                 android:textSize="24sp"
                 android:textColor="@color/white"
-                android:layout_marginStart="17dp"
+                android:layout_marginStart="6.9dp"
                 android:textStyle="bold"
                 android:paddingVertical="25dp"
+                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 

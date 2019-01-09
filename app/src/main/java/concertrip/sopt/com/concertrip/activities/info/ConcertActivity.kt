@@ -155,6 +155,10 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
         btn_follow.setOnClickListener {
             NetworkUtil.subscribeConcert(networkService, this, concertId)
         }
+
+        btn_back.setOnClickListener {
+            finish()
+        }
     }
 
     private fun updateArtistList(list : ArrayList<Artist>){
