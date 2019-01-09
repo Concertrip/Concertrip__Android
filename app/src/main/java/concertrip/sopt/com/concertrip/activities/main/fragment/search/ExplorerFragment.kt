@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 
 import concertrip.sopt.com.concertrip.R
+import concertrip.sopt.com.concertrip.dialog.ColorToast
 import concertrip.sopt.com.concertrip.interfaces.ListData
 import concertrip.sopt.com.concertrip.interfaces.OnFragmentInteractionListener
 import concertrip.sopt.com.concertrip.interfaces.OnItemClick
@@ -62,8 +63,12 @@ class ExplorerFragment : Fragment(), OnItemClick ,OnResponse{
         activity?.progress_bar?.visibility=View.GONE
         if(status== Secret.NETWORK_NO_DATA)
             updateDataList(ArrayList<ListData>())
-        else
-            Toast.makeText(activity!!.applicationContext,"실패",Toast.LENGTH_SHORT).show()
+        else{
+            activity?.let {
+                ColorToast(it.applicationContext,"실패")
+            }
+        }
+
     }
 
     var dataList = arrayListOf<ListData>()

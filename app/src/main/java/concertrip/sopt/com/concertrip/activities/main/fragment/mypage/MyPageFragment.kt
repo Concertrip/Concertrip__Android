@@ -83,13 +83,17 @@ class MyPageFragment : Fragment(), OnItemClick, OnFragmentInteractionListener, O
                     val tickList = it.toTicketList()
 
                     if (tickList.isNotEmpty()) {
+                        ry_ticket_empty.visibility = View.GONE
+                        ly_ticket_ac.visibility = View.VISIBLE
+
                         val ticketInfo = tickList[0]
                         tv_ticket_title.text = ticketInfo.name
                         tv_ticket_place.text = ticketInfo.location
                         tv_ticket_date.setText(ticketInfo.date)
 
                     }else{
-
+                        ly_ticket_ac.visibility = View.GONE
+                        ry_ticket_empty.visibility = View.VISIBLE
                     }
 
                 } else {

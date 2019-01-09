@@ -13,6 +13,7 @@ import com.bumptech.glide.request.RequestOptions
 import concertrip.sopt.com.concertrip.R
 import concertrip.sopt.com.concertrip.activities.info.ArtistActivity
 import concertrip.sopt.com.concertrip.activities.info.ConcertActivity
+import concertrip.sopt.com.concertrip.dialog.ColorToast
 import concertrip.sopt.com.concertrip.interfaces.BasicListViewHolder
 import concertrip.sopt.com.concertrip.interfaces.ListData
 import concertrip.sopt.com.concertrip.interfaces.OnItemClick
@@ -48,8 +49,7 @@ class BasicListAdapter(
                     val artist = dataList[position] as Artist
                     artist.subscribe = !artist.subscribe
 
-                    Toast.makeText(mContext, obj.message, Toast.LENGTH_LONG).show()
-
+                    ColorToast(mContext,obj.message?:"")
                     notifyDataSetChanged()
 
                 }
@@ -58,7 +58,7 @@ class BasicListAdapter(
                     concert.subscribe = !concert.subscribe
 
 
-                    Toast.makeText(mContext, obj.message, Toast.LENGTH_LONG).show()
+                    ColorToast(mContext,obj.message?:"")
 
                     notifyDataSetChanged()
                 }
@@ -66,7 +66,7 @@ class BasicListAdapter(
                     val genre = dataList[position] as Genre
                     genre.subscribe = !genre.subscribe
 
-                    Toast.makeText(mContext, obj.message, Toast.LENGTH_LONG).show()
+                    ColorToast(mContext,obj.message?:"")
                     notifyDataSetChanged()
                 }
 
@@ -75,7 +75,7 @@ class BasicListAdapter(
     }
 
     override fun onFail(status: Int) {
-        Toast.makeText(mContext, "인터넷을 다시 확인해주세요.", Toast.LENGTH_SHORT).show()
+        ColorToast(mContext.applicationContext, "인터넷을 다시 확인해주세요.")
     }
 
     private val networkService: NetworkService by lazy {

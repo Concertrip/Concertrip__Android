@@ -21,6 +21,7 @@ import android.util.Log
 import android.view.*
 import concertrip.sopt.com.concertrip.activities.main.fragment.calendar.adapter.CalendarTabListAdapter
 import concertrip.sopt.com.concertrip.interfaces.*
+import concertrip.sopt.com.concertrip.dialog.ColorToast
 import concertrip.sopt.com.concertrip.model.CalendarTab
 import concertrip.sopt.com.concertrip.network.ApplicationController
 import concertrip.sopt.com.concertrip.network.NetworkService
@@ -142,8 +143,11 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse, OnFling {
 
         } else if (root is CalendarListAdapter) {
             if(dataListTag.size==0){
-                activity?.toast("정보를 받아오는 중입니다.")
-                return
+                //activity?.toast("정보를 받아오는 중입니다.")
+                activity?.let{
+                    ColorToast(it.applicationContext,"정보를 받아오는 중입니다.")
+                    return
+                }
             }
             if (calendarAdapter.selected == -1) {
 //                clearDetailList()

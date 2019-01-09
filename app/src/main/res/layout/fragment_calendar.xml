@@ -19,14 +19,6 @@
                         android:layout_marginTop="22.4dp"
                         android:layout_marginBottom="12dp">
 
-
-            <!--<ImageView-->
-            <!--android:id="@+id/iv_month"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="25dp"-->
-            <!--android:src="@drawable/m_1"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--/>-->
             <TextView
                     android:id="@+id/tv_month"
                     android:layout_width="wrap_content"

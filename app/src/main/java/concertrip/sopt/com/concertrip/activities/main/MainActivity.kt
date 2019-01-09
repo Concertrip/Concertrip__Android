@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.properties.Delegates
 import concertrip.sopt.com.concertrip.R
 import concertrip.sopt.com.concertrip.activities.main.adapter.MainFragmentAdapter
+import concertrip.sopt.com.concertrip.dialog.ColorToast
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.FRAGMENT_CALENDAR
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.FRAGMENT_EXPLORER
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.FRAGMENT_LIKED
@@ -70,6 +71,7 @@ class MainActivity : AppCompatActivity() , OnFragmentInteractionListener {
                 }
             }
         })
+
 //        fragmentAdapter.fragmentManager.addOnBackStackChangedListener {
 //
 //            val i : Int = supportFragmentManager.backStackEntryCount;
@@ -112,7 +114,7 @@ class MainActivity : AppCompatActivity() , OnFragmentInteractionListener {
             }
 
             this.doubleBackToExitPressedOnce = true
-            Toast.makeText(this, getString(R.string.message_double_back_exit), Toast.LENGTH_SHORT).show()
+            ColorToast(this,getString(R.string.message_double_back_exit))
 
             Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
         }
