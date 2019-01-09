@@ -3,13 +3,21 @@ package concertrip.sopt.com.concertrip.network.response.data
 import concertrip.sopt.com.concertrip.model.Alarm
 
 data class AlarmData(
-    var txt : String,
-    var data : String
+    var id : Int,
+    var userIdx : Int,
+    var title : String,
+    var body : String,
+    var createdAt : String
 ){
-    fun toAlarm() : Alarm = Alarm("","","")
+//    constructor(id: Int): this(id,"","","", "")
 
-    override fun toString(): String ="AlarmData{\n" +
-            "txt : $txt\n" +
-            "data : $data\n" +
+    fun toAlarm() : Alarm = Alarm(title,body,"")
+
+    override fun toString(): String ="AlarmListData{\n" +
+            "id : ${id.toString()}\n" +
+            "userIdx : ${userIdx.toString()}\n" +
+            "title : ${title.toString()}\n" +
+            "body : ${body.toString()}\n" +
+            "createdAt : ${createdAt.toString()}\n" +
             "}"
 }

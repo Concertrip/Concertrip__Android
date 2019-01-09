@@ -61,7 +61,11 @@ class MyPageFragment : Fragment(), OnItemClick, OnFragmentInteractionListener, O
 
 
     private fun initialUI() {
-        btn_setting.setOnClickListener {
+//        btn_setting.setOnClickListener {
+//            listener?.changeFragment(Constants.FRAGMENT_TICKET_LIST)
+//        }
+
+        tv_more_info.setOnClickListener{
             listener?.changeFragment(Constants.FRAGMENT_TICKET_LIST)
         }
 
@@ -94,6 +98,8 @@ class MyPageFragment : Fragment(), OnItemClick, OnFragmentInteractionListener, O
                     }else{
                         ly_ticket_ac.visibility = View.GONE
                         ry_ticket_empty.visibility = View.VISIBLE
+
+                        iv_empty_ticket.setAlpha(50)
                     }
 
                 } else {

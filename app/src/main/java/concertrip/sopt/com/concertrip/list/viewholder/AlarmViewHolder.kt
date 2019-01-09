@@ -24,7 +24,7 @@ class AlarmViewHolder(itemView:View) :RecyclerView.ViewHolder(itemView), BasicLi
 
     var ivImg : ImageView = itemView.findViewById(R.id.item_alarm_img)
     var tvtitle : TextView = itemView.findViewById(R.id.item_alarm_title)
-    var tvdate : TextView = itemView.findViewById(R.id.item_alarm_date)
+    var tvBody : TextView = itemView.findViewById(R.id.item_alarm_body)
 
 
 }
