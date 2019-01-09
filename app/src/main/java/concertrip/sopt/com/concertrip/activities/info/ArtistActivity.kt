@@ -1,6 +1,7 @@
 package concertrip.sopt.com.concertrip.activities.info
 
 import android.os.Bundle
+import android.os.Handler
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
@@ -113,13 +114,23 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
 
             if ( ::artist.isInitialized) {
                 artist.subscribe = !artist.subscribe
+                toggleFollowBtn(artist.subscribe)
             }
-            toggleFollowBtn(artist.subscribe)
 
-            if (artist.subscribe)
-                showDialog("캘린더에 추가했습니다")
-            else
-                showDialog("구독 취소했습니다")
+//            if (artist.subscribe)
+//                showDialog("캘린더에 추가했습니다")
+//            else
+//                showDialog("구독 취소했습니다")
+
+            if(artist.subscribe){
+                ColorToast(this,getString(R.string.message_double_back_exit))
+                //Handler().postDelayed(2000)
+            }
+            else{
+                ColorToast(this,getString(R.string.message_double_back_exit))
+
+                //Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
+            }
         }
 
     }
