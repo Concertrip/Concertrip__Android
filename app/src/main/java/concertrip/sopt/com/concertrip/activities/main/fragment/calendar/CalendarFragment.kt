@@ -291,7 +291,7 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse, OnFling {
 
     private var mCal: Calendar by Delegates.notNull()
 
-    private fun setCalendarUI(year: String, month: String) {
+    private fun setCalendarUI() {
         //iv_month.setImageResource(monthImgList[month.toInt() - 1])
 
         tv_month.setText((month+1).toString()+"월")
@@ -318,7 +318,7 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse, OnFling {
             month = curMonthFormat.format(date).toInt()-1
         }
 
-        setCalendarUI(year.toString(), month.toString())
+        setCalendarUI()
 
         //gridview 요일 표시
 
