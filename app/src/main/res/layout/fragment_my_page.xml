@@ -193,7 +193,8 @@
                     android:textColor="@color/white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="19dp"/>
+                    android:layout_marginBottom="19dp"
+                    android:layout_marginLeft="16.7dp"/>
             <GridLayout android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:columnCount="4"
