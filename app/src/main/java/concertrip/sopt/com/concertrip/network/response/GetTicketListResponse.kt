@@ -8,30 +8,38 @@ import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
 
 data class GetTicketListResponse(
     @SerializedName("data")
-    var data: List<SimpleTicketData>?
-) : BaseModel(){
+    var data: TicketList?
+) : BaseModel() {
 
 
-    fun toTicketList() : ArrayList<Ticket>{
+    fun toTicketList(): ArrayList<Ticket> {
         val list = ArrayList<Ticket>()
-        data?.forEach {
+        data?.ticketcomming?.forEach {
+            list.add(it.toTicket())
+        }
+        data?.ticketcomplete?.forEach {
             list.add(it.toTicket())
         }
         return list
     }
-  
-      override fun toString(): String {
+
+    override fun toString(): String {
         var result = ""
-        data?.forEach {
-            result=result.plus(it)+","
+        data?.ticketcomming?.forEach {
+            result = result.plus(it) + ","
         }
+        data?.ticketcomplete?.forEach {
+            result = result.plus(it) + ","
+        }
+
         return result
     }
 }
 
-//data class TicketListData(
-//    var tickets : List<SimpleTicketData>?
-//)
+data class TicketList(
+    var ticketcomming: List<SimpleTicketData>?,
+    var ticketcomplete: List<SimpleTicketData>?
+)
 
 
 

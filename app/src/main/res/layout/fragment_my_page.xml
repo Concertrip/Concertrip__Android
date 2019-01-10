@@ -57,21 +57,29 @@
                 android:layout_height="match_parent"
         >
 
-            <TextView
-                    android:paddingHorizontal="16dp"
-                    android:text="@string/txt_my_page_myticket"
-                    android:textSize="17sp"
-                    android:textColor="@color/white"
-                    android:layout_width="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:gravity="bottom"
-                    android:layout_height="44.5dp"/>
+                <TextView
+                        android:paddingHorizontal="16dp"
+                        android:text="@string/txt_my_page_myticket"
+                        android:textSize="17sp"
+                        android:textColor="@color/white"
+                        android:layout_width="wrap_content"
+                        android:layout_marginBottom="25dp"
+                        android:gravity="bottom"
+                        android:layout_height="44.5dp"/>
 
             <LinearLayout android:layout_width="match_parent"
                           android:layout_height="match_parent"
                           android:background="@drawable/ic_back_mypage"
                           android:orientation="vertical"
             >
+            <LinearLayout
+
+                    android:paddingHorizontal="16dp"
+                    android:id="@+id/ly_ticket_ac"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
                 <LinearLayout
 
                         android:paddingHorizontal="16dp"
@@ -163,6 +171,23 @@
                         android:id="@+id/ry_ticket_empty"
                         android:visibility="visible"
                         android:layout_width="wrap_content"
+
+                        android:layout_height="wrap_content"/>
+            </RelativeLayout>
+
+
+
+            <TextView
+                    android:layout_marginTop="55.7dp"
+                    android:text="@string/txt_my_page_payment"
+                    android:textSize="17sp"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="19dp"
+                    android:layout_marginLeft="16.7dp"/>
+            <GridLayout android:layout_width="wrap_content"
+
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal">
                     <ImageView

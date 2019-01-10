@@ -186,6 +186,7 @@ class BasicListAdapter(
                 }
             }
         }
+
         basicHolder.getBtn()?.setOnClickListener {
             when (getItemViewType(position)) {
                 TYPE_ARTIST -> {

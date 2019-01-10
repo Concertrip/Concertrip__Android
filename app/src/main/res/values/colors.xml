@@ -51,8 +51,11 @@
     <color name="purple">#593EFF</color>
     <color name="blue">#1bbbff</color>
 
-    <color name="seat_1">#ff3e3e</color>
-    <color name="seat_2">#1bbbff</color>
+    <color name="seatStanding">#3EBCFF</color>
+    <color name="seatR">#F7DE78</color>
+    <color name="seatS">#A167FF</color>
+    <color name="seatA">#FF9393</color>
+    <color name="seatDefault">#ededed</color>
 
     <color name="tab_mvp">#ff0075</color>
     <color name="tab_liked">#7cfffa</color>

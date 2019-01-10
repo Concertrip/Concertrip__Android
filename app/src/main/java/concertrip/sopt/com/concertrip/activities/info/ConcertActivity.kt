@@ -35,6 +35,7 @@ import concertrip.sopt.com.concertrip.network.NetworkService
 import concertrip.sopt.com.concertrip.network.response.GetConcertResponse
 import concertrip.sopt.com.concertrip.network.response.MessageResponse
 import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
+import concertrip.sopt.com.concertrip.utillity.Constants
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.INTENT_TAG_ID
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.USER_TOKEN
 import concertrip.sopt.com.concertrip.utillity.NetworkUtil
@@ -198,6 +199,8 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
         seatAdapter.notifyDataSetChanged()
     }
 
+    private var LOG_TAG = "/api/concert/detail"
+
     private fun connectRequestData(id : String){
 
         progress_bar.visibility=View.VISIBLE
@@ -207,13 +210,14 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
         {
             override fun onFailure(call: Call<GetConcertResponse>?, t: Throwable?) {
                 progress_bar.visibility=View.GONE
-                Log.v("test0101", "getConcertResponse in onFailure" + t.toString())
+                Log.e(Constants.LOG_NETWORK, "$LOG_TAG $t")
             }
             override fun onResponse(call: Call<GetConcertResponse>?, response: Response<GetConcertResponse>?) {
 
                 progress_bar.visibility=View.GONE
                 response?.let { res->
                     if (res.body()?.status == Secret.NETWORK_SUCCESS) {
+                        Log.d(Constants.LOG_NETWORK, "$LOG_TAG :${response.body().toString()}")
                         res.body()!!.data?.let {
                             concert = it.toConcert()
                             updateArtistList(ArrayList(concert.artistList))
@@ -223,7 +227,7 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
                         }
 
                     } else {
-                        Log.v("test0101", "getConcertResponse in "+ response.body()?.status.toString())
+                        Log.d(Constants.LOG_NETWORK, "$LOG_TAG: fail ${response.body()?.message}")
                     }
                 }
 
