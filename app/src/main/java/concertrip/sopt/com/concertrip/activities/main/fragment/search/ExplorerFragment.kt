@@ -75,6 +75,7 @@ class ExplorerFragment : Fragment(), OnItemClick ,OnResponse{
     var dataListTag = arrayListOf<String>("테마", "보이그룹", "걸그룹","힙합","발라드","R&B","댄스","POP","EDM","인디","재즈","록","댄스");
 
 
+    var selectedTab : Int = 0
     var curSearch = ""
 
     lateinit var tagAdapter: HorizontalListAdapter
@@ -112,7 +113,8 @@ class ExplorerFragment : Fragment(), OnItemClick ,OnResponse{
 //                }
 //                else -> connectRequestData(dataListTag[position])
 //            }
-            connectRequestData(dataListTag[position])
+            selectedTab = position
+            connectRequestData(dataListTag[selectedTab])
         }
 
     }
@@ -147,7 +149,9 @@ class ExplorerFragment : Fragment(), OnItemClick ,OnResponse{
             dataAdapter = BasicListAdapter(it.applicationContext, dataList, this)
             recycler_view.adapter = dataAdapter
 
-            connectRequestData(dataListTag[0])
+            selectedTab = 0
+
+            connectRequestData(dataListTag[selectedTab])
         }
 
     }
@@ -176,6 +180,7 @@ class ExplorerFragment : Fragment(), OnItemClick ,OnResponse{
     override fun onResume() {
         super.onResume()
         //clearListData()
+        connectRequestData(dataListTag[selectedTab])
     }
 
     override fun onAttachFragment(childFragment: Fragment?) {
