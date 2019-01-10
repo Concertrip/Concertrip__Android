@@ -43,8 +43,9 @@
                     android:id="@+id/btn_follow"
                     android:src="@drawable/ic_like"
                     android:layout_marginLeft="14dp"
-                    android:layout_width="21dp"
-                    android:layout_height="19dp"
+                    android:padding="5dp"
+                    android:layout_width="31dp"
+                    android:layout_height="29dp"
                     />
         </LinearLayout>
 </RelativeLayout>
