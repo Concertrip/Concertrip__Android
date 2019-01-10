@@ -14,5 +14,4 @@ data class PrecautionData(
             "code : $code\n" +
             "name : $name\n" +
             "img : $img\n}"
-
 }
