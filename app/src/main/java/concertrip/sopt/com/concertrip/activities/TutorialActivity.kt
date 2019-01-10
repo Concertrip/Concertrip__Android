@@ -8,15 +8,31 @@ import android.util.AttributeSet
 import android.view.View
 import concertrip.sopt.com.concertrip.R
 import concertrip.sopt.com.concertrip.activities.main.MainActivity
+import concertrip.sopt.com.concertrip.interfaces.OnResponse
+import concertrip.sopt.com.concertrip.network.ApplicationController
+import concertrip.sopt.com.concertrip.network.NetworkService
+import concertrip.sopt.com.concertrip.network.response.GetSubscribedResponse
+import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
+import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_GENRE
+import concertrip.sopt.com.concertrip.utillity.NetworkUtil
+import concertrip.sopt.com.concertrip.utillity.NetworkUtil.Companion.getSubscribedList
 
 import kotlinx.android.synthetic.main.activity_tutorial.*
 import org.jetbrains.anko.startActivity
+import retrofit2.Call
 
-class TutorialActivity : AppCompatActivity() {
+class TutorialActivity : AppCompatActivity(), OnResponse {
 
     var clickTest = arrayOf(0,0,0,0,0,0,0,0,0)
 
+    //genreId넣어주기 인트면 다 바꿔줘야함
+   // var genreList = arrayOf(1,2,3,4,5,6,7,8,9)
 
+    var genreList = arrayListOf<String>()
+
+    private val networkService: NetworkService by lazy {
+        ApplicationController.instance.networkService
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,8 +57,28 @@ class TutorialActivity : AppCompatActivity() {
         }
     }
 
+    private fun connectRequestData(){
+        //이걸 각 버튼 누를때마다 통신을 할지 구독하기 버튼을 누르면 한꺼번에 통신을 시킬지 모르겠음
+        var genreId : String = ""
+
+        genreList.forEach {
+            genreId = it
+            NetworkUtil.subscribeGenre(networkService, this, genreId)
+        }
+
+    }
+
+    override fun onSuccess(obj: BaseModel, position: Int?) {
+
+    }
+
+    override fun onFail(status: Int) {
+
+    }
+
     private fun InitialUI(){
         btn_skip.setOnClickListener {
+          //  connectRequestData()
             startActivity<MainActivity>()
             finish()
         }
@@ -58,7 +94,10 @@ class TutorialActivity : AppCompatActivity() {
             {iv_tutorial_click_1.visibility = View.GONE
                 iv_tutorial_noclick_1.visibility =View.VISIBLE}
 
+            //genreList에 아이디 넣어주기
+
             updateUI()
+
         }
 
         btn_tutorial_2.setOnClickListener{
