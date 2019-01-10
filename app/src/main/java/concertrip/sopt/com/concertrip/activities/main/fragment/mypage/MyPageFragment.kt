@@ -69,6 +69,10 @@ class MyPageFragment : Fragment(), OnItemClick, OnFragmentInteractionListener, O
             listener?.changeFragment(Constants.FRAGMENT_TICKET_LIST)
         }
 
+        btn_setting.setOnClickListener {
+            listener?.changeFragment(Constants.FRAGMENT_SETTING)
+        }
+
         activity?.let {
 
             activity?.progress_bar?.visibility = View.VISIBLE
