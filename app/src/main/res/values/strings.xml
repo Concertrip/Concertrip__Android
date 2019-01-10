@@ -23,9 +23,9 @@
     <string name="txt_setting_1">푸시알림 설정</string>
     <string name="txt_setting_2">공지사항</string>
     <string name="txt_setting_3">문의/건의하기</string>
-    <string name="txt_setting_4">서비스 이용약관</string>
-    <string name="txt_setting_5">공연 기획자</string>
-    <string name="txt_setting_6">공연 기획자</string>
+    <string name="txt_setting_4">캘린더 추가 요청하기</string>
+    <string name="txt_setting_5">서비스 이용약관</string>
+    <string name="txt_setting_6">공연 기획사 제휴 문의</string>
     <string name="txt_notification">알림</string>
     <string name="txt_my_page">마이페이지</string>
     <string name="txt_my_page_myticket">내 티켓</string>

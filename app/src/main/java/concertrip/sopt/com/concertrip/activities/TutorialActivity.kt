@@ -2,9 +2,12 @@ package concertrip.sopt.com.concertrip.activities
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity;
 import android.util.AttributeSet
+import android.util.Log
+import android.util.Log.d
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
@@ -14,10 +17,20 @@ import concertrip.sopt.com.concertrip.interfaces.OnResponse
 import concertrip.sopt.com.concertrip.network.ApplicationController
 import concertrip.sopt.com.concertrip.network.NetworkService
 import concertrip.sopt.com.concertrip.network.response.GetSubscribedResponse
+import concertrip.sopt.com.concertrip.network.response.MessageResponse
 import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_GENRE
 import concertrip.sopt.com.concertrip.utillity.NetworkUtil
 import concertrip.sopt.com.concertrip.utillity.NetworkUtil.Companion.getSubscribedList
+import concertrip.sopt.com.concertrip.utillity.Secret.Companion.GENRE_BALADRAB
+import concertrip.sopt.com.concertrip.utillity.Secret.Companion.GENRE_EDM
+import concertrip.sopt.com.concertrip.utillity.Secret.Companion.GENRE_HIPHOP
+import concertrip.sopt.com.concertrip.utillity.Secret.Companion.GENRE_IDOL
+import concertrip.sopt.com.concertrip.utillity.Secret.Companion.GENRE_INDI
+import concertrip.sopt.com.concertrip.utillity.Secret.Companion.GENRE_JAZZ
+import concertrip.sopt.com.concertrip.utillity.Secret.Companion.GENRE_KOREA
+import concertrip.sopt.com.concertrip.utillity.Secret.Companion.GENRE_MUSICPES
+import concertrip.sopt.com.concertrip.utillity.Secret.Companion.GENRE_ROCK
 
 import kotlinx.android.synthetic.main.activity_tutorial.*
 import org.jetbrains.anko.startActivity
@@ -26,6 +39,8 @@ import retrofit2.Call
 class TutorialActivity : AppCompatActivity(), OnResponse {
 
     var clickTest = arrayOf(0, 0, 0, 0, 0, 0, 0, 0, 0)
+    var genreId = arrayOf(GENRE_MUSICPES, GENRE_IDOL, GENRE_HIPHOP, GENRE_BALADRAB,
+        GENRE_KOREA, GENRE_EDM, GENRE_INDI, GENRE_JAZZ, GENRE_ROCK)
 
     lateinit var btnList : Array<LinearLayout>
 
@@ -80,6 +95,15 @@ class TutorialActivity : AppCompatActivity(), OnResponse {
         }
     }
 
+//    private fun connectRequestData(i : Int) {
+//        if (clickTest[i] == 1) {
+//            if (genreId.lastIndex >= i)
+//                NetworkUtil.subscribeGenre(networkService, this, genreId[i], i)
+//        }else{
+//            connectRequestData(i+1)
+//        }
+//    }
+
     private fun connectRequestData() {
         //이걸 각 버튼 누를때마다 통신을 할지 구독하기 버튼을 누르면 한꺼번에 통신을 시킬지 모르겠음
 //        var genreId: String = ""
@@ -89,13 +113,14 @@ class TutorialActivity : AppCompatActivity(), OnResponse {
 //            NetworkUtil.subscribeGenre(networkService, this, genreId)
 //        }
 
-        for (i in 0..btnList.size - 1){
-            if(clickTest[i] == 1) NetworkUtil.subscribeGenre(networkService, this, genreList[i])
+        for (i in 0 until btnList.size){
+            if(clickTest[i] == 1) NetworkUtil.subscribeGenre(networkService, this, genreId[i])
         }
 
     }
 
     override fun onSuccess(obj: BaseModel, position: Int?) {
+
 
     }
 
@@ -105,9 +130,13 @@ class TutorialActivity : AppCompatActivity(), OnResponse {
 
     private fun InitialUI() {
         btn_skip.setOnClickListener {
-            //  connectRequestData()
+            connectRequestData()
             startActivity<MainActivity>()
-            finish()
+
+            Handler().postDelayed({
+                finish()
+            },10000)
+
         }
 
         for (i in 0..btnList.size - 1) {
