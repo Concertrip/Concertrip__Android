@@ -8,10 +8,10 @@ import concertrip.sopt.com.concertrip.R
 import concertrip.sopt.com.concertrip.activities.main.MainActivity
 import kotlinx.android.synthetic.main.activity_splash.*
 import android.os.Looper.loop
+import android.util.Log
 import android.view.View
 import com.airbnb.lottie.LottieAnimationView
-
-
+import com.google.firebase.iid.FirebaseInstanceId
 
 
 class SplashActivity : AppCompatActivity() {
@@ -22,8 +22,9 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 //        setSupportActionBar(toolbar)
 
+        Log.d("~~~~Firebase TOKEN" ,FirebaseInstanceId.getInstance().token)
 
-        //TODO 하영아 여기 로티
+
         val animationView = findViewById<View>(R.id.animation_view) as LottieAnimationView
         animationView.imageAssetsFolder ="images"
         animationView.setAnimation("data.json")

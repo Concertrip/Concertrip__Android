@@ -48,8 +48,14 @@ class BasicListAdapter(
 
                     val artist = dataList[position] as Artist
                     artist.subscribe = !artist.subscribe
+                    val msg = obj.message?:""
 
-                    ColorToast(mContext,obj.message?:"")
+                    if(msg.contains("취소"))
+                        ColorToast(mContext,mContext.getString(R.string.txt_calendar_minus))
+                    else
+                        ColorToast(mContext,mContext.getString(R.string.txt_calendar_added))
+
+
                     notifyDataSetChanged()
 
                 }
@@ -58,7 +64,11 @@ class BasicListAdapter(
                     concert.subscribe = !concert.subscribe
 
 
-                    ColorToast(mContext,obj.message?:"")
+                    val msg = obj.message?:""
+                    if(msg.contains("취소"))
+                        ColorToast(mContext,mContext.getString(R.string.txt_calendar_minus))
+                    else
+                        ColorToast(mContext,mContext.getString(R.string.txt_calendar_added))
 
                     notifyDataSetChanged()
                 }
@@ -66,7 +76,13 @@ class BasicListAdapter(
                     val genre = dataList[position] as Genre
                     genre.subscribe = !genre.subscribe
 
-                    ColorToast(mContext,obj.message?:"")
+
+                    val msg = obj.message?:""
+                    if(msg.contains("취소"))
+                        ColorToast(mContext,mContext.getString(R.string.txt_calendar_minus))
+                    else
+                        ColorToast(mContext,mContext.getString(R.string.txt_calendar_added))
+
                     notifyDataSetChanged()
                 }
 
