@@ -51,7 +51,7 @@ data class ConcertData(
         val seatList = ArrayList<Seat>()
         seatName?.let{
             for(i in 0 until it.size){
-                seatList.add(Seat(seatGrade = it[i], seatPrice = it[i]))
+                seatList.add(Seat(seatGrade = it[i], seatPrice = seatPrice?.get(i)?:"가격 미정"))
             }
         }
         c.seatList = seatList

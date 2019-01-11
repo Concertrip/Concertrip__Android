@@ -32,7 +32,7 @@ class SeatListAdapter (val mContext : Context, var dataList: ArrayList<Seat>) : 
         else holder.vBox.setBackgroundResource(seatColor[dataList[position].seatGrade]!!)
 
         holder.tvGrade.text = dataList[position].seatGrade
-        holder.tvPrice.text = dataList[position].seatPrice
+        holder.tvPrice.text = dataList[position].seatPrice+"원"
     }
 
 }
