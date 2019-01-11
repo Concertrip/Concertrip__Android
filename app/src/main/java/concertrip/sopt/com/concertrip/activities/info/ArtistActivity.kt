@@ -69,7 +69,7 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
 
 
     override fun onItemClick(root: RecyclerView.Adapter<out RecyclerView.ViewHolder>, position: Int) {
-        ColorToast(this.applicationContext, "내 공연에 추가되었습니다!")
+        ColorToast(this, "내 공연에 추가되었습니다!")
 //        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         // 다가오는 공연을 담은 리사이클러뷰를 클릭했을때
         /*TODO 하트 or 종 convert + Toast 바꾸기*/

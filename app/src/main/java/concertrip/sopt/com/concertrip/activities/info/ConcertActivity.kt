@@ -142,17 +142,17 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
 
         scroll_view.smoothScrollTo(0,0)
         scroll_view.viewTreeObserver.addOnScrollChangedListener {
-            val scrollY = scroll_view.getScrollY()
+            val scrollY = scroll_view.scrollY
             if(scrollY > 10 && btn_ticket.visibility == GONE){
                 btn_ticket.visibility = VISIBLE
             }
             else if(scrollY <= 10 && btn_ticket.visibility == VISIBLE){
                 btn_ticket.visibility = GONE
             }
-        };
+        }
 
         btn_ticket.setOnClickListener{
-            showDialog()
+
         }
 
         btn_follow.setOnClickListener {

@@ -20,9 +20,6 @@ import kotlinx.android.synthetic.main.fragment_ticket.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.text.SimpleDateFormat
-import java.util.*
-
 
 class TicketDetailFragment : Fragment() {
 

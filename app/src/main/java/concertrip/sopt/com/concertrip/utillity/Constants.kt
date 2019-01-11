@@ -55,8 +55,6 @@ class Constants {
         const val TYPE_DAY = 1
 
 
-        //테스용 유저 TOKEN값
-
 
     }
 }

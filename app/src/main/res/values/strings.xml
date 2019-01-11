@@ -16,6 +16,9 @@
     <string name="txt_calendar_added">캘린더에 추가되었습니다!</string>
     <string name="txt_calendar_minus">캘린더에 삭제되었습니다!</string>
 
+    <string name="txt_concert_added">내 공연에 추가되었습니다!</string>
+    <string name="txt_concert_minus">내 공연에 삭제되었습니다!</string>
+
     <string name="txt_ticket">내 티켓</string>
     <string name="txt_li_ticket_date">날짜:</string>
     <string name="txt_li_ticket_place">장소:</string>
