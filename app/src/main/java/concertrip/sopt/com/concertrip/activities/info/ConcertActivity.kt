@@ -148,7 +148,7 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
         }
 
         btn_ticket.setOnClickListener{
-
+            NetworkUtil.getPayment(networkService,this,concertId)
         }
 
         btn_follow.setOnClickListener {
@@ -275,16 +275,25 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
 
     override fun onSuccess(obj: BaseModel, position: Int?) {
         if(obj is MessageResponse){
-            concert.subscribe = !concert.subscribe
 
-            btn_follow.setImageDrawable(if (concert.subscribe)getDrawable(R.drawable.ic_header_heart_bell_selected)
-                                        else getDrawable(R.drawable.ic_header_heart_bell_unselected))
-            //iv_small_follow.setImageDrawable(if (artist.subscribe) getDrawable(R.drawable.ic_header_likes_selected) else getDrawable(R.drawable.ic_header_likes_unselected))
 
-            if (concert.subscribe)
-                ColorToast(this, getString(R.string.txt_concert_added))
-            else
-                ColorToast(this, getString(R.string.txt_concert_minus))
+
+            if(obj.message?.contains("구매")==true){
+                ColorToast(this,"공연을 구매하였습니다.")
+                btn_ticket.isEnabled=false
+            }else {
+                concert.subscribe=(obj.message?.contains("취소")==false)
+                btn_follow.setImageDrawable(
+                    if (concert.subscribe) getDrawable(R.drawable.ic_header_heart_bell_selected)
+                    else getDrawable(R.drawable.ic_header_heart_bell_unselected)
+                )
+                //iv_small_follow.setImageDrawable(if (artist.subscribe) getDrawable(R.drawable.ic_header_likes_selected) else getDrawable(R.drawable.ic_header_likes_unselected))
+
+                if (concert.subscribe)
+                    ColorToast(this, getString(R.string.txt_concert_added))
+                else
+                    ColorToast(this, getString(R.string.txt_concert_minus))
+            }
         }
     }
 
