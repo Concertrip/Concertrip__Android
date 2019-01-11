@@ -166,7 +166,81 @@ class TutorialActivity : AppCompatActivity(), OnResponse {
         }
 
 //        btn_tutorial_2.setOnClickListener {
+
+ //           clickTest[1] = 1 - clickTest[1]
+ //       }
+
+//        btn_tutorial_1.setOnClickListener{
+//            clickTest[0] = 1-clickTest[0]
+//
+//            if(clickTest[0] == 1)
+//            {iv_tutorial_click_1.visibility = View.VISIBLE
+//            iv_tutorial_noclick_1.visibility = View.GONE}
+//            else
+//            {iv_tutorial_click_1.visibility = View.GONE
+//                iv_tutorial_noclick_1.visibility =View.VISIBLE}
+//
+//            //genreList에 아이디 넣어주기
+//
+//            updateUI()
+//
+//        }
+//
+//        btn_tutorial_2.setOnClickListener{
+//            clickTest[1] = 1-clickTest[1]
+//
+//            if(clickTest[1] == 1)
+//            {iv_tutorial_click_2.visibility = View.VISIBLE
+//                iv_tutorial_noclick_2.visibility = View.GONE}
+//            else
+//            {iv_tutorial_click_2.visibility = View.GONE
+//                iv_tutorial_noclick_2.visibility =View.VISIBLE}
+//
+//            updateUI()
+//        }
+//
+//
+//        btn_tutorial_3.setOnClickListener{
+//            clickTest[2] = 1-clickTest[2]
+//
+//            if(clickTest[2] == 1)
+//            {iv_tutorial_click_3.visibility = View.VISIBLE
+//                iv_tutorial_noclick_3.visibility = View.GONE}
+//            else
+//            {iv_tutorial_click_3.visibility = View.GONE
+//                iv_tutorial_noclick_3.visibility =View.VISIBLE}
+//
+//            updateUI()
+//        }
+//
+//        btn_tutorial_4.setOnClickListener{
+//            clickTest[3] = 1-clickTest[3]
+//
+//            if(clickTest[3] == 1)
+//            {iv_tutorial_click_4.visibility = View.VISIBLE
+//                iv_tutorial_noclick_4.visibility = View.GONE}
+//            else
+//            {iv_tutorial_click_4.visibility = View.GONE
+//                iv_tutorial_noclick_4.visibility =View.VISIBLE}
+//
+//            updateUI()
+//        }
+//
+//
+//        btn_tutorial_5.setOnClickListener{
+//            clickTest[4] = 1-clickTest[4]
+//
+//            if(clickTest[4] == 1)
+//            {iv_tutorial_click_5.visibility = View.VISIBLE
+//                iv_tutorial_noclick_5.visibility = View.GONE}
+//            else
+//            {iv_tutorial_click_5.visibility = View.GONE
+//                iv_tutorial_noclick_5.visibility =View.VISIBLE}
+//
+//            updateUI()
+
 //            clickTest[1] = 1 - clickTest[1]
+
 //        }
     }
 
