@@ -97,10 +97,12 @@ class TutorialActivity : AppCompatActivity(), OnResponse {
             btn_skip.text = "구독하기"
             iv_tutorial_heart_empty.visibility = View.GONE
             iv_tutorial_heart_activated.visibility = View.VISIBLE
+            btn_skip.setBackgroundResource(R.drawable.shape_skip_activate)
         } else {
             btn_skip.text = "건너뛰기"
             iv_tutorial_heart_activated.visibility = View.GONE
             iv_tutorial_heart_empty.visibility = View.VISIBLE
+            btn_skip.setBackgroundResource(R.drawable.shape_skip)
         }
     }
 

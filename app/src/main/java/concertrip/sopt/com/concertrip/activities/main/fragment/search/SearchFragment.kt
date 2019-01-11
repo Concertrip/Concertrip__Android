@@ -155,7 +155,7 @@ class SearchFragment : Fragment() ,OnResponse{
             activity?.onBackPressed()
         }
         btn_result_add.setOnClickListener {
-            ColorToast(activity?.applicationContext,"$searchTxt 정보 등록을 요청했습니다.")
+            ColorToast(activity?.applicationContext,"'$searchTxt' 정보 등록을 요청했습니다.")
         }
 
     }
