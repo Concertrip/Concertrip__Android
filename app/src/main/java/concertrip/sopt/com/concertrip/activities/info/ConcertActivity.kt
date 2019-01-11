@@ -11,6 +11,7 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.webkit.URLUtil
+import android.widget.ImageView
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
@@ -176,8 +177,10 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
             mGlideRequestManager?.load(concert.backImg)?.into(iv_back)
         if(URLUtil.isValidUrl(concert.profileImg))
             mGlideRequestManager?.load(concert.profileImg)?.apply(RequestOptions.circleCropTransform())?.into(iv_profile)
-        if(URLUtil.isValidUrl(concert.eventInfoImg))
+        if(URLUtil.isValidUrl(concert.eventInfoImg)){
+            //iv_concert_info.setScaleType(ImageView.ScaleType.FIT_XY)
             mGlideRequestManager?.load(concert.eventInfoImg)?.into(iv_concert_info)
+        }
 
         tv_title.text = concert.title
         tv_tag.text  = concert.subscribeNum.toString()
