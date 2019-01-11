@@ -1,6 +1,7 @@
 package concertrip.sopt.com.concertrip.list.adapter
 
 import android.content.Context
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -40,7 +41,7 @@ class TicketListAdapter(val mContext : Context, var dataList : ArrayList<Ticket>
         if(URLUtil.isValidUrl(dataList[position].img)){
             Glide.with(mContext).load(dataList[position].img).into(holder.img)
         }else{
-
+            holder.img.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.ic_ticket_empty))
         }
 
         holder.itemView.setOnClickListener {
