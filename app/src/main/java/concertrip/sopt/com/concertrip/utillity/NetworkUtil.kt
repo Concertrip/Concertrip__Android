@@ -46,12 +46,12 @@ class NetworkUtil {
 
                 override fun onResponse(call: Call<MessageResponse>, response: Response<MessageResponse>) {
                     Log.d(Constants.LOG_NETWORK, response.errorBody()?.string() ?: response.message())
-                    if (response.isSuccessful && response.body()?.status== Secret.NETWORK_SUCCESS) {
+                    if (response.isSuccessful && response.body()?.status == Secret.NETWORK_SUCCESS) {
                         Log.d(Constants.LOG_NETWORK, "$LOG_SUBSCRIBE_ARTIST :${response.body()}")
                         listener?.onSuccess(response.body() as BaseModel, position)
                     } else {
                         Log.d(Constants.LOG_NETWORK, "$LOG_SUBSCRIBE_ARTIST : fail ${response.body()?.message}")
-                        listener?.onFail(response.body()?.status?: Secret.NETWORK_UNKNOWN)
+                        listener?.onFail(response.body()?.status ?: Secret.NETWORK_UNKNOWN)
                     }
                 }
             })
@@ -59,7 +59,7 @@ class NetworkUtil {
 
 
         private const val LOG_SUBSCRIBE_GENRE = "/api/subscribe/genre"
-        fun subscribeGenre(networkService: NetworkService, listener: OnResponse?, _id: String, position: Int?=null) {
+        fun subscribeGenre(networkService: NetworkService, listener: OnResponse?, _id: String, position: Int? = null) {
             val jsonObject = JSONObject()
             jsonObject.put(USGS_REQUEST_URL.JSON_GENRE_ID, _id)
             val gsonObject = JsonParser().parse(jsonObject.toString()) as JsonObject
@@ -78,12 +78,12 @@ class NetworkUtil {
                 override fun onResponse(call: Call<MessageResponse>, response: Response<MessageResponse>) {
                     Log.d(Constants.LOG_NETWORK, response.errorBody()?.string() ?: response.message())
 
-                    if (response.isSuccessful && response.body()?.status==Secret.NETWORK_SUCCESS) {
+                    if (response.isSuccessful && response.body()?.status == Secret.NETWORK_SUCCESS) {
                         Log.d(Constants.LOG_NETWORK, "$LOG_SUBSCRIBE_GENRE :${response.body()}")
                         listener?.onSuccess(response.body() as BaseModel, position)
                     } else {
                         Log.d(Constants.LOG_NETWORK, "$LOG_SUBSCRIBE_GENRE : fail  ${response.body()?.message}")
-                        listener?.onFail(response.body()?.status?:Secret.NETWORK_UNKNOWN)
+                        listener?.onFail(response.body()?.status ?: Secret.NETWORK_UNKNOWN)
                     }
                 }
             })
@@ -91,7 +91,12 @@ class NetworkUtil {
 
 
         private const val LOG_SUBSCRIBE_CONCERT = "/api/subscribe/event"
-        fun subscribeConcert(networkService: NetworkService, listener: OnResponse?, _id: String, position: Int?=null) {
+        fun subscribeConcert(
+            networkService: NetworkService,
+            listener: OnResponse?,
+            _id: String,
+            position: Int? = null
+        ) {
             val jsonObject = JSONObject()
             jsonObject.put(USGS_REQUEST_URL.JSON_CONCERT_ID, _id)
             val gsonObject = JsonParser().parse(jsonObject.toString()) as JsonObject
@@ -110,12 +115,12 @@ class NetworkUtil {
                 override fun onResponse(call: Call<MessageResponse>, response: Response<MessageResponse>) {
                     Log.d(Constants.LOG_NETWORK, response.errorBody()?.string() ?: response.message())
 
-                    if (response.isSuccessful && response.body()?.status==Secret.NETWORK_SUCCESS) {
+                    if (response.isSuccessful && response.body()?.status == Secret.NETWORK_SUCCESS) {
                         Log.d(Constants.LOG_NETWORK, "$LOG_SUBSCRIBE_CONCERT :${response.body()}")
                         listener?.onSuccess(response.body() as BaseModel, position)
                     } else {
                         Log.d(Constants.LOG_NETWORK, "$LOG_SUBSCRIBE_CONCERT: fail  ${response.body()?.message}")
-                        listener?.onFail(response.body()?.status?:Secret.NETWORK_UNKNOWN)
+                        listener?.onFail(response.body()?.status ?: Secret.NETWORK_UNKNOWN)
                     }
                 }
             })
@@ -124,11 +129,11 @@ class NetworkUtil {
 
         private const val LOG_SEARCH = "/api/search"
 
-        fun search(networkService: NetworkService, listener: OnResponse?, tag: String, position: Int?=null) {
+        fun search(networkService: NetworkService, listener: OnResponse?, tag: String, position: Int? = null) {
 
             Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH, GET ? tag=$tag")
 
-            if(tag == "테마"){
+            if (tag == "테마") {
                 val search: Call<GetGenreSearchResponse> = networkService.getGenreSearch(USER_TOKEN, tag)
                 search.enqueue(object : Callback<GetGenreSearchResponse> {
 
@@ -137,7 +142,10 @@ class NetworkUtil {
                         listener?.onFail(Secret.NETWORK_UNKNOWN)
                     }
 
-                    override fun onResponse(call: Call<GetGenreSearchResponse>, response: Response<GetGenreSearchResponse>) {
+                    override fun onResponse(
+                        call: Call<GetGenreSearchResponse>,
+                        response: Response<GetGenreSearchResponse>
+                    ) {
                         Log.d(Constants.LOG_NETWORK, response.errorBody()?.string() ?: response.message())
 
                         if (response.isSuccessful) {
@@ -146,7 +154,7 @@ class NetworkUtil {
                                 if (it.status == Secret.NETWORK_SUCCESS) {
                                     Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH :${response.body().toString()}")
                                     listener?.onSuccess(response.body() as BaseModel, position)
-                                } else{
+                                } else {
                                     Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH: fail  ${response.body()?.message}")
                                     listener?.onFail(response.body()?.status ?: Secret.NETWORK_UNKNOWN)
                                 }
@@ -158,8 +166,7 @@ class NetworkUtil {
                         }
                     }
                 })
-            }
-            else{
+            } else {
                 val search: Call<GetSearchResponse> =
                     networkService.getSearch(USER_TOKEN, tag)
                 search.enqueue(object : Callback<GetSearchResponse> {
@@ -178,7 +185,7 @@ class NetworkUtil {
                                 if (it.status == Secret.NETWORK_SUCCESS) {
                                     Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH :${response.body().toString()}")
                                     listener?.onSuccess(response.body() as BaseModel, position)
-                                } else{
+                                } else {
                                     Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH: fail  ${response.body()?.message}")
                                     listener?.onFail(response.body()?.status ?: Secret.NETWORK_UNKNOWN)
                                 }
@@ -192,7 +199,6 @@ class NetworkUtil {
                 })
             }
         }
-
 
 
         fun getTicketList(networkService: NetworkService, listener: OnResponse?, _id: String) {
@@ -215,7 +221,7 @@ class NetworkUtil {
                             listener?.onSuccess(response.body() as BaseModel, null)
                         } else {
                             Log.d(LOG_NETWORK, "$LOG_GET_TICKET: fail ${response.body()?.message}")
-                            listener?.onFail(response.body()?.status?: Secret.NETWORK_UNKNOWN)
+                            listener?.onFail(response.body()?.status ?: Secret.NETWORK_UNKNOWN)
                         }
                     }
                 }
@@ -223,13 +229,13 @@ class NetworkUtil {
             })
         }
 
-        fun getSubscribedList(networkService: NetworkService, listener: OnResponse?, _id: String, type : Int) {
-            lateinit var getSubscribedResonse : Call<GetSubscribedResponse>
+        fun getSubscribedList(networkService: NetworkService, listener: OnResponse?, _id: String, type: Int) {
+            lateinit var getSubscribedResonse: Call<GetSubscribedResponse>
 
-            when(type){
-                TYPE_ARTIST->getSubscribedResonse = networkService.getSubscribedArtist(USER_TOKEN)
-                TYPE_CONCERT->getSubscribedResonse = networkService.getSubscribedEvent(USER_TOKEN)
-                TYPE_GENRE->getSubscribedResonse = networkService.getSubscribedGenre(USER_TOKEN)
+            when (type) {
+                TYPE_ARTIST -> getSubscribedResonse = networkService.getSubscribedArtist(USER_TOKEN)
+                TYPE_CONCERT -> getSubscribedResonse = networkService.getSubscribedEvent(USER_TOKEN)
+                TYPE_GENRE -> getSubscribedResonse = networkService.getSubscribedGenre(USER_TOKEN)
             }
 
             getSubscribedResonse.enqueue(object : Callback<GetSubscribedResponse> {
@@ -257,22 +263,29 @@ class NetworkUtil {
 
         private const val LOG_CALENDAR_DAY = "/api/calendar/day"
         private const val LOG_CALENDAR_TYPE = "/api/calendar/type"
-        fun getCalendarList(networkService: NetworkService, listener: OnResponse?,
-                            type: String, id:String, year: String, month: String, day: String?=null) {
+        fun getCalendarList(
+            networkService: NetworkService, listener: OnResponse?,
+            type: String, id: String, year: String, month: String, day: String? = null
+        ) {
             val getCalendarResponse: Call<GetCalendarResponse>
             var networkServiceType = TYPE_MONTH
 
-            var LOG_TAG : String =""
-            if(day == null){
+            var LOG_TAG: String = ""
+            if (day == null) {
                 LOG_TAG = LOG_CALENDAR_TYPE
-                Log.d(Constants.LOG_NETWORK, "$LOG_TAG, GET ? type = $type , id = $id , year = $year , month = $month, TOKEN :: $USER_TOKEN")
+                Log.d(
+                    Constants.LOG_NETWORK,
+                    "$LOG_TAG, GET ? type = $type , id = $id , year = $year , month = $month, TOKEN :: $USER_TOKEN"
+                )
                 getCalendarResponse = networkService.getCalendarList(USER_TOKEN, type, id, year, month)
-            }
-            else{
-                LOG_TAG= LOG_CALENDAR_DAY
+            } else {
+                LOG_TAG = LOG_CALENDAR_DAY
                 networkServiceType = TYPE_DAY
-                Log.d(Constants.LOG_NETWORK, "$LOG_TAG, GET ? type = $type , id = $id , year = $year , month = $month, day = $day, , TOKEN :: $USER_TOKEN\"")
-                getCalendarResponse = networkService.getCalendarDayList(USER_TOKEN, type, id, year, month,day)
+                Log.d(
+                    Constants.LOG_NETWORK,
+                    "$LOG_TAG, GET ? type = $type , id = $id , year = $year , month = $month, day = $day, , TOKEN :: $USER_TOKEN\""
+                )
+                getCalendarResponse = networkService.getCalendarDayList(USER_TOKEN, type, id, year, month, day)
             }
 
             getCalendarResponse.enqueue(object : Callback<GetCalendarResponse> {
@@ -289,12 +302,54 @@ class NetworkUtil {
                             listener?.onSuccess(response.body() as BaseModel, networkServiceType)
                         } else {
                             Log.d(Constants.LOG_NETWORK, "$LOG_TAG: fail ${response.body()?.message}")
-                            listener?.onFail(response.body()?.status?: Secret.NETWORK_UNKNOWN)
+                            listener?.onFail(response.body()?.status ?: Secret.NETWORK_UNKNOWN)
                         }
                     }
                 }
 
             })
+        }
+
+        private const val LOG_PAYMENT = "/api/payment"
+        fun getPayment(
+            networkService: NetworkService, listener: OnResponse?,
+            consertId: String
+        ) {
+
+            val getPayment: Call<MessageResponse>
+
+            val LOG_TAG = LOG_PAYMENT
+
+
+            val jsonObject = JSONObject()
+            jsonObject.put(USGS_REQUEST_URL.JSON_EVENT_ID, consertId)
+            val gsonObject = JsonParser().parse(jsonObject.toString()) as JsonObject
+
+            Log.d(Constants.LOG_NETWORK, "$LOG_TAG, POST ? consertId = $consertId, TOKEN :: $USER_TOKEN")
+            getPayment = networkService.getPayment(USER_TOKEN, gsonObject)
+
+
+            getPayment.enqueue(object : Callback<MessageResponse> {
+
+                override fun onFailure(call: Call<MessageResponse>, t: Throwable) {
+                    Log.e(Constants.LOG_NETWORK, "$LOG_TAG $t")
+                    listener?.onFail(Secret.NETWORK_UNKNOWN)
+                }
+
+                override fun onResponse(call: Call<MessageResponse>, response: Response<MessageResponse>) {
+                    response.body()?.let {
+                        if (it.status == Secret.NETWORK_SUCCESS) {
+                            Log.d(Constants.LOG_NETWORK, "$LOG_TAG :${response.body().toString()}")
+                            listener?.onSuccess(response.body() as BaseModel, null)
+                        } else {
+                            Log.d(Constants.LOG_NETWORK, "$LOG_TAG: fail ${response.body()?.message}")
+                            listener?.onFail(response.body()?.status ?: Secret.NETWORK_UNKNOWN)
+                        }
+                    }
+                }
+
+            })
+
         }
 
     }
