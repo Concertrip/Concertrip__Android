@@ -7,12 +7,12 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.webkit.URLUtil
-import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import concertrip.sopt.com.concertrip.R
 import concertrip.sopt.com.concertrip.activities.info.ArtistActivity
 import concertrip.sopt.com.concertrip.activities.info.ConcertActivity
+import concertrip.sopt.com.concertrip.dialog.ColorToast
 import concertrip.sopt.com.concertrip.interfaces.BasicListViewHolder
 import concertrip.sopt.com.concertrip.interfaces.ListData
 import concertrip.sopt.com.concertrip.interfaces.OnItemClick
@@ -47,8 +47,13 @@ class BasicListAdapter(
 
                     val artist = dataList[position] as Artist
                     artist.subscribe = !artist.subscribe
+                    val msg = obj.message?:""
 
-                    Toast.makeText(mContext, obj.message, Toast.LENGTH_LONG).show()
+                    if(msg.contains("취소"))
+                        ColorToast(mContext,mContext.getString(R.string.txt_calendar_minus))
+                    else
+                        ColorToast(mContext,mContext.getString(R.string.txt_calendar_added))
+
 
                     notifyDataSetChanged()
 
@@ -58,7 +63,11 @@ class BasicListAdapter(
                     concert.subscribe = !concert.subscribe
 
 
-                    Toast.makeText(mContext, obj.message, Toast.LENGTH_LONG).show()
+                    val msg = obj.message?:""
+                    if(msg.contains("취소"))
+                        ColorToast(mContext,mContext.getString(R.string.txt_concert_minus))
+                    else
+                        ColorToast(mContext,mContext.getString(R.string.txt_concert_added))
 
                     notifyDataSetChanged()
                 }
@@ -66,7 +75,13 @@ class BasicListAdapter(
                     val genre = dataList[position] as Genre
                     genre.subscribe = !genre.subscribe
 
-                    Toast.makeText(mContext, obj.message, Toast.LENGTH_LONG).show()
+
+                    val msg = obj.message?:""
+                    if(msg.contains("취소"))
+                        ColorToast(mContext,mContext.getString(R.string.txt_calendar_minus))
+                    else
+                        ColorToast(mContext,mContext.getString(R.string.txt_calendar_added))
+
                     notifyDataSetChanged()
                 }
 
@@ -75,7 +90,7 @@ class BasicListAdapter(
     }
 
     override fun onFail(status: Int) {
-        Toast.makeText(mContext, "인터넷을 다시 확인해주세요.", Toast.LENGTH_SHORT).show()
+        ColorToast(mContext.applicationContext, "인터넷을 다시 확인해주세요.")
     }
 
     private val networkService: NetworkService by lazy {
@@ -154,7 +169,6 @@ class BasicListAdapter(
         basicHolder.getMainTitle().text = dataList[position].getMainTitle()
         basicHolder.getSubTitle()?.text = dataList[position].getSubTitle()
         if (URLUtil.isValidUrl(dataList[position].getImageUrl())) {
-            /*TODO 터지면 GlideRequestManager 달기*/
             Glide.with(mContext).load(dataList[position].getImageUrl()).apply(RequestOptions.circleCropTransform())
                 .into(holder.getIvIcon())
         } else {
@@ -186,6 +200,7 @@ class BasicListAdapter(
                 }
             }
         }
+
         basicHolder.getBtn()?.setOnClickListener {
             when (getItemViewType(position)) {
                 TYPE_ARTIST -> {

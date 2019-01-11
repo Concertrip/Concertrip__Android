@@ -3,8 +3,7 @@ package concertrip.sopt.com.concertrip.network
 import com.google.gson.JsonObject
 import concertrip.sopt.com.concertrip.network.response.GetArtistResponse
 import concertrip.sopt.com.concertrip.network.response.*
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
+import concertrip.sopt.com.concertrip.network.response.data.AlarmData
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -16,7 +15,7 @@ interface NetworkService {
     @POST("/api/subscribe/artist")
     @Headers("Content-Type:application/json")
     fun postSubScribeArtist(
-        @Header("Authorization") token: Int,
+        @Header("Authorization") token: String,
         @Body() body : JsonObject
     ):Call<MessageResponse>
 
@@ -24,7 +23,7 @@ interface NetworkService {
     @POST("/api/subscribe/genre")
     @Headers("Content-Type:application/json")
     fun postSubscribeGenre(
-        @Header("Authorization") token: Int,
+        @Header("Authorization") token: String,
         @Body() body : JsonObject
     ):Call<MessageResponse>
     //---------------------------------------
@@ -33,7 +32,7 @@ interface NetworkService {
     @POST("/api/subscribe/event")
     @Headers("Content-Type:application/json")
     fun postSubscribeConcert(
-        @Header("Authorization") token: Int,
+        @Header("Authorization") token: String,
         @Body() body : JsonObject
     ):Call<MessageResponse>
 
@@ -43,7 +42,7 @@ interface NetworkService {
     @GET("/api/event/detail")
     @Headers("Content-Type:application/json")
     fun getEvent(
-        @Header("Authorization") token : Int,
+        @Header("Authorization") token : String,
         @Query("id") id : String
     ) : Call<GetConcertResponse>
     //-----------------------------------------
@@ -52,7 +51,7 @@ interface NetworkService {
     @GET("/api/artist/detail")
     @Headers("Content-Type:application/json")
     fun getArtist(
-        @Header("Authorization") token : Int,
+        @Header("Authorization") token : String,
         @Query("id") id : String
     ):Call<GetArtistResponse>
     //-----------------------------------------
@@ -61,7 +60,7 @@ interface NetworkService {
     @GET("/api/genre/detail")
     @Headers("Content-Type:application/json")
     fun getGenre(
-        @Header("Authorization") token : Int,
+        @Header("Authorization") token : String,
         @Query("id") id : String
     ):Call<GetGenreResponse>
     //-----------------------------------------
@@ -70,16 +69,24 @@ interface NetworkService {
     @GET("/api/search")
     @Headers("Content-Type:application/json")
     fun getSearch(
-        @Header("Authorization") token : Int,
+        @Header("Authorization") token : String,
         @Query("tag") tag: String
     ):Call<GetSearchResponse>
+
+    // 테마 검색
+    @GET("/api/search/tab")
+    @Headers("Content-Type:application/json")
+    fun getGenreSearch(
+        @Header("Authorization") token : String,
+        @Query("name") name: String
+    ):Call<GetGenreSearchResponse>
 
     //------------------------------------------
     //*내 티켓 리스트
     @GET("/api/ticket")
     @Headers("Content-Type:application/json")
     fun getTicketList(
-        @Header("Authorization") token : Int
+        @Header("Authorization") token : String
     ):Call<GetTicketListResponse>
 
     //------------------------------------------
@@ -87,28 +94,28 @@ interface NetworkService {
     @GET("/api/subscribe/artist")
     @Headers("Content-Type:application/json")
     fun getSubscribedArtist(
-        @Header("Authorization") token : Int
+        @Header("Authorization") token : String
     ):Call<GetSubscribedResponse>
 
     //*구독 이벤트 리스트
     @GET("/api/subscribe/event")
     @Headers("Content-Type:application/json")
     fun getSubscribedEvent(
-        @Header("Authorization") token : Int
+        @Header("Authorization") token : String
     ):Call<GetSubscribedResponse>
 
     //*구독 장르 리스트
     @GET("/api/subscribe/genre")
     @Headers("Content-Type:application/json")
     fun getSubscribedGenre(
-        @Header("Authorization") token : Int
+        @Header("Authorization") token : String
     ):Call<GetSubscribedResponse>
   
     //*티켓 상세정보
     @GET("/api/ticket/detail")
     @Headers("Content-Type:application/json")
     fun getTicketDetail(
-        @Header("Authorization") token: Int,
+        @Header("Authorization") token: String,
         @Query("id") id: Int
     ):Call<GetTicketDetailResponse>
 
@@ -118,14 +125,14 @@ interface NetworkService {
     @GET("/api/calendar/tab")
     @Headers("Content-Type:application/json")
     fun getCalendarTabList(
-        @Header("Authorization") token: Int
+        @Header("Authorization") token: String
     ):Call<GetCalendarTabResponse>
 
     //*캘린더 리스트
     @GET("/api/calendar/type")
     @Headers("Content-Type:application/json")
     fun getCalendarList(
-        @Header("Authorization") token: Int,
+        @Header("Authorization") token: String,
         @Query("type") type: String,
         @Query("id") id: String?,
         @Query("year") year: String,
@@ -136,11 +143,21 @@ interface NetworkService {
     @GET("/api/calendar/day")
     @Headers("Content-Type:application/json")
     fun getCalendarDayList(
-        @Header("Authorization") token: Int,
+        @Header("Authorization") token: String,
         @Query("type") type: String,
         @Query("id") id: String?,
         @Query("year") year: String,
         @Query("month") month: String,
         @Query("day") day: String
     ):Call<GetCalendarResponse>
+
+//    @GET("/api/fcm/list")
+//    fun getAlarmList(
+//        @Header("Authorization") token: Int
+//    ):Call<GetAlarmListResponse>
+
+    @GET("/api/fcm/list")
+    fun getAlarmList(
+        @Header("Authorization") token: String
+    ):Call<List<AlarmData>>
 }

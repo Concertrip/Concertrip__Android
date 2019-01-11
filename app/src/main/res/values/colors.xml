@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">@color/gradationStart</color>
+    <color name="colorPrimaryDark">@color/gradationMid</color>
+    <color name="colorAccent">@color/mainColor</color>
 
 
     <color name="mainColor">@color/purple</color>
@@ -10,7 +10,13 @@
     <color name="mainColorP">@color/purple</color>
 
 
+    <color name="gradationStart">#0f1017</color>
+    <color name="gradationMid">#101832</color>
+    <color name="gradationEnd">#000329</color>
 
+    <color name="mainTabColor">#000329</color>
+
+    <color name="category">#0F121E</color>
 
     <color name="white">#ffffff</color>
     <color name="white_0_9">#09ffffff</color>
@@ -35,25 +41,22 @@
     <color name="grayDark">#b3b3b3</color>
     <color name="grayLight">#f2f2f2</color>
 
+    <color name="dialogBack">#D9f2f2f2</color>
+
 
     <color name="black">#1e1e1e</color>
     <color name="gray">#777777</color>
     <color name="purple">#593EFF</color>
     <color name="blue">#1bbbff</color>
 
-    <color name="seat_1">#ff3e3e</color>
-    <color name="seat_2">#1bbbff</color>
+    <color name="seatStanding">#3EBCFF</color>
+    <color name="seatR">#F7DE78</color>
+    <color name="seatS">#A167FF</color>
+    <color name="seatA">#FF9393</color>
+    <color name="seatDefault">#ededed</color>
 
-    <color name="tab_1">#f513f5</color>
-    <color name="tab_2">#0065f0</color>
-    <color name="tab_3">#ff98ac</color>
-    <color name="tab_4">#fff7d8</color>
-    <color name="tab_5">#c6deff</color>
-    <color name="tab_6">#f00</color>
-    <color name="tab_7">#0f0</color>
-    <color name="tab_8">#00f</color>
-    <color name="tab_9">#ff0</color>
-    <color name="tab_10">#0ff</color>
+    <color name="tab_mvp">#ff0075</color>
+    <color name="tab_liked">#7cfffa</color>
 
-    <color name="tab_except">#000000</color>
+    <color name="calendarNoti">#0f111c</color>
 </resources>

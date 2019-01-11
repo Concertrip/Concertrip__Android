@@ -21,6 +21,7 @@ data class SimpleConcertData(
         c.profileImg=profileImg
         c.date= arrayListOf()
         c.subscribe= subscribe
+        c.tag=tag
         return c
     }
 

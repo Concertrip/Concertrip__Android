@@ -1,9 +1,15 @@
 package concertrip.sopt.com.concertrip.activities.main
 
 import android.os.Bundle
+import android.os.Handler
 import android.support.design.widget.TabLayout
+import android.support.v4.app.ActivityCompat
 import android.support.v4.app.FragmentManager
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log
+import android.widget.TextView
+import android.widget.Toast
+import com.google.firebase.iid.FirebaseInstanceId
 import concertrip.sopt.com.concertrip.interfaces.OnFragmentInteractionListener
 import concertrip.sopt.com.concertrip.utillity.Constants
 
@@ -11,6 +17,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.properties.Delegates
 import concertrip.sopt.com.concertrip.R
 import concertrip.sopt.com.concertrip.activities.main.adapter.MainFragmentAdapter
+import concertrip.sopt.com.concertrip.dialog.ColorToast
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.FRAGMENT_CALENDAR
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.FRAGMENT_EXPLORER
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.FRAGMENT_LIKED
@@ -28,6 +35,8 @@ class MainActivity : AppCompatActivity() , OnFragmentInteractionListener {
 
 
     var fragmentAdapter : MainFragmentAdapter by Delegates.notNull()
+
+    var regId : String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,34 +74,55 @@ class MainActivity : AppCompatActivity() , OnFragmentInteractionListener {
                 }
             }
         })
-        fragmentAdapter.fragmentManager.addOnBackStackChangedListener {
 
-            val i : Int = supportFragmentManager.backStackEntryCount;
+//        fragmentAdapter.fragmentManager.addOnBackStackChangedListener {
+//
+//            val i : Int = supportFragmentManager.backStackEntryCount;
+//
+//
+//            if(i==0)  fragmentAdapter.setTab(TAB_CALENDAR)
+//            else if (i >0) {
+//                val tt: FragmentManager.BackStackEntry = supportFragmentManager.getBackStackEntryAt(i -1)
+//
+//                when (tt.breadCrumbShortTitleRes) {
+//                    Constants.FRAGMENT_CALENDAR-> {
+//                        fragmentAdapter.setTab(TAB_CALENDAR)
+//                    }
+//                    Constants.FRAGMENT_EXPLORER, Constants.FRAGMENT_SEARCH -> {
+//                        fragmentAdapter.setTab(TAB_SEARCH)
+//                    }
+//                    Constants.TAB_LIKED -> {
+//                        fragmentAdapter.setTab(TAB_LIKED)
+//                    }
+//                    else -> {
+//                        fragmentAdapter.setTab(TAB_MY_PAGE)
+//                    }
+//
+//                }
+//            }
+//        }
 
-            if(i==0)  fragmentAdapter.setTab(TAB_CALENDAR)
-            else if (i >0) {
-                val tt: FragmentManager.BackStackEntry = supportFragmentManager.getBackStackEntryAt(i -1)
-
-                when (tt.breadCrumbShortTitleRes) {
-                    Constants.FRAGMENT_CALENDAR-> {
-                        fragmentAdapter.setTab(TAB_CALENDAR)
-                    }
-                    Constants.FRAGMENT_EXPLORER, Constants.FRAGMENT_SEARCH -> {
-                        fragmentAdapter.setTab(TAB_SEARCH)
-                    }
-                    Constants.TAB_LIKED -> {
-                        fragmentAdapter.setTab(TAB_LIKED)
-                    }
-                    else -> {
-                        fragmentAdapter.setTab(TAB_MY_PAGE)
-                    }
-
-                }
-            }
-        }
-
+        regId = FirebaseInstanceId.getInstance().getToken()
+        Log.d("regId", "token: "+regId.toString())
 
     }
 
+    private var doubleBackToExitPressedOnce = false
+    override fun onBackPressed() {
+        Log.d(" : curFragment Count", fragmentAdapter.fragmentManager.backStackEntryCount.toString())
+        if(fragmentAdapter.fragmentManager.backStackEntryCount>0)
+            super.onBackPressed()
+        else {
+            if (doubleBackToExitPressedOnce) {
+                ActivityCompat.finishAffinity(this)
+                return
+            }
+
+            this.doubleBackToExitPressedOnce = true
+            ColorToast(this,getString(R.string.message_double_back_exit))
+
+            Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
+        }
+    }
 }
 

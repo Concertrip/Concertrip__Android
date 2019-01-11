@@ -59,7 +59,7 @@
                         android:lineSpacingExtra="9sp"
                         android:text="@string/txt_content_concert_detail_info"
                         android:textStyle="bold"
-                        android:layout_marginTop="2.7dp"/>
+                        android:layout_marginTop="18dp"/>
 
                 <TextView
                         android:layout_width="wrap_content"
@@ -76,7 +76,6 @@
                         android:textSize="14sp"
                         android:textColor="@color/textInfo"
                         android:lineSpacingExtra="11sp"
-                        android:text="2018년 12월 23일 (일) 19:00"
                         tools:text="2018년 12월 23일 (일) 19:00"
                         android:layout_marginTop="13.8dp"/>
 
@@ -95,7 +94,6 @@
                         android:textSize="14sp"
                         android:textColor="@color/textInfo"
                         android:lineSpacingExtra="11sp"
-                        android:text="세종대학교 컨벤션센터"
                         android:layout_marginTop="13.8dp"/>
 
                 <TextView
@@ -123,12 +121,13 @@
                         android:lineSpacingExtra="9sp"
                         android:text="@string/txt_content_concert_caution"
                         android:textStyle="bold"
-                        android:layout_marginTop="17.8dp"/>
+                        android:layout_marginTop="18dp"/>
 
                 <android.support.v7.widget.RecyclerView
                         android:id="@+id/recycler_view_caution"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal">
 
                 </android.support.v7.widget.RecyclerView>
 

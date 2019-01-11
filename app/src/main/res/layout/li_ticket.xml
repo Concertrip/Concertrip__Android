@@ -7,6 +7,7 @@
     <LinearLayout android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:orientation="vertical"
+                  android:paddingRight="20dp"
                   android:gravity="center_horizontal">
         <ImageView android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
@@ -26,20 +27,21 @@
     <LinearLayout
             android:orientation="horizontal"
             android:weightSum="10"
-            android:paddingHorizontal="28dp"
+            android:paddingHorizontal="32dp"
             android:paddingVertical="28dp"
-            android:layout_width="wrap_content"
+            android:layout_width="302dp"
+            android:gravity="center_vertical"
             android:background="@drawable/ic_ticket"
-            android:layout_height="wrap_content">
+            android:layout_height="140dp">
         <LinearLayout
-                android:layout_weight="7"
+                android:layout_weight="6.5"
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
             <TextView
                     android:id="@+id/item_ticket_title"
-                    android:text="더 몬스터 페스티벌"
                     tools:text="더 몬스터 페스티벌"
+                    android:textSize="13sp"
                     android:textColor="@color/textTicket"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -50,13 +52,14 @@
                     android:layout_height="wrap_content">
                 <TextView
                         android:text="@string/txt_li_ticket_place"
+                        android:textSize="11sp"
                         android:textColor="@color/textTicket"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                 <TextView
                         android:id="@+id/item_ticket_place"
-                        android:text="성남아트센터"
                         tools:text="성남아트센터"
+                        android:textSize="11sp"
                         android:textColor="@color/textTicket"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
@@ -68,13 +71,14 @@
                     android:layout_height="wrap_content">
                 <TextView
                         android:text="@string/txt_li_ticket_date"
+                        android:textSize="11sp"
                         android:textColor="@color/textTicket"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                 <TextView
                         android:id="@+id/item_ticket_date"
-                        android:text="2018.12.23(월)"
                         tools:text="2018.12.23(월)"
+                        android:textSize="11sp"
                         android:textColor="@color/textTicket"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>

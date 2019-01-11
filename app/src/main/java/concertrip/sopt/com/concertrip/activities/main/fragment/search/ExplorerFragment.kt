@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 
 import concertrip.sopt.com.concertrip.R
+import concertrip.sopt.com.concertrip.dialog.ColorToast
 import concertrip.sopt.com.concertrip.interfaces.ListData
 import concertrip.sopt.com.concertrip.interfaces.OnFragmentInteractionListener
 import concertrip.sopt.com.concertrip.interfaces.OnItemClick
@@ -21,6 +22,7 @@ import concertrip.sopt.com.concertrip.model.Artist
 import concertrip.sopt.com.concertrip.model.Concert
 import concertrip.sopt.com.concertrip.network.ApplicationController
 import concertrip.sopt.com.concertrip.network.NetworkService
+import concertrip.sopt.com.concertrip.network.response.GetGenreSearchResponse
 import concertrip.sopt.com.concertrip.network.response.GetSearchResponse
 import concertrip.sopt.com.concertrip.network.response.data.*
 import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
@@ -32,6 +34,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_explorer.*
 
 class ExplorerFragment : Fragment(), OnItemClick ,OnResponse{
+
     override fun onSuccess(obj: BaseModel, position: Int?) {
 
         activity?.progress_bar?.visibility=View.GONE
@@ -44,6 +47,13 @@ class ExplorerFragment : Fragment(), OnItemClick ,OnResponse{
             list.addAll(explorerRequestData.toGenreList())
             updateDataList(list)
         }
+        else if(obj is GetGenreSearchResponse) {
+            val explorerRequestData: GetGenreSearchResponse = obj as GetGenreSearchResponse
+
+            val list = arrayListOf<ListData>()
+            list.addAll(explorerRequestData.toGenreList())
+            updateDataList(list)
+        }
     }
 
     private var listener: OnFragmentInteractionListener? = null
@@ -53,14 +63,18 @@ class ExplorerFragment : Fragment(), OnItemClick ,OnResponse{
         activity?.progress_bar?.visibility=View.GONE
         if(status== Secret.NETWORK_NO_DATA)
             updateDataList(ArrayList<ListData>())
-        else
-            Toast.makeText(activity!!.applicationContext,"실패",Toast.LENGTH_SHORT).show()
+        else{
+            ColorToast(activity?.applicationContext,"실패")
+
+        }
+
     }
 
     var dataList = arrayListOf<ListData>()
     var dataListTag = arrayListOf<String>("테마", "보이그룹", "걸그룹","힙합","발라드","R&B","댄스","POP","EDM","인디","재즈","록","댄스");
 
 
+    var selectedTab : Int = 0
     var curSearch = ""
 
     lateinit var tagAdapter: HorizontalListAdapter
@@ -92,12 +106,8 @@ class ExplorerFragment : Fragment(), OnItemClick ,OnResponse{
         tagAdapter.setSelect(position)
 
         if(root is HorizontalListAdapter){
-            when (position) {
-                0 -> {  //TODO 테마 선택시 클릭시
-
-                }
-                else -> connectRequestData(dataListTag[position])
-            }
+            selectedTab = position
+            connectRequestData(dataListTag[selectedTab])
         }
 
     }
@@ -132,7 +142,9 @@ class ExplorerFragment : Fragment(), OnItemClick ,OnResponse{
             dataAdapter = BasicListAdapter(it.applicationContext, dataList, this)
             recycler_view.adapter = dataAdapter
 
+            selectedTab = 0
 
+            connectRequestData(dataListTag[selectedTab])
         }
 
     }
@@ -147,7 +159,6 @@ class ExplorerFragment : Fragment(), OnItemClick ,OnResponse{
     private fun clearListData(){
         dataList.clear()
         dataAdapter.notifyDataSetChanged()
-
     }
 
     private fun connectRequestData(tag: String) {
@@ -159,8 +170,14 @@ class ExplorerFragment : Fragment(), OnItemClick ,OnResponse{
         NetworkUtil.search(networkService,this,tag)
     }
 
+    override fun onResume() {
+        super.onResume()
+        //clearListData()
+        connectRequestData(dataListTag[selectedTab])
+    }
+
     override fun onAttachFragment(childFragment: Fragment?) {
         super.onAttachFragment(childFragment)
-        connectRequestData(curSearch)
+        //connectRequestData(curSearch) // 작동안됨
     }
 }

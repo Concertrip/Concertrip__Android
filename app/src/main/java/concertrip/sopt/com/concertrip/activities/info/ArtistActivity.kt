@@ -1,6 +1,7 @@
 package concertrip.sopt.com.concertrip.activities.info
 
 import android.os.Bundle
+import android.os.Handler
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
@@ -14,8 +15,7 @@ import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayerView
 import concertrip.sopt.com.concertrip.R
-import concertrip.sopt.com.concertrip.dialog.CustomDialog
-import concertrip.sopt.com.concertrip.interfaces.OnItemClick
+import concertrip.sopt.com.concertrip.dialog.ColorToast
 import concertrip.sopt.com.concertrip.interfaces.OnResponse
 import concertrip.sopt.com.concertrip.list.adapter.BasicListAdapter
 import concertrip.sopt.com.concertrip.model.Artist
@@ -30,20 +30,19 @@ import concertrip.sopt.com.concertrip.utillity.Constants.Companion.INTENT_ARTIST
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.INTENT_TAG_ID
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_ARTIST
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_CONCERT
-import concertrip.sopt.com.concertrip.utillity.Constants.Companion.USER_TOKEN
 import concertrip.sopt.com.concertrip.utillity.NetworkUtil
 import concertrip.sopt.com.concertrip.utillity.Secret
 import concertrip.sopt.com.concertrip.utillity.Secret.Companion.NETWORK_SUCCESS
+import concertrip.sopt.com.concertrip.utillity.Secret.Companion.USER_TOKEN
 import kotlinx.android.synthetic.main.activity_artist.*
 
 import kotlinx.android.synthetic.main.content_artist.*
 import kotlinx.android.synthetic.main.content_header.*
-import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener, OnItemClick, OnResponse {
+class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener, OnResponse {
 
     private var isGenre: Boolean = true
     private var artistId: String = "5c298b2a3eea39d2b00ca7d4"
@@ -63,15 +62,9 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         ApplicationController.instance.networkService
     }
 
-    public var mGlideRequestManager : RequestManager? = null
+     var mGlideRequestManager : RequestManager? = null
 
 
-    override fun onItemClick(root: RecyclerView.Adapter<out RecyclerView.ViewHolder>, position: Int) {
-        Toast.makeText(this, "내 공연에 추가되었습니다!", Toast.LENGTH_LONG).show()
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        // 다가오는 공연을 담은 리사이클러뷰를 클릭했을때
-        /*TODO 하트 or 종 convert + Toast 바꾸기*/
-    }
 
     private val RECOVERY_DIALOG_REQUEST = 1
 
@@ -94,7 +87,7 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
             val errorMessage = String.format(
                 "There was an error initializing the YouTubePlayer (%1\$s)", youTubeInitializationResult.toString()
             )
-            Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
+            ColorToast(this,errorMessage)
         }
     }
 
@@ -108,24 +101,27 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         progress_bar.visibility=View.GONE
 
         if(obj is MessageResponse) {
-            toast(obj.message.toString())
 
             if ( ::artist.isInitialized) {
                 artist.subscribe = !artist.subscribe
-            }
-            toggleFollowBtn(artist.subscribe)
+                toggleFollowBtn(artist.subscribe)
 
-            if (artist.subscribe)
-                showDialog("캘린더에 추가했습니다")
-            else
-                showDialog("구독 취소했습니다")
+
+                if(artist.subscribe)
+                    ColorToast(this,getString(R.string.txt_calendar_added))
+
+                else
+                    ColorToast(this,getString(R.string.txt_calendar_minus))
+
+            }
         }
 
     }
 
     override fun onFail(status: Int) {
+
         progress_bar.visibility=View.GONE
-//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        ColorToast(this,getString(R.string.txt_try_again))
     }
 
 
@@ -172,21 +168,23 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
 
         }
 
+        btn_back.setOnClickListener {
+            finish()
+        }
+
     }
 
     private fun toggleFollowBtn(b: Boolean) {
         if (b) {
-            btn_follow.setImageDrawable(getDrawable(R.drawable.ic_like))
+            btn_follow.setImageDrawable(getDrawable(R.drawable.ic_header_likes_selected))
+            //iv_small_follow.setImageDrawable(getDrawable(R.drawable.ic_header_likes_selected))
 
         } else {
-            btn_follow.setImageDrawable(getDrawable(R.drawable.ic_unlike))
+            btn_follow.setImageDrawable(getDrawable(R.drawable.ic_header_likes_unselected))
+            //iv_small_follow.setImageDrawable(getDrawable(R.drawable.ic_header_likes_selected)) // 다른 이미지로
         }
     }
 
-    private fun showDialog(txt: String) {
-        val dialog = CustomDialog(this, txt)
-        dialog.show()
-    }
 
 
     private fun updateUI() {
@@ -207,6 +205,8 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
 
 
         btn_follow.setImageDrawable(if (artist.subscribe) getDrawable(R.drawable.ic_header_likes_selected) else getDrawable(R.drawable.ic_header_likes_unselected))
+        //iv_small_follow.setImageDrawable(if (artist.subscribe) getDrawable(R.drawable.ic_header_likes_selected) else getDrawable(R.drawable.ic_header_likes_unselected))
+
 
         if (URLUtil.isValidUrl(artist.backImg))
             mGlideRequestManager?.load(artist.backImg)?.into(iv_back)
@@ -260,6 +260,7 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
                             res.body()!!.data?.let {
                                 Log.d(Constants.LOG_NETWORK, "$LOG_TAG :${response.body().toString()}")
                                 genre = it.toGenre()
+                                artist=genre
 
                                 updateConcertList(ArrayList(genre.concertList))
                                 updateArtistData(genre)
@@ -267,7 +268,9 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
                             }
 
                         } else {
+                            ColorToast(applicationContext, "해당 테마를 찾을 수 없습니다.")
                             Log.d(Constants.LOG_NETWORK, "$LOG_TAG: fail ${response.body()?.message}")
+                            finish()
                         }
                     }
 
@@ -301,7 +304,9 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
                                 updateUI()
                             }
                         } else {
+                            ColorToast(applicationContext, "해당 아티스트를 찾을 수 없습니다.")
                             Log.d(Constants.LOG_NETWORK, "$LOG_TAG: fail ${response.body()?.message}")
+                            finish()
                         }
 
                     }
@@ -312,7 +317,4 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         }
     }
 
-    companion object {
-        fun newInstance(): ArtistActivity = ArtistActivity()
-    }
 }

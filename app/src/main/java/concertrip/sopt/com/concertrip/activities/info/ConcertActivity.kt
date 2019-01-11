@@ -20,6 +20,7 @@ import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayerView
 import concertrip.sopt.com.concertrip.R
+import concertrip.sopt.com.concertrip.dialog.ColorToast
 import concertrip.sopt.com.concertrip.interfaces.OnItemClick
 import concertrip.sopt.com.concertrip.dialog.CustomDialog
 import concertrip.sopt.com.concertrip.interfaces.OnResponse
@@ -34,23 +35,23 @@ import concertrip.sopt.com.concertrip.network.NetworkService
 import concertrip.sopt.com.concertrip.network.response.GetConcertResponse
 import concertrip.sopt.com.concertrip.network.response.MessageResponse
 import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
+import concertrip.sopt.com.concertrip.utillity.Constants
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.INTENT_TAG_ID
-import concertrip.sopt.com.concertrip.utillity.Constants.Companion.USER_TOKEN
 import concertrip.sopt.com.concertrip.utillity.NetworkUtil
 import concertrip.sopt.com.concertrip.utillity.Secret
+import concertrip.sopt.com.concertrip.utillity.Secret.Companion.USER_TOKEN
 import kotlinx.android.synthetic.main.activity_concert.*
 import kotlinx.android.synthetic.main.content_concert.*
 import kotlinx.android.synthetic.main.content_header.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.lang.Exception
+import java.text.SimpleDateFormat
+import java.util.*
 
 
-class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener, OnItemClick, OnResponse {
-    override fun onItemClick(root: RecyclerView.Adapter<out RecyclerView.ViewHolder>, position: Int) {
-        Toast.makeText(this, "내 공연에 추가되었습니다!", Toast.LENGTH_LONG).show()
-        /*TODO 하트 or 종 convert + Toast 바꾸기*/
-    }
+class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener,  OnResponse {
 
     private val RECOVERY_DIALOG_REQUEST = 1
 
@@ -73,7 +74,7 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
             val errorMessage = String.format(
                 "There was an error initializing the YouTubePlayer (%1\$s)", youTubeInitializationResult.toString()
             )
-            Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
+            ColorToast(this,errorMessage)
         }
     }
 
@@ -132,28 +133,30 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
         recycler_view_caution.adapter = cautionAdapter
 
         /*TODO have to implement memberList*/
-
         seatAdapter = SeatListAdapter(this, dataListSeat)
         recycler_view_seat.adapter = seatAdapter
 
         scroll_view.smoothScrollTo(0,0)
         scroll_view.viewTreeObserver.addOnScrollChangedListener {
-            val scrollY = scroll_view.getScrollY() // For ScrollView
-            // DO SOMETHING WITH THE SCROLL COORDINATES
+            val scrollY = scroll_view.scrollY
             if(scrollY > 10 && btn_ticket.visibility == GONE){
                 btn_ticket.visibility = VISIBLE
             }
             else if(scrollY <= 10 && btn_ticket.visibility == VISIBLE){
                 btn_ticket.visibility = GONE
             }
-        };
+        }
 
         btn_ticket.setOnClickListener{
-            showDialog()
+
         }
 
         btn_follow.setOnClickListener {
             NetworkUtil.subscribeConcert(networkService, this, concertId)
+        }
+
+        btn_back.setOnClickListener {
+            finish()
         }
     }
 
@@ -164,8 +167,9 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
     }
 
     private fun updateConcertData(){
-        btn_follow.setImageDrawable(if (concert.subscribe)getDrawable(R.drawable.ic_header_likes_selected)
-                                    else getDrawable(R.drawable.ic_header_likes_unselected))
+        btn_follow.setImageDrawable(if (concert.subscribe)getDrawable(R.drawable.ic_header_heart_bell_selected)
+                                    else getDrawable(R.drawable.ic_header_heart_bell_unselected))
+        //iv_small_follow.setImageDrawable(if (artist.subscribe) getDrawable(R.drawable.ic_header_likes_selected) else getDrawable(R.drawable.ic_header_likes_unselected))
 
         // TODO 구독하기(종) 버튼 설정
         if(URLUtil.isValidUrl(concert.backImg))
@@ -177,9 +181,47 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
 
         tv_title.text = concert.title
         tv_tag.text  = concert.subscribeNum.toString()
+        tv_concert_location.text = concert.location
+
+        var dateStr : String = ""
+
+        concert.date?.forEach {
+            val str = convertDate(it)
+            dateStr= dateStr.plus("$str\n")
+        }
+
+        tv_concert_date.text = dateStr
 
         getYouTubePlayerProvider().initialize(Secret.YOUTUBE_API_KEY, this)
     }
+
+    private fun convertDate(input: String?) : String?{
+        val dayNum : List<String> = listOf("일", "월", "화", "수", "목", "금", "토")
+
+        val convertedDate = StringBuilder()
+
+        if(input != null){
+            try {
+                val dateInfoList = input.split("T")
+                val dateFormat = SimpleDateFormat("yyyy-MM-dd").parse(input.split("T")[0])
+                val instance: Calendar = Calendar.getInstance()
+                instance.setTime(dateFormat)
+                val dayNumIdx = instance.get(Calendar.DAY_OF_WEEK)
+
+                val splitedList = dateInfoList[0].split("-")
+
+                convertedDate.append(splitedList[0] + "." + splitedList[1] + "." + splitedList[2] + "(" + dayNum[dayNumIdx - 1] + ")")
+
+            }catch (e  : Exception){
+                e.printStackTrace()
+            }
+            return convertedDate.toString()
+        }
+        else{
+            return convertedDate.toString()
+        }
+    }
+
 
     private fun updateCautionData(list : ArrayList<Caution>){
         dataListCaution.clear()
@@ -193,6 +235,8 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
         seatAdapter.notifyDataSetChanged()
     }
 
+    private var LOG_TAG = "/api/concert/detail"
+
     private fun connectRequestData(id : String){
 
         progress_bar.visibility=View.VISIBLE
@@ -202,13 +246,14 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
         {
             override fun onFailure(call: Call<GetConcertResponse>?, t: Throwable?) {
                 progress_bar.visibility=View.GONE
-                Log.v("test0101", "getConcertResponse in onFailure" + t.toString())
+                Log.e(Constants.LOG_NETWORK, "$LOG_TAG $t")
             }
             override fun onResponse(call: Call<GetConcertResponse>?, response: Response<GetConcertResponse>?) {
 
                 progress_bar.visibility=View.GONE
                 response?.let { res->
                     if (res.body()?.status == Secret.NETWORK_SUCCESS) {
+                        Log.d(Constants.LOG_NETWORK, "$LOG_TAG :${response.body().toString()}")
                         res.body()!!.data?.let {
                             concert = it.toConcert()
                             updateArtistList(ArrayList(concert.artistList))
@@ -218,7 +263,9 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
                         }
 
                     } else {
-                        Log.v("test0101", "getConcertResponse in "+ response.body()?.status.toString())
+                        ColorToast(applicationContext, "해당 콘서트를 찾을 수 없습니다.")
+                        Log.d(Constants.LOG_NETWORK, "$LOG_TAG: fail ${response.body()?.message}")
+                        finish()
                     }
                 }
 
@@ -230,31 +277,21 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
         if(obj is MessageResponse){
             concert.subscribe = !concert.subscribe
 
-            btn_follow.setImageDrawable(if (concert.subscribe)getDrawable(R.drawable.ic_header_likes_selected)
-                                        else getDrawable(R.drawable.ic_header_likes_unselected))
+            btn_follow.setImageDrawable(if (concert.subscribe)getDrawable(R.drawable.ic_header_heart_bell_selected)
+                                        else getDrawable(R.drawable.ic_header_heart_bell_unselected))
+            //iv_small_follow.setImageDrawable(if (artist.subscribe) getDrawable(R.drawable.ic_header_likes_selected) else getDrawable(R.drawable.ic_header_likes_unselected))
 
             if (concert.subscribe)
-                showDialog("캘린더에 추가했습니다")
+                ColorToast(this, getString(R.string.txt_concert_added))
             else
-                showDialog("구독 취소했습니다")
+                ColorToast(this, getString(R.string.txt_concert_minus))
         }
     }
 
-    private fun showDialog(txt: String) {
-        val dialog = CustomDialog(this, txt)
-        dialog.show()
-    }
 
     override fun onFail(status: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        ColorToast(this,getString(R.string.txt_try_again))
     }
 
-     private fun showDialog(){
-        val dialog = CustomDialog(this)
-        dialog.show()
-    }
 
-    companion object {
-        fun newInstance(): ConcertActivity = ConcertActivity()
-    }
 }

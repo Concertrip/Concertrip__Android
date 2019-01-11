@@ -10,6 +10,7 @@ import android.view.ViewGroup
 
 import concertrip.sopt.com.concertrip.R
 import concertrip.sopt.com.concertrip.interfaces.OnFragmentInteractionListener
+import kotlinx.android.synthetic.main.fragment_setting.*
 
 class SettingFragment : Fragment() {
     private var listener: OnFragmentInteractionListener? = null
@@ -26,6 +27,13 @@ class SettingFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_setting, container, false)
     }
 
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        btn_setting_back.setOnClickListener {
+            activity?.onBackPressed()
+        }
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

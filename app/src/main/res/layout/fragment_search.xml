@@ -7,12 +7,13 @@
               xmlns:app="http://schemas.android.com/apk/res-auto"
                 tools:context=".activities.main.fragment.search.SearchFragment">
     <LinearLayout
-            android:layout_marginTop="8dp"
-            android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="16dp"
             android:orientation="horizontal"
-
+            android:gravity="center_vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="35dp">
         <Button
                 android:id="@+id/btn_back"
                 android:background="@drawable/back_arrow"
@@ -23,22 +24,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_searchbar"
-                android:paddingRight = "16dp"
-                android:paddingLeft = "16dp"
-                android:layout_marginLeft="16dp"
+                android:paddingEnd = "12.6dp"
+                android:paddingStart = "19.7dp"
+                android:layout_marginStart="6.5dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
             <EditText
                     android:id="@+id/edt_search"
                     android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
                     android:textSize="15sp"
                     android:textColor="@color/white"
                     android:layout_width="0dp"
-                    android:backgroundTint="@color/white"
                     android:textCursorDrawable="@color/white"
+                    android:backgroundTint="@android:color/transparent"
                     android:inputType="textShortMessage"
-                    android:layout_height="wrap_content"/>
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:layout_height="35dp"/>
+
             <Button android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:id="@+id/btn_search"
@@ -80,6 +85,7 @@
                         android:id="@+id/recycler_view_artist"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:paddingBottom="10dp"
                         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                 >
                 </android.support.v7.widget.RecyclerView>
@@ -93,7 +99,7 @@
             >
                 <TextView
                         android:id="@+id/tv_theme"
-                        android:layout_marginTop="20dp"
+                        android:paddingTop="40dp"
                         android:text="테마"
                         android:textColor="@color/white"
                         android:textSize="20sp"
@@ -105,6 +111,7 @@
                         android:id="@+id/recycler_view_genre"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:paddingBottom="10dp"
                         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
 
                 >
@@ -117,7 +124,7 @@
             >
                 <TextView
                         android:id="@+id/tv_concert"
-                        android:layout_marginTop="20dp"
+                        android:paddingTop="40dp"
                         android:text="콘서트"
                         android:textColor="@color/white"
                         android:textSize="20sp"
@@ -129,6 +136,7 @@
                         android:id="@+id/recycler_view_concert"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:paddingBottom="10dp"
                         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
 
                 >
@@ -142,7 +150,7 @@
 
     </android.support.v4.widget.NestedScrollView>
     <LinearLayout
-            android:layout_marginVertical="200dp"
+            android:layout_marginTop="211.2dp"
             android:id="@+id/search_result_fail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -152,15 +160,22 @@
                 android:layout_gravity="center"
                 android:text="@string/txt_result_no"
                 android:textColor="@color/white"
+                android:textSize="15sp"
+                android:layout_marginBottom="12.9dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         <Button
                 android:id="@+id/btn_result_add"
-                android:layout_gravity="center"
+                android:layout_gravity="center_horizontal"
                 android:text="@string/txt_result_add"
+                android:includeFontPadding="false"
                 android:textColor="@color/white"
                 android:background="@drawable/shape_searchbar"
+                android:textSize="17sp"
+                android:gravity="center"
+                android:paddingStart="17.3dp"
+                android:paddingEnd="17.9dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="35dp"/>
     </LinearLayout>
 </LinearLayout>

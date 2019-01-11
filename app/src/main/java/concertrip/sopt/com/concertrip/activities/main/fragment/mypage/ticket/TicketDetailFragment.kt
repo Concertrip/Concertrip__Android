@@ -15,19 +15,16 @@ import concertrip.sopt.com.concertrip.network.ApplicationController
 import concertrip.sopt.com.concertrip.network.NetworkService
 import concertrip.sopt.com.concertrip.network.response.GetTicketDetailResponse
 import concertrip.sopt.com.concertrip.utillity.Secret
+import concertrip.sopt.com.concertrip.utillity.Secret.Companion.USER_TOKEN
 import kotlinx.android.synthetic.main.fragment_ticket.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.text.SimpleDateFormat
-import java.util.*
-
 
 class TicketDetailFragment : Fragment() {
 
-    /*TODO
-    * 터치한 티켓의 상세 정보를 보여주도록 해야함
-    * 상세 정보에 뭐가 들어가있는지 확인 및 전달 방법 고려(번들 or 인덱스 or 여러 extraIntent)*/
+//    * 터치한 티켓의 상세 정보를 보여주도록 해야함
+//    * 상세 정보에 뭐가 들어가있는지 확인 및 전달 방법 고려(번들 or 인덱스 or 여러 extraIntent)*/
 
     var dataList = arrayListOf<Ticket>()
     private var ticketId : Int = 1
@@ -71,7 +68,7 @@ class TicketDetailFragment : Fragment() {
     }
 
     private fun connectRequestData(){
-        val getTicketDetailResponse : Call<GetTicketDetailResponse> = networkServicce.getTicketDetail(1, ticketId)
+        val getTicketDetailResponse : Call<GetTicketDetailResponse> = networkServicce.getTicketDetail(USER_TOKEN, ticketId)
 
         getTicketDetailResponse.enqueue(object : Callback<GetTicketDetailResponse>{
             override fun onFailure(call: Call<GetTicketDetailResponse>, t: Throwable) {

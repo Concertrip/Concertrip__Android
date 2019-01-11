@@ -37,6 +37,8 @@ class LikedFragment : Fragment(), View.OnClickListener, OnResponse {
     var dataList = ArrayList<ListData>()
     lateinit var adapter: BasicListAdapter
 
+    var curState : Int = TYPE_ARTIST
+
     private val networkService: NetworkService by lazy {
         ApplicationController.instance.networkService
     }
@@ -89,12 +91,15 @@ class LikedFragment : Fragment(), View.OnClickListener, OnResponse {
         if (activity?.progress_bar?.visibility == View.VISIBLE) return
         when (view.id) {
             R.id.tv_liked_concert -> {
+                curState= TYPE_CONCERT
                 connectRequestData(TYPE_CONCERT)
             }
             R.id.tv_liked_artist -> {
+                curState= TYPE_ARTIST
                 connectRequestData(TYPE_ARTIST)
             }
             R.id.tv_liked_genre -> {
+                curState= TYPE_GENRE
                 connectRequestData(TYPE_GENRE)
             }
         }
@@ -191,6 +196,11 @@ class LikedFragment : Fragment(), View.OnClickListener, OnResponse {
         } else {
             throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        connectRequestData(curState)
     }
 
     override fun onDetach() {

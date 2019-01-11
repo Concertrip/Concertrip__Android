@@ -6,13 +6,8 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import concertrip.sopt.com.concertrip.activities.AlarmActivity
 import concertrip.sopt.com.concertrip.activities.main.fragment.calendar.adapter.CalendarListAdapter
-import concertrip.sopt.com.concertrip.interfaces.OnFragmentInteractionListener
-import concertrip.sopt.com.concertrip.interfaces.OnItemClick
 import concertrip.sopt.com.concertrip.list.adapter.BasicListAdapter
 import concertrip.sopt.com.concertrip.model.Concert
 import concertrip.sopt.com.concertrip.model.Schedule
@@ -22,10 +17,11 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 import concertrip.sopt.com.concertrip.R
-import concertrip.sopt.com.concertrip.interfaces.ListData
 import android.util.Log
-import concertrip.sopt.com.concertrip.interfaces.OnResponse
+import android.view.*
 import concertrip.sopt.com.concertrip.activities.main.fragment.calendar.adapter.CalendarTabListAdapter
+import concertrip.sopt.com.concertrip.interfaces.*
+import concertrip.sopt.com.concertrip.dialog.ColorToast
 import concertrip.sopt.com.concertrip.model.CalendarTab
 import concertrip.sopt.com.concertrip.network.ApplicationController
 import concertrip.sopt.com.concertrip.network.NetworkService
@@ -33,23 +29,75 @@ import concertrip.sopt.com.concertrip.network.response.GetCalendarResponse
 import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
 import concertrip.sopt.com.concertrip.network.response.GetCalendarTabResponse
 import concertrip.sopt.com.concertrip.network.response.TabData
+import concertrip.sopt.com.concertrip.network.response.data.AlarmData
 import concertrip.sopt.com.concertrip.utillity.Constants
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_CONCERT
-import concertrip.sopt.com.concertrip.utillity.Constants.Companion.USER_TOKEN
 import concertrip.sopt.com.concertrip.utillity.NetworkUtil
 import concertrip.sopt.com.concertrip.utillity.Secret
+import concertrip.sopt.com.concertrip.utillity.Secret.Companion.USER_TOKEN
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.support.v4.toast
+import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 
 
-class CalendarFragment : Fragment(), OnItemClick, OnResponse {
+class CalendarFragment : Fragment(), OnItemClick, OnResponse, OnFling {
+    override fun onSwipeRight() {
+        month = (month+11)%12
+        // from 1 to 12
 
-    var year: Int  by Delegates.notNull()
-    var month: Int by Delegates.notNull()
+        if(month == 11) year = year -1
 
+        Log.d("!!!!!", "swipe right")
+        updateCalendarMonth()
+    }
+
+    override fun onSwipeLeft() {
+        // from 1 to 2
+        month = (month+1)%12
+
+        if(month == 0) year = year +1
+
+        Log.d("!!!!!", "swipe left")
+        updateCalendarMonth()
+    }
+
+    fun updateCalendarMonth(){
+        NetworkUtil.getCalendarList(
+            networkService,
+            this,
+            "all",
+            "",
+            year.toString(),
+            (month+1).toString(),
+            null
+        )
+
+        calendarAdapter.dataList.clear()
+        calendarAdapter.dataList.addAll(makeDayList())
+        calendarAdapter.notifyDataSetChanged()
+
+        tv_month.setText((month+1).toString()+"월")
+        activity?.let {
+            tv_detail?.text="날짜를 선택해주세요"
+        }
+
+        recycler_view_calendar_detail.visibility = View.GONE
+
+        tabAdapter.selected = 0
+        tabAdapter.notifyDataSetChanged()
+    }
+
+    var year: Int  =-1
+    var month: Int =-1
+
+
+    /*TODO 알람 수 서버에서 받아와서 표시해야함*/
+    // if numOfAlarm == 0 rl_notification > GONE
+    // else tv_notification.setText(numOfAlarm)
 
 //    private val monthImgList = listOf<Int>(
 //        R.drawable.m_1, R.drawable.m_2, R.drawable.m_3,
@@ -70,8 +118,10 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
     private lateinit var calendarAdapter: CalendarListAdapter
     private lateinit var detailAdapter: BasicListAdapter
 
+    //private lateinit var swipeListener: OnSwipeTouchListener
 
     private var listener: OnFragmentInteractionListener? = null
+
 
     private val networkService: NetworkService by lazy {
         ApplicationController.instance.networkService
@@ -86,7 +136,6 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
 
             activity?.let {
             tv_detail?.text="날짜를 선택해주세요"
-
             }
             clearDetailList()
 
@@ -99,27 +148,36 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
                 dataListTag[position].type,
                 dataListTag[position]._id,
                 year.toString(),
-                month.toString(),
+                (month+1).toString(),
                 null
             )
 
         } else if (root is CalendarListAdapter) {
+            if(dataListTag.size==0){
+                //activity?.toast("정보를 받아오는 중입니다.")
+                ColorToast(activity?.applicationContext,"정보를 받아오는 중입니다.")
+                return
+            }
             if (calendarAdapter.selected == -1) {
 //                clearDetailList()
                 recycler_view_calendar_detail.visibility = View.GONE
                 tv_detail.text="날짜를 선택해주세요"
             } else {
-
-
-                NetworkUtil.getCalendarList(
-                    networkService,
-                    this,
-                    dataListTag[tabAdapter.selected].type,
-                    dataListTag[tabAdapter.selected]._id,
-                    year.toString(),
-                    month.toString(),
-                    dayList[position]
-                )
+                if(calendarAdapter.scheduleMap[dayList[position].toInt()] == null){
+                    activity?.progress_bar?.visibility=View.GONE
+                    emptyResult()
+                }
+                else{
+                    NetworkUtil.getCalendarList(
+                        networkService,
+                        this,
+                        dataListTag[tabAdapter.selected].type,
+                        dataListTag[tabAdapter.selected]._id,
+                        year.toString(),
+                        (month+1).toString(),
+                        dayList[position]
+                    )
+                }
             }
 
         }
@@ -214,10 +272,18 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
                 "all",
                 "",
                 year.toString(),
-                month.toString(),
+                (month+1).toString(),
                 null
             )
+            recycler_view_calendar.setOnTouchListener(OnSwipeTouchListener(it.applicationContext, this)) // >> e1이 null, onDown이 호출되지 않음
+//            recycler_view_calendar.dispatchTouchEvent()
+            //tv_month.setOnTouchListener(OnSwipeTouchListener(it.applicationContext))
+            //stub.setOnTouchListener(OnSwipeTouchListener(it.applicationContext))
+            //swipeListener = OnSwipeTouchListener(it.applicationContext)
 
+            //stub.setOnTouchListener(swipeListener)
+
+            getAlarmList()
         }
 
 
@@ -225,32 +291,34 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
 
     private var mCal: Calendar by Delegates.notNull()
 
-    private fun setCalendarUI(year: String, month: String) {
+    private fun setCalendarUI() {
         //iv_month.setImageResource(monthImgList[month.toInt() - 1])
 
-        tv_month.setText(month.toString()+"월")
+        tv_month.setText((month+1).toString()+"월")
     }
 
+    //private fun makeDayList(month: Int?,year:Int?): ArrayList<String> =makeDayList(null,null)
     private fun makeDayList(): ArrayList<String> {
 
         //        this.inflater = mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
-        val now = System.currentTimeMillis()
+        if(month==-1 && year == -1){
+            val now = System.currentTimeMillis()
 
-        val date = Date(now)
+            val date = Date(now)
 
-        //연,월,일을 따로 저장
+            val curYearFormat = SimpleDateFormat("yyyy", Locale.KOREA)
 
-        val curYearFormat = SimpleDateFormat("yyyy", Locale.KOREA)
+            val curMonthFormat = SimpleDateFormat("MM", Locale.KOREA)
 
-        val curMonthFormat = SimpleDateFormat("MM", Locale.KOREA)
+            val curDayFormat = SimpleDateFormat("dd", Locale.KOREA)
 
-        val curDayFormat = SimpleDateFormat("dd", Locale.KOREA)
+            year = curYearFormat.format(date).toInt()
 
-        year = curYearFormat.format(date).toInt()
+            month = curMonthFormat.format(date).toInt()-1
+        }
 
-        month = curMonthFormat.format(date).toInt()
-        setCalendarUI(year.toString(), month.toString())
+        setCalendarUI()
 
         //gridview 요일 표시
 
@@ -268,7 +336,7 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
 
         //이번달 1일 무슨요일인지 판단 mCal.set(Year,Month,Day)
 
-        mCal.set(Integer.parseInt(curYearFormat.format(date)), Integer.parseInt(curMonthFormat.format(date)) - 1, 1)
+        mCal.set(year, month-1, 1)
 
         val dayNum = mCal.get(Calendar.DAY_OF_WEEK)
 
@@ -286,9 +354,9 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
     }
 
     private fun setCalendarDate(dayList: ArrayList<String>, month: Int) {
-        mCal.set(Calendar.MONTH, month - 1);
+        mCal.set(Calendar.MONTH, month /*- 1*/);
         for (i in 0 until mCal.getActualMaximum(Calendar.DAY_OF_MONTH)) {
-            dayList.add("" + (i + 1));
+            dayList.add("" + (i + 1))
         }
     }
 
@@ -301,7 +369,6 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
         dataListDetail.clear()
         dataListDetail.addAll(list)
         detailAdapter.notifyDataSetChanged()
-
     }
 
     private fun emptyResult(){
@@ -323,10 +390,9 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
     private fun connectRequestTabData() {
 
 
-
         activity?.progress_bar?.visibility=View.VISIBLE
 
-        Log.d(Constants.LOG_NETWORK, "$LOG_CALENDAR_TAB GET")
+        Log.d(Constants.LOG_NETWORK, "$LOG_CALENDAR_TAB GET, token : ${USER_TOKEN}")
         val getCalendarTabResponse: Call<GetCalendarTabResponse> = networkService.getCalendarTabList(USER_TOKEN)
 
         getCalendarTabResponse.enqueue(object : Callback<GetCalendarTabResponse> {
@@ -348,6 +414,32 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
                 }
 
             }
+        })
+    }
+
+    private fun getAlarmList() {
+        val getAlarmListResponse: Call<List<AlarmData>> = networkService.getAlarmList(USER_TOKEN) // _id
+
+        getAlarmListResponse.enqueue(object : Callback<List<AlarmData>> {
+
+            override fun onFailure(call: Call<List<AlarmData>>, t: Throwable) {
+                Log.d(Constants.LOG_NETWORK, t.toString())
+            }
+
+            override fun onResponse(call: Call<List<AlarmData>>, response: Response<List<AlarmData>>) {
+                response.body()?.let {
+                    // if numOfAlarm == 0 rl_notification > GONE
+                    // else tv_notification.setText(numOfAlarm)
+                    if(it.size == 0){
+                        rl_notification.visibility = View.GONE
+                    }
+                    else{
+                        rl_notification.visibility = View.VISIBLE
+                        tv_notification.setText(it.size.toString())
+                    }
+                }
+            }
+
         })
     }
 
@@ -381,6 +473,5 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse {
         super.onDetach()
         listener = null
     }
-
 
 }

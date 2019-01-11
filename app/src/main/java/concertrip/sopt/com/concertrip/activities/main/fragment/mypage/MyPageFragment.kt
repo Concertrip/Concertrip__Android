@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import concertrip.sopt.com.concertrip.R
+import concertrip.sopt.com.concertrip.dialog.ColorToast
 import concertrip.sopt.com.concertrip.interfaces.OnFragmentInteractionListener
 import concertrip.sopt.com.concertrip.interfaces.OnItemClick
 import concertrip.sopt.com.concertrip.interfaces.OnResponse
@@ -55,36 +56,57 @@ class MyPageFragment : Fragment(), OnItemClick, OnFragmentInteractionListener, O
     }
 
 
-
     override fun changeFragment(what: Int) {
         listener?.changeFragment(what)
     }
 
 
     private fun initialUI() {
-        btn_setting.setOnClickListener {
+//        btn_setting.setOnClickListener {
+//            listener?.changeFragment(Constants.FRAGMENT_TICKET_LIST)
+//        }
+
+        tv_more_info.setOnClickListener{
             listener?.changeFragment(Constants.FRAGMENT_TICKET_LIST)
+        }
+
+        btn_setting.setOnClickListener {
+            listener?.changeFragment(Constants.FRAGMENT_SETTING)
         }
 
         activity?.let {
 
-            activity?.progress_bar?.visibility=View.VISIBLE
+            activity?.progress_bar?.visibility = View.VISIBLE
             NetworkUtil.getTicketList(networkServicce, this, "")
         }
     }
 
     override fun onSuccess(obj: BaseModel, position: Int?) {
-        activity?.progress_bar?.visibility=View.GONE
+        activity?.progress_bar?.visibility = View.GONE
 
         if (obj is GetTicketListResponse) {
             val responseBody = obj as GetTicketListResponse
 
             responseBody.let {
                 if (it.status == Secret.NETWORK_SUCCESS) {
-                    val ticketInfo = it.toTicketList()[0]
-                    tv_ticket_title.text = ticketInfo.name
-                    tv_ticket_place.text = ticketInfo.location
-                    tv_ticket_date.setText(ticketInfo.date)
+                    val tickList = it.toTicketList()
+
+                    if (tickList.isNotEmpty()) {
+                        ry_ticket_empty.visibility = View.GONE
+                        ly_ticket_ac.visibility = View.VISIBLE
+
+                        val ticketInfo = tickList[0]
+                        tv_ticket_title.text = ticketInfo.name
+                        tv_ticket_place.text = ticketInfo.location
+                        tv_ticket_date.setText(ticketInfo.date)
+
+                    }else{
+                        ly_ticket_ac.visibility = View.GONE
+                        ry_ticket_empty.visibility = View.VISIBLE
+
+                        iv_empty_ticket.setAlpha(50)
+                    }
+
                 } else {
                     Log.d("testTicket", "getTicketListResponse in" + responseBody.status.toString())
                 }
@@ -93,9 +115,10 @@ class MyPageFragment : Fragment(), OnItemClick, OnFragmentInteractionListener, O
     }
 
     override fun onFail(status: Int) {
-        activity?.progress_bar?.visibility=View.GONE
-//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        activity?.progress_bar?.visibility = View.GONE
         Log.d("testTicket", "getTicketListResponse in onFailure ")
+
+        ColorToast(activity?.applicationContext,getString(R.string.txt_try_again))
     }
 
     override fun onItemClick(root: RecyclerView.Adapter<out RecyclerView.ViewHolder>, position: Int) {

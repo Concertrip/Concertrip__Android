@@ -15,11 +15,15 @@
     </ScrollView>
 
     <Button android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="52dp"
             android:layout_alignParentBottom="true"
+            android:layout_marginBottom="5dp"
             android:layout_centerHorizontal="true"
-            android:id="@+id/btn_ticket"
-            android:paddingBottom="20dp"
-            android:paddingHorizontal="20dp"
-            android:visibility="gone"/>
+            android:layout_marginHorizontal="9.8dp"
+            android:gravity="center"
+            android:text="예매하기"
+            android:visibility="gone"
+            android:textColor="@color/purple"
+            android:background="@drawable/shape_book"
+            android:id="@+id/btn_ticket"/>
 </RelativeLayout>

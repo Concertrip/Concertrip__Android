@@ -13,7 +13,7 @@ class AlarmViewHolder(itemView:View) :RecyclerView.ViewHolder(itemView), BasicLi
 
     override fun getMainTitle(): TextView =tvtitle
 
-    override fun getSubTitle(): TextView? =null
+    override fun getSubTitle(): TextView? =tvBody
 
     override fun getBtn(): View? =null
     override fun getIvIcon(): ImageView= ivImg
@@ -24,7 +24,7 @@ class AlarmViewHolder(itemView:View) :RecyclerView.ViewHolder(itemView), BasicLi
 
     var ivImg : ImageView = itemView.findViewById(R.id.item_alarm_img)
     var tvtitle : TextView = itemView.findViewById(R.id.item_alarm_title)
-    var tvdate : TextView = itemView.findViewById(R.id.item_alarm_date)
+    var tvBody : TextView = itemView.findViewById(R.id.item_alarm_body)
 
 
 }

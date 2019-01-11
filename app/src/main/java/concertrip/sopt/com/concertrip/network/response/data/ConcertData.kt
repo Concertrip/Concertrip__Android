@@ -17,7 +17,7 @@ data class ConcertData(
     var location : String?,
 
     @SerializedName("memberList")
-    var memberList : List<MemberData>?,
+    var memberList : List<MemberData?>?,
 
     var date : List<String>?,
     var seatName : List<String>?,
@@ -32,14 +32,17 @@ data class ConcertData(
         val c =  Concert(_id = _id?:"0")
         c.profileImg = profileImg?:""
         c.backImg=backImg?:""
-        c.title=name?:""//왜 TITLE과 name이 다르지 !!!! TODO SERVER에서 고쳐야하 할것
+        c.title=name?:""
         c.subscribeNum = subscribeNum?:0
         c.youtubeUrl = youtubeUrl?:""
         c.location = location?:""
 
         val artistList = ArrayList<Artist>()
         memberList?.forEach {
-            artistList.add(it.toArtist())
+            if(it!=null) {
+                artistList.add(it.toArtist())
+            }
+
         }
         c.artistList=artistList
 
@@ -61,6 +64,7 @@ data class ConcertData(
 
         c.eventInfoImg = eventInfoImg?:""
         c.subscribe = subscribe?:false
+
 
         return c
     }

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
+              android:layout_height="wrap_content" xmlns:tools="http://schemas.android.com/tools"
+              android:paddingBottom="10dp"
               android:gravity="center_vertical">
 
     <View android:layout_width="13dp"
@@ -10,14 +11,14 @@
           android:id="@+id/v_seat"/>
     <TextView android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:text="스탠딩"
+              tools:text = "스탠딩"
               android:id="@+id/tv_seat_grade"
               android:textSize="14sp"
               android:textColor="@color/textInfo"
-              android:paddingHorizontal="3dp"/>
+              android:paddingHorizontal="4dp"/>
     <TextView android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:text="88,000원"
+              tools:text="88,000원"
               android:id="@+id/tv_seat_price"
               android:textSize="14sp"
               android:textColor="@color/textInfo"/>
