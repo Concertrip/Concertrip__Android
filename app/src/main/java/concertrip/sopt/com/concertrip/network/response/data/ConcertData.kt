@@ -17,7 +17,7 @@ data class ConcertData(
     var location : String?,
 
     @SerializedName("memberList")
-    var memberList : List<MemberData>?,
+    var memberList : List<MemberData?>?,
 
     var date : List<String>?,
     var seatName : List<String>?,
@@ -39,7 +39,10 @@ data class ConcertData(
 
         val artistList = ArrayList<Artist>()
         memberList?.forEach {
-            artistList.add(it.toArtist())
+            if(it!=null) {
+                artistList.add(it.toArtist())
+            }
+
         }
         c.artistList=artistList
 
