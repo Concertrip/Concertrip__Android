@@ -14,8 +14,8 @@ import concertrip.sopt.com.concertrip.model.Ticket
 import concertrip.sopt.com.concertrip.network.ApplicationController
 import concertrip.sopt.com.concertrip.network.NetworkService
 import concertrip.sopt.com.concertrip.network.response.GetTicketDetailResponse
-import concertrip.sopt.com.concertrip.utillity.Constants.Companion.USER_TOKEN
 import concertrip.sopt.com.concertrip.utillity.Secret
+import concertrip.sopt.com.concertrip.utillity.Secret.Companion.USER_TOKEN
 import kotlinx.android.synthetic.main.fragment_ticket.*
 import retrofit2.Call
 import retrofit2.Callback

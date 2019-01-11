@@ -59,8 +59,7 @@ data class Concert(
         tag?.let {
             return it
         }
-        return  makeTag()
-
+        return  ""
     }
 
     override fun getImageUrl(): String =profileImg

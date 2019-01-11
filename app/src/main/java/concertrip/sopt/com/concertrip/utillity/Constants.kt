@@ -56,7 +56,7 @@ class Constants {
 
 
         //테스용 유저 TOKEN값
-        const val USER_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjb25jZXJ0cmlwIiwidXNlcklkeCI6MX0.qDnh3VXMVAoKzWqeXzDwH9heZoRbL1AO6dy2FgieviI"
+
 
     }
 }

@@ -76,7 +76,6 @@
                         android:textSize="14sp"
                         android:textColor="@color/textInfo"
                         android:lineSpacingExtra="11sp"
-                        android:text="2018년 12월 23일 (일) 19:00"
                         tools:text="2018년 12월 23일 (일) 19:00"
                         android:layout_marginTop="13.8dp"/>
 
@@ -95,7 +94,6 @@
                         android:textSize="14sp"
                         android:textColor="@color/textInfo"
                         android:lineSpacingExtra="11sp"
-                        android:text="세종대학교 컨벤션센터"
                         android:layout_marginTop="13.8dp"/>
 
                 <TextView

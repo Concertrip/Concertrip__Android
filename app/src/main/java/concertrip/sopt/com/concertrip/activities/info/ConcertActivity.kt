@@ -37,15 +37,17 @@ import concertrip.sopt.com.concertrip.network.response.MessageResponse
 import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
 import concertrip.sopt.com.concertrip.utillity.Constants
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.INTENT_TAG_ID
-import concertrip.sopt.com.concertrip.utillity.Constants.Companion.USER_TOKEN
 import concertrip.sopt.com.concertrip.utillity.NetworkUtil
 import concertrip.sopt.com.concertrip.utillity.Secret
+import concertrip.sopt.com.concertrip.utillity.Secret.Companion.USER_TOKEN
 import kotlinx.android.synthetic.main.activity_concert.*
 import kotlinx.android.synthetic.main.content_concert.*
 import kotlinx.android.synthetic.main.content_header.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener, OnItemClick, OnResponse {
@@ -183,9 +185,43 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
 
         tv_title.text = concert.title
         tv_tag.text  = concert.subscribeNum.toString()
+        tv_concert_location.text = concert.location
+
+        var dateStr : String = ""
+
+        concert.date?.forEach {
+            var str = convertDate(it)
+            dateStr= dateStr.plus("$str\n")
+        }
+
+        tv_concert_date.text = dateStr
 
         getYouTubePlayerProvider().initialize(Secret.YOUTUBE_API_KEY, this)
     }
+
+    private fun convertDate(input: String?) : String?{
+        val dayNum : List<String> = listOf("일", "월", "화", "수", "목", "금", "토")
+
+        var convertedDate = StringBuilder()
+
+        if(input != null){
+            val dateInfoList = input.split("T")
+            val dateFormat = SimpleDateFormat("yyyy-MM-dd").parse(input.split("T")[0])
+            val instance : Calendar = Calendar.getInstance()
+            instance.setTime(dateFormat)
+            val dayNumIdx = instance.get(Calendar.DAY_OF_WEEK)
+
+            val splitedList = dateInfoList[0].split("-")
+
+            convertedDate.append(splitedList[0]+"."+splitedList[1]+"."+splitedList[2]+"("+dayNum[dayNumIdx-1]+")")
+
+            return convertedDate.toString()
+        }
+        else{
+            return convertedDate.toString()
+        }
+    }
+
 
     private fun updateCautionData(list : ArrayList<Caution>){
         dataListCaution.clear()
