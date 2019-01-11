@@ -279,9 +279,9 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
             //iv_small_follow.setImageDrawable(if (artist.subscribe) getDrawable(R.drawable.ic_header_likes_selected) else getDrawable(R.drawable.ic_header_likes_unselected))
 
             if (concert.subscribe)
-                showDialog("캘린더에 추가했습니다")
+                ColorToast(this, "캘린더에 추가했습니다")
             else
-                showDialog("구독 취소했습니다")
+                ColorToast(this, "구독 취소했습니다")
         }
     }
 
