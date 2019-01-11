@@ -61,10 +61,10 @@ class TicketDetailFragment : Fragment() {
     }
 
     private fun updateUI(ticket: Ticket){
-        tv_ticket_detail_name.text = ticket.name
-        tv_ticket_detail_date.text = ticket.date
-        tv_ticket_detail_seat.text = ticket.seat
-        tv_ticket_detail_location.text = ticket.location
+       // tv_ticket_detail_name.text = ticket.name
+       // tv_ticket_detail_date.text = ticket.date
+       // tv_ticket_detail_seat.text = ticket.seat
+       // tv_ticket_detail_location.text = ticket.location
     }
 
     private fun connectRequestData(){

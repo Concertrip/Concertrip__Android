@@ -2,12 +2,10 @@ package concertrip.sopt.com.concertrip.network.response
 
 import com.google.gson.annotations.SerializedName
 import concertrip.sopt.com.concertrip.model.Ticket
-import concertrip.sopt.com.concertrip.network.response.data.SimpleTicketData
 import concertrip.sopt.com.concertrip.network.response.data.TicketData
 import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
 
-/*
-data class GetTicketListResponse(
+data class GetTicket_ListResponse(
     @SerializedName("data")
     var data: TicketList?
 ) : BaseModel() {
@@ -15,34 +13,24 @@ data class GetTicketListResponse(
 
     fun toTicketList(): ArrayList<Ticket> {
         val list = ArrayList<Ticket>()
-        data?.ticketcomming?.forEach {
+        data?.ticket?.forEach {
             list.add(it.toTicket())
         }
-        data?.ticketcomplete?.forEach {
-            list.add(it.toTicket())
-        }
+
         return list
     }
 
     override fun toString(): String {
         var result = ""
-        data?.ticketcomming?.forEach {
+        data?.ticket?.forEach {
             result = result.plus(it) + ","
         }
-        data?.ticketcomplete?.forEach {
-            result = result.plus(it) + ","
-        }
+
 
         return result
     }
 }
 
 data class TicketList(
-    var ticketcomming: List<TicketData>?,
-    var ticketcomplete: List<TicketData>?
+    var ticket: List<TicketData>?
 )
-
-
-
-
-*/

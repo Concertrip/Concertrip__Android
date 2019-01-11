@@ -9,6 +9,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.URLUtil
+import com.bumptech.glide.RequestManager
 
 import concertrip.sopt.com.concertrip.R
 import concertrip.sopt.com.concertrip.dialog.ColorToast
@@ -21,7 +23,7 @@ import concertrip.sopt.com.concertrip.utillity.Constants
 import concertrip.sopt.com.concertrip.model.Ticket
 import concertrip.sopt.com.concertrip.network.ApplicationController
 import concertrip.sopt.com.concertrip.network.NetworkService
-import concertrip.sopt.com.concertrip.network.response.GetTicketListResponse
+import concertrip.sopt.com.concertrip.network.response.GetTicket_ListResponse
 import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
 import concertrip.sopt.com.concertrip.utillity.NetworkUtil
 import concertrip.sopt.com.concertrip.utillity.Secret
@@ -36,6 +38,8 @@ class MyPageFragment : Fragment(), OnItemClick, OnFragmentInteractionListener, O
     private val networkServicce: NetworkService by lazy {
         ApplicationController.instance.networkService
     }
+
+    var mGlideRequestManager : RequestManager? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,13 +83,16 @@ class MyPageFragment : Fragment(), OnItemClick, OnFragmentInteractionListener, O
             activity?.progress_bar?.visibility = View.VISIBLE
             NetworkUtil.getTicketList(networkServicce, this, "")
         }
+
+        ly_ticket_ac.visibility = View.GONE
+        ry_ticket_empty.visibility = View.VISIBLE
     }
 
     override fun onSuccess(obj: BaseModel, position: Int?) {
         activity?.progress_bar?.visibility = View.GONE
 
-        if (obj is GetTicketListResponse) {
-            val responseBody = obj as GetTicketListResponse
+        if (obj is GetTicket_ListResponse) {
+            val responseBody = obj as GetTicket_ListResponse
 
             responseBody.let {
                 if (it.status == Secret.NETWORK_SUCCESS) {
@@ -96,13 +103,16 @@ class MyPageFragment : Fragment(), OnItemClick, OnFragmentInteractionListener, O
                         ly_ticket_ac.visibility = View.VISIBLE
 
                         val ticketInfo = tickList[0]
-                        tv_ticket_title.text = ticketInfo.name
-                        tv_ticket_place.text = ticketInfo.location
-                        tv_ticket_date.setText(ticketInfo.date)
+                        //tv_ticket_title.text = ticketInfo.name
+                        //tv_ticket_place.text = ticketInfo.location
+                        //tv_ticket_date.setText(ticketInfo.date)
+
+                        if(URLUtil.isValidUrl(ticketInfo.img))
+                        {mGlideRequestManager?.load(ticketInfo.img)?.into(iv_ticket)}
+                        else{}
 
                     }else{
-                        ly_ticket_ac.visibility = View.GONE
-                        ry_ticket_empty.visibility = View.VISIBLE
+
 
                         iv_empty_ticket.setAlpha(50)
                     }

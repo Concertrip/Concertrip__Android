@@ -9,7 +9,6 @@ import concertrip.sopt.com.concertrip.network.NetworkService
 import concertrip.sopt.com.concertrip.network.USGS_REQUEST_URL
 import concertrip.sopt.com.concertrip.network.response.*
 import concertrip.sopt.com.concertrip.network.response.GetSearchResponse
-import concertrip.sopt.com.concertrip.network.response.GetTicketListResponse
 import concertrip.sopt.com.concertrip.network.response.MessageResponse
 import concertrip.sopt.com.concertrip.network.response.data.AlarmData
 import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
@@ -196,16 +195,16 @@ class NetworkUtil {
 
 
         fun getTicketList(networkService: NetworkService, listener: OnResponse?, _id: String) {
-            val getTicketListResponse: Call<GetTicketListResponse> = networkService.getTicketList(USER_TOKEN) // _id
+            val getTicketListResponse: Call<GetTicket_ListResponse> = networkService.getTicketList(USER_TOKEN) // _id
 
-            getTicketListResponse.enqueue(object : Callback<GetTicketListResponse> {
+            getTicketListResponse.enqueue(object : Callback<GetTicket_ListResponse> {
 
-                override fun onFailure(call: Call<GetTicketListResponse>, t: Throwable) {
+                override fun onFailure(call: Call<GetTicket_ListResponse>, t: Throwable) {
                     Log.e(Constants.LOG_NETWORK, t.toString())
                     listener?.onFail(Secret.NETWORK_UNKNOWN)
                 }
 
-                override fun onResponse(call: Call<GetTicketListResponse>, response: Response<GetTicketListResponse>) {
+                override fun onResponse(call: Call<GetTicket_ListResponse>, response: Response<GetTicket_ListResponse>) {
                     response.body()?.let {
                         if (it.status == Secret.NETWORK_SUCCESS) {
                             Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH :${response.body().toString()}")

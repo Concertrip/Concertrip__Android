@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.URLUtil
+import com.bumptech.glide.Glide
 import concertrip.sopt.com.concertrip.R
 import concertrip.sopt.com.concertrip.interfaces.OnFragmentInteractionListener
 import concertrip.sopt.com.concertrip.list.viewholder.TicketViewHolder
@@ -30,10 +32,16 @@ class TicketListAdapter(val mContext : Context, var dataList : ArrayList<Ticket>
             holder.nextTime.visibility = View.INVISIBLE
         }
 
-        holder.name.text = dataList[position].name
+        //holder.name.text = dataList[position].name
         //holder.date.text = dataListDetail[position].date
-        holder.date.text = dataList[position].date
-        holder.location.text = dataList[position].location
+        //holder.date.text = dataList[position].date
+        //holder.location.text = dataList[position].location
+
+        if(URLUtil.isValidUrl(dataList[position].img)){
+            Glide.with(mContext).load(dataList[position].img).into(holder.img)
+        }else{
+
+        }
 
         holder.itemView.setOnClickListener {
             listener.changeFragment(Constants.FRAGMENT_TICKET)
