@@ -17,7 +17,7 @@ import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_CONCERT
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_DAY
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_MONTH
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_GENRE
-import concertrip.sopt.com.concertrip.utillity.Constants.Companion.USER_TOKEN
+import concertrip.sopt.com.concertrip.utillity.Secret.Companion.USER_TOKEN
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback

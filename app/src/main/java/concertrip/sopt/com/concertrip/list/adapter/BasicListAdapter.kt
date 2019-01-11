@@ -66,9 +66,9 @@ class BasicListAdapter(
 
                     val msg = obj.message?:""
                     if(msg.contains("취소"))
-                        ColorToast(mContext,mContext.getString(R.string.txt_calendar_minus))
+                        ColorToast(mContext,mContext.getString(R.string.txt_concert_minus))
                     else
-                        ColorToast(mContext,mContext.getString(R.string.txt_calendar_added))
+                        ColorToast(mContext,mContext.getString(R.string.txt_concert_added))
 
                     notifyDataSetChanged()
                 }

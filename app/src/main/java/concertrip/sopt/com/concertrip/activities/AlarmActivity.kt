@@ -14,6 +14,7 @@ import concertrip.sopt.com.concertrip.network.response.GetAlarmListResponse
 import concertrip.sopt.com.concertrip.network.response.data.AlarmData
 import concertrip.sopt.com.concertrip.utillity.Constants
 import concertrip.sopt.com.concertrip.utillity.Secret
+import concertrip.sopt.com.concertrip.utillity.Secret.Companion.USER_TOKEN
 import kotlinx.android.synthetic.main.activity_alram.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -70,7 +71,6 @@ class AlarmActivity : AppCompatActivity(){
 
     fun getAlarmList() {
         Log.d("!!!!", "getAlarmList")
-
         val getAlarmListResponse: Call<List<AlarmData>> = networkService.getAlarmList(1) // _id
 
         getAlarmListResponse.enqueue(object : Callback<List<AlarmData>> {

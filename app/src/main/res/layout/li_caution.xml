@@ -16,10 +16,10 @@
                 android:layout_height="80dp"/>
         <TextView
                 android:id="@+id/tv_caution"
-                android:text="만 7세 이상"
                 tools:text = "만 7세 이상"
                 android:textSize="12sp"
                 android:paddingTop="4dp"
+                android:includeFontPadding="false"
                 android:layout_gravity="center_horizontal"
                 android:textColor="@color/white"
                 android:layout_width="wrap_content"

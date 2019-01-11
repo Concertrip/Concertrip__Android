@@ -1,8 +1,5 @@
-package concertrip.sopt.com.concertrip
+package concertrip.sopt.com.concertrip.firebase
 
-import android.app.Service
-import android.content.Intent
-import android.os.IBinder
 import android.util.Log
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
@@ -23,6 +20,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     companion object {
-        private val TAG = "CONCERTRIP"
+        private val TAG = "~~~CONCERTRIP"
     }
 }

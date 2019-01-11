@@ -66,7 +66,7 @@
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     tools:text="더 몬스터 페스티벌fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
-                    android:text="더 몬스터 페스티벌"/>
+                    />
 
             <LinearLayout
                     android:layout_width="wrap_content"
@@ -88,7 +88,7 @@
                         android:textColor="@color/white"
                         tools:text="914"
                         android:layout_gravity="center_vertical"
-                        android:text="914"/>
+                        />
 
             </LinearLayout>
 
