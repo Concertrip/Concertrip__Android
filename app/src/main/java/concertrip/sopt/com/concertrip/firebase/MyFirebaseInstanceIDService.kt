@@ -9,12 +9,12 @@ class MyFirebaseInstanceIDService : FirebaseInstanceIdService() {
 
     override fun onTokenRefresh() {
         val refreshedToken = FirebaseInstanceId.getInstance().token
-        Log.d(TAG, "Refreshed token: " + refreshedToken!!)
+        Log.d(TAG, "Refreshed token: $refreshedToken")
         sendRegistrationToServer(refreshedToken)
     }
 
     private fun sendRegistrationToServer(token: String?){
-        Log.d(TAG, token!! + "")
+        Log.d(TAG, token + "")
     }
 
 

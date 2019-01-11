@@ -18,6 +18,7 @@ data class GetSearchResponse (
     fun toConcertList() : ArrayList<Concert>{
         val list = ArrayList<Concert>()
         data?.concerts?.forEach {
+            if(it!=null)
             list.add(it.toConcert())
         }
         return list
@@ -26,6 +27,7 @@ data class GetSearchResponse (
     fun toArtistList() : ArrayList<Artist>{
         val list = ArrayList<Artist>()
         data?.artists?.forEach {
+            if(it!=null)
             list.add(it.toArtist())
         }
         return list
@@ -34,6 +36,7 @@ data class GetSearchResponse (
     fun toGenreList() : ArrayList<Genre>{
         val list = ArrayList<Genre>()
         data?.genres?.forEach {
+            if(it!=null)
             list.add(it.toGenre())
         }
         return list

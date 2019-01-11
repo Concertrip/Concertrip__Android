@@ -76,10 +76,12 @@ class TicketDetailFragment : Fragment() {
             }
 
             override fun onResponse(call: Call<GetTicketDetailResponse>, response: Response<GetTicketDetailResponse>) {
-                response.body()?.let{
-                    if(it.status == Secret.NETWORK_SUCCESS){
-                        val ticket = it.data.toTicket()
-                        updateUI(ticket)
+                response.body()?.let{ ticketDetailResponse ->
+                    if(ticketDetailResponse.status == Secret.NETWORK_SUCCESS){
+                        ticketDetailResponse.data?.let {
+                            val ticket = it.toTicket()
+                            updateUI(ticket)
+                        }
                     }else{
                         Log.d("testTicketDetail", "getTicketDetailResponse in" + response.body()?.status.toString())
                     }

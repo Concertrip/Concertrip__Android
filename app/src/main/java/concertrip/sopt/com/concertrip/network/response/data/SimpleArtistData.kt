@@ -14,7 +14,6 @@ data class SimpleArtistData(
         a.name = name?:""
         a.profileImg=profileImg?:""
         a.subscribe=subscribe?:false
-//        a.group = group
 
         return a
     }
