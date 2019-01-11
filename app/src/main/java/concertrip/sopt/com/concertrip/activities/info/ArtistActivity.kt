@@ -40,7 +40,6 @@ import kotlinx.android.synthetic.main.activity_artist.*
 
 import kotlinx.android.synthetic.main.content_artist.*
 import kotlinx.android.synthetic.main.content_header.*
-import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -104,7 +103,6 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         progress_bar.visibility=View.GONE
 
         if(obj is MessageResponse) {
-            toast(obj.message.toString())
 
             if ( ::artist.isInitialized) {
                 artist.subscribe = !artist.subscribe

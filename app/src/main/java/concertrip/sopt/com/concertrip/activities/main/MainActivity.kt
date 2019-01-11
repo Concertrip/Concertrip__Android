@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
+import com.google.firebase.iid.FirebaseInstanceId
 import concertrip.sopt.com.concertrip.interfaces.OnFragmentInteractionListener
 import concertrip.sopt.com.concertrip.utillity.Constants
 
@@ -34,6 +35,8 @@ class MainActivity : AppCompatActivity() , OnFragmentInteractionListener {
 
 
     var fragmentAdapter : MainFragmentAdapter by Delegates.notNull()
+
+    var regId : String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -99,6 +102,8 @@ class MainActivity : AppCompatActivity() , OnFragmentInteractionListener {
 //            }
 //        }
 
+        regId = FirebaseInstanceId.getInstance().getToken()
+        Log.d("regId", "token: "+regId.toString())
 
     }
 

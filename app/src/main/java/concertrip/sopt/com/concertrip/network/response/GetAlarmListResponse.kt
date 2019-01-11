@@ -6,7 +6,7 @@ import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
 
 data class GetAlarmListResponse(
     var data : List<AlarmData>
-):BaseModel(){
+){
     fun toAlarmList():List<Alarm> {
         var list = ArrayList<Alarm>()
 
