@@ -54,7 +54,5 @@ class Constants {
         const val TYPE_MONTH = 0
         const val TYPE_DAY = 1
 
-
-
     }
 }
