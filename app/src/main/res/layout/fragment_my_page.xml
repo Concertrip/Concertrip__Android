@@ -59,7 +59,7 @@
 
         <TextView
                 android:paddingHorizontal="16dp"
-                android:text="@string/txt_my_page_myticket"
+                android:text="@string/txt_ticket"
                 android:textSize="17sp"
                 android:textColor="@color/white"
                 android:layout_width="wrap_content"

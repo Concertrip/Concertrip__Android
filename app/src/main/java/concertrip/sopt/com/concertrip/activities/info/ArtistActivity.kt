@@ -40,7 +40,6 @@ import kotlinx.android.synthetic.main.activity_artist.*
 
 import kotlinx.android.synthetic.main.content_artist.*
 import kotlinx.android.synthetic.main.content_header.*
-import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -107,7 +106,6 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         progress_bar.visibility=View.GONE
 
         if(obj is MessageResponse) {
-            toast(obj.message.toString())
 
             if ( ::artist.isInitialized) {
                 artist.subscribe = !artist.subscribe
@@ -120,11 +118,11 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
 //                showDialog("구독 취소했습니다")
 
             if(artist.subscribe){
-                ColorToast(this,getString(R.string.message_double_back_exit))
+                ColorToast(applicationContext,"캘린더에 추가했습니다")
                 //Handler().postDelayed(2000)
             }
             else{
-                ColorToast(this,getString(R.string.message_double_back_exit))
+                ColorToast(applicationContext,"구독 취소했습니다")
 
                 //Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
             }
