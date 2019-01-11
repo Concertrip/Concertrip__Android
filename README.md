@@ -21,11 +21,9 @@
 ## [ About ]
 가장 먼저 받아보는 콘서트 일정 구독 서비스 
 
-## [ WorkFlow ]
+## [ View ]
 
-[WorkFlow PDF file](https://github.com/Jungnami/Jungnami-iOS/blob/dev2/publicData/workFlow.pdf)
-
-![workflow](~/Downloads/concertripworkflow.png)
+> ![AppViews](https://github.com/cchloe2311/Concertrip__Android/blob/master/views.png?raw=true)
 
 
 ## [ Develop Environment ]
