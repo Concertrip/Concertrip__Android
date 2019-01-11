@@ -116,6 +116,8 @@ class MyPageFragment : Fragment(), OnItemClick, OnFragmentInteractionListener, O
                     if (URLUtil.isValidUrl(ticketInfo.img)) {
 
                         tv_empty.visibility=View.GONE
+                        iv_ticket.background = null
+
                         if(tickList.size>1)
                             tv_more_info.visibility=View.VISIBLE
                         else
