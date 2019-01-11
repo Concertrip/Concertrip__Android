@@ -17,6 +17,6 @@
 
 ## Contributors
 * [최서정](https://github.com/cchloe2311)
-* [김희성](https://github.com/heesung6701)
+* [윤희성](https://github.com/heesung6701)
 * [손하영](https://github.com/gds04070)
 
