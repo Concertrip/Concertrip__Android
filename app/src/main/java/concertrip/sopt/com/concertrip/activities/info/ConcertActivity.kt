@@ -140,12 +140,13 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
 
         scroll_view.smoothScrollTo(0,0)
         scroll_view.viewTreeObserver.addOnScrollChangedListener {
-            val scrollY = scroll_view.scrollY
-            if(scrollY > 10 && btn_ticket.visibility == GONE){
-                btn_ticket.visibility = VISIBLE
-            }
-            else if(scrollY <= 10 && btn_ticket.visibility == VISIBLE){
-                btn_ticket.visibility = GONE
+            if(btn_ticket.isEnabled) {
+                val scrollY = scroll_view.scrollY
+                if (scrollY > 10 && btn_ticket.visibility == GONE) {
+                    btn_ticket.visibility = VISIBLE
+                } else if (scrollY <= 10 && btn_ticket.visibility == VISIBLE) {
+                    btn_ticket.visibility = GONE
+                }
             }
         }
 
@@ -284,9 +285,11 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
 
             if(obj.message?.contains("구매")==true){
                 ColorToast(this,"공연을 구매하였습니다.")
-                btn_ticket.isEnabled=false
+                btn_ticket.textColor=getColor(R.color.white)
                 btn_ticket.isSelected=true
                 btn_ticket.isPressed=true
+                btn_ticket.isEnabled=false
+
             }else {
                 concert.subscribe=(obj.message?.contains("취소")==false)
                 btn_follow.setImageDrawable(
