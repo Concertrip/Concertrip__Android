@@ -87,7 +87,7 @@ interface NetworkService {
     @Headers("Content-Type:application/json")
     fun getTicketList(
         @Header("Authorization") token : String
-    ):Call<GetTicketListResponse>
+    ):Call<GetTicket_ListResponse>
 
     //------------------------------------------
     //*구독 아티스트 리스트

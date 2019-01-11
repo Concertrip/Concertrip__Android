@@ -61,10 +61,10 @@ class TicketDetailFragment : Fragment() {
     }
 
     private fun updateUI(ticket: Ticket){
-        tv_ticket_detail_name.text = ticket.name
-        tv_ticket_detail_date.text = ticket.date
-        tv_ticket_detail_seat.text = ticket.seat
-        tv_ticket_detail_location.text = ticket.location
+       // tv_ticket_detail_name.text = ticket.name
+       // tv_ticket_detail_date.text = ticket.date
+       // tv_ticket_detail_seat.text = ticket.seat
+       // tv_ticket_detail_location.text = ticket.location
     }
 
     private fun connectRequestData(){
@@ -76,14 +76,14 @@ class TicketDetailFragment : Fragment() {
             }
 
             override fun onResponse(call: Call<GetTicketDetailResponse>, response: Response<GetTicketDetailResponse>) {
-                response.body()?.let{
-                    if(it.status == Secret.NETWORK_SUCCESS){
-                        val ticket = it.data.toTicket()
-                        updateUI(ticket)
-                    }else{
-                        Log.d("testTicketDetail", "getTicketDetailResponse in" + response.body()?.status.toString())
-                    }
-                }
+         //       response.body()?.let{
+          //          if(it.status == Secret.NETWORK_SUCCESS){
+          //              val ticket = it.data.toTicket()
+           //             updateUI(ticket)
+            //        }else{
+            //            Log.d("testTicketDetail", "getTicketDetailResponse in" + response.body()?.status.toString())
+            //        }
+            //    }
             }
         })
 
