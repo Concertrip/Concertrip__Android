@@ -158,6 +158,6 @@ interface NetworkService {
 
     @GET("/api/fcm/list")
     fun getAlarmList(
-        @Header("Authorization") token: Int
+        @Header("Authorization") token: String
     ):Call<List<AlarmData>>
 }

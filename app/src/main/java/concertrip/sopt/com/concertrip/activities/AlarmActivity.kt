@@ -6,14 +6,15 @@ import android.util.Log
 import android.view.View
 import concertrip.sopt.com.concertrip.R
 import concertrip.sopt.com.concertrip.interfaces.ListData
+import concertrip.sopt.com.concertrip.interfaces.OnResponse
 import concertrip.sopt.com.concertrip.list.adapter.BasicListAdapter
 import concertrip.sopt.com.concertrip.model.Alarm
 import concertrip.sopt.com.concertrip.network.ApplicationController
 import concertrip.sopt.com.concertrip.network.NetworkService
-import concertrip.sopt.com.concertrip.network.response.GetAlarmListResponse
 import concertrip.sopt.com.concertrip.network.response.data.AlarmData
+import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
 import concertrip.sopt.com.concertrip.utillity.Constants
-import concertrip.sopt.com.concertrip.utillity.Secret
+import concertrip.sopt.com.concertrip.utillity.NetworkUtil
 import concertrip.sopt.com.concertrip.utillity.Secret.Companion.USER_TOKEN
 import kotlinx.android.synthetic.main.activity_alram.*
 import retrofit2.Call
@@ -34,15 +35,13 @@ class AlarmActivity : AppCompatActivity(){
 
         setContentView(R.layout.activity_alram)
 
-        Log.d("!!!!", "onCreate")
-
         initialUI()
-        connectRequestData()
+        getAlarmList()
+        //NetworkUtil.getAlarmList(networkService, this)
     }
 
     override fun onResume() {
         super.onResume()
-
         //connectRequestData()
     }
 
@@ -54,24 +53,12 @@ class AlarmActivity : AppCompatActivity(){
         adapter = BasicListAdapter(this, dataList, Constants.TYPE_ALARM)
         recycler_view_alarm.adapter=adapter
 
-        Log.d("!!!!", "initialUI")
-
-        //getAlarmList()
-
-//        if(dataList.size == 0){
-//            tv_alarm.visibility = View.VISIBLE
-//            recycler_view_alarm.visibility = View.GONE
-//        }else{
-//            adapter = BasicListAdapter(this, dataList, Constants.TYPE_ALARM)
-//            recycler_view_alarm.adapter=adapter
-//        }
     }
 
     private val LOG_ALARM = "/api/fcm/list"
 
-    fun getAlarmList() {
-        Log.d("!!!!", "getAlarmList")
-        val getAlarmListResponse: Call<List<AlarmData>> = networkService.getAlarmList(1) // _id
+    private fun getAlarmList() {
+        val getAlarmListResponse: Call<List<AlarmData>> = networkService.getAlarmList(USER_TOKEN) // _id
 
         getAlarmListResponse.enqueue(object : Callback<List<AlarmData>> {
 
@@ -81,12 +68,8 @@ class AlarmActivity : AppCompatActivity(){
 
             override fun onResponse(call: Call<List<AlarmData>>, response: Response<List<AlarmData>>) {
                 response.body()?.let {
-//                    if (it.status == Secret.NETWORK_SUCCESS) {
-                        updateList(ArrayList(toAlarmList(it)))
-                        Log.d(Constants.LOG_NETWORK, "${LOG_ALARM} :${response.body().toString()}")
-//                    } else {
-//                        Log.d(Constants.LOG_NETWORK, "${LOG_ALARM}: fail ${response.body()?.message}")
-//                    }
+                    updateList(ArrayList(toAlarmList(it)))
+                    Log.d(Constants.LOG_NETWORK, "${LOG_ALARM} :${response.body().toString()}")
                 }
             }
 
@@ -117,8 +100,7 @@ class AlarmActivity : AppCompatActivity(){
         }
     }
 
-    private fun connectRequestData() {
-        Log.d("!!!!", "connectRequestData")
-        getAlarmList()
-    }
+//    private fun connectRequestData() {
+//        getAlarmList()
+//    }
 }

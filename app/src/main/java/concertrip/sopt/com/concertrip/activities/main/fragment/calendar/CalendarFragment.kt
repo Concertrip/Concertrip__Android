@@ -29,6 +29,7 @@ import concertrip.sopt.com.concertrip.network.response.GetCalendarResponse
 import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
 import concertrip.sopt.com.concertrip.network.response.GetCalendarTabResponse
 import concertrip.sopt.com.concertrip.network.response.TabData
+import concertrip.sopt.com.concertrip.network.response.data.AlarmData
 import concertrip.sopt.com.concertrip.utillity.Constants
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_CONCERT
 import concertrip.sopt.com.concertrip.utillity.NetworkUtil
@@ -281,6 +282,8 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse, OnFling {
             //swipeListener = OnSwipeTouchListener(it.applicationContext)
 
             //stub.setOnTouchListener(swipeListener)
+
+            getAlarmList()
         }
 
 
@@ -411,6 +414,32 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse, OnFling {
                 }
 
             }
+        })
+    }
+
+    private fun getAlarmList() {
+        val getAlarmListResponse: Call<List<AlarmData>> = networkService.getAlarmList(USER_TOKEN) // _id
+
+        getAlarmListResponse.enqueue(object : Callback<List<AlarmData>> {
+
+            override fun onFailure(call: Call<List<AlarmData>>, t: Throwable) {
+                Log.d(Constants.LOG_NETWORK, t.toString())
+            }
+
+            override fun onResponse(call: Call<List<AlarmData>>, response: Response<List<AlarmData>>) {
+                response.body()?.let {
+                    // if numOfAlarm == 0 rl_notification > GONE
+                    // else tv_notification.setText(numOfAlarm)
+                    if(it.size == 0){
+                        rl_notification.visibility = View.GONE
+                    }
+                    else{
+                        rl_notification.visibility = View.VISIBLE
+                        tv_notification.setText(it.size.toString())
+                    }
+                }
+            }
+
         })
     }
 
