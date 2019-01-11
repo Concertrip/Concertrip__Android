@@ -28,7 +28,6 @@ import concertrip.sopt.com.concertrip.network.NetworkService
 import concertrip.sopt.com.concertrip.network.response.GetCalendarResponse
 import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
 import concertrip.sopt.com.concertrip.network.response.GetCalendarTabResponse
-import concertrip.sopt.com.concertrip.network.response.TabData
 import concertrip.sopt.com.concertrip.network.response.data.AlarmData
 import concertrip.sopt.com.concertrip.utillity.Constants
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_CONCERT
@@ -36,8 +35,6 @@ import concertrip.sopt.com.concertrip.utillity.NetworkUtil
 import concertrip.sopt.com.concertrip.utillity.Secret
 import concertrip.sopt.com.concertrip.utillity.Secret.Companion.USER_TOKEN
 import kotlinx.android.synthetic.main.activity_main.*
-import org.jetbrains.anko.support.v4.toast
-import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -404,9 +401,8 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse, OnFling {
                 response?.let { res ->
                     if (res.body()?.status == Secret.NETWORK_SUCCESS) {
                         Log.d(Constants.LOG_NETWORK, "$LOG_CALENDAR_TAB :${response.body().toString()}")
-                        res.body()!!.data?.let {
-                            updateTabList(ArrayList(res.body()?.data))
-                        }
+                        val calendarTabResponse =  res.body() as GetCalendarTabResponse
+                        updateTabList(calendarTabResponse.getCalendarTabList())
                     } else {
                         Log.d(Constants.LOG_NETWORK, "$LOG_CALENDAR_TAB : fail ${response.body()?.message}")
 //                        Log.v("test0102", "getGenreResponse in " + response.body()?.status.toString())
@@ -430,7 +426,7 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse, OnFling {
                 response.body()?.let {
                     // if numOfAlarm == 0 rl_notification > GONE
                     // else tv_notification.setText(numOfAlarm)
-                    if(it.size == 0){
+                    if(it.isEmpty()){
                         rl_notification.visibility = View.GONE
                     }
                     else{
@@ -444,7 +440,7 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse, OnFling {
     }
 
 
-    fun updateTabList(list: ArrayList<TabData>) {
+    fun updateTabList(list: ArrayList<CalendarTab>) {
 
         activity?.progress_bar?.visibility=View.GONE
 
@@ -452,7 +448,7 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse, OnFling {
         dataListTag.clear()
         //tabColorMap.clear()
         list.forEach {
-            dataListTag.add(it.toCalendarTag())
+            dataListTag.add(it)
 //            tabColorMap[it.name] = tabColor[idx++%tabColor.size]
 //            Log.d("updateTabList~~~", "index : $idx, name : ${it.name}, color : ${tabColor[idx%tabColor.size]}")
         }

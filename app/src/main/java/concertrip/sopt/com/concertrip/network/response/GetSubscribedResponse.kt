@@ -9,12 +9,13 @@ import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
 
 data class GetSubscribedResponse(
     @SerializedName("data")
-    var data : List<SubscribedData>
+    var data : List<SubscribedData?>?
 ):BaseModel(){
     fun toArtistList() : ArrayList<Artist>{
         val list = ArrayList<Artist>()
 
-        data.forEach {
+        data?.forEach {
+            if(it!=null)
             list.add(it.toArtist())
         }
 
@@ -23,7 +24,8 @@ data class GetSubscribedResponse(
     fun toConcertList() : ArrayList<Concert>{
         val list = ArrayList<Concert>()
 
-        data.forEach {
+        data?.forEach {
+            if(it!=null)
             list.add(it.toConcert())
         }
 
@@ -32,7 +34,8 @@ data class GetSubscribedResponse(
     fun toGenreList() : ArrayList<Genre>{
         val list = ArrayList<Genre>()
 
-        data.forEach {
+        data?.forEach {
+            if(it!=null)
             list.add(it.toGenre())
         }
 
@@ -41,35 +44,35 @@ data class GetSubscribedResponse(
 }
 
 data class SubscribedData(
-    var _id : String,
-    var name : String,
-    var profileImg : String,
-    var subscribe : Boolean
+    var _id : String?,
+    var name : String?,
+    var profileImg : String?,
+    var subscribe : Boolean?
 ){
     fun toArtist() : Artist {
-        val a = Artist(_id)
+        val a = Artist(_id?:"")
 
-        a.name = name
-        a.profileImg = profileImg
-        a.subscribe = subscribe
+        a.name = name?:""
+        a.profileImg = profileImg?:""
+        a.subscribe = subscribe?:false
 
         return a
     }
     fun toConcert() : Concert {
-        val a = Concert(_id)
+        val a = Concert(_id?:"")
 
-        a.title = name
-        a.profileImg = profileImg
-        a.subscribe = subscribe
+        a.title = name?:""
+        a.profileImg = profileImg?:""
+        a.subscribe = subscribe?:false
 
         return a
     }
     fun toGenre() : Genre{
-        val a = Genre(_id)
+        val a = Genre(_id?:"")
 
-        a.name = name
-        a.profileImg = profileImg
-        a.subscribe = subscribe
+        a.name = name?:""
+        a.profileImg = profileImg?:""
+        a.subscribe = subscribe?:false
 
         return a
     }

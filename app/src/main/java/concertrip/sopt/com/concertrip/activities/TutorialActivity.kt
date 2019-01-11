@@ -39,14 +39,16 @@ import retrofit2.Call
 class TutorialActivity : AppCompatActivity(), OnResponse {
 
     var clickTest = arrayOf(0, 0, 0, 0, 0, 0, 0, 0, 0)
-    var genreId = arrayOf(GENRE_MUSICPES, GENRE_IDOL, GENRE_HIPHOP, GENRE_BALADRAB,
-        GENRE_KOREA, GENRE_EDM, GENRE_INDI, GENRE_JAZZ, GENRE_ROCK)
+    var genreId = arrayOf(
+        GENRE_MUSICPES, GENRE_IDOL, GENRE_HIPHOP, GENRE_BALADRAB,
+        GENRE_KOREA, GENRE_EDM, GENRE_INDI, GENRE_JAZZ, GENRE_ROCK
+    )
 
-    lateinit var btnList : Array<LinearLayout>
+    lateinit var btnList: Array<LinearLayout>
 
-    lateinit var ivSet : Array<RelativeLayout>
+    lateinit var ivSet: Array<RelativeLayout>
 
-    lateinit var ivUnset : Array<RelativeLayout>
+    lateinit var ivUnset: Array<RelativeLayout>
     //genreId넣어주기 인트면 다 바꿔줘야함
     // var genreList = arrayOf(1,2,3,4,5,6,7,8,9)
 
@@ -71,8 +73,15 @@ class TutorialActivity : AppCompatActivity(), OnResponse {
         )
 
         ivUnset = arrayOf(
-            iv_tutorial_noclick_1, iv_tutorial_noclick_2, iv_tutorial_noclick_3, iv_tutorial_noclick_4,
-            iv_tutorial_noclick_5, iv_tutorial_noclick_6, iv_tutorial_noclick_7, iv_tutorial_noclick_8, iv_tutorial_noclick_9
+            iv_tutorial_noclick_1,
+            iv_tutorial_noclick_2,
+            iv_tutorial_noclick_3,
+            iv_tutorial_noclick_4,
+            iv_tutorial_noclick_5,
+            iv_tutorial_noclick_6,
+            iv_tutorial_noclick_7,
+            iv_tutorial_noclick_8,
+            iv_tutorial_noclick_9
         )
 
         InitialUI()
@@ -113,8 +122,8 @@ class TutorialActivity : AppCompatActivity(), OnResponse {
 //            NetworkUtil.subscribeGenre(networkService, this, genreId)
 //        }
 
-        for (i in 0 until btnList.size){
-            if(clickTest[i] == 1) NetworkUtil.subscribeGenre(networkService, this, genreId[i])
+        for (i in 0 until btnList.size) {
+            if (clickTest[i] == 1) NetworkUtil.subscribeGenre(networkService, this, genreId[i])
         }
 
     }
@@ -139,7 +148,7 @@ class TutorialActivity : AppCompatActivity(), OnResponse {
 
         }
 
-        for (i in 0..btnList.size - 1) {
+        for (i in 0 until btnList.size) {
             btnList[i].setOnClickListener {
                 clickTest[i] = 1 - clickTest[i]
 
