@@ -37,9 +37,9 @@ import concertrip.sopt.com.concertrip.network.response.MessageResponse
 import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
 import concertrip.sopt.com.concertrip.utillity.Constants
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.INTENT_TAG_ID
-import concertrip.sopt.com.concertrip.utillity.Constants.Companion.USER_TOKEN
 import concertrip.sopt.com.concertrip.utillity.NetworkUtil
 import concertrip.sopt.com.concertrip.utillity.Secret
+import concertrip.sopt.com.concertrip.utillity.Secret.Companion.USER_TOKEN
 import kotlinx.android.synthetic.main.activity_concert.*
 import kotlinx.android.synthetic.main.content_concert.*
 import kotlinx.android.synthetic.main.content_header.*
@@ -140,17 +140,17 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
 
         scroll_view.smoothScrollTo(0,0)
         scroll_view.viewTreeObserver.addOnScrollChangedListener {
-            val scrollY = scroll_view.getScrollY()
+            val scrollY = scroll_view.scrollY
             if(scrollY > 10 && btn_ticket.visibility == GONE){
                 btn_ticket.visibility = VISIBLE
             }
             else if(scrollY <= 10 && btn_ticket.visibility == VISIBLE){
                 btn_ticket.visibility = GONE
             }
-        };
+        }
 
         btn_ticket.setOnClickListener{
-            showDialog()
+
         }
 
         btn_follow.setOnClickListener {

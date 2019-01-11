@@ -3,6 +3,7 @@ package concertrip.sopt.com.concertrip.activities.main.fragment.search
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +25,9 @@ import concertrip.sopt.com.concertrip.utillity.Secret
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_search.*
 import org.jetbrains.anko.toast
+import android.view.KeyEvent.KEYCODE_ENTER
+
+
 
 class SearchFragment : Fragment() ,OnResponse{
     var dataListArtist = arrayListOf<Artist>()
@@ -135,6 +139,14 @@ class SearchFragment : Fragment() ,OnResponse{
             recycler_view_genre.adapter=genreListAdapter
         }
 
+
+        edt_search.setOnKeyListener { _, keyCode, event ->
+            //Enter key Action
+            if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                connectRequestData()
+                true
+            } else false
+        }
 
         btn_search.setOnClickListener {
             connectRequestData()
