@@ -156,6 +156,8 @@ class TutorialActivity : AppCompatActivity(), OnResponse {
             }
         }
 
+        btn_tutorial_2.setOnClickListener{
+            clickTest[1] = 1-clickTest[1]
 
 //        btn_tutorial_1.setOnClickListener{
 //            clickTest[0] = 1-clickTest[0]

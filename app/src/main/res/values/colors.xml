@@ -27,8 +27,6 @@
 
 
 
-
-
     <color name="textHashTag">@color/gray</color>
     <color name="textTagDefault">@color/gray</color>
     <color name="textSelected">@color/white</color>
