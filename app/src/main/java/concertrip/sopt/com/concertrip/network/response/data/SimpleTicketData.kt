@@ -11,7 +11,7 @@ data class SimpleTicketData(var _id : Int,
                             var seat: String,
                             var userIdx: Int,
                             var eventId : String){
-    fun toTicket() : Ticket = Ticket(_id = _id, name = name, location = location, date = convertDate(date),seat = seat, userIdx = userIdx, eventId = eventId)
+    //fun toTicket() : Ticket = Ticket(_id = _id, name = name, location = location, date = convertDate(date),seat = seat, userIdx = userIdx, eventId = eventId)
 
     private fun convertDate(input: String?) : String?{
         val dayNum : List<String> = listOf("일", "월", "화", "수", "목", "금", "토")
