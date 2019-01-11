@@ -7,7 +7,6 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 
 import concertrip.sopt.com.concertrip.R
 import concertrip.sopt.com.concertrip.interfaces.OnFragmentInteractionListener
@@ -24,9 +23,8 @@ import concertrip.sopt.com.concertrip.utillity.NetworkUtil
 import concertrip.sopt.com.concertrip.utillity.Secret
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_search.*
-import org.jetbrains.anko.toast
 import android.view.KeyEvent.KEYCODE_ENTER
-
+import concertrip.sopt.com.concertrip.dialog.ColorToast
 
 
 class SearchFragment : Fragment() ,OnResponse{
@@ -147,6 +145,7 @@ class SearchFragment : Fragment() ,OnResponse{
                 true
             } else false
         }
+        edt_search.requestFocus()
 
         btn_search.setOnClickListener {
             connectRequestData()
@@ -156,7 +155,7 @@ class SearchFragment : Fragment() ,OnResponse{
             activity?.onBackPressed()
         }
         btn_result_add.setOnClickListener {
-            activity?.toast("$searchTxt 정보 등록을 요청했습니다.")
+            ColorToast(activity?.applicationContext,"$searchTxt 정보 등록을 요청했습니다.")
         }
 
     }

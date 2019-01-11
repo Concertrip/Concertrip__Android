@@ -43,6 +43,7 @@ import concertrip.sopt.com.concertrip.utillity.Secret.Companion.USER_TOKEN
 import kotlinx.android.synthetic.main.activity_concert.*
 import kotlinx.android.synthetic.main.content_concert.*
 import kotlinx.android.synthetic.main.content_header.*
+import org.jetbrains.anko.textColor
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -281,6 +282,8 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
             if(obj.message?.contains("구매")==true){
                 ColorToast(this,"공연을 구매하였습니다.")
                 btn_ticket.isEnabled=false
+                btn_ticket.isSelected=true
+                btn_ticket.isPressed=true
             }else {
                 concert.subscribe=(obj.message?.contains("취소")==false)
                 btn_follow.setImageDrawable(

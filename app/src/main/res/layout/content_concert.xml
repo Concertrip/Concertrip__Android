@@ -135,6 +135,7 @@
                            android:layout_height="wrap_content"
                            android:id="@+id/iv_concert_info"
                            android:layout_marginTop="38dp"
+                           android:scaleType="centerInside"
                            android:layout_marginBottom="90dp"/>
 
             </LinearLayout>
