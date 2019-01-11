@@ -16,8 +16,6 @@ import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayerView
 import concertrip.sopt.com.concertrip.R
 import concertrip.sopt.com.concertrip.dialog.ColorToast
-import concertrip.sopt.com.concertrip.dialog.CustomDialog
-import concertrip.sopt.com.concertrip.interfaces.OnItemClick
 import concertrip.sopt.com.concertrip.interfaces.OnResponse
 import concertrip.sopt.com.concertrip.list.adapter.BasicListAdapter
 import concertrip.sopt.com.concertrip.model.Artist
@@ -110,10 +108,10 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
 
 
                 if(artist.subscribe)
-                    ColorToast(this,getString(R.string.message_double_back_exit))
+                    ColorToast(this,getString(R.string.txt_calendar_added))
 
                 else
-                    ColorToast(this,getString(R.string.message_double_back_exit))
+                    ColorToast(this,getString(R.string.txt_calendar_minus))
 
             }
         }
@@ -262,6 +260,7 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
                             res.body()!!.data?.let {
                                 Log.d(Constants.LOG_NETWORK, "$LOG_TAG :${response.body().toString()}")
                                 genre = it.toGenre()
+                                artist=genre
 
                                 updateConcertList(ArrayList(genre.concertList))
                                 updateArtistData(genre)
