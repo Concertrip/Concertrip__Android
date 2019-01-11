@@ -84,10 +84,24 @@ class CalendarListAdapter(
             holder.lySchedule?.removeAllViews()
             if (scheduleMap.containsKey(date)) {
 
-
-                scheduleMap[date]?.forEach() {
-                    addCalendarItem(holder, it)
+                if(isContainMvp(scheduleMap[date])){
+                    val scheduleView = inflater.inflate(R.layout.item_schedule, holder.lySchedule, false)
+                    scheduleView.iv_schedule.setColorFilter(ContextCompat.getColor(mContext, R.color.tab_mvp))
+                    //Log.d(Constants.LOG_NETWORK, "LOG_SCHEDULE :${scheduleMap[date].tabId}")
+                    holder.lySchedule?.addView(scheduleView)
                 }
+
+                if(isContainElse(scheduleMap[date])){
+                    val scheduleView = inflater.inflate(R.layout.item_schedule, holder.lySchedule, false)
+                    scheduleView.iv_schedule.setColorFilter(ContextCompat.getColor(mContext, R.color.tab_liked))
+                    holder.lySchedule?.addView(scheduleView)
+                }
+
+//                scheduleMap[date]?.forEach() { // var scheduleMap :  HashMap<Int, ArrayList<Schedule>>,
+//                    addCalendarItem(holder, it)
+//                }
+
+
             }
 
             holder.itemView.setOnClickListener {
@@ -105,33 +119,47 @@ class CalendarListAdapter(
 
     }
 
+    private fun isContainMvp(daySchedule : ArrayList<Schedule>?) :Boolean{
+        daySchedule?.forEach{
+            if(it.tabId == "내 공연") return true
+        }
+        return false
+    }
+
+    private fun isContainElse(daySchedule : ArrayList<Schedule>?) : Boolean{
+        daySchedule?.forEach{
+            if(it.tabId != "내 공연") return true
+        }
+        return false
+    }
+
 
     private var LIMIT_SCHEDULE_IN_ONE_BLOCK: Int = 2 // item 몇개 추가할지
 
-    private fun addCalendarItem(holder: CalendarViewHolder, schedule: Schedule) {
+//    private fun addCalendarItem(holder: CalendarViewHolder, schedule: Schedule) {
+//
+//        val cnt = holder.lySchedule?.childCount ?: LIMIT_SCHEDULE_IN_ONE_BLOCK+1
+//        when {
+//            cnt >= LIMIT_SCHEDULE_IN_ONE_BLOCK -> return
+//            cnt == LIMIT_SCHEDULE_IN_ONE_BLOCK -> addEllipsis(holder)
+//            else -> addSchedule(holder, schedule)
+//        }
+//    }
 
-        val cnt = holder.lySchedule?.childCount ?: LIMIT_SCHEDULE_IN_ONE_BLOCK+1
-        when {
-            cnt >= LIMIT_SCHEDULE_IN_ONE_BLOCK -> return
-            cnt == LIMIT_SCHEDULE_IN_ONE_BLOCK -> addEllipsis(holder)
-            else -> addSchedule(holder, schedule)
-        }
-    }
-
-    private fun addSchedule(holder: CalendarViewHolder, schedule: Schedule) {
-        val scheduleView = inflater.inflate(R.layout.item_schedule, holder.lySchedule, false)
-        val cnt = holder.lySchedule?.childCount ?: 0
-//        scheduleView.iv_schedule.setColorFilter(ContextCompat.getColor(mContext, tabColorMap?.get(schedule.tabId)?:R.color.tab_except))
-        scheduleView.iv_schedule.setColorFilter(ContextCompat.getColor(mContext, if(schedule.tabId == "내 공연") R.color.tab_mvp
-                                                                                else R.color.tab_liked))
-        Log.d(Constants.LOG_NETWORK, "LOG_SCHEDULE :${schedule.tabId}")
-        holder.lySchedule?.addView(scheduleView)
-    }
+//    private fun addSchedule(holder: CalendarViewHolder, schedule: Schedule) {
+//        val scheduleView = inflater.inflate(R.layout.item_schedule, holder.lySchedule, false)
+//        val cnt = holder.lySchedule?.childCount ?: 0
+////        scheduleView.iv_schedule.setColorFilter(ContextCompat.getColor(mContext, tabColorMap?.get(schedule.tabId)?:R.color.tab_except))
+//        scheduleView.iv_schedule.setColorFilter(ContextCompat.getColor(mContext, if(schedule.tabId == "내 공연") R.color.tab_mvp
+//                                                                                else R.color.tab_liked))
+//        Log.d(Constants.LOG_NETWORK, "LOG_SCHEDULE :${schedule.tabId}")
+//        holder.lySchedule?.addView(scheduleView)
+//    }
 
 
-    private fun addEllipsis(holder: CalendarViewHolder) {
-        val scheduleView = inflater.inflate(R.layout.item_ellipsis, holder.lySchedule, false)
-        scheduleView.tv_ellipsis.text = "+"
-        holder.lySchedule?.addView(scheduleView)
-    }
+//    private fun addEllipsis(holder: CalendarViewHolder) {
+//        val scheduleView = inflater.inflate(R.layout.item_ellipsis, holder.lySchedule, false)
+//        scheduleView.tv_ellipsis.text = "+"
+//        holder.lySchedule?.addView(scheduleView)
+//    }
 }
