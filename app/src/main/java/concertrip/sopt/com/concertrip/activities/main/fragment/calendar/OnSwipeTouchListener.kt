@@ -18,7 +18,6 @@ public class OnSwipeTouchListener(mContext : Context, var listener: OnFling) : V
 
     var mLastOnDownEvent : MotionEvent = MotionEvent.obtain(1, 1, MotionEvent.ACTION_DOWN, -5.0f, -5.0f, 1)
     override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         //Log.d("!!!!!", "onTouch")
 
         return gestureDetector.onTouchEvent(event)

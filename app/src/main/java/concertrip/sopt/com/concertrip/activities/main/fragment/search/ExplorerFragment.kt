@@ -64,9 +64,8 @@ class ExplorerFragment : Fragment(), OnItemClick ,OnResponse{
         if(status== Secret.NETWORK_NO_DATA)
             updateDataList(ArrayList<ListData>())
         else{
-            activity?.let {
-                ColorToast(it.applicationContext,"실패")
-            }
+            ColorToast(activity?.applicationContext,"실패")
+
         }
 
     }
@@ -107,12 +106,6 @@ class ExplorerFragment : Fragment(), OnItemClick ,OnResponse{
         tagAdapter.setSelect(position)
 
         if(root is HorizontalListAdapter){
-//            when (position) {
-//                0 -> {  //TODO 테마 선택시 클릭시
-//
-//                }
-//                else -> connectRequestData(dataListTag[position])
-//            }
             selectedTab = position
             connectRequestData(dataListTag[selectedTab])
         }

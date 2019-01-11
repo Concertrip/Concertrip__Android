@@ -154,10 +154,8 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse, OnFling {
         } else if (root is CalendarListAdapter) {
             if(dataListTag.size==0){
                 //activity?.toast("정보를 받아오는 중입니다.")
-                activity?.let{
-                    ColorToast(it.applicationContext,"정보를 받아오는 중입니다.")
-                    return
-                }
+                ColorToast(activity?.applicationContext,"정보를 받아오는 중입니다.")
+                return
             }
             if (calendarAdapter.selected == -1) {
 //                clearDetailList()
@@ -276,7 +274,6 @@ class CalendarFragment : Fragment(), OnItemClick, OnResponse, OnFling {
                 (month+1).toString(),
                 null
             )
-            //TODO CALENDAR 스와이프
             recycler_view_calendar.setOnTouchListener(OnSwipeTouchListener(it.applicationContext, this)) // >> e1이 null, onDown이 호출되지 않음
 //            recycler_view_calendar.dispatchTouchEvent()
             //tv_month.setOnTouchListener(OnSwipeTouchListener(it.applicationContext))

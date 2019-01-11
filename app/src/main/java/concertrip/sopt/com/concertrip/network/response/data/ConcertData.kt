@@ -32,7 +32,7 @@ data class ConcertData(
         val c =  Concert(_id = _id?:"0")
         c.profileImg = profileImg?:""
         c.backImg=backImg?:""
-        c.title=name?:""//왜 TITLE과 name이 다르지 !!!! TODO SERVER에서 고쳐야하 할것
+        c.title=name?:""
         c.subscribeNum = subscribeNum?:0
         c.youtubeUrl = youtubeUrl?:""
         c.location = location?:""
