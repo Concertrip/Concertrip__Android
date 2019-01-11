@@ -269,7 +269,9 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
                             }
 
                         } else {
+                            ColorToast(applicationContext, "해당 테마를 찾을 수 없습니다.")
                             Log.d(Constants.LOG_NETWORK, "$LOG_TAG: fail ${response.body()?.message}")
+                            finish()
                         }
                     }
 
@@ -303,7 +305,9 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
                                 updateUI()
                             }
                         } else {
+                            ColorToast(applicationContext, "해당 아티스트를 찾을 수 없습니다.")
                             Log.d(Constants.LOG_NETWORK, "$LOG_TAG: fail ${response.body()?.message}")
+                            finish()
                         }
 
                     }

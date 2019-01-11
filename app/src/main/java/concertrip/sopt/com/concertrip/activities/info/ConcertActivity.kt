@@ -258,7 +258,9 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
                         }
 
                     } else {
+                        ColorToast(applicationContext, "해당 콘서트를 찾을 수 없습니다.")
                         Log.d(Constants.LOG_NETWORK, "$LOG_TAG: fail ${response.body()?.message}")
+                        finish()
                     }
                 }
 
