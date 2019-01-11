@@ -148,7 +148,7 @@ class TutorialActivity : AppCompatActivity(), OnResponse {
 
         }
 
-        for (i in 0..btnList.size - 1) {
+        for (i in 0 until btnList.size) {
             btnList[i].setOnClickListener {
                 clickTest[i] = 1 - clickTest[i]
 
@@ -167,6 +167,7 @@ class TutorialActivity : AppCompatActivity(), OnResponse {
 
         btn_tutorial_2.setOnClickListener {
             clickTest[1] = 1 - clickTest[1]
+        }
 
 //        btn_tutorial_1.setOnClickListener{
 //            clickTest[0] = 1-clickTest[0]
@@ -296,4 +297,4 @@ class TutorialActivity : AppCompatActivity(), OnResponse {
         }
     }
 
-}
+

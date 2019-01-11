@@ -17,7 +17,7 @@ import concertrip.sopt.com.concertrip.list.adapter.TicketListAdapter
 import concertrip.sopt.com.concertrip.model.Ticket
 import concertrip.sopt.com.concertrip.network.ApplicationController
 import concertrip.sopt.com.concertrip.network.NetworkService
-import concertrip.sopt.com.concertrip.network.response.GetTicket_ListResponse
+import concertrip.sopt.com.concertrip.network.response.GetTicketListResponse
 import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
 import concertrip.sopt.com.concertrip.utillity.NetworkUtil.Companion.getTicketList
 import kotlinx.android.synthetic.main.fragment_ticket_list.*
@@ -82,8 +82,8 @@ class TicketListFragment : Fragment() , OnFragmentInteractionListener, OnRespons
     }
 
     override fun onSuccess(obj: BaseModel, position: Int?) {
-        if(obj is GetTicket_ListResponse){
-            val responseBody = obj as GetTicket_ListResponse
+        if(obj is GetTicketListResponse){
+            val responseBody = obj as GetTicketListResponse
 
             responseBody.let{
                 if(it.status  == 200){

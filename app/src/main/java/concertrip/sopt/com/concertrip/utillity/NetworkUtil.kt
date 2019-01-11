@@ -12,6 +12,7 @@ import concertrip.sopt.com.concertrip.network.response.GetSearchResponse
 import concertrip.sopt.com.concertrip.network.response.MessageResponse
 import concertrip.sopt.com.concertrip.network.response.data.AlarmData
 import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
+import concertrip.sopt.com.concertrip.utillity.Constants.Companion.LOG_NETWORK
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_ARTIST
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_CONCERT
 import concertrip.sopt.com.concertrip.utillity.Constants.Companion.TYPE_DAY
@@ -195,22 +196,25 @@ class NetworkUtil {
 
 
         fun getTicketList(networkService: NetworkService, listener: OnResponse?, _id: String) {
-            val getTicketListResponse: Call<GetTicket_ListResponse> = networkService.getTicketList(USER_TOKEN) // _id
+            val getTicketListResponse: Call<GetTicketListResponse> = networkService.getTicketList(USER_TOKEN) // _id
 
-            getTicketListResponse.enqueue(object : Callback<GetTicket_ListResponse> {
 
-                override fun onFailure(call: Call<GetTicket_ListResponse>, t: Throwable) {
-                    Log.e(Constants.LOG_NETWORK, t.toString())
+            getTicketListResponse.enqueue(object : Callback<GetTicketListResponse> {
+
+                val LOG_GET_TICKET = "/api/ticket"
+
+                override fun onFailure(call: Call<GetTicketListResponse>, t: Throwable) {
+                    Log.d(LOG_NETWORK, t.toString())
                     listener?.onFail(Secret.NETWORK_UNKNOWN)
                 }
 
-                override fun onResponse(call: Call<GetTicket_ListResponse>, response: Response<GetTicket_ListResponse>) {
+                override fun onResponse(call: Call<GetTicketListResponse>, response: Response<GetTicketListResponse>) {
                     response.body()?.let {
                         if (it.status == Secret.NETWORK_SUCCESS) {
-                            Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH :${response.body().toString()}")
-                            listener?.onSuccess(response.body() as BaseModel, 0)
+                            Log.d(LOG_NETWORK, "$LOG_GET_TICKET :${response.body().toString()}")
+                            listener?.onSuccess(response.body() as BaseModel, null)
                         } else {
-                            Log.d(Constants.LOG_NETWORK, "$LOG_SEARCH: fail ${response.body()?.message}")
+                            Log.d(LOG_NETWORK, "$LOG_GET_TICKET: fail ${response.body()?.message}")
                             listener?.onFail(response.body()?.status?: Secret.NETWORK_UNKNOWN)
                         }
                     }

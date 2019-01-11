@@ -13,9 +13,6 @@ import concertrip.sopt.com.concertrip.interfaces.OnFragmentInteractionListener
 import concertrip.sopt.com.concertrip.model.Ticket
 import concertrip.sopt.com.concertrip.network.ApplicationController
 import concertrip.sopt.com.concertrip.network.NetworkService
-import concertrip.sopt.com.concertrip.network.response.GetTicketDetailResponse
-import concertrip.sopt.com.concertrip.utillity.Secret
-import concertrip.sopt.com.concertrip.utillity.Secret.Companion.USER_TOKEN
 import kotlinx.android.synthetic.main.fragment_ticket.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -68,26 +65,26 @@ class TicketDetailFragment : Fragment() {
     }
 
     private fun connectRequestData(){
-        val getTicketDetailResponse : Call<GetTicketDetailResponse> = networkServicce.getTicketDetail(USER_TOKEN, ticketId)
-
-        getTicketDetailResponse.enqueue(object : Callback<GetTicketDetailResponse>{
-            override fun onFailure(call: Call<GetTicketDetailResponse>, t: Throwable) {
-                Log.d("testTicketDetail", "getTicketDetailResponse in onFailure " + t.toString())
-            }
-
-            override fun onResponse(call: Call<GetTicketDetailResponse>, response: Response<GetTicketDetailResponse>) {
-                response.body()?.let{ ticketDetailResponse ->
-                    if(ticketDetailResponse.status == Secret.NETWORK_SUCCESS){
-                        ticketDetailResponse.data?.let {
-                            val ticket = it.toTicket()
-                            updateUI(ticket)
-                        }
-                    }else{
-                        Log.d("testTicketDetail", "getTicketDetailResponse in" + response.body()?.status.toString())
-                    }
-                }
-            }
-        })
+//        val getTicketDetailResponse : Call<GetTicketDetailResponse> = networkServicce.getTicketDetail(USER_TOKEN, ticketId)
+//
+//        getTicketDetailResponse.enqueue(object : Callback<GetTicketDetailResponse>{
+//            override fun onFailure(call: Call<GetTicketDetailResponse>, t: Throwable) {
+//                Log.d("testTicketDetail", "getTicketDetailResponse in onFailure " + t.toString())
+//            }
+//
+//            override fun onResponse(call: Call<GetTicketDetailResponse>, response: Response<GetTicketDetailResponse>) {
+//                response.body()?.let{ ticketDetailResponse ->
+//                    if(ticketDetailResponse.status == Secret.NETWORK_SUCCESS){
+//                        ticketDetailResponse.data?.let {
+//                            val ticket = it.to)
+//                            updateUI(ticket)
+//                        }
+//                    }else{
+//                        Log.d("testTicketDetail", "getTicketDetailResponse in" + response.body()?.status.toString())
+//                    }
+//                }
+//            }
+//        })
 
     }
 
