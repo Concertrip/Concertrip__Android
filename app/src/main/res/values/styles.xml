@@ -55,17 +55,6 @@
 
 
 
-    <style name="EditText_mainColor">
-        <!-- Hint color and label color in FALSE state -->
-        <item name="android:textColorHint">@color/grayDarker</item>
-        <item name="android:textColorHighlight">@color/grayDark</item>
-        <item name="android:textSize">20sp</item>
-        <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
-
-        <!--<item name="colorAccent">@color/mainColor</item> 뭔지 모르겠음-->
-        <item name="colorControlNormal">@color/colorPrimary</item>
-        <item name="colorControlActivated">@color/colorPrimaryDark</item>
-    </style>
     
     <style name="CustomTextStyle"
            parent="@android:style/TextAppearance.Widget.TabWidget">
