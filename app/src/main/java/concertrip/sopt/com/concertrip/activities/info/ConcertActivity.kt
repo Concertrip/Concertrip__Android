@@ -46,6 +46,7 @@ import kotlinx.android.synthetic.main.content_header.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -185,7 +186,7 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
         var dateStr : String = ""
 
         concert.date?.forEach {
-            var str = convertDate(it)
+            val str = convertDate(it)
             dateStr= dateStr.plus("$str\n")
         }
 
@@ -197,19 +198,23 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
     private fun convertDate(input: String?) : String?{
         val dayNum : List<String> = listOf("일", "월", "화", "수", "목", "금", "토")
 
-        var convertedDate = StringBuilder()
+        val convertedDate = StringBuilder()
 
         if(input != null){
-            val dateInfoList = input.split("T")
-            val dateFormat = SimpleDateFormat("yyyy-MM-dd").parse(input.split("T")[0])
-            val instance : Calendar = Calendar.getInstance()
-            instance.setTime(dateFormat)
-            val dayNumIdx = instance.get(Calendar.DAY_OF_WEEK)
+            try {
+                val dateInfoList = input.split("T")
+                val dateFormat = SimpleDateFormat("yyyy-MM-dd").parse(input.split("T")[0])
+                val instance: Calendar = Calendar.getInstance()
+                instance.setTime(dateFormat)
+                val dayNumIdx = instance.get(Calendar.DAY_OF_WEEK)
 
-            val splitedList = dateInfoList[0].split("-")
+                val splitedList = dateInfoList[0].split("-")
 
-            convertedDate.append(splitedList[0]+"."+splitedList[1]+"."+splitedList[2]+"("+dayNum[dayNumIdx-1]+")")
+                convertedDate.append(splitedList[0] + "." + splitedList[1] + "." + splitedList[2] + "(" + dayNum[dayNumIdx - 1] + ")")
 
+            }catch (e  : Exception){
+                e.printStackTrace()
+            }
             return convertedDate.toString()
         }
         else{
@@ -275,27 +280,16 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
             //iv_small_follow.setImageDrawable(if (artist.subscribe) getDrawable(R.drawable.ic_header_likes_selected) else getDrawable(R.drawable.ic_header_likes_unselected))
 
             if (concert.subscribe)
-                ColorToast(this, "캘린더에 추가했습니다")
+                ColorToast(this, getString(R.string.txt_concert_added))
             else
-                ColorToast(this, "구독 취소했습니다")
+                ColorToast(this, getString(R.string.txt_concert_minus))
         }
     }
 
-    private fun showDialog(txt: String) {
-        val dialog = CustomDialog(this, txt)
-        dialog.show()
-    }
 
     override fun onFail(status: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        ColorToast(this,getString(R.string.txt_try_again))
     }
 
-     private fun showDialog(){
-        val dialog = CustomDialog(this)
-        dialog.show()
-    }
 
-    companion object {
-        fun newInstance(): ConcertActivity = ConcertActivity()
-    }
 }
