@@ -160,4 +160,11 @@ interface NetworkService {
     fun getAlarmList(
         @Header("Authorization") token: String
     ):Call<List<AlarmData>>
+
+    @POST("/api/payment")
+    @Headers("Content-Type:application/json")
+    fun getPayment(
+        @Header("Authorization") token: String,
+        @Body() body : JsonObject
+    ):Call<MessageResponse>
 }

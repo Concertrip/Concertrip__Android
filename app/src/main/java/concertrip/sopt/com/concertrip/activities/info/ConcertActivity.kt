@@ -11,6 +11,7 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.webkit.URLUtil
+import android.widget.ImageView
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
@@ -43,6 +44,7 @@ import concertrip.sopt.com.concertrip.utillity.Secret.Companion.USER_TOKEN
 import kotlinx.android.synthetic.main.activity_concert.*
 import kotlinx.android.synthetic.main.content_concert.*
 import kotlinx.android.synthetic.main.content_header.*
+import org.jetbrains.anko.textColor
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -148,7 +150,7 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
         }
 
         btn_ticket.setOnClickListener{
-
+            NetworkUtil.getPayment(networkService,this,concertId)
         }
 
         btn_follow.setOnClickListener {
@@ -176,8 +178,10 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
             mGlideRequestManager?.load(concert.backImg)?.into(iv_back)
         if(URLUtil.isValidUrl(concert.profileImg))
             mGlideRequestManager?.load(concert.profileImg)?.apply(RequestOptions.circleCropTransform())?.into(iv_profile)
-        if(URLUtil.isValidUrl(concert.eventInfoImg))
+        if(URLUtil.isValidUrl(concert.eventInfoImg)){
+            //iv_concert_info.setScaleType(ImageView.ScaleType.FIT_XY)
             mGlideRequestManager?.load(concert.eventInfoImg)?.into(iv_concert_info)
+        }
 
         tv_title.text = concert.title
         tv_tag.text  = concert.subscribeNum.toString()
@@ -275,16 +279,27 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
 
     override fun onSuccess(obj: BaseModel, position: Int?) {
         if(obj is MessageResponse){
-            concert.subscribe = !concert.subscribe
 
-            btn_follow.setImageDrawable(if (concert.subscribe)getDrawable(R.drawable.ic_header_heart_bell_selected)
-                                        else getDrawable(R.drawable.ic_header_heart_bell_unselected))
-            //iv_small_follow.setImageDrawable(if (artist.subscribe) getDrawable(R.drawable.ic_header_likes_selected) else getDrawable(R.drawable.ic_header_likes_unselected))
 
-            if (concert.subscribe)
-                ColorToast(this, getString(R.string.txt_concert_added))
-            else
-                ColorToast(this, getString(R.string.txt_concert_minus))
+
+            if(obj.message?.contains("구매")==true){
+                ColorToast(this,"공연을 구매하였습니다.")
+                btn_ticket.isEnabled=false
+                btn_ticket.isSelected=true
+                btn_ticket.isPressed=true
+            }else {
+                concert.subscribe=(obj.message?.contains("취소")==false)
+                btn_follow.setImageDrawable(
+                    if (concert.subscribe) getDrawable(R.drawable.ic_header_heart_bell_selected)
+                    else getDrawable(R.drawable.ic_header_heart_bell_unselected)
+                )
+                //iv_small_follow.setImageDrawable(if (artist.subscribe) getDrawable(R.drawable.ic_header_likes_selected) else getDrawable(R.drawable.ic_header_likes_unselected))
+
+                if (concert.subscribe)
+                    ColorToast(this, getString(R.string.txt_concert_added))
+                else
+                    ColorToast(this, getString(R.string.txt_concert_minus))
+            }
         }
     }
 

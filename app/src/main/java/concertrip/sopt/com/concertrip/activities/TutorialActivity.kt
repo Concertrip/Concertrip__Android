@@ -166,6 +166,7 @@ class TutorialActivity : AppCompatActivity(), OnResponse {
         }
 
 //        btn_tutorial_2.setOnClickListener {
+
  //           clickTest[1] = 1 - clickTest[1]
  //       }
 
@@ -237,64 +238,10 @@ class TutorialActivity : AppCompatActivity(), OnResponse {
 //                iv_tutorial_noclick_5.visibility =View.VISIBLE}
 //
 //            updateUI()
-//        }
-//
-//
-//        btn_tutorial_6.setOnClickListener{
-//            clickTest[5] = 1-clickTest[5]
-//
-//            if(clickTest[5] == 1)
-//            {iv_tutorial_click_6.visibility = View.VISIBLE
-//                iv_tutorial_noclick_6.visibility = View.GONE}
-//            else
-//            {iv_tutorial_click_6.visibility = View.GONE
-//                iv_tutorial_noclick_6.visibility =View.VISIBLE}
-//
-//            updateUI()
-//        }
-//
-//
-//        btn_tutorial_7.setOnClickListener{
-//            clickTest[6] = 1-clickTest[6]
-//
-//            if(clickTest[6] == 1)
-//            {iv_tutorial_click_7.visibility = View.VISIBLE
-//                iv_tutorial_noclick_7.visibility = View.GONE}
-//            else
-//            {iv_tutorial_click_7.visibility = View.GONE
-//                iv_tutorial_noclick_7.visibility =View.VISIBLE}
-//
-//        }
-//
-//
-//        btn_tutorial_8.setOnClickListener{
-//            clickTest[7] = 1-clickTest[7]
-//
-//            if(clickTest[7] == 1)
-//            {iv_tutorial_click_8.visibility = View.VISIBLE
-//                iv_tutorial_noclick_8.visibility = View.GONE}
-//            else
-//            {iv_tutorial_click_8.visibility = View.GONE
-//                iv_tutorial_noclick_8.visibility =View.VISIBLE}
-//
-//            updateUI()
-//        }
-//
-//
-//        btn_tutorial_9.setOnClickListener{
-//            clickTest[8] = 1-clickTest[8]
-//
-//            if(clickTest[8] == 1)
-//            {iv_tutorial_click_9.visibility = View.VISIBLE
-//                iv_tutorial_noclick_9.visibility = View.GONE}
-//            else
-//            {iv_tutorial_click_9.visibility = View.GONE
-//                iv_tutorial_noclick_9.visibility =View.VISIBLE}
-//
-//            updateUI()
-//        }
 
-        }
+//            clickTest[1] = 1 - clickTest[1]
+
+//        }
     }
 
-
+}

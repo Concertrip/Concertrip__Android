@@ -45,7 +45,7 @@ class TicketListAdapter(val mContext : Context, var dataList : ArrayList<Ticket>
         }
 
         holder.itemView.setOnClickListener {
-            listener.changeFragment(Constants.FRAGMENT_TICKET)
+//            listener.changeFragment(Constants.FRAGMENT_TICKET)
         }
     }
 
