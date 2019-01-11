@@ -82,7 +82,7 @@ public class OnSwipeTouchListener(mContext : Context, var listener: OnFling) : V
 
                 if(mLastOnDownEvent==null || e2==null) return false
 
-                var e18 :MotionEvent= e1 ?: mLastOnDownEvent!!
+                val e18 :MotionEvent= e1 ?: mLastOnDownEvent
 
                 val diffY : Float = e2.y - e18.y
                 val diffX : Float =  e2.x - e18.x

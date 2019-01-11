@@ -22,7 +22,7 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 //        setSupportActionBar(toolbar)
 
-        Log.d("~~~~Firebase TOKEN" ,FirebaseInstanceId.getInstance().token)
+        Log.d("~~~~Firebase TOKEN" ,FirebaseInstanceId.getInstance().token?:null)
 
 
         val animationView = findViewById<View>(R.id.animation_view) as LottieAnimationView

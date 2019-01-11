@@ -8,8 +8,8 @@
                 tools:context=".activities.main.fragment.search.SearchFragment">
     <LinearLayout
             android:layout_marginTop="20dp"
-            android:layout_marginLeft="6dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="16dp"
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:layout_width="match_parent"
@@ -169,8 +169,8 @@
                 android:layout_gravity="center_horizontal"
                 android:text="@string/txt_result_add"
                 android:includeFontPadding="false"
-                android:textColor="@color/white"
-                android:background="@drawable/shape_searchbar"
+                android:textColor="@drawable/selector_text_white"
+                android:background="@drawable/shape_add_info"
                 android:textSize="17sp"
                 android:gravity="center"
                 android:paddingStart="17.3dp"

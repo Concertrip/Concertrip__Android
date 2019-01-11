@@ -39,14 +39,16 @@ import retrofit2.Call
 class TutorialActivity : AppCompatActivity(), OnResponse {
 
     var clickTest = arrayOf(0, 0, 0, 0, 0, 0, 0, 0, 0)
-    var genreId = arrayOf(GENRE_MUSICPES, GENRE_IDOL, GENRE_HIPHOP, GENRE_BALADRAB,
-        GENRE_KOREA, GENRE_EDM, GENRE_INDI, GENRE_JAZZ, GENRE_ROCK)
+    var genreId = arrayOf(
+        GENRE_MUSICPES, GENRE_IDOL, GENRE_HIPHOP, GENRE_BALADRAB,
+        GENRE_KOREA, GENRE_EDM, GENRE_INDI, GENRE_JAZZ, GENRE_ROCK
+    )
 
-    lateinit var btnList : Array<LinearLayout>
+    lateinit var btnList: Array<LinearLayout>
 
-    lateinit var ivSet : Array<RelativeLayout>
+    lateinit var ivSet: Array<RelativeLayout>
 
-    lateinit var ivUnset : Array<RelativeLayout>
+    lateinit var ivUnset: Array<RelativeLayout>
     //genreId넣어주기 인트면 다 바꿔줘야함
     // var genreList = arrayOf(1,2,3,4,5,6,7,8,9)
 
@@ -71,8 +73,15 @@ class TutorialActivity : AppCompatActivity(), OnResponse {
         )
 
         ivUnset = arrayOf(
-            iv_tutorial_noclick_1, iv_tutorial_noclick_2, iv_tutorial_noclick_3, iv_tutorial_noclick_4,
-            iv_tutorial_noclick_5, iv_tutorial_noclick_6, iv_tutorial_noclick_7, iv_tutorial_noclick_8, iv_tutorial_noclick_9
+            iv_tutorial_noclick_1,
+            iv_tutorial_noclick_2,
+            iv_tutorial_noclick_3,
+            iv_tutorial_noclick_4,
+            iv_tutorial_noclick_5,
+            iv_tutorial_noclick_6,
+            iv_tutorial_noclick_7,
+            iv_tutorial_noclick_8,
+            iv_tutorial_noclick_9
         )
 
         InitialUI()
@@ -88,10 +97,12 @@ class TutorialActivity : AppCompatActivity(), OnResponse {
             btn_skip.text = "구독하기"
             iv_tutorial_heart_empty.visibility = View.GONE
             iv_tutorial_heart_activated.visibility = View.VISIBLE
+            btn_skip.setBackgroundResource(R.drawable.shape_skip_activate)
         } else {
             btn_skip.text = "건너뛰기"
             iv_tutorial_heart_activated.visibility = View.GONE
             iv_tutorial_heart_empty.visibility = View.VISIBLE
+            btn_skip.setBackgroundResource(R.drawable.shape_skip)
         }
     }
 
@@ -113,8 +124,8 @@ class TutorialActivity : AppCompatActivity(), OnResponse {
 //            NetworkUtil.subscribeGenre(networkService, this, genreId)
 //        }
 
-        for (i in 0 until btnList.size){
-            if(clickTest[i] == 1) NetworkUtil.subscribeGenre(networkService, this, genreId[i])
+        for (i in 0 until btnList.size) {
+            if (clickTest[i] == 1) NetworkUtil.subscribeGenre(networkService, this, genreId[i])
         }
 
     }
@@ -139,7 +150,7 @@ class TutorialActivity : AppCompatActivity(), OnResponse {
 
         }
 
-        for (i in 0..btnList.size - 1) {
+        for (i in 0 until btnList.size) {
             btnList[i].setOnClickListener {
                 clickTest[i] = 1 - clickTest[i]
 
@@ -157,7 +168,81 @@ class TutorialActivity : AppCompatActivity(), OnResponse {
         }
 
 //        btn_tutorial_2.setOnClickListener {
+
+ //           clickTest[1] = 1 - clickTest[1]
+ //       }
+
+//        btn_tutorial_1.setOnClickListener{
+//            clickTest[0] = 1-clickTest[0]
+//
+//            if(clickTest[0] == 1)
+//            {iv_tutorial_click_1.visibility = View.VISIBLE
+//            iv_tutorial_noclick_1.visibility = View.GONE}
+//            else
+//            {iv_tutorial_click_1.visibility = View.GONE
+//                iv_tutorial_noclick_1.visibility =View.VISIBLE}
+//
+//            //genreList에 아이디 넣어주기
+//
+//            updateUI()
+//
+//        }
+//
+//        btn_tutorial_2.setOnClickListener{
+//            clickTest[1] = 1-clickTest[1]
+//
+//            if(clickTest[1] == 1)
+//            {iv_tutorial_click_2.visibility = View.VISIBLE
+//                iv_tutorial_noclick_2.visibility = View.GONE}
+//            else
+//            {iv_tutorial_click_2.visibility = View.GONE
+//                iv_tutorial_noclick_2.visibility =View.VISIBLE}
+//
+//            updateUI()
+//        }
+//
+//
+//        btn_tutorial_3.setOnClickListener{
+//            clickTest[2] = 1-clickTest[2]
+//
+//            if(clickTest[2] == 1)
+//            {iv_tutorial_click_3.visibility = View.VISIBLE
+//                iv_tutorial_noclick_3.visibility = View.GONE}
+//            else
+//            {iv_tutorial_click_3.visibility = View.GONE
+//                iv_tutorial_noclick_3.visibility =View.VISIBLE}
+//
+//            updateUI()
+//        }
+//
+//        btn_tutorial_4.setOnClickListener{
+//            clickTest[3] = 1-clickTest[3]
+//
+//            if(clickTest[3] == 1)
+//            {iv_tutorial_click_4.visibility = View.VISIBLE
+//                iv_tutorial_noclick_4.visibility = View.GONE}
+//            else
+//            {iv_tutorial_click_4.visibility = View.GONE
+//                iv_tutorial_noclick_4.visibility =View.VISIBLE}
+//
+//            updateUI()
+//        }
+//
+//
+//        btn_tutorial_5.setOnClickListener{
+//            clickTest[4] = 1-clickTest[4]
+//
+//            if(clickTest[4] == 1)
+//            {iv_tutorial_click_5.visibility = View.VISIBLE
+//                iv_tutorial_noclick_5.visibility = View.GONE}
+//            else
+//            {iv_tutorial_click_5.visibility = View.GONE
+//                iv_tutorial_noclick_5.visibility =View.VISIBLE}
+//
+//            updateUI()
+
 //            clickTest[1] = 1 - clickTest[1]
+
 //        }
     }
 

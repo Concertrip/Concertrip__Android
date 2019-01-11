@@ -257,7 +257,7 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
 
                     response?.let { res ->
                         if (res.body()?.status == NETWORK_SUCCESS) {
-                            res.body()!!.data?.let {
+                            res.body()?.data?.let {
                                 Log.d(Constants.LOG_NETWORK, "$LOG_TAG :${response.body().toString()}")
                                 genre = it.toGenre()
                                 artist=genre
@@ -296,7 +296,7 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
 
                         if (response.body()?.status == NETWORK_SUCCESS) {
                             Log.d(Constants.LOG_NETWORK, "$LOG_TAG :${response.body().toString()}")
-                            res.body()!!.data?.let {
+                            res.body()?.data?.let {
                                 artist = it.toArtist()
                                 updateConcertList(ArrayList(artist.concertList)) // 굳이 param으로 안넘겨줘도됨!
                                 updateMemberList(ArrayList(artist.memberList))

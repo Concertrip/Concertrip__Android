@@ -17,10 +17,10 @@ data class GetCalendarResponse (
                 val d = dateStr.substring(8,10).toInt()
                 val s = Schedule(d,"", it.tabId)
                 if(map.containsKey(d) && map[d] != null){
-                    map[d]!!.add(s)
+                    map[d]?.add(s)
                 }else{
                     map[d]= ArrayList<Schedule>()
-                    map[d]!!.add(s)
+                    map[d]?.add(s)
                 }
             }
         }

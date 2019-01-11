@@ -8,5 +8,7 @@ class USGS_REQUEST_URL {
         const val JSON_CONCERT_ID = "id"
         const  val JSON_ARTIST_ID = "id"
         const val JSON_GENRE_ID = "id"
+
+        const val JSON_EVENT_ID ="eventId"
     }
 }
