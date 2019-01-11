@@ -70,7 +70,8 @@ class AlarmActivity : AppCompatActivity(){
     fun postAlarmList() {
         Log.d("!!!!", "postAlarmList")
 
-        val getAlarmListResponse: Call<GetAlarmListResponse> = networkService.postAlarmList(USER_TOKEN) // _id
+        val getAlarmListResponse: Call<GetAlarmListResponse> = networkService.postAlarmList(Secret.USER_TOKEN) // _id
+
 
         getAlarmListResponse.enqueue(object : Callback<GetAlarmListResponse> {
 
