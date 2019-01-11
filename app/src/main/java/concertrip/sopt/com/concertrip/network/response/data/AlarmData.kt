@@ -7,11 +7,12 @@ data class AlarmData(
     var userIdx : Int,
     var title : String,
     var body : String,
-    var createdAt : String
+    var createdAt : String,
+    var noticeImg : String
 ){
 //    constructor(id: Int): this(id,"","","", "")
 
-    fun toAlarm() : Alarm = Alarm(title,body,"")
+    fun toAlarm() : Alarm = Alarm(title,body,noticeImg)
 
     override fun toString(): String ="AlarmListData{\n" +
             "id : ${id.toString()}\n" +
