@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import concertrip.sopt.com.concertrip.R
+import concertrip.sopt.com.concertrip.dialog.ColorToast
 import concertrip.sopt.com.concertrip.interfaces.OnFragmentInteractionListener
 import concertrip.sopt.com.concertrip.interfaces.OnItemClick
 import concertrip.sopt.com.concertrip.interfaces.OnResponse
@@ -115,8 +116,9 @@ class MyPageFragment : Fragment(), OnItemClick, OnFragmentInteractionListener, O
 
     override fun onFail(status: Int) {
         activity?.progress_bar?.visibility = View.GONE
-//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         Log.d("testTicket", "getTicketListResponse in onFailure ")
+
+        ColorToast(activity?.applicationContext,getString(R.string.txt_try_again))
     }
 
     override fun onItemClick(root: RecyclerView.Adapter<out RecyclerView.ViewHolder>, position: Int) {

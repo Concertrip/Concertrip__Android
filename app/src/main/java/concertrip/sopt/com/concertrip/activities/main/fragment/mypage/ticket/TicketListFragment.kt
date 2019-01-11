@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import concertrip.sopt.com.concertrip.R
+import concertrip.sopt.com.concertrip.dialog.ColorToast
 import concertrip.sopt.com.concertrip.interfaces.OnFragmentInteractionListener
 import concertrip.sopt.com.concertrip.interfaces.OnResponse
 import concertrip.sopt.com.concertrip.list.adapter.TicketListAdapter
@@ -97,7 +98,7 @@ class TicketListFragment : Fragment() , OnFragmentInteractionListener, OnRespons
 
     override fun onFail(status : Int) {
         Log.d("testTicket", "getTicketListResponse in onFailure ")
-     //   TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        ColorToast(activity?.applicationContext,getString(R.string.txt_try_again))
     }
 
 
