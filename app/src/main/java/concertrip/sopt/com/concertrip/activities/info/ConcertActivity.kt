@@ -50,10 +50,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener, OnItemClick, OnResponse {
-    override fun onItemClick(root: RecyclerView.Adapter<out RecyclerView.ViewHolder>, position: Int) {
-        ColorToast(this.applicationContext, "내 공연에 추가되었습니다!")
-    }
+class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener,  OnResponse {
 
     private val RECOVERY_DIALOG_REQUEST = 1
 
@@ -135,7 +132,6 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
         recycler_view_caution.adapter = cautionAdapter
 
         /*TODO have to implement memberList*/
-
         seatAdapter = SeatListAdapter(this, dataListSeat)
         recycler_view_seat.adapter = seatAdapter
 

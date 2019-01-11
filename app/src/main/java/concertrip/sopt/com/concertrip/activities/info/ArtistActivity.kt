@@ -44,7 +44,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener, OnItemClick, OnResponse {
+class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener, OnResponse {
 
     private var isGenre: Boolean = true
     private var artistId: String = "5c298b2a3eea39d2b00ca7d4"
@@ -64,12 +64,9 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         ApplicationController.instance.networkService
     }
 
-    public var mGlideRequestManager : RequestManager? = null
+     var mGlideRequestManager : RequestManager? = null
 
 
-    override fun onItemClick(root: RecyclerView.Adapter<out RecyclerView.ViewHolder>, position: Int) {
-        ColorToast(this, "내 공연에 추가되었습니다!")
-    }
 
     private val RECOVERY_DIALOG_REQUEST = 1
 
@@ -110,21 +107,14 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
             if ( ::artist.isInitialized) {
                 artist.subscribe = !artist.subscribe
                 toggleFollowBtn(artist.subscribe)
-            }
 
-//            if (artist.subscribe)
-//                showDialog("캘린더에 추가했습니다")
-//            else
-//                showDialog("구독 취소했습니다")
 
-            if(artist.subscribe){
-                ColorToast(applicationContext,"캘린더에 추가했습니다")
-                //Handler().postDelayed(2000)
-            }
-            else{
-                ColorToast(applicationContext,"구독 취소했습니다")
+                if(artist.subscribe)
+                    ColorToast(this,getString(R.string.message_double_back_exit))
 
-                //Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
+                else
+                    ColorToast(this,getString(R.string.message_double_back_exit))
+
             }
         }
 
@@ -197,10 +187,6 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         }
     }
 
-    private fun showDialog(txt: String) {
-        val dialog = CustomDialog(this, txt)
-        dialog.show()
-    }
 
 
     private fun updateUI() {
@@ -328,7 +314,4 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
         }
     }
 
-    companion object {
-        fun newInstance(): ArtistActivity = ArtistActivity()
-    }
 }
