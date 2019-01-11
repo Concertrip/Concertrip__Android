@@ -4,14 +4,6 @@
 ## 프로젝트에 대하여
 ### What is Concertrip?
 * 가장 먼저 받아보는 콘서트 일정 구독 서비스
-### 사용한 라이브러리
-* [Alamofire](https://github.com/Alamofire/Alamofire)
-* [ObjectMapper](https://github.com/tristanhimmelman/ObjectMapper)
-* [Kingfisher](https://github.com/onevcat/Kingfisher)
-* [CVCalendar](https://github.com/CVCalendar/CVCalendar)
-* [Toast-Swift](https://github.com/scalessec/Toast-Swift)
-* [Lottie-ios](https://github.com/airbnb/lottie-ios)
-
 ### 개발 진행
 * 창업동아리 솝트의 해커톤, 앱잼이 진행되는 2018/12/22~2019/01/12 총 3주간 진행
 * 서버파트, ios파트, 안드로이드파트로 구성되어 개발 진행
