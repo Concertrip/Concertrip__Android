@@ -254,7 +254,7 @@ class ConcertActivity  : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListe
                 response?.let { res->
                     if (res.body()?.status == Secret.NETWORK_SUCCESS) {
                         Log.d(Constants.LOG_NETWORK, "$LOG_TAG :${response.body().toString()}")
-                        res.body()!!.data?.let {
+                        res.body()?.data?.let {
                             concert = it.toConcert()
                             updateArtistList(ArrayList(concert.artistList))
                             updateConcertData()

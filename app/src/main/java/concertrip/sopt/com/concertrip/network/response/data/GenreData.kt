@@ -11,7 +11,7 @@ data class GenreData(
     var subscribe : Boolean?,
     var subscribeNum : Int?,
     var youtubeUrl : String?,
-    var eventList : List<SimpleConcertData>?
+    var eventList : List<SimpleConcertData?>?
 ){
     fun toGenre() : Genre {
         val a =  Genre(_id = _id?:"0")
@@ -25,7 +25,8 @@ data class GenreData(
 
         val cList = ArrayList<Concert>()
         eventList?.forEach{
-            cList.add(it.toConcert())
+            if(it!=null)
+                cList.add(it.toConcert())
         }
         a.concertList = cList
 

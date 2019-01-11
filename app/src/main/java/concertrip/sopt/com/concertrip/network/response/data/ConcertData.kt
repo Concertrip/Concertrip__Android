@@ -24,7 +24,7 @@ data class ConcertData(
     var seatPrice : List<String>?,
 
     @SerializedName("precautionList")
-    var precautionList : List<PrecautionData>?,
+    var precautionList : List<PrecautionData?>?,
 
     var eventInfoImg : String?
 ){
@@ -50,15 +50,17 @@ data class ConcertData(
 
         val seatList = ArrayList<Seat>()
         seatName?.let{
-            for(i in 0 until seatName!!.size){
-                seatList.add(Seat(seatGrade = seatName!![i], seatPrice = seatPrice!![i]))
+            for(i in 0 until it.size){
+                seatList.add(Seat(seatGrade = it[i], seatPrice = it[i]))
             }
         }
         c.seatList = seatList
 
         val cautionList = ArrayList<Caution>()
         precautionList?.forEach {
-            cautionList.add(it.toCaution())
+            if(it !=null){
+                cautionList.add(it.toCaution())
+            }
         }
         c.precaution=cautionList
 

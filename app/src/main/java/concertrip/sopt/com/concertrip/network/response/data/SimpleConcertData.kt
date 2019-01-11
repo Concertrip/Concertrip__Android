@@ -4,23 +4,20 @@ import concertrip.sopt.com.concertrip.model.Concert
 import concertrip.sopt.com.concertrip.model.Genre
 
 data class SimpleConcertData(
-    var _id : String,
-    var name : String,
-    var profileImg : String,
-//    var date : String, // list아닌가?
-//    var location : String
-    var subscribe: Boolean,
-    var tag : String,
-    var group : Boolean
+    var _id : String?,
+    var name : String?,
+    var profileImg : String?,
+    var subscribe: Boolean?,
+    var tag : String?,
+    var group : Boolean?
 ){
     fun toConcert() : Concert {
-        val c =  Concert(_id = _id)
-        c.title=name
-//        c.location = location
+        val c =  Concert(_id = _id?:"")
+        c.title=name?:""
         c.location = ""
-        c.profileImg=profileImg
+        c.profileImg=profileImg?:""
         c.date= arrayListOf()
-        c.subscribe= subscribe
+        c.subscribe= subscribe?:false
         c.tag=tag
         return c
     }
