@@ -14,6 +14,6 @@
 
     <dimen name="toast_left_padding">11.8dp</dimen>
     <dimen name="toast_right_padding">12dp</dimen>
-    <dimen name="toast_top_padding">7dp</dimen>
-    <dimen name="toast_bottom_padding">6dp</dimen>
+    <dimen name="toast_top_padding">0dp</dimen>
+    <dimen name="toast_bottom_padding">0dp</dimen>
 </resources>
