@@ -200,6 +200,7 @@ class LikedFragment : Fragment(), View.OnClickListener, OnResponse {
 
     override fun onResume() {
         super.onResume()
+        curState = TYPE_ARTIST
         connectRequestData(curState)
     }
 
