@@ -14,10 +14,10 @@ class SeatListAdapter (val mContext : Context, var dataList: ArrayList<Seat>) : 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SeatViewHolder {
         seatColor = HashMap<String, Int>()
-        seatColor.put("스탠딩", R.color.seatStanding)
-        seatColor.put("R석", R.color.seatR)
-        seatColor.put("S석", R.color.seatS)
-        seatColor.put("A석", R.color.seatA)
+        seatColor["스탠딩"] = R.color.seatStanding
+        seatColor["R석"] = R.color.seatR
+        seatColor["S석"] = R.color.seatS
+        seatColor["A석"] = R.color.seatA
 
         return SeatViewHolder(LayoutInflater.from(mContext).inflate(R.layout.li_seat, parent, false))
     }
