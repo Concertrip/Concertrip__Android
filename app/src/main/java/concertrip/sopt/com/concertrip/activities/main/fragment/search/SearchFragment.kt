@@ -3,10 +3,7 @@ package concertrip.sopt.com.concertrip.activities.main.fragment.search
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.view.KeyEvent
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 
 import concertrip.sopt.com.concertrip.R
 import concertrip.sopt.com.concertrip.interfaces.OnFragmentInteractionListener
@@ -25,6 +22,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_search.*
 import android.view.KeyEvent.KEYCODE_ENTER
 import concertrip.sopt.com.concertrip.dialog.ColorToast
+import android.support.v4.content.ContextCompat.getSystemService
+import android.view.inputmethod.InputMethodManager
 
 
 class SearchFragment : Fragment() ,OnResponse{
@@ -151,6 +150,9 @@ class SearchFragment : Fragment() ,OnResponse{
             } else false
         }
         edt_search.requestFocus()
+
+        val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+        imm?.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
 
         btn_search.setOnClickListener {
             connectRequestData()
