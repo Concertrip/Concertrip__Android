@@ -43,8 +43,8 @@ class ExplorerFragment : Fragment(), OnItemClick ,OnResponse{
 
             val list = arrayListOf<ListData>()
             list.addAll(explorerRequestData.toArtistList())
-            list.addAll(explorerRequestData.toConcertList())
-            list.addAll(explorerRequestData.toGenreList())
+//            list.addAll(explorerRequestData.toConcertList())
+//            list.addAll(explorerRequestData.toGenreList())
             updateDataList(list)
         }
         else if(obj is GetGenreSearchResponse) {

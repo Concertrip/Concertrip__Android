@@ -105,6 +105,11 @@ class SearchFragment : Fragment() ,OnResponse{
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        connectRequestData()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
