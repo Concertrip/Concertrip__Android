@@ -246,7 +246,6 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
 
                     progress_bar.visibility=View.GONE
 
-
                     Log.e(Constants.LOG_NETWORK, "$LOG_TAG $t")
                 }
 
@@ -261,6 +260,7 @@ class ArtistActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListene
                                 Log.d(Constants.LOG_NETWORK, "$LOG_TAG :${response.body().toString()}")
                                 genre = it.toGenre()
                                 artist=genre
+                                artistId=genre._id
 
                                 updateConcertList(ArrayList(genre.concertList))
                                 updateArtistData(genre)
