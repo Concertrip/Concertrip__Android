@@ -5,9 +5,6 @@ import concertrip.sopt.com.concertrip.model.Artist
 import concertrip.sopt.com.concertrip.model.Concert
 import concertrip.sopt.com.concertrip.model.Genre
 import concertrip.sopt.com.concertrip.network.response.data.SearchData
-import concertrip.sopt.com.concertrip.network.response.data.SimpleArtistData
-import concertrip.sopt.com.concertrip.network.response.data.SimpleConcertData
-import concertrip.sopt.com.concertrip.network.response.data.SimpleGenreData
 import concertrip.sopt.com.concertrip.network.response.interfaces.BaseModel
 
 
@@ -17,7 +14,7 @@ data class GetSearchResponse (
 ): BaseModel(){
     fun toConcertList() : ArrayList<Concert>{
         val list = ArrayList<Concert>()
-        data?.concerts?.forEach {
+        data?.events?.forEach {
             if(it!=null)
             list.add(it.toConcert())
         }
