@@ -1,14 +1,14 @@
 package concertrip.sopt.com.concertrip.network.response.data
 
 data class SearchData(
-    var concerts : List<SimpleConcertData?>?,
+    var events : List<SimpleConcertData?>?,
     var artists : List<SimpleArtistData?>?,
     var genres : List<SimpleGenreData?>?
 ){
     override fun toString(): String {
         var result : String =""
-        result = result.plus("\nconcerts:[")
-        concerts?.forEach {
+        result = result.plus("\nevents:[")
+        events?.forEach {
             if(it!=null)
                 result = result.plus("\n\t{ $it }")
         }

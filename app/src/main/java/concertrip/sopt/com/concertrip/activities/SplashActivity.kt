@@ -12,6 +12,7 @@ import android.util.Log
 import android.view.View
 import com.airbnb.lottie.LottieAnimationView
 import com.google.firebase.iid.FirebaseInstanceId
+import java.lang.Exception
 
 
 class SplashActivity : AppCompatActivity() {
@@ -22,8 +23,11 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 //        setSupportActionBar(toolbar)
 
-        Log.d("~~~~Firebase TOKEN" ,FirebaseInstanceId.getInstance().token?:null)
-
+        try {
+            Log.d("~~~~Firebase TOKEN", FirebaseInstanceId.getInstance()?.token)
+        }catch (e : Exception){
+            e.printStackTrace()
+        }
 
         val animationView = findViewById<View>(R.id.animation_view) as LottieAnimationView
         animationView.imageAssetsFolder ="images"
