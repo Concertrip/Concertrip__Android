@@ -26,12 +26,12 @@ import android.support.v4.content.ContextCompat.getSystemService
 import android.view.inputmethod.InputMethodManager
 
 
-class SearchFragment : Fragment() ,OnResponse{
+class SearchFragment : Fragment(), OnResponse {
     var dataListArtist = arrayListOf<Artist>()
     var dataListGenre = arrayListOf<Artist>()
     var dataListConcert = arrayListOf<Concert>()
 
-    var adapter : BasicListAdapter?= null
+    var adapter: BasicListAdapter? = null
 
 
     private val networkService: NetworkService by lazy {
@@ -40,24 +40,24 @@ class SearchFragment : Fragment() ,OnResponse{
 
     private var listener: OnFragmentInteractionListener? = null
 
-    private var searchTxt : String=""
+    private var searchTxt: String = ""
 
     lateinit var concertListAdapter: BasicListAdapter
     lateinit var artistListAdapter: BasicListAdapter
     lateinit var genreListAdapter: BasicListAdapter
 
     override fun onSuccess(obj: BaseModel, position: Int?) {
-        activity?.progress_bar?.visibility=View.GONE
+        activity?.progress_bar?.visibility = View.GONE
 
-        if(obj is GetSearchResponse){
+        if (obj is GetSearchResponse) {
             val searchResponseData = obj as GetSearchResponse
 
             val concertList = searchResponseData.toConcertList()
             val artistList = searchResponseData.toArtistList()
             val genreList = searchResponseData.toGenreList()
 
-            showListView((concertList.size+ artistList.size + genreList.size )>0)
-            showTextView((concertList.size+ artistList.size + genreList.size )>0)
+            showListView((concertList.size + artistList.size + genreList.size) > 0)
+            showTextView((concertList.size + artistList.size + genreList.size) > 0)
 
 
             dataListConcert.clear()
@@ -78,11 +78,11 @@ class SearchFragment : Fragment() ,OnResponse{
         }
     }
 
-    override fun onFail(status : Int) {
-        activity?.progress_bar?.visibility=View.GONE
+    override fun onFail(status: Int) {
+        activity?.progress_bar?.visibility = View.GONE
 
-        when(status){
-            Secret.NETWORK_NO_DATA->{
+        when (status) {
+            Secret.NETWORK_NO_DATA -> {
                 showListView(false)
             }
         }
@@ -122,23 +122,24 @@ class SearchFragment : Fragment() ,OnResponse{
     }
 
 
+    var imm: InputMethodManager? = null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initialUI()
     }
 
 
-    private fun initialUI(){
+    private fun initialUI() {
         activity?.let {
-            concertListAdapter = BasicListAdapter(it.applicationContext,dataListConcert)
-            recycler_view_concert.adapter=concertListAdapter
+            concertListAdapter = BasicListAdapter(it.applicationContext, dataListConcert)
+            recycler_view_concert.adapter = concertListAdapter
 
-            artistListAdapter = BasicListAdapter(it.applicationContext,dataListArtist)
-            recycler_view_artist.adapter=artistListAdapter
+            artistListAdapter = BasicListAdapter(it.applicationContext, dataListArtist)
+            recycler_view_artist.adapter = artistListAdapter
 
 
-            genreListAdapter = BasicListAdapter(it.applicationContext,dataListGenre)
-            recycler_view_genre.adapter=genreListAdapter
+            genreListAdapter = BasicListAdapter(it.applicationContext, dataListGenre)
+            recycler_view_genre.adapter = genreListAdapter
         }
 
 
@@ -146,51 +147,63 @@ class SearchFragment : Fragment() ,OnResponse{
             //Enter key Action
             if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
                 connectRequestData()
+
+                hideKeyboard()
                 true
             } else false
         }
         edt_search.requestFocus()
 
-        val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
-        imm?.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
+        imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+        imm?.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, 0)
 
         btn_search.setOnClickListener {
             connectRequestData()
+            hideKeyboard()
         }
 
         btn_back.setOnClickListener {
             activity?.onBackPressed()
         }
         btn_result_add.setOnClickListener {
-            ColorToast(activity?.applicationContext,"'$searchTxt' 정보 등록을 요청했습니다.")
+            ColorToast(activity?.applicationContext, "'$searchTxt' 정보 등록을 요청했습니다.")
         }
 
     }
 
-    private fun showListView(b : Boolean){
-            search_result.visibility=if (b) View.VISIBLE else View.GONE
+
+    private fun hideKeyboard() {
+        edt_search.clearFocus()
+        val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(edt_search.windowToken, 0)
+
     }
 
-    private fun showTextView(b: Boolean){
-        tv_artist.visibility = if(b) View.VISIBLE else View.INVISIBLE
-        tv_concert.visibility = if(b) View.VISIBLE else View.INVISIBLE
-        tv_theme.visibility = if(b) View.VISIBLE else View.INVISIBLE
+    private fun showListView(b: Boolean) {
+        search_result.visibility = if (b) View.VISIBLE else View.GONE
+    }
+
+    private fun showTextView(b: Boolean) {
+        tv_artist.visibility = if (b) View.VISIBLE else View.INVISIBLE
+        tv_concert.visibility = if (b) View.VISIBLE else View.INVISIBLE
+        tv_theme.visibility = if (b) View.VISIBLE else View.INVISIBLE
     }
 
 
-    private fun updateListArtist(list : ArrayList<Artist>){
+    private fun updateListArtist(list: ArrayList<Artist>) {
         dataListArtist.clear()
         dataListArtist.addAll(list)
         artistListAdapter.notifyDataSetChanged()
     }
-    private fun updateListGenre(list : ArrayList<Genre>){
+
+    private fun updateListGenre(list: ArrayList<Genre>) {
         dataListGenre.clear()
         dataListGenre.addAll(list)
         genreListAdapter.notifyDataSetChanged()
     }
 
 
-    private fun updateListConcert(list : ArrayList<Concert>){
+    private fun updateListConcert(list: ArrayList<Concert>) {
         dataListConcert.clear()
         dataListConcert.addAll(list)
         concertListAdapter.notifyDataSetChanged()
@@ -199,7 +212,7 @@ class SearchFragment : Fragment() ,OnResponse{
 
     private fun connectRequestData() {
 
-        activity?.progress_bar?.visibility=View.VISIBLE
+        activity?.progress_bar?.visibility = View.VISIBLE
 
         searchTxt = edt_search.text.toString()
         tv_result_no.text = ("'$searchTxt' ${getString(R.string.txt_result_no)}")
