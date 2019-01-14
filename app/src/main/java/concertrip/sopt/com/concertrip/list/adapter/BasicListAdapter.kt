@@ -181,10 +181,13 @@ class BasicListAdapter(
 
             when (getItemViewType(position)){
                 TYPE_ARTIST -> {
-                    val intent: Intent = Intent(mContext.applicationContext, ArtistActivity::class.java)
-                    intent.putExtra(INTENT_TAG_ID, dataList[position].getId())
-                    intent.putExtra(INTENT_ARTIST, TYPE_ARTIST)
-                    mContext.startActivity(intent)
+
+                    if(mode== MODE_BASIC) {
+                        val intent: Intent = Intent(mContext.applicationContext, ArtistActivity::class.java)
+                        intent.putExtra(INTENT_TAG_ID, dataList[position].getId())
+                        intent.putExtra(INTENT_ARTIST, TYPE_ARTIST)
+                        mContext.startActivity(intent)
+                    }
                 }
                 TYPE_GENRE -> {
                     val intent: Intent = Intent(mContext.applicationContext, ArtistActivity::class.java)

@@ -7,7 +7,7 @@ data class MemberData(
     var name : String?,
     var profileImg : String?,
     var subscribe : Boolean?,
-    var tag : String?,
+    var hashTag : String?,
     var group: Boolean?
 ){
     fun toArtist(): Artist {
