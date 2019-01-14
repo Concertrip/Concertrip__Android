@@ -8,7 +8,7 @@ data class SimpleConcertData(
     var name : String?,
     var profileImg : String?,
     var subscribe: Boolean?,
-    var tag : String?,
+    var hashTag : String?,
     var group : Boolean?
 ){
     fun toConcert() : Concert {
@@ -18,7 +18,7 @@ data class SimpleConcertData(
         c.profileImg=profileImg?:""
         c.date= arrayListOf()
         c.subscribe= subscribe?:false
-        c.tag=tag
+        c.tag=hashTag
         return c
     }
 

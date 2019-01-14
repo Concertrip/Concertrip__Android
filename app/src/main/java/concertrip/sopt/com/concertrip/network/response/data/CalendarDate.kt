@@ -9,8 +9,8 @@ data class CalendarDate(
     var name : String?,
     var profileImg : String?,
     var date : List<String>,
-    var tag : String?,
+    var hashTag : String?,
     var subscribe : Boolean?
 ){
-    fun toConcert() : Concert=Concert(_id = _id?:"", name = name?:"", profileImg = profileImg?:"", date = date?: listOf(), tag = tag?:"", subscribe = subscribe?:false)
+    fun toConcert() : Concert=Concert(_id = _id?:"", name = name?:"", profileImg = profileImg?:"", date = date?: listOf(), tag = hashTag?:"", subscribe = subscribe?:false)
 }
